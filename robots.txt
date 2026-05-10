@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /thank-you.html
+Disallow: /netlify/
+
+Sitemap: https://purpleheartlimo.com/sitemap.xml

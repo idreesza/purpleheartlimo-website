@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found | Purple Heart Limo Austin TX</title>
+  <meta name="description" content="Page not found. Return to Purple Heart Limo — Austin's premier limousine service. Call (512) 890-0900.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .error-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a0533 60%, #0f0f0f 100%);
+      position: relative;
+      text-align: center;
+      padding: 2rem;
+    }
+    .error-page::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(124,58,237,0.12) 0%, transparent 70%);
+    }
+    .error-card {
+      position: relative;
+      z-index: 2;
+      max-width: 560px;
+      width: 100%;
+    }
+    .error-code {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(6rem, 20vw, 10rem);
+      font-weight: 700;
+      color: var(--primary);
+      opacity: 0.4;
+      line-height: 1;
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="error-page">
+    <div class="error-card">
+      <div class="error-code">404</div>
+      <span class="section-label">Page Not Found</span>
+      <h1 style="color:var(--text);font-size:2rem;margin:0.75rem 0 1rem;">Looks Like You've<br>Taken a Wrong Turn</h1>
+      <p style="color:var(--text-muted);font-size:1rem;line-height:1.8;margin-bottom:2rem;">
+        The page you're looking for doesn't exist or has been moved. Let us get you back on track — we're experts at getting people where they need to go.
+      </p>
+      <div class="btn-group" style="justify-content:center;flex-direction:column;align-items:center;gap:0.75rem;">
+        <a href="index.html" class="btn btn-gold btn-lg" style="width:100%;max-width:320px;justify-content:center;">
+          &#127968; Go to Homepage
+        </a>
+        <a href="services.html" class="btn btn-outline" style="width:100%;max-width:320px;justify-content:center;">
+          &#128663; View Our Services
+        </a>
+        <a href="contact.html" class="btn btn-primary" style="width:100%;max-width:320px;justify-content:center;">
+          &#128222; Book a Ride
+        </a>
+      </div>
+      <p style="color:var(--text-dark);font-size:0.85rem;margin-top:2rem;">
+        Need help? Call us at <a href="tel:+15128900900" style="color:var(--accent);">(512) 890-0900</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>
