@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow">
 <title>Purple Heart Limo | Luxury Limousine & Black Car Service | Austin · Dallas · Houston</title>
-<meta name="description" content="Purple Heart Limo — veteran-owned luxury limousine & black car service in Austin, Dallas-Fort Worth & Houston TX. Airport transfers, weddings, corporate travel. No surge pricing. Call +1 (833) 740-0700.">
+<meta name="description" content="Purple Heart Limo — veteran-owned luxury limousine & black car service in Austin, Dallas-Fort Worth & Houston TX. Airport transfers, weddings, corporate travel. No surge pricing. Call (8337) 400-700.">
 <meta name="keywords" content="limo service austin tx, limo service dallas tx, limo service houston tx, black car service texas, airport transfer austin, dfw airport limo, luxury transportation texas, veteran owned limo, wedding limo texas, corporate car service texas">
 <link rel="canonical" href="https://www.purpleheartlimo.com/">
 <meta property="og:title" content="Purple Heart Limo | Veteran-Owned Luxury Car Service TX">
@@ -578,9 +578,9 @@ footer {
 .popup-disclaimer { font-size:0.7rem; color:var(--gray); margin-top:8px; }
 
 /* ===== PAGES (SPA router) ===== */
-.page { display:none; }
-.page.active { display:block; animation:fadeIn 0.35s ease; }
-#home-page { display:block; }
+.page { display:none !important; }
+.page.active { display:block !important; animation:fadeIn 0.35s ease; }
+#home-page { display:block !important; }
 
 /* ===== SERVICE HERO ===== */
 .svc-hero {
@@ -708,7 +708,7 @@ footer {
 
 <!-- ===== NAVBAR ===== -->
 <nav class="navbar" id="navbar">
-  <a href="#" class="nav-logo" onclick="showPage('home')">
+  <a href="#" class="nav-logo" onclick=\"return showPage('home')\">
     <img src="logo.png" alt="Purple Heart Limo Logo" style="width:44px;height:44px;object-fit:contain;border-radius:50%;">
     <div>
       <div class="nav-logo-text">Purple Heart Limo</div>
@@ -720,26 +720,26 @@ footer {
     <li class="dropdown">
       <a href="#" onclick="return false;">Services ▾</a>
       <div class="dropdown-menu">
-        <a href="#" onclick="showPage('airport')">✈️ Airport Transfer</a>
-        <a href="#" onclick="showPage('wedding')">💍 Wedding Limo</a>
-        <a href="#" onclick="showPage('corporate')">💼 Corporate Travel</a>
-        <a href="#" onclick="showPage('prom')">🎓 Prom & Graduation</a>
-        <a href="#" onclick="showPage('nightout')">🥂 Night Out & Party</a>
-        <a href="#" onclick="showPage('hourly')">🕐 Hourly Service</a>
-        <a href="#" onclick="showPage('quinceaneara')">🌹 Quinceañera</a>
-        <a href="#" onclick="showPage('worldcup')">⚽ World Cup 2026</a>
+        <a href="#" onclick=\"return showPage('airport')\">✈️ Airport Transfer</a>
+        <a href="#" onclick=\"return showPage('wedding')\">💍 Wedding Limo</a>
+        <a href="#" onclick=\"return showPage('corporate')\">💼 Corporate Travel</a>
+        <a href="#" onclick=\"return showPage('prom')\">🎓 Prom & Graduation</a>
+        <a href="#" onclick=\"return showPage('nightout')\">🥂 Night Out & Party</a>
+        <a href="#" onclick=\"return showPage('hourly')\">🕐 Hourly Service</a>
+        <a href="#" onclick=\"return showPage('quinceaneara')\">🌹 Quinceañera</a>
+        <a href="#" onclick=\"return showPage('worldcup')\">⚽ World Cup 2026</a>
       </div>
     </li>
-    <li><a href="#" onclick="showPage('fleet')">Our Fleet</a></li>
-    <li><a href="#" onclick="showPage('blog')">Blog</a></li>
-    <li><a href="#" onclick="showPage('about')">About</a></li>
-    <li><a href="#" onclick="showPage('contact')">Contact</a></li>
-    <li><a href="#" onclick="showPage('es-home')" style="color:var(--gold);font-weight:600;">🇲🇽 ES</a></li>
+    <li><a href="#" onclick=\"return showPage('fleet')\">Our Fleet</a></li>
+    <li><a href="#" onclick=\"return showPage('blog')\">Blog</a></li>
+    <li><a href="#" onclick=\"return showPage('about')\">About</a></li>
+    <li><a href="#" onclick=\"return showPage('contact')\">Contact</a></li>
+    <li><a href="#" onclick=\"return showPage('es-home')\" style="color:var(--gold);font-weight:600;">🇲🇽 ES</a></li>
   </ul>
 
   <div class="nav-cta">
-    <a href="tel:+18337400700" class="nav-phone">📞 +1 (833) 740-0700</a>
-    <a href="#" class="btn-primary" onclick="showPage('contact')" style="padding:10px 20px;font-size:0.78rem;">Book Now</a>
+    <a href="tel:+18337400700" class="nav-phone">📞 (8337) 400-700</a>
+    <a href="#" class="btn-primary" onclick=\"return showPage('contact')\" style="padding:10px 20px;font-size:0.78rem;">Book Now</a>
   </div>
   <button class="hamburger" onclick="toggleMenu()" id="hamburger">
     <span></span><span></span><span></span>
@@ -748,12 +748,12 @@ footer {
 
 <!-- Mobile menu -->
 <div id="mobile-menu" style="display:none;position:fixed;top:72px;left:0;right:0;background:white;z-index:999;padding:20px;box-shadow:var(--shadow-lg);border-bottom:2px solid var(--gray-light);">
-  <a href="#" onclick="showPage('airport');toggleMenu()" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">✈️ Airport Transfer</a>
-  <a href="#" onclick="showPage('wedding');toggleMenu()" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">💍 Wedding Limo</a>
-  <a href="#" onclick="showPage('corporate');toggleMenu()" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">💼 Corporate Travel</a>
-  <a href="#" onclick="showPage('fleet');toggleMenu()" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">🚗 Our Fleet</a>
-  <a href="#" onclick="showPage('blog');toggleMenu()" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">📝 Blog</a>
-  <a href="#" onclick="showPage('contact');toggleMenu()" style="display:block;padding:14px;margin-top:8px;" class="btn-primary">Book Now</a>
+  <a href="#" onclick=\"showPage('airport');toggleMenu();return false;\" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">✈️ Airport Transfer</a>
+  <a href="#" onclick=\"showPage('wedding');toggleMenu();return false;\" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">💍 Wedding Limo</a>
+  <a href="#" onclick=\"showPage('corporate');toggleMenu();return false;\" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">💼 Corporate Travel</a>
+  <a href="#" onclick=\"showPage('fleet');toggleMenu();return false;\" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">🚗 Our Fleet</a>
+  <a href="#" onclick=\"showPage('blog');toggleMenu();return false;\" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">📝 Blog</a>
+  <a href="#" onclick=\"showPage('contact');toggleMenu();return false;\" style="display:block;padding:14px;margin-top:8px;" class="btn-primary">Book Now</a>
 </div>
 
 <!-- ===== FLOATING WIDGETS ===== -->
@@ -774,7 +774,7 @@ footer {
 <div class="mobile-bar">
   <a href="tel:+18337400700" class="m-call">📞 Call</a>
   <a href="https://wa.me/18337400700" target="_blank" class="m-wa">💬 WhatsApp</a>
-  <a href="#" class="m-book" onclick="showPage('contact')">🚗 Book Now</a>
+  <a href="#" class="m-book" onclick=\"return showPage('contact')\">🚗 Book Now</a>
 </div>
 
 <!-- ===== FIRST RIDE POPUP ===== -->
@@ -816,7 +816,7 @@ footer {
         </div>
         <div class="hero-btns">
           <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">🚗 Book Your Ride</a>
-          <a href="tel:+18337400700" class="btn-white">📞 +1 (833) 740-0700</a>
+          <a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a>
         </div>
       </div>
 
@@ -910,7 +910,7 @@ footer {
         <p class="section-sub">From airport pickups to wedding grand exits — we handle it all with military precision and five-star service across Austin, Dallas and Houston.</p>
       </div>
       <div class="services-grid">
-        <div class="service-card" onclick="showPage('airport')">
+        <div class="service-card" onclick=\"return showPage('airport')\">
           <div class="service-img">
             <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=80&auto=format" alt="Airport transfer limo service Texas" loading="lazy">
           </div>
@@ -921,7 +921,7 @@ footer {
             <span class="service-link">Book Now →</span>
           </div>
         </div>
-        <div class="service-card" onclick="showPage('wedding')">
+        <div class="service-card" onclick=\"return showPage('wedding')\">
           <div class="service-img">
             <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80&auto=format" alt="Wedding limousine service Texas" loading="lazy">
           </div>
@@ -932,7 +932,7 @@ footer {
             <span class="service-link">Book Now →</span>
           </div>
         </div>
-        <div class="service-card" onclick="showPage('corporate')">
+        <div class="service-card" onclick=\"return showPage('corporate')\">
           <div class="service-img">
             <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&auto=format" alt="Corporate car service Dallas Austin Houston" loading="lazy">
           </div>
@@ -943,7 +943,7 @@ footer {
             <span class="service-link">Open Account →</span>
           </div>
         </div>
-        <div class="service-card" onclick="showPage('prom')">
+        <div class="service-card" onclick=\"return showPage('prom')\">
           <div class="service-img">
             <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80&auto=format" alt="Prom limo service Texas" loading="lazy">
           </div>
@@ -954,7 +954,7 @@ footer {
             <span class="service-link">Check Dates →</span>
           </div>
         </div>
-        <div class="service-card" onclick="showPage('nightout')">
+        <div class="service-card" onclick=\"return showPage('nightout')\">
           <div class="service-img">
             <img src="https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?w=600&q=80&auto=format" alt="Party limo night out Texas" loading="lazy">
           </div>
@@ -965,7 +965,7 @@ footer {
             <span class="service-link">Book Party →</span>
           </div>
         </div>
-        <div class="service-card" onclick="showPage('quinceaneara')">
+        <div class="service-card" onclick=\"return showPage('quinceaneara')\">
           <div class="service-img">
             <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80&auto=format" alt="Quinceañera limo service Texas" loading="lazy">
           </div>
@@ -1070,7 +1070,7 @@ footer {
 
       </div>
       <div style="text-align:center;margin-top:32px;">
-        <a href="#" class="btn-secondary" onclick="showPage('fleet')">View Full Fleet →</a>
+        <a href="#" class="btn-secondary" onclick=\"return showPage('fleet')\">View Full Fleet →</a>
       </div>
     </div>
   </section>
@@ -1194,7 +1194,7 @@ footer {
         <div class="hiw-step">
           <div class="step-circle">01</div>
           <h3>Get Your Quote</h3>
-          <p>Use our form or call +1 (833) 740-0700. Get your flat-rate price instantly — no hidden fees, ever.</p>
+          <p>Use our form or call (8337) 400-700. Get your flat-rate price instantly — no hidden fees, ever.</p>
         </div>
         <div class="hiw-step">
           <div class="step-circle">02</div>
@@ -1240,7 +1240,7 @@ footer {
         </div>
       </div>
       <div style="text-align:center;margin-top:32px;">
-        <a href="#" class="btn-secondary" onclick="showPage('faq')">View All FAQs →</a>
+        <a href="#" class="btn-secondary" onclick=\"return showPage('faq')\">View All FAQs →</a>
       </div>
     </div>
   </section>
@@ -1253,7 +1253,7 @@ footer {
       <p>Veteran-owned luxury. No surge pricing. Flat rates across Austin, Dallas & Houston.</p>
       <div class="cta-btns">
         <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">🚗 Book Online Now</a>
-        <a href="tel:+18337400700" class="btn-white">📞 +1 (833) 740-0700</a>
+        <a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a>
       </div>
     </div>
   </section>
@@ -1266,14 +1266,14 @@ footer {
 <div id="airport-page" class="page">
   <div class="svc-hero">
     <div class="svc-hero-inner">
-      <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span> Airport Transfer</div>
+      <div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span> Airport Transfer</div>
       <div class="hero-badge">✈️ DFW · DAL · AUS · IAH · HOU</div>
       <h1>Airport Transfer<br><em>Texas-Wide Coverage</em></h1>
       <div class="svc-hero-divider"></div>
       <p>Flat-rate airport transfers with real-time flight tracking, name-sign meet & greet at baggage claim, and 60 minutes of complimentary wait time. No surge pricing — ever.</p>
       <div class="hero-btns">
         <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Airport Transfer</a>
-        <a href="tel:+18337400700" class="btn-white">📞 +1 (833) 740-0700</a>
+        <a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a>
       </div>
     </div>
   </div>
@@ -1305,7 +1305,7 @@ footer {
       <p>Book your guaranteed flat-rate airport transfer today.</p>
       <div class="cta-btns">
         <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Airport Transfer</a>
-        <a href="tel:+18337400700" class="btn-white">📞 +1 (833) 740-0700</a>
+        <a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a>
       </div>
     </div>
   </section>
@@ -1317,13 +1317,13 @@ footer {
 <div id="wedding-page" class="page">
   <div class="svc-hero">
     <div class="svc-hero-inner">
-      <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span> Wedding Limo</div>
+      <div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span> Wedding Limo</div>
       <h1>Wedding Limo<br><em>Austin · Dallas · Houston</em></h1>
       <div class="svc-hero-divider"></div>
       <p>Your wedding day deserves flawless transportation. We coordinate with your planner, arrive early, and deliver an experience as beautiful as the ceremony itself. 500+ Texas weddings served.</p>
       <div class="hero-btns">
         <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Plan My Wedding Transport</a>
-        <a href="tel:+18337400700" class="btn-white">📞 +1 (833) 740-0700</a>
+        <a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a>
       </div>
     </div>
   </div>
@@ -1346,7 +1346,7 @@ footer {
       </div>
     </div>
   </section>
-  <section class="cta-section"><div class="section-inner"><h2>Let's Plan Your Perfect Wedding Transport</h2><p>Custom transportation plans for your big day.</p><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Start Planning</a><a href="tel:+18337400700" class="btn-white">📞 +1 (833) 740-0700</a></div></div></section>
+  <section class="cta-section"><div class="section-inner"><h2>Let's Plan Your Perfect Wedding Transport</h2><p>Custom transportation plans for your big day.</p><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Start Planning</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div></div></section>
 </div>
 
 <!-- ================================================================
@@ -1355,11 +1355,11 @@ footer {
 <div id="corporate-page" class="page">
   <div class="svc-hero">
     <div class="svc-hero-inner">
-      <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span> Corporate Travel</div>
+      <div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span> Corporate Travel</div>
       <h1>Corporate Car Service<br><em>Austin · Dallas · Houston</em></h1>
       <div class="svc-hero-divider"></div>
       <p>Executive airport transfers, client entertainment, roadshows, and recurring travel programs. Monthly invoicing, dedicated account management, locked-in flat rates.</p>
-      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Open Corporate Account</a><a href="tel:+18337400700" class="btn-white">📞 +1 (833) 740-0700</a></div>
+      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Open Corporate Account</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div>
     </div>
   </div>
   <section style="background:var(--white);">
@@ -1372,7 +1372,7 @@ footer {
       </div>
     </div>
   </section>
-  <section class="cta-section"><div class="section-inner"><h2>Open a Corporate Account Today</h2><p>Set up in 24 hours with a custom travel program.</p><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Open Account</a><a href="tel:+18337400700" class="btn-white">📞 +1 (833) 740-0700</a></div></div></section>
+  <section class="cta-section"><div class="section-inner"><h2>Open a Corporate Account Today</h2><p>Set up in 24 hours with a custom travel program.</p><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Open Account</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div></div></section>
 </div>
 
 <!-- ================================================================
@@ -1381,11 +1381,11 @@ footer {
 <div id="prom-page" class="page">
   <div class="svc-hero">
     <div class="svc-hero-inner">
-      <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span> Prom & Graduation</div>
+      <div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span> Prom & Graduation</div>
       <h1>Prom & Graduation<br><em>Limo Service Texas</em></h1>
       <div class="svc-hero-divider"></div>
       <p>Make the most memorable night of high school even more unforgettable. Safe, stylish, and completely over-the-top — exactly how prom should be.</p>
-      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Prom Limo</a><a href="tel:+18337400700" class="btn-white">📞 +1 (833) 740-0700</a></div>
+      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Prom Limo</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div>
     </div>
   </div>
   <section style="background:var(--white);">
@@ -1398,7 +1398,7 @@ footer {
       </div>
     </div>
   </section>
-  <section class="cta-section"><div class="section-inner"><h2>Book Prom Limo Before It's Gone</h2><p>Prom vehicles book fast — reserve your date now.</p><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Check Availability</a><a href="tel:+18337400700" class="btn-white">📞 +1 (833) 740-0700</a></div></div></section>
+  <section class="cta-section"><div class="section-inner"><h2>Book Prom Limo Before It's Gone</h2><p>Prom vehicles book fast — reserve your date now.</p><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Check Availability</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div></div></section>
 </div>
 
 <!-- ================================================================
@@ -1407,11 +1407,11 @@ footer {
 <div id="nightout-page" class="page">
   <div class="svc-hero">
     <div class="svc-hero-inner">
-      <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span> Night Out & Party</div>
+      <div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span> Night Out & Party</div>
       <h1>Night Out & Party<br><em>Austin · Dallas · Houston</em></h1>
       <div class="svc-hero-divider"></div>
       <p>Bachelor/bachelorette, birthday, concert, bar crawl — when the group is going out, leave the driving to us.</p>
-      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Party Limo</a><a href="tel:+18337400700" class="btn-white">📞 +1 (833) 740-0700</a></div>
+      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Party Limo</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div>
     </div>
   </div>
   <section style="background:var(--white);">
@@ -1424,7 +1424,7 @@ footer {
       </div>
     </div>
   </section>
-  <section class="cta-section"><div class="section-inner"><h2>Ready for a Night You Won't Forget?</h2><p>Book your party limo today — weekends fill fast.</p><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Party Limo</a><a href="tel:+18337400700" class="btn-white">📞 +1 (833) 740-0700</a></div></div></section>
+  <section class="cta-section"><div class="section-inner"><h2>Ready for a Night You Won't Forget?</h2><p>Book your party limo today — weekends fill fast.</p><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Party Limo</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div></div></section>
 </div>
 
 <!-- ================================================================
@@ -1433,11 +1433,11 @@ footer {
 <div id="hourly-page" class="page">
   <div class="svc-hero">
     <div class="svc-hero-inner">
-      <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span> Hourly Car Service</div>
+      <div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span> Hourly Car Service</div>
       <h1>Hourly Car Service<br><em>Your Schedule, Your Driver</em></h1>
       <div class="svc-hero-divider"></div>
       <p>Your dedicated professional chauffeur, available by the hour. Perfect for roadshows, multi-stop business days, city tours, or any time you need a driver on standby.</p>
-      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Hourly Service</a><a href="tel:+18337400700" class="btn-white">📞 +1 (833) 740-0700</a></div>
+      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Hourly Service</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div>
     </div>
   </div>
   <section style="background:var(--white);">
@@ -1445,7 +1445,7 @@ footer {
       <div class="text-center"><span class="section-tag">As-Directed Service</span><h2 class="section-title">Your Time, Your Schedule</h2><p class="section-sub">Multiple stops, changes of plans, waiting while you're in a meeting — all included. 2-hour minimum.</p></div>
     </div>
   </section>
-  <section class="cta-section"><div class="section-inner"><h2>Book Your Hourly Chauffeur Today</h2><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Hourly Service</a><a href="tel:+18337400700" class="btn-white">📞 +1 (833) 740-0700</a></div></div></section>
+  <section class="cta-section"><div class="section-inner"><h2>Book Your Hourly Chauffeur Today</h2><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Hourly Service</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div></div></section>
 </div>
 
 <!-- ================================================================
@@ -1454,11 +1454,11 @@ footer {
 <div id="quinceaneara-page" class="page">
   <div class="svc-hero">
     <div class="svc-hero-inner">
-      <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span> Quinceañera & Sweet 16</div>
+      <div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span> Quinceañera & Sweet 16</div>
       <h1>Quinceañera & Sweet 16<br><em>Limo Service Texas</em></h1>
       <div class="svc-hero-divider"></div>
       <p>El día más especial merece el servicio más especial. Luxury limousine service for quinceañeras and sweet 16 celebrations across Austin, Dallas and Houston.</p>
-      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Quinceañera Limo</a><a href="tel:+18337400700" class="btn-white">📞 +1 (833) 740-0700</a></div>
+      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Quinceañera Limo</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div>
     </div>
   </div>
   <section style="background:var(--white);">
@@ -1471,7 +1471,7 @@ footer {
       </div>
     </div>
   </section>
-  <section class="cta-section"><div class="section-inner"><h2>Haz Tu Quinceañera Inolvidable</h2><p>Book your quinceañera or sweet 16 limo today. / Reserva tu limusina hoy.</p><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Now / Reservar</a><a href="tel:+18337400700" class="btn-white">📞 +1 (833) 740-0700</a></div></div></section>
+  <section class="cta-section"><div class="section-inner"><h2>Haz Tu Quinceañera Inolvidable</h2><p>Book your quinceañera or sweet 16 limo today. / Reserva tu limusina hoy.</p><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Now / Reservar</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div></div></section>
 </div>
 
 <!-- ================================================================
@@ -1480,12 +1480,12 @@ footer {
 <div id="worldcup-page" class="page">
   <div class="svc-hero" style="background:linear-gradient(135deg,#0a2a0a,#1a4a1a,#0a1a0a);">
     <div class="svc-hero-inner">
-      <div class="breadcrumb" style="color:rgba(255,255,255,0.4);"><a href="#" onclick="showPage('home')" style="color:rgba(255,255,255,0.4);">Home</a><span>›</span> World Cup 2026</div>
+      <div class="breadcrumb" style="color:rgba(255,255,255,0.4);"><a href="#" onclick=\"return showPage('home')\" style="color:rgba(255,255,255,0.4);">Home</a><span>›</span> World Cup 2026</div>
       <div style="display:inline-block;background:#006633;color:white;font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;padding:5px 14px;border-radius:4px;margin-bottom:12px;">⚽ FIFA World Cup 2026™</div>
       <h1>World Cup 2026<br><em>Dallas & Houston Transportation</em></h1>
       <div class="svc-hero-divider"></div>
       <p>The world is coming to Texas. Don't let parking and Uber surge ruin the biggest soccer event of your lifetime. Purple Heart Limo handles your World Cup transportation — flat rates, guaranteed driver, no stress.</p>
-      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book World Cup Transfer</a><a href="tel:+18337400700" class="btn-white">📞 +1 (833) 740-0700</a></div>
+      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book World Cup Transfer</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div>
     </div>
   </div>
   <section style="background:var(--white);">
@@ -1527,7 +1527,7 @@ footer {
     <div class="section-inner">
       <h2>Don't Let Parking Ruin the World Cup</h2>
       <p>Flat-rate transfers to AT&T Stadium and NRG Stadium. Guaranteed driver. Zero surge pricing.</p>
-      <div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book World Cup Transfer</a><a href="tel:+18337400700" class="btn-white">📞 +1 (833) 740-0700</a></div>
+      <div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book World Cup Transfer</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div>
     </div>
   </section>
 </div>
@@ -1538,7 +1538,7 @@ footer {
 <div id="fleet-page" class="page">
   <div class="svc-hero">
     <div class="svc-hero-inner">
-      <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span> Our Fleet</div>
+      <div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span> Our Fleet</div>
       <h1>Our <em>Luxury Fleet</em></h1>
       <div class="svc-hero-divider"></div>
       <p>Every vehicle is late-model, professionally detailed before each ride, and stocked with amenities. From executive sedans to coach buses — the perfect vehicle for every occasion.</p>
@@ -1621,7 +1621,7 @@ footer {
 <div id="about-page" class="page">
   <div class="svc-hero">
     <div class="svc-hero-inner">
-      <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span> About Us</div>
+      <div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span> About Us</div>
       <h1>About <em>Purple Heart Limo</em></h1>
       <div class="svc-hero-divider"></div>
       <p>Veteran-owned, Texas-proud, and obsessed with delivering the finest luxury transportation in Austin, Dallas-Fort Worth, and Houston.</p>
@@ -1665,7 +1665,7 @@ footer {
 <div id="blog-page" class="page">
   <div class="svc-hero">
     <div class="svc-hero-inner">
-      <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span> Blog</div>
+      <div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span> Blog</div>
       <h1>The Purple Heart<br><em>Limo Blog</em></h1>
       <div class="svc-hero-divider"></div>
       <p>Tips, guides, and real talk about luxury transportation in Austin, Dallas & Houston — plus your complete FIFA World Cup 2026 Texas guide.</p>
@@ -1725,7 +1725,7 @@ footer {
 <div id="faq-page" class="page">
   <div class="svc-hero">
     <div class="svc-hero-inner">
-      <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span> FAQ</div>
+      <div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span> FAQ</div>
       <h1>Frequently Asked<br><em>Questions</em></h1>
       <div class="svc-hero-divider"></div>
       <p>Everything you need to know before booking your luxury ride — answered honestly, without corporate speak.</p>
@@ -1743,7 +1743,7 @@ footer {
 
         <div class="faq-item"><button class="faq-q" onclick="toggleFAQ(this)">Do you charge surge pricing? <span class="faq-icon">+</span></button><div class="faq-a"><p>Never. Unlike rideshare apps that can charge 4-5x during events, Purple Heart Limo uses flat rates that never change based on demand, time of day, weather, or special events. The price you see when you book is exactly what you pay. Period. Full stop. No asterisk.</p></div></div>
 
-        <div class="faq-item"><button class="faq-q" onclick="toggleFAQ(this)">How do I make a reservation? <span class="faq-icon">+</span></button><div class="faq-a"><p>You can book anytime using our online booking system (Moovs), by calling +1 (833) 740-0700, texting us, via WhatsApp, or by filling out our contact form. We confirm every reservation within 5 minutes during normal hours.</p></div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFAQ(this)">How do I make a reservation? <span class="faq-icon">+</span></button><div class="faq-a"><p>You can book anytime using our online booking system (Moovs), by calling (8337) 400-700, texting us, via WhatsApp, or by filling out our contact form. We confirm every reservation within 5 minutes during normal hours.</p></div></div>
 
         <div class="faq-item"><button class="faq-q" onclick="toggleFAQ(this)">Will I know my driver's information ahead of time? <span class="faq-icon">+</span></button><div class="faq-a"><p>Yes. When your chauffeur is en route and when they arrive, you'll receive an automated SMS with their name, phone number, and vehicle details including make, model, and license plate. You can also request this information earlier via email if preferred.</p></div></div>
 
@@ -1800,7 +1800,7 @@ footer {
 <div id="contact-page" class="page">
   <div class="svc-hero">
     <div class="svc-hero-inner">
-      <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span> Contact</div>
+      <div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span> Contact</div>
       <h1>Get in <em>Touch</em></h1>
       <div class="svc-hero-divider"></div>
       <p>Book a ride, request a quote, or open a corporate account. We respond to every inquiry within 5 minutes.</p>
@@ -1811,8 +1811,8 @@ footer {
       <div class="contact-grid">
         <div>
           <h2 class="section-title" style="margin-bottom:32px;">Let's Connect</h2>
-          <div class="contact-info-item"><div class="ci-icon">📞</div><div class="ci-body"><h4>Call or Text 24/7</h4><a href="tel:+18337400700">+1 (833) 740-0700</a><p>Available around the clock, every day of the year</p></div></div>
-          <div class="contact-info-item"><div class="ci-icon">💬</div><div class="ci-body"><h4>WhatsApp</h4><a href="https://wa.me/18337400700" target="_blank">+1 (833) 740-0700</a><p>Message us on WhatsApp for fast responses</p></div></div>
+          <div class="contact-info-item"><div class="ci-icon">📞</div><div class="ci-body"><h4>Call or Text 24/7</h4><a href="tel:+18337400700">(8337) 400-700</a><p>Available around the clock, every day of the year</p></div></div>
+          <div class="contact-info-item"><div class="ci-icon">💬</div><div class="ci-body"><h4>WhatsApp</h4><a href="https://wa.me/18337400700" target="_blank">(8337) 400-700</a><p>Message us on WhatsApp for fast responses</p></div></div>
           <div class="contact-info-item"><div class="ci-icon">✉️</div><div class="ci-body"><h4>Email</h4><a href="mailto:info@purpleheartlimo.com">info@purpleheartlimo.com</a><p>We respond within 5 minutes during business hours</p></div></div>
           <div class="contact-info-item"><div class="ci-icon">📍</div><div class="ci-body"><h4>Service Area</h4><p>Austin Metroplex · Dallas-Fort Worth Metroplex · Houston Metroplex<br>City-to-city transfers available statewide</p></div></div>
           <div class="contact-info-item"><div class="ci-icon">⏰</div><div class="ci-body"><h4>Hours</h4><p>24 hours a day · 7 days a week · 365 days a year<br>Including all holidays</p></div></div>
@@ -1846,7 +1846,7 @@ footer {
           <div class="form-group"><label>Flight Number <span class="optional-badge">optional</span></label><input type="text" id="cf-flight" placeholder="e.g. AA1234"></div>
           <div class="form-group"><label>Passengers & Notes</label><input type="text" placeholder="Number of passengers, vehicle preference, special requests..." id="cf-notes"></div>
           <button class="btn-book-full" onclick="submitContactForm()">💜 Send My Request</button>
-          <p style="font-size:0.68rem;color:var(--gray);margin-top:10px;text-align:center;">By submitting you agree to receive SMS confirmations. Reply STOP to opt out. See our <a href="#" onclick="showPage('privacy')" style="color:var(--purple);">Privacy Policy</a>.</p>
+          <p style="font-size:0.68rem;color:var(--gray);margin-top:10px;text-align:center;">By submitting you agree to receive SMS confirmations. Reply STOP to opt out. See our <a href="#" onclick=\"return showPage('privacy')\" style="color:var(--purple);">Privacy Policy</a>.</p>
         </div>
       </div>
     </div>
@@ -1859,7 +1859,7 @@ footer {
 <div id="military-page" class="page">
   <div class="svc-hero">
     <div class="svc-hero-inner">
-      <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span> Military Discount</div>
+      <div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span> Military Discount</div>
       <h1>Military & Veteran<br><em>Discount Program</em></h1>
       <div class="svc-hero-divider"></div>
       <p>To every veteran and active duty service member in Texas — we salute you and we've got you covered. Because service to this country deserves to be honored, even when you're just trying to get to the airport.</p>
@@ -1917,7 +1917,7 @@ footer {
 ================================================================ -->
 <div id="privacy-page" class="page">
   <div class="legal-page">
-    <div class="breadcrumb" style="margin-bottom:16px;"><a href="#" onclick="showPage('home')">Home</a> › Privacy Policy</div>
+    <div class="breadcrumb" style="margin-bottom:16px;"><a href="#" onclick=\"return showPage('home')\">Home</a> › Privacy Policy</div>
     <h1>Privacy Policy</h1>
     <span class="legal-date">Last Updated: May 9, 2026</span>
     <p>Purple Heart Limo ("Company," "we," "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information.</p>
@@ -1934,13 +1934,13 @@ footer {
     <h2>5. Data Security</h2>
     <p>We implement industry-standard security measures to protect your personal information. No internet transmission is 100% secure.</p>
     <h2>6. Your Rights</h2>
-    <p>You may request a copy, correction, or deletion of your personal information by contacting info@purpleheartlimo.com or calling +1 (833) 740-0700.</p>
+    <p>You may request a copy, correction, or deletion of your personal information by contacting info@purpleheartlimo.com or calling (8337) 400-700.</p>
     <h2>7. Cookies</h2>
     <p>We use cookies for site functionality, preference storage, and analytics. You can control cookies via your browser settings.</p>
     <h2>8. Children's Privacy</h2>
     <p>We do not knowingly collect personal information from children under 13.</p>
     <h2>9. Contact</h2>
-    <p>Purple Heart Limo · info@purpleheartlimo.com · +1 (833) 740-0700</p>
+    <p>Purple Heart Limo · info@purpleheartlimo.com · (8337) 400-700</p>
   </div>
 </div>
 
@@ -1949,7 +1949,7 @@ footer {
 ================================================================ -->
 <div id="terms-page" class="page">
   <div class="legal-page">
-    <div class="breadcrumb" style="margin-bottom:16px;"><a href="#" onclick="showPage('home')">Home</a> › Terms of Service</div>
+    <div class="breadcrumb" style="margin-bottom:16px;"><a href="#" onclick=\"return showPage('home')\">Home</a> › Terms of Service</div>
     <h1>Terms of Service</h1>
     <span class="legal-date">Last Updated: May 9, 2026</span>
     <p>These Terms govern your use of Purple Heart Limo's services. By booking or using our services, you agree to these Terms.</p>
@@ -1968,7 +1968,7 @@ footer {
     <h2>7. Governing Law</h2>
     <p>These Terms are governed by the laws of the State of Texas.</p>
     <h2>8. Contact</h2>
-    <p>Purple Heart Limo · info@purpleheartlimo.com · +1 (833) 740-0700</p>
+    <p>Purple Heart Limo · info@purpleheartlimo.com · (8337) 400-700</p>
   </div>
 </div>
 
@@ -1977,12 +1977,12 @@ footer {
 ================================================================ -->
 <div id="accessibility-page" class="page">
   <div class="legal-page">
-    <div class="breadcrumb" style="margin-bottom:16px;"><a href="#" onclick="showPage('home')">Home</a> › Accessibility</div>
+    <div class="breadcrumb" style="margin-bottom:16px;"><a href="#" onclick=\"return showPage('home')\">Home</a> › Accessibility</div>
     <h1>Accessibility Statement</h1>
     <span class="legal-date">Last Updated: May 9, 2026</span>
     <p>Purple Heart Limo is committed to ensuring digital accessibility for people with disabilities. We continually improve the user experience and apply WCAG 2.1 Level AA guidelines.</p>
     <h2>Feedback</h2>
-    <p>If you experience accessibility barriers, please contact us: info@purpleheartlimo.com | +1 (833) 740-0700. We respond to accessibility feedback within 2 business days.</p>
+    <p>If you experience accessibility barriers, please contact us: info@purpleheartlimo.com | (8337) 400-700. We respond to accessibility feedback within 2 business days.</p>
     <h2>Wheelchair Accessible Vehicles</h2>
     <p>Purple Heart Limo has access to vehicles equipped to handle individuals with mobility challenges. Please inform us at booking so we can arrange appropriate transportation.</p>
   </div>
@@ -1998,34 +1998,34 @@ footer {
       <div class="sitemap-grid">
         <div class="sitemap-col">
           <h3>Main Pages</h3>
-          <a href="#" onclick="showPage('home')">Home</a>
-          <a href="#" onclick="showPage('about')">About Us</a>
-          <a href="#" onclick="showPage('fleet')">Our Fleet</a>
-          <a href="#" onclick="showPage('contact')">Contact & Book</a>
-          <a href="#" onclick="showPage('blog')">Blog</a>
-          <a href="#" onclick="showPage('faq')">FAQ</a>
-          <a href="#" onclick="showPage('reviews')">Reviews</a>
-          <a href="#" onclick="showPage('military')">Military Discount</a>
+          <a href="#" onclick=\"return showPage('home')\">Home</a>
+          <a href="#" onclick=\"return showPage('about')\">About Us</a>
+          <a href="#" onclick=\"return showPage('fleet')\">Our Fleet</a>
+          <a href="#" onclick=\"return showPage('contact')\">Contact & Book</a>
+          <a href="#" onclick=\"return showPage('blog')\">Blog</a>
+          <a href="#" onclick=\"return showPage('faq')\">FAQ</a>
+          <a href="#" onclick=\"return showPage('reviews')\">Reviews</a>
+          <a href="#" onclick=\"return showPage('military')\">Military Discount</a>
           <h3 style="margin-top:24px;">Spanish</h3>
-          <a href="#" onclick="showPage('es-home')">Inicio (Spanish)</a>
+          <a href="#" onclick=\"return showPage('es-home')\">Inicio (Spanish)</a>
         </div>
         <div class="sitemap-col">
           <h3>Services</h3>
-          <a href="#" onclick="showPage('airport')">Airport Transfer</a>
-          <a href="#" onclick="showPage('wedding')">Wedding Limo</a>
-          <a href="#" onclick="showPage('corporate')">Corporate Travel</a>
-          <a href="#" onclick="showPage('prom')">Prom & Graduation</a>
-          <a href="#" onclick="showPage('nightout')">Night Out & Party</a>
-          <a href="#" onclick="showPage('hourly')">Hourly Car Service</a>
-          <a href="#" onclick="showPage('quinceaneara')">Quinceañera & Sweet 16</a>
-          <a href="#" onclick="showPage('worldcup')">World Cup 2026 ⚽</a>
+          <a href="#" onclick=\"return showPage('airport')\">Airport Transfer</a>
+          <a href="#" onclick=\"return showPage('wedding')\">Wedding Limo</a>
+          <a href="#" onclick=\"return showPage('corporate')\">Corporate Travel</a>
+          <a href="#" onclick=\"return showPage('prom')\">Prom & Graduation</a>
+          <a href="#" onclick=\"return showPage('nightout')\">Night Out & Party</a>
+          <a href="#" onclick=\"return showPage('hourly')\">Hourly Car Service</a>
+          <a href="#" onclick=\"return showPage('quinceaneara')\">Quinceañera & Sweet 16</a>
+          <a href="#" onclick=\"return showPage('worldcup')\">World Cup 2026 ⚽</a>
         </div>
         <div class="sitemap-col">
           <h3>Legal</h3>
-          <a href="#" onclick="showPage('privacy')">Privacy Policy</a>
-          <a href="#" onclick="showPage('terms')">Terms of Service</a>
-          <a href="#" onclick="showPage('accessibility')">Accessibility</a>
-          <a href="#" onclick="showPage('sitemap')">Sitemap</a>
+          <a href="#" onclick=\"return showPage('privacy')\">Privacy Policy</a>
+          <a href="#" onclick=\"return showPage('terms')\">Terms of Service</a>
+          <a href="#" onclick=\"return showPage('accessibility')\">Accessibility</a>
+          <a href="#" onclick=\"return showPage('sitemap')\">Sitemap</a>
           <h3 style="margin-top:24px;">Service Areas</h3>
           <p style="font-size:0.82rem;color:var(--gray);padding:3px 0;">Austin Metroplex</p>
           <p style="font-size:0.82rem;color:var(--gray);padding:3px 0;">Dallas-Fort Worth Metroplex</p>
@@ -2055,7 +2055,7 @@ footer {
         </div>
         <div class="hero-btns">
           <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">🚗 Reservar Mi Viaje</a>
-          <a href="tel:+18337400700" class="btn-white">📞 +1 (833) 740-0700</a>
+          <a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a>
         </div>
       </div>
       <div class="booking-card">
@@ -2096,12 +2096,12 @@ footer {
         <h2 class="section-title">Transporte de Lujo para Cada Ocasión</h2>
       </div>
       <div class="services-grid" style="margin-top:40px;">
-        <div class="service-card" onclick="showPage('airport')"><div class="service-img"><img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=80&auto=format" alt="Transporte aeropuerto Texas" loading="lazy"></div><div class="service-body"><div class="service-icon">✈️</div><h3>Transporte al Aeropuerto</h3><p>Tarifas planas con seguimiento de vuelos en tiempo real y recepción en sala de equipaje. DFW, DAL, AUS, IAH, HOU.</p><span class="service-link">Reservar →</span></div></div>
-        <div class="service-card" onclick="showPage('wedding')"><div class="service-img"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80&auto=format" alt="Limusina para boda Texas" loading="lazy"></div><div class="service-body"><div class="service-icon">💍</div><h3>Limusina para Boda</h3><p>Transporte impecable el día de su boda. Coordinamos con su organizador y llegamos 15 minutos antes.</p><span class="service-link">Reservar →</span></div></div>
-        <div class="service-card" onclick="showPage('quinceaneara')"><div class="service-img"><img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80&auto=format" alt="Limusina quinceañera Texas" loading="lazy"></div><div class="service-body"><div class="service-icon">🌹</div><h3>Quinceañera y Sweet 16</h3><p>El día más especial merece el servicio más especial. Limusinas de lujo para quinceañeras en Austin, Dallas y Houston.</p><span class="service-link">Reservar →</span></div></div>
-        <div class="service-card" onclick="showPage('prom')"><div class="service-img"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80&auto=format" alt="Limusina prom graduación Texas" loading="lazy"></div><div class="service-body"><div class="service-icon">🎓</div><h3>Prom y Graduación</h3><p>La noche más memorable del año escolar merece una llegada espectacular. Seguro, elegante y completamente memorable.</p><span class="service-link">Reservar →</span></div></div>
-        <div class="service-card" onclick="showPage('corporate')"><div class="service-img"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&auto=format" alt="Transporte ejecutivo Texas" loading="lazy"></div><div class="service-body"><div class="service-icon">💼</div><h3>Viajes Corporativos</h3><p>Traslados ejecutivos, entretenimiento de clientes, roadshows. Cuentas corporativas con facturación mensual.</p><span class="service-link">Abrir Cuenta →</span></div></div>
-        <div class="service-card" onclick="showPage('worldcup')"><div class="service-img"><img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600&q=80&auto=format" alt="Copa Mundial 2026 Dallas Houston" loading="lazy"></div><div class="service-body"><div class="service-icon">⚽</div><h3>Copa Mundial 2026</h3><p>Dallas y Houston reciben el Mundial. ¡No dejes que el estacionamiento arruine la experiencia! Traslados de tarifa plana al estadio.</p><span class="service-link">Reservar →</span></div></div>
+        <div class="service-card" onclick=\"return showPage('airport')\"><div class="service-img"><img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=80&auto=format" alt="Transporte aeropuerto Texas" loading="lazy"></div><div class="service-body"><div class="service-icon">✈️</div><h3>Transporte al Aeropuerto</h3><p>Tarifas planas con seguimiento de vuelos en tiempo real y recepción en sala de equipaje. DFW, DAL, AUS, IAH, HOU.</p><span class="service-link">Reservar →</span></div></div>
+        <div class="service-card" onclick=\"return showPage('wedding')\"><div class="service-img"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80&auto=format" alt="Limusina para boda Texas" loading="lazy"></div><div class="service-body"><div class="service-icon">💍</div><h3>Limusina para Boda</h3><p>Transporte impecable el día de su boda. Coordinamos con su organizador y llegamos 15 minutos antes.</p><span class="service-link">Reservar →</span></div></div>
+        <div class="service-card" onclick=\"return showPage('quinceaneara')\"><div class="service-img"><img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80&auto=format" alt="Limusina quinceañera Texas" loading="lazy"></div><div class="service-body"><div class="service-icon">🌹</div><h3>Quinceañera y Sweet 16</h3><p>El día más especial merece el servicio más especial. Limusinas de lujo para quinceañeras en Austin, Dallas y Houston.</p><span class="service-link">Reservar →</span></div></div>
+        <div class="service-card" onclick=\"return showPage('prom')\"><div class="service-img"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80&auto=format" alt="Limusina prom graduación Texas" loading="lazy"></div><div class="service-body"><div class="service-icon">🎓</div><h3>Prom y Graduación</h3><p>La noche más memorable del año escolar merece una llegada espectacular. Seguro, elegante y completamente memorable.</p><span class="service-link">Reservar →</span></div></div>
+        <div class="service-card" onclick=\"return showPage('corporate')\"><div class="service-img"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&auto=format" alt="Transporte ejecutivo Texas" loading="lazy"></div><div class="service-body"><div class="service-icon">💼</div><h3>Viajes Corporativos</h3><p>Traslados ejecutivos, entretenimiento de clientes, roadshows. Cuentas corporativas con facturación mensual.</p><span class="service-link">Abrir Cuenta →</span></div></div>
+        <div class="service-card" onclick=\"return showPage('worldcup')\"><div class="service-img"><img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600&q=80&auto=format" alt="Copa Mundial 2026 Dallas Houston" loading="lazy"></div><div class="service-body"><div class="service-icon">⚽</div><h3>Copa Mundial 2026</h3><p>Dallas y Houston reciben el Mundial. ¡No dejes que el estacionamiento arruine la experiencia! Traslados de tarifa plana al estadio.</p><span class="service-link">Reservar →</span></div></div>
       </div>
     </div>
   </section>
@@ -2126,13 +2126,13 @@ footer {
       <p>Lujo de propiedad veterana. Sin precios inflados. Tarifas planas en Austin, Dallas y Houston.</p>
       <div class="cta-btns">
         <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">🚗 Reservar en Línea</a>
-        <a href="tel:+18337400700" class="btn-white">📞 +1 (833) 740-0700</a>
+        <a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a>
       </div>
     </div>
   </section>
 
   <div style="text-align:center;padding:16px;background:var(--purple);">
-    <a href="#" onclick="showPage('home')" style="color:rgba(255,255,255,0.6);font-size:0.8rem;">Switch to English / Cambiar a Inglés →</a>
+    <a href="#" onclick=\"return showPage('home')\" style="color:rgba(255,255,255,0.6);font-size:0.8rem;">Switch to English / Cambiar a Inglés →</a>
   </div>
 </div>
 
@@ -2142,24 +2142,24 @@ footer {
 <footer id="main-footer">
   <div class="footer-grid">
     <div class="footer-brand">
-      <a href="#" onclick="showPage('home')" style="display:inline-flex;align-items:center;gap:10px;margin-bottom:14px;">
+      <a href="#" onclick=\"return showPage('home')\" style="display:inline-flex;align-items:center;gap:10px;margin-bottom:14px;">
         <img src="logo.png" alt="Purple Heart Limo" style="width:40px;height:40px;object-fit:contain;border-radius:50%;background:rgba(255,255,255,0.1);">
         <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--white);font-weight:600;">Purple Heart Limo</div>
       </a>
       <p>Veteran-owned luxury limousine & black car service in Austin, Dallas-Fort Worth & Houston, Texas. No surge pricing. Flat rates. Professional chauffeurs. The ride you deserve. 🎖️</p>
-      <p style="margin-top:14px;"><a href="tel:+18337400700" style="color:var(--gold);font-size:0.85rem;font-weight:600;">📞 +1 (833) 740-0700</a></p>
+      <p style="margin-top:14px;"><a href="tel:+18337400700" style="color:var(--gold);font-size:0.85rem;font-weight:600;">📞 (8337) 400-700</a></p>
       <p style="margin-top:4px;"><a href="mailto:info@purpleheartlimo.com" style="color:rgba(255,255,255,0.45);font-size:0.8rem;">info@purpleheartlimo.com</a></p>
     </div>
     <div class="footer-col">
       <h4>Services</h4>
-      <a href="#" onclick="showPage('airport')">Airport Transfer</a>
-      <a href="#" onclick="showPage('wedding')">Wedding Limo</a>
-      <a href="#" onclick="showPage('corporate')">Corporate Travel</a>
-      <a href="#" onclick="showPage('prom')">Prom & Graduation</a>
-      <a href="#" onclick="showPage('nightout')">Night Out & Party</a>
-      <a href="#" onclick="showPage('hourly')">Hourly Service</a>
-      <a href="#" onclick="showPage('quinceaneara')">Quinceañera</a>
-      <a href="#" onclick="showPage('worldcup')">World Cup 2026 ⚽</a>
+      <a href="#" onclick=\"return showPage('airport')\">Airport Transfer</a>
+      <a href="#" onclick=\"return showPage('wedding')\">Wedding Limo</a>
+      <a href="#" onclick=\"return showPage('corporate')\">Corporate Travel</a>
+      <a href="#" onclick=\"return showPage('prom')\">Prom & Graduation</a>
+      <a href="#" onclick=\"return showPage('nightout')\">Night Out & Party</a>
+      <a href="#" onclick=\"return showPage('hourly')\">Hourly Service</a>
+      <a href="#" onclick=\"return showPage('quinceaneara')\">Quinceañera</a>
+      <a href="#" onclick=\"return showPage('worldcup')\">World Cup 2026 ⚽</a>
     </div>
     <div class="footer-col">
       <h4>Austin Metroplex</h4>
@@ -2177,27 +2177,27 @@ footer {
     </div>
     <div class="footer-col">
       <h4>Company</h4>
-      <a href="#" onclick="showPage('about')">About Us</a>
-      <a href="#" onclick="showPage('fleet')">Our Fleet</a>
-      <a href="#" onclick="showPage('blog')">Blog</a>
-      <a href="#" onclick="showPage('faq')">FAQ</a>
-      <a href="#" onclick="showPage('reviews')">Reviews</a>
-      <a href="#" onclick="showPage('military')">Military Discount</a>
-      <a href="#" onclick="showPage('contact')">Contact & Book</a>
+      <a href="#" onclick=\"return showPage('about')\">About Us</a>
+      <a href="#" onclick=\"return showPage('fleet')\">Our Fleet</a>
+      <a href="#" onclick=\"return showPage('blog')\">Blog</a>
+      <a href="#" onclick=\"return showPage('faq')\">FAQ</a>
+      <a href="#" onclick=\"return showPage('reviews')\">Reviews</a>
+      <a href="#" onclick=\"return showPage('military')\">Military Discount</a>
+      <a href="#" onclick=\"return showPage('contact')\">Contact & Book</a>
       <h4 style="margin-top:16px;">Legal</h4>
-      <a href="#" onclick="showPage('privacy')">Privacy Policy</a>
-      <a href="#" onclick="showPage('terms')">Terms of Service</a>
-      <a href="#" onclick="showPage('accessibility')">Accessibility</a>
-      <a href="#" onclick="showPage('sitemap')">Sitemap</a>
+      <a href="#" onclick=\"return showPage('privacy')\">Privacy Policy</a>
+      <a href="#" onclick=\"return showPage('terms')\">Terms of Service</a>
+      <a href="#" onclick=\"return showPage('accessibility')\">Accessibility</a>
+      <a href="#" onclick=\"return showPage('sitemap')\">Sitemap</a>
     </div>
   </div>
   <div class="footer-bottom">
     <p>© 2026 Purple Heart Limo. All rights reserved. Veteran-owned & operated in Texas. 🎖️</p>
     <div class="footer-legal">
-      <a href="#" onclick="showPage('privacy')">Privacy</a>
-      <a href="#" onclick="showPage('terms')">Terms</a>
-      <a href="#" onclick="showPage('sitemap')">Sitemap</a>
-      <a href="#" onclick="showPage('es-home')" style="color:var(--gold);">🇲🇽 Español</a>
+      <a href="#" onclick=\"return showPage('privacy')\">Privacy</a>
+      <a href="#" onclick=\"return showPage('terms')\">Terms</a>
+      <a href="#" onclick=\"return showPage('sitemap')\">Sitemap</a>
+      <a href="#" onclick=\"return showPage('es-home')\" style="color:var(--gold);">🇲🇽 Español</a>
     </div>
   </div>
 </footer>
@@ -2205,14 +2205,19 @@ footer {
 <script>
 // ===== PAGE ROUTER =====
 function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+    p.style.display = 'none';
+  });
   const page = document.getElementById(id + '-page');
-  if (page) { page.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
-  // Close mobile menu
+  if (page) {
+    page.classList.add('active');
+    page.style.display = 'block';
+    window.scrollTo({top:0,behavior:'instant'});
+  }
   const menu = document.getElementById('mobile-menu');
   if (menu) menu.style.display = 'none';
-  // Update navbar style for light pages
-  updateNavbar(id);
+  return false;
 }
 
 function updateNavbar(pageId) {
@@ -2278,7 +2283,7 @@ function submitPopup() {
   if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
   document.getElementById('popup').classList.remove('show');
   // In production: send to your backend/email
-  alert('🎁 Your 10% off code is: FIRSTRIDE10 — mention it when you call +1 (833) 740-0700!');
+  alert('🎁 Your 10% off code is: FIRSTRIDE10 — mention it when you call (8337) 400-700!');
 }
 
 // ===== QUOTE FORM =====
@@ -2331,6 +2336,14 @@ window.addEventListener('scroll', () => {
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize all pages as hidden except home
+  document.querySelectorAll('.page').forEach(p => {
+    if (p.id !== 'home-page') {
+      p.style.display = 'none';
+    } else {
+      p.style.display = 'block';
+    }
+  });
   initCarousels();
   // Set minimum date to today for date pickers
   const today = new Date().toISOString().split('T')[0];
@@ -2356,7 +2369,7 @@ window.initAutocomplete = initAutocomplete;
 <!-- BLOG 1: comparing-austin-s-top-limo-services--what-sets-purple-heart-apart- -->
 <div id="blog-comparing-austin-top-page" class="page">
   <div class="svc-hero"><div class="svc-hero-inner">
-    <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><a href="#" onclick="showPage('blog')"> Blog</a><span>›</span> Comparing Austin Limo Services</div>
+    <div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span><a href="#" onclick=\"return showPage('blog')\"> Blog</a><span>›</span> Comparing Austin Limo Services</div>
     <div class="hero-badge">🏆 Austin Limo Guide</div>
     <h1>Comparing Austin's Top Limo Services:<br><em>What Sets Purple Heart Apart?</em></h1>
     <div class="svc-hero-divider"></div>
@@ -2379,7 +2392,7 @@ window.initAutocomplete = initAutocomplete;
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Our pricing is genuinely all-inclusive. Gratuity, tolls, fuel — it's all in the quoted rate. The price we give you on Monday is the price you pay on Saturday night. That's not a marketing promise. It's how we've operated since day one, because we believe in treating customers the way we'd want to be treated.</p>
     <div style="margin-top:40px;text-align:center;">
       <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Your Ride</a>
-      <a href="#" onclick="showPage('blog')" class="btn-secondary">← Back to Blog</a>
+      <a href="#" onclick=\"return showPage('blog')\" class="btn-secondary">← Back to Blog</a>
     </div>
   </div>
 </div>
@@ -2387,7 +2400,7 @@ window.initAutocomplete = initAutocomplete;
 <!-- BLOG 2: top-5-destinations-to-visit-with-a-limo-in-austin -->
 <div id="blog-top-5-destinations-page" class="page">
   <div class="svc-hero"><div class="svc-hero-inner">
-    <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><a href="#" onclick="showPage('blog')"> Blog</a><span>›</span> Top 5 Destinations Austin</div>
+    <div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span><a href="#" onclick=\"return showPage('blog')\"> Blog</a><span>›</span> Top 5 Destinations Austin</div>
     <div class="hero-badge">📍 Austin Guide</div>
     <h1>Top 5 Destinations to Visit<br><em>with a Limo in Austin</em></h1>
     <div class="svc-hero-divider"></div>
@@ -2408,7 +2421,7 @@ window.initAutocomplete = initAutocomplete;
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">No visit to Austin is complete without experiencing the live music on 6th Street. The city earned its "Live Music Capital of the World" title honestly — on any given Friday night there are more performances happening simultaneously than most cities see in a month. Let us drop you at the start of 6th, pick you up at the end of the night, and handle the part where nobody has to be a designated driver.</p>
     <div style="margin-top:40px;text-align:center;">
       <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Austin City Tour</a>
-      <a href="#" onclick="showPage('blog')" class="btn-secondary">← Back to Blog</a>
+      <a href="#" onclick=\"return showPage('blog')\" class="btn-secondary">← Back to Blog</a>
     </div>
   </div>
 </div>
@@ -2416,7 +2429,7 @@ window.initAutocomplete = initAutocomplete;
 <!-- BLOG 3: a-comprehensive-guide-to-transportation-services-in-austin--texas -->
 <div id="blog-transportation-guide-austin-page" class="page">
   <div class="svc-hero"><div class="svc-hero-inner">
-    <div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><a href="#" onclick="showPage('blog')"> Blog</a><span>›</span> Austin Transportation Guide</div>
+    <div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span><a href="#" onclick=\"return showPage('blog')\"> Blog</a><span>›</span> Austin Transportation Guide</div>
     <h1>The Ultimate Guide to Transportation<br><em>Services in Austin, Texas</em></h1>
     <div class="svc-hero-divider"></div>
     <p style="color:rgba(255,255,255,0.7);font-size:0.9rem;">Nov 2025 · 8 min read · Purple Heart Limo Blog</p>
@@ -2431,18 +2444,18 @@ window.initAutocomplete = initAutocomplete;
     <h2 style="color:var(--purple);font-family:'Cormorant Garamond',serif;font-size:1.7rem;margin:32px 0 14px;">Luxury Limo & Black Car Service</h2>
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">For airport transfers, weddings, corporate travel, events, and any occasion where reliability and presentation matter, a professional limo service is the clear choice. Flat rates eliminate surge pricing entirely. Pre-assigned chauffeurs mean no cancellations. Flight tracking means no waiting at baggage claim alone. It's a fundamentally different — and better — transportation experience.</p>
     <div style="background:var(--gray-light);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:20px 24px;margin:28px 0;">
-      <p style="color:var(--purple);font-size:0.9rem;line-height:1.7;margin:0;">Purple Heart Limo serves the entire Austin metro — Austin, Round Rock, Cedar Park, Georgetown, San Marcos, Kyle, and beyond. Available 24/7. No surge pricing. <a href="tel:+18337400700" style="color:var(--gold);font-weight:700;">+1 (833) 740-0700</a></p>
+      <p style="color:var(--purple);font-size:0.9rem;line-height:1.7;margin:0;">Purple Heart Limo serves the entire Austin metro — Austin, Round Rock, Cedar Park, Georgetown, San Marcos, Kyle, and beyond. Available 24/7. No surge pricing. <a href="tel:+18337400700" style="color:var(--gold);font-weight:700;">(8337) 400-700</a></p>
     </div>
     <div style="margin-top:40px;text-align:center;">
       <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Your Austin Ride</a>
-      <a href="#" onclick="showPage('blog')" class="btn-secondary">← Back to Blog</a>
+      <a href="#" onclick=\"return showPage('blog')\" class="btn-secondary">← Back to Blog</a>
     </div>
   </div>
 </div>
 
 <!-- BLOGS 4-19: Shorter versions with full SEO content -->
 <div id="blog-seasonal-events-austin-page" class="page">
-  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><a href="#" onclick="showPage('blog')"> Blog</a></div><h1>Top Seasonal Events in Austin<br><em>Perfect for a Limo Experience</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);font-size:0.9rem;">Jan 2026 · 7 min read</p></div></div>
+  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span><a href="#" onclick=\"return showPage('blog')\"> Blog</a></div><h1>Top Seasonal Events in Austin<br><em>Perfect for a Limo Experience</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);font-size:0.9rem;">Jan 2026 · 7 min read</p></div></div>
   <div style="max-width:820px;margin:0 auto;padding:60px 5%;">
     <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=820&q=80&auto=format" alt="Austin seasonal events limo service" style="width:100%;border-radius:12px;margin-bottom:32px;" loading="lazy">
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Austin doesn't have a slow season. Every month brings a new reason to celebrate, a new event to dress up for, and a new situation where showing up in a limo is the correct and obvious decision. Here's your complete guide to Austin's biggest events and exactly why each one calls for luxury transportation.</p>
@@ -2454,12 +2467,12 @@ window.initAutocomplete = initAutocomplete;
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Austin City Limits Music Festival brings 450,000+ music fans to Zilker Park over two weekends every October. Drop-off and pickup at designated areas are far superior to any parking option. We'll have you at the gates before the opening act and picked up after the headliner — no Uber wait, no surge pricing, no standing in a rideshare queue with 10,000 other exhausted music fans.</p>
     <h2 style="color:var(--purple);font-family:'Cormorant Garamond',serif;font-size:1.7rem;margin:32px 0 14px;">Texas Wedding Season (April-June, September-November)</h2>
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Austin and the Hill Country host thousands of weddings each year across two peak seasons. Whether you're the couple, the wedding party, or the family flying in from out of town, coordinated luxury transportation turns the logistics of a wedding day from stressful to seamless. We've served 500+ Texas weddings and counting.</p>
-    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Event Transportation</a><a href="#" onclick="showPage('blog')" class="btn-secondary">← Back to Blog</a></div>
+    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Event Transportation</a><a href="#" onclick=\"return showPage('blog')\" class="btn-secondary">← Back to Blog</a></div>
   </div>
 </div>
 
 <div id="blog-faq-limo-austin-page" class="page">
-  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><a href="#" onclick="showPage('blog')"> Blog</a></div><h1>Frequently Asked Questions About<br><em>Hiring a Limo Service in Austin</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);font-size:0.9rem;">Jan 2026 · 8 min read</p></div></div>
+  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span><a href="#" onclick=\"return showPage('blog')\"> Blog</a></div><h1>Frequently Asked Questions About<br><em>Hiring a Limo Service in Austin</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);font-size:0.9rem;">Jan 2026 · 8 min read</p></div></div>
   <div style="max-width:820px;margin:0 auto;padding:60px 5%;">
     <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=820&q=80&auto=format" alt="FAQ limo service Austin Texas answers" style="width:100%;border-radius:12px;margin-bottom:32px;" loading="lazy">
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">We answer a lot of questions. Every day. The same questions, from wonderful people who just want to make sure they're making the right decision before they book. So in the spirit of efficiency — and because our phones need a break — here are the most frequently asked questions about hiring a limo service in Austin, answered honestly and without corporate speak.</p>
@@ -2473,12 +2486,12 @@ window.initAutocomplete = initAutocomplete;
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Adults can absolutely enjoy beverages in the vehicle — bring your own or ask us to arrange ahead of time. We maintain a strict zero-tolerance policy for underage drinking. Our chauffeurs are trained to enforce this without exception, which is why parents trust us with their prom and graduation groups.</p>
     <h2 style="color:var(--purple);font-family:'Cormorant Garamond',serif;font-size:1.7rem;margin:32px 0 14px;">"Do you serve areas outside Austin?"</h2>
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Yes — we serve the entire Austin metro (Round Rock, Cedar Park, Georgetown, San Marcos, Kyle, Pflugerville, Leander, Lakeway), and we provide city-to-city transfers to Dallas, Houston, and San Antonio. We also serve Dallas-Fort Worth and Houston metro areas directly.</p>
-    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Your Ride</a><a href="#" onclick="showPage('faq')" class="btn-secondary">See Full FAQ Page →</a></div>
+    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Your Ride</a><a href="#" onclick=\"return showPage('faq')\" class="btn-secondary">See Full FAQ Page →</a></div>
   </div>
 </div>
 
 <div id="blog-prom-limo-austin-page" class="page">
-  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><a href="#" onclick="showPage('blog')"> Blog</a></div><h1>Prom Season Limo Booking Tips<br><em>for Austin Teens and Parents</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);font-size:0.9rem;">Nov 2025 · 6 min read</p></div></div>
+  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span><a href="#" onclick=\"return showPage('blog')\"> Blog</a></div><h1>Prom Season Limo Booking Tips<br><em>for Austin Teens and Parents</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);font-size:0.9rem;">Nov 2025 · 6 min read</p></div></div>
   <div style="max-width:820px;margin:0 auto;padding:60px 5%;">
     <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=820&q=80&auto=format" alt="Prom limo service Austin Texas parents guide" style="width:100%;border-radius:12px;margin-bottom:32px;" loading="lazy">
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Prom is not the time to wing it on transportation. We say this with love, experience, and the memory of approximately 47 panicked parent phone calls from people who waited too long to book and found out every limo in Austin was already reserved. This is your guide to not being one of those parents.</p>
@@ -2488,12 +2501,12 @@ window.initAutocomplete = initAutocomplete;
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Every Purple Heart Limo chauffeur is background-checked, drug-tested, and trained to enforce our zero-tolerance underage drinking policy. This is non-negotiable and applies to every ride, every time. Our chauffeurs will not look the other way, and they have full authority to end a ride if the policy is violated. Parents sleep soundly when their kids ride with us. That's intentional.</p>
     <h2 style="color:var(--purple);font-family:'Cormorant Garamond',serif;font-size:1.7rem;margin:32px 0 14px;">What Vehicle to Choose</h2>
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">For groups of 6-10: the Chrysler 300 Stretch Limo is the classic choice and always impresses. For 10-14: the Escalade Stretch SUV is the current crowd favorite — it's massive, it turns heads, and arriving in an Escalade Stretch is a memory your student will talk about for years. For 14+: the Sprinter Party Bus fits the whole friend group and keeps everyone together all night.</p>
-    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Prom Limo</a><a href="#" onclick="showPage('blog')" class="btn-secondary">← Back to Blog</a></div>
+    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Prom Limo</a><a href="#" onclick=\"return showPage('blog')\" class="btn-secondary">← Back to Blog</a></div>
   </div>
 </div>
 
 <div id="blog-corporate-transportation-austin-page" class="page">
-  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><a href="#" onclick="showPage('blog')"> Blog</a></div><h1>Corporate Transportation Solutions<br><em>in Austin, Texas</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);font-size:0.9rem;">Nov 2025 · 7 min read</p></div></div>
+  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span><a href="#" onclick=\"return showPage('blog')\"> Blog</a></div><h1>Corporate Transportation Solutions<br><em>in Austin, Texas</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);font-size:0.9rem;">Nov 2025 · 7 min read</p></div></div>
   <div style="max-width:820px;margin:0 auto;padding:60px 5%;">
     <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=820&q=80&auto=format" alt="Corporate transportation Austin Texas limo" style="width:100%;border-radius:12px;margin-bottom:32px;" loading="lazy">
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Austin's tech and business sector has exploded over the past decade — Dell, Apple, Tesla, Oracle, Samsung, and hundreds of startups call the Austin metro home. With that corporate growth comes executive travel, client entertainment, and the ongoing question: how do you transport people professionally in a city where traffic is Austin-levels of unpredictable?</p>
@@ -2501,12 +2514,12 @@ window.initAutocomplete = initAutocomplete;
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Companies with regular executive travel needs benefit enormously from a corporate account. Monthly invoicing means no per-trip expense reports. Locked-in flat rates mean the CFO always knows exactly what transportation will cost. Priority dispatch means your CEO never waits for a vehicle during Austin's brutal rush hour. A dedicated account manager means one call handles everything.</p>
     <h2 style="color:var(--purple);font-family:'Cormorant Garamond',serif;font-size:1.7rem;margin:32px 0 14px;">Client Transportation: First Impressions Matter</h2>
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">When you're bringing a client from Austin-Bergstrom to your office or to dinner in the Domain, how they get there says something about your company. A uniformed chauffeur meeting them at baggage claim with a name sign sends a message. A waiting Uber with a 4.6-star driver sends a different message. We know which one closes more deals.</p>
-    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Open Corporate Account</a><a href="#" onclick="showPage('blog')" class="btn-secondary">← Back to Blog</a></div>
+    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Open Corporate Account</a><a href="#" onclick=\"return showPage('blog')\" class="btn-secondary">← Back to Blog</a></div>
   </div>
 </div>
 
 <div id="blog-airport-transfer-austin-page" class="page">
-  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><a href="#" onclick="showPage('blog')"> Blog</a></div><h1>Airport Transfers Made Easy:<br><em>Stress-Free Travel with Limo Services</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);font-size:0.9rem;">Oct 2025 · 6 min read</p></div></div>
+  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span><a href="#" onclick=\"return showPage('blog')\"> Blog</a></div><h1>Airport Transfers Made Easy:<br><em>Stress-Free Travel with Limo Services</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);font-size:0.9rem;">Oct 2025 · 6 min read</p></div></div>
   <div style="max-width:820px;margin:0 auto;padding:60px 5%;">
     <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=820&q=80&auto=format" alt="Airport transfer limo service Austin-Bergstrom" style="width:100%;border-radius:12px;margin-bottom:32px;" loading="lazy">
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Austin-Bergstrom International Airport (AUS) has been one of the fastest-growing airports in the United States — and its parking situation reflects that growth in the most painful way possible. Terminal Direct parking regularly fills to capacity. Remote parking means shuttle waits. And trying to get an Uber at peak landing times is a test of patience that most business travelers have failed at least once.</p>
@@ -2514,13 +2527,13 @@ window.initAutocomplete = initAutocomplete;
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">When we say flat-rate, we mean: you get a quote, that quote is final, and nothing changes it — not traffic, not your flight being delayed, not peak hours, not rain. The rate you get on Monday morning is the rate you pay on Friday evening rush hour. This is mathematically different from rideshare pricing, where the same trip can cost radically different amounts depending on when you book it.</p>
     <h2 style="color:var(--purple);font-family:'Cormorant Garamond',serif;font-size:1.7rem;margin:32px 0 14px;">Flight Tracking & The 60-Minute Free Wait</h2>
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">We track your flight automatically. If it lands early, your driver adjusts. If it's delayed, they wait — up to 60 minutes at absolutely no charge. This covers essentially every standard delay scenario and means you walk out of baggage claim at AUS, see someone holding a sign with your name on it, and feel immediately cared for after whatever the airline put you through.</p>
-    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Airport Transfer</a><a href="#" onclick="showPage('blog')" class="btn-secondary">← Back to Blog</a></div>
+    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Airport Transfer</a><a href="#" onclick=\"return showPage('blog')\" class="btn-secondary">← Back to Blog</a></div>
   </div>
 </div>
 
 <!-- Remaining 13 blogs - compact but full SEO content -->
 <div id="blog-wedding-limo-guide-page" class="page">
-  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><a href="#" onclick="showPage('blog')"> Blog</a></div><h1>How to Choose the Perfect Limousine<br><em>for Your Wedding Day</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Oct 2025 · 7 min read</p></div></div>
+  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span><a href="#" onclick=\"return showPage('blog')\"> Blog</a></div><h1>How to Choose the Perfect Limousine<br><em>for Your Wedding Day</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Oct 2025 · 7 min read</p></div></div>
   <div style="max-width:820px;margin:0 auto;padding:60px 5%;">
     <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=820&q=80&auto=format" alt="Wedding limousine guide Texas" style="width:100%;border-radius:12px;margin-bottom:32px;" loading="lazy">
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Your wedding day is the most photographed, most watched, most discussed day of your life. Every detail has been obsessed over — the venue, the flowers, the cake, the dress. And then there's the transportation, which too many couples treat as an afterthought until about two months before the wedding when they realize the vehicles they want are already booked.</p>
@@ -2528,12 +2541,12 @@ window.initAutocomplete = initAutocomplete;
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">A classic stretch limo says timeless elegance. A black Escalade SUV says modern sophistication. A white Chrysler 300 Stretch says "I want everyone at the venue to look when we pull up" — which is a completely valid choice. Think about the overall aesthetic of your wedding and choose a vehicle that complements rather than competes with it.</p>
     <h2 style="color:var(--purple);font-family:'Cormorant Garamond',serif;font-size:1.7rem;margin:32px 0 14px;">Questions to Ask Every Limo Company</h2>
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Do you own this vehicle? (Yes — we own every vehicle in our fleet.) Will you coordinate with our wedding planner? (Yes — we work directly with planners.) What is your backup plan if a vehicle has a mechanical issue? (We have contingency vehicles on standby.) Is gratuity included? (Yes — always all-inclusive.) How early does the driver arrive? (15 minutes minimum, guaranteed.)</p>
-    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Wedding Limo</a><a href="#" onclick="showPage('blog')" class="btn-secondary">← Back to Blog</a></div>
+    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Wedding Limo</a><a href="#" onclick=\"return showPage('blog')\" class="btn-secondary">← Back to Blog</a></div>
   </div>
 </div>
 
 <div id="blog-night-out-austin-page" class="page">
-  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><a href="#" onclick="showPage('blog')"> Blog</a></div><h1>How to Plan the Perfect Night Out<br><em>with a Limo in Austin</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Oct 2025 · 5 min read</p></div></div>
+  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span><a href="#" onclick=\"return showPage('blog')\"> Blog</a></div><h1>How to Plan the Perfect Night Out<br><em>with a Limo in Austin</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Oct 2025 · 5 min read</p></div></div>
   <div style="max-width:820px;margin:0 auto;padding:60px 5%;">
     <img src="https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?w=820&q=80&auto=format" alt="Night out limo Austin 6th Street Rainey" style="width:100%;border-radius:12px;margin-bottom:32px;" loading="lazy">
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Austin's nightlife is genuinely world-class. 6th Street, Rainey Street, East 6th, South Congress, the Domain — every neighborhood has its own personality and its own incredible bar and restaurant scene. Planning a perfect Austin night out is mostly about not letting the logistics ruin the fun. Which is where we come in.</p>
@@ -2541,12 +2554,12 @@ window.initAutocomplete = initAutocomplete;
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">The best thing about booking a limo for your night out is that everyone in your group gets to fully participate in the evening. No one is stuck with the designated driver role. No one is watching their drinks because they know they're driving home. Everyone is present, relaxed, and having the night they planned to have.</p>
     <h2 style="color:var(--purple);font-family:'Cormorant Garamond',serif;font-size:1.7rem;margin:32px 0 14px;">Our Austin Night Out Recommendations</h2>
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Start at Rainey Street for dinner and drinks at one of the converted bungalow bars. Move to East 6th for the craft cocktail scene. Finish on 6th Street for live music until whenever you feel like calling it. We'll pick you up at the start, move you between neighborhoods if you want, and get everyone home safely at the end. You plan the fun. We handle the driving.</p>
-    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Night Out Limo</a><a href="#" onclick="showPage('blog')" class="btn-secondary">← Back to Blog</a></div>
+    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Night Out Limo</a><a href="#" onclick=\"return showPage('blog')\" class="btn-secondary">← Back to Blog</a></div>
   </div>
 </div>
 
 <div id="blog-tips-booking-limo-page" class="page">
-  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><a href="#" onclick="showPage('blog')"> Blog</a></div><h1>5 Tips for Booking a Limo in Austin<br><em>for Your Special Event</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Oct 2025 · 5 min read</p></div></div>
+  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span><a href="#" onclick=\"return showPage('blog')\"> Blog</a></div><h1>5 Tips for Booking a Limo in Austin<br><em>for Your Special Event</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Oct 2025 · 5 min read</p></div></div>
   <div style="max-width:820px;margin:0 auto;padding:60px 5%;">
     <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=820&q=80&auto=format" alt="Tips for booking limo Austin Texas special event" style="width:100%;border-radius:12px;margin-bottom:32px;" loading="lazy">
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">After years of operating in Austin's luxury transportation market, we've developed a deep appreciation for clients who come to us prepared. And an equally deep appreciation for the comedy of clients who call us three days before prom expecting a Hummer Stretch to be available. Here are five tips that will make your booking experience better for everyone involved.</p>
@@ -2560,12 +2573,12 @@ window.initAutocomplete = initAutocomplete;
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">The vehicle matters. The driver matters more. Ask about background checks, drug testing, training, and whether the company employs its drivers or uses contractors. At Purple Heart Limo, every chauffeur is a vetted, trained professional who reflects our veteran-owned standards.</p>
     <h2 style="color:var(--purple);font-family:'Cormorant Garamond',serif;font-size:1.7rem;margin:32px 0 14px;">Tip 5: Have a Backup Communication Plan</h2>
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">On your event day, make sure you have the driver's direct cell number, the company's 24/7 line, and a clear pickup location confirmed in advance. We send all driver details automatically before every ride — but it never hurts to have them saved in your phone the night before.</p>
-    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Your Ride</a><a href="#" onclick="showPage('blog')" class="btn-secondary">← Back to Blog</a></div>
+    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Your Ride</a><a href="#" onclick=\"return showPage('blog')\" class="btn-secondary">← Back to Blog</a></div>
   </div>
 </div>
 
 <div id="blog-rideshare-vs-limo-page" class="page">
-  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><a href="#" onclick="showPage('blog')"> Blog</a></div><h1>Exploring Austin in Style:<br><em>Limo Service vs Rideshare — The Honest Comparison</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Sep 2025 · 6 min read</p></div></div>
+  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span><a href="#" onclick=\"return showPage('blog')\"> Blog</a></div><h1>Exploring Austin in Style:<br><em>Limo Service vs Rideshare — The Honest Comparison</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Sep 2025 · 6 min read</p></div></div>
   <div style="max-width:820px;margin:0 auto;padding:60px 5%;">
     <img src="https://images.unsplash.com/photo-1493238792000-8113da705763?w=820&q=80&auto=format" alt="Limo vs rideshare Austin Texas comparison" style="width:100%;border-radius:12px;margin-bottom:32px;" loading="lazy">
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">We're going to do something a limo company probably shouldn't do: give you an honest comparison between limo service and rideshare. Because the truth is that rideshare is genuinely the right choice for certain situations — and a terrible choice for others. Knowing which is which saves you money, frustration, and potentially your sanity on what's supposed to be a special occasion.</p>
@@ -2574,12 +2587,12 @@ window.initAutocomplete = initAutocomplete;
     <h2 style="color:var(--purple);font-family:'Cormorant Garamond',serif;font-size:1.7rem;margin:32px 0 14px;">When Limo Service Wins (By a Lot)</h2>
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Airport transfers. Weddings. Prom. Corporate client entertainment. Any event where surge pricing could ruin the evening. Any situation where a cancellation would be catastrophic. Any occasion where the transportation itself is part of the experience. For all of these, the guaranteed driver, flat rate, and professional service of a limo makes it not just better — it makes it the only sensible choice.</p>
     <div style="background:var(--gray-light);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:20px 24px;margin:28px 0;"><p style="color:var(--purple);font-size:0.9rem;line-height:1.7;margin:0;">Uber surge during ACL Fest weekend in Austin has been documented at 4-5x base pricing. A pre-booked Purple Heart Limo ride costs exactly what you were quoted on Monday. No exceptions. No surprises.</p></div>
-    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Flat-Rate Limo</a><a href="#" onclick="showPage('blog')" class="btn-secondary">← Back to Blog</a></div>
+    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Flat-Rate Limo</a><a href="#" onclick=\"return showPage('blog')\" class="btn-secondary">← Back to Blog</a></div>
   </div>
 </div>
 
 <div id="blog-why-purple-heart-page" class="page">
-  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><a href="#" onclick="showPage('blog')"> Blog</a></div><h1>Why Purple Heart Is Austin's<br><em>Premier Choice for Limo Services</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Sep 2025 · 6 min read</p></div></div>
+  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span><a href="#" onclick=\"return showPage('blog')\"> Blog</a></div><h1>Why Purple Heart Is Austin's<br><em>Premier Choice for Limo Services</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Sep 2025 · 6 min read</p></div></div>
   <div style="max-width:820px;margin:0 auto;padding:60px 5%;">
     <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=820&q=80&auto=format" alt="Why choose Purple Heart Limo Austin Texas" style="width:100%;border-radius:12px;margin-bottom:32px;" loading="lazy">
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">We could fill this entire post with stats about our fleet, testimonials about our service, and bullet points about our features. But honestly, the real reason Purple Heart Limo has become a premier choice in Austin comes down to something simpler: we were founded by a veteran who believes that if you're going to do something, you do it right — every time, for every customer, with no exceptions.</p>
@@ -2587,12 +2600,12 @@ window.initAutocomplete = initAutocomplete;
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Military service teaches you that there are no acceptable shortcuts. You either meet the standard or you don't — and if you don't, people notice. We've applied that philosophy to every aspect of Purple Heart Limo: vehicle maintenance, driver training, pricing transparency, customer communication, and punctuality. Our drivers don't aim to arrive on time. They aim to arrive early.</p>
     <h2 style="color:var(--purple);font-family:'Cormorant Garamond',serif;font-size:1.7rem;margin:32px 0 14px;">4.9 Stars Across 214+ Reviews</h2>
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">We're proud of our rating — not because it's a marketing number, but because it represents 214+ individual people who had a good experience and cared enough to say so publicly. The reviews talk about punctuality, vehicle quality, driver professionalism, pricing transparency, and the feeling of being genuinely cared for. Those are the things we work on every day.</p>
-    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Experience the Difference</a><a href="#" onclick="showPage('blog')" class="btn-secondary">← Back to Blog</a></div>
+    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Experience the Difference</a><a href="#" onclick=\"return showPage('blog')\" class="btn-secondary">← Back to Blog</a></div>
   </div>
 </div>
 
 <div id="blog-maximizing-limo-page" class="page">
-  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><a href="#" onclick="showPage('blog')"> Blog</a></div><h1>Maximizing Your Limo Experience:<br><em>Tips for Clients</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Sep 2025 · 5 min read</p></div></div>
+  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span><a href="#" onclick=\"return showPage('blog')\"> Blog</a></div><h1>Maximizing Your Limo Experience:<br><em>Tips for Clients</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Sep 2025 · 5 min read</p></div></div>
   <div style="max-width:820px;margin:0 auto;padding:60px 5%;">
     <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=820&q=80&auto=format" alt="Maximizing limo experience tips clients" style="width:100%;border-radius:12px;margin-bottom:32px;" loading="lazy">
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">You've booked the limo. Smart choice. Now here's how to get the absolute most out of the experience — from the moment you confirm your reservation to the moment you step out at your destination looking like a person who absolutely has their life together.</p>
@@ -2602,12 +2615,12 @@ window.initAutocomplete = initAutocomplete;
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">For hourly bookings with multiple stops, having a rough itinerary helps us make sure you get everything done within your booked time. For weddings, we coordinate with your planner — but any timeline information you can share helps us prepare for the specific flow of your day.</p>
     <h2 style="color:var(--purple);font-family:'Cormorant Garamond',serif;font-size:1.7rem;margin:32px 0 14px;">Save the Driver's Contact in Your Phone</h2>
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">We send driver information automatically before every ride. Save it. This is particularly important for airport arrivals — if you come out of a different exit or your luggage takes longer than expected, a quick text to your driver is infinitely more effective than searching for an anonymous vehicle in a sea of cars outside arrivals.</p>
-    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Your Ride</a><a href="#" onclick="showPage('blog')" class="btn-secondary">← Back to Blog</a></div>
+    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Your Ride</a><a href="#" onclick=\"return showPage('blog')\" class="btn-secondary">← Back to Blog</a></div>
   </div>
 </div>
 
 <div id="blog-myths-debunked-page" class="page">
-  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><a href="#" onclick="showPage('blog')"> Blog</a></div><h1>5 Myths About Limousine Services<br><em>in Austin — Debunked</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Aug 2025 · 5 min read</p></div></div>
+  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span><a href="#" onclick=\"return showPage('blog')\"> Blog</a></div><h1>5 Myths About Limousine Services<br><em>in Austin — Debunked</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Aug 2025 · 5 min read</p></div></div>
   <div style="max-width:820px;margin:0 auto;padding:60px 5%;">
     <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=820&q=80&auto=format" alt="Limo service myths debunked Austin Texas" style="width:100%;border-radius:12px;margin-bottom:32px;" loading="lazy">
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">The limo industry has an image problem. Thanks to decades of movies, TV shows, and general cultural assumptions, most people have a mental picture of who uses limos and why — and that picture is usually wrong. Let's fix that.</p>
@@ -2621,12 +2634,12 @@ window.initAutocomplete = initAutocomplete;
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">They are absolutely not. Vehicle quality, driver training, pricing transparency, customer service responsiveness, and safety standards vary enormously between companies. The questions in our booking guide (do you own your vehicles? are drivers background-checked? is pricing all-inclusive?) exist precisely because the answers differ significantly company to company.</p>
     <h2 style="color:var(--purple);font-family:'Cormorant Garamond',serif;font-size:1.7rem;margin:32px 0 14px;">Myth 5: "Limos Are Tacky"</h2>
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">A 2026 Genesis G90 with a uniformed chauffeur is not tacky. A Mercedes-Benz S-Class is not tacky. A black Escalade SUV picking up an executive from AUS is not tacky. The perception that limos are tacky comes from Hollywood tropes and outdated imagery. Modern luxury transportation is elegant, understated, and impressive.</p>
-    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Your Ride</a><a href="#" onclick="showPage('blog')" class="btn-secondary">← Back to Blog</a></div>
+    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Your Ride</a><a href="#" onclick=\"return showPage('blog')\" class="btn-secondary">← Back to Blog</a></div>
   </div>
 </div>
 
 <div id="blog-choosing-right-limo-page" class="page">
-  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><a href="#" onclick="showPage('blog')"> Blog</a></div><h1>Expert Tips: Choosing the Right<br><em>Limousine Service for Your Event</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Aug 2025 · 6 min read</p></div></div>
+  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span><a href="#" onclick=\"return showPage('blog')\"> Blog</a></div><h1>Expert Tips: Choosing the Right<br><em>Limousine Service for Your Event</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Aug 2025 · 6 min read</p></div></div>
   <div style="max-width:820px;margin:0 auto;padding:60px 5%;">
     <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=820&q=80&auto=format" alt="Expert tips choosing right limo service" style="width:100%;border-radius:12px;margin-bottom:32px;" loading="lazy">
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Choosing a limo company is one of those decisions that seems simple until you start asking questions — and then you realize there's a lot of variation in the industry that isn't obvious from the outside. Here's the expert checklist that will serve you well regardless of which company you ultimately choose (including us, though we obviously hope it's us).</p>
@@ -2636,12 +2649,12 @@ window.initAutocomplete = initAutocomplete;
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Get a quote. Then ask: "Is that all-inclusive including gratuity, tolls, and all fees?" A company with truly all-inclusive pricing will say yes immediately and confidently. A company with hidden fees will start listing exceptions. That conversation tells you everything you need to know.</p>
     <h2 style="color:var(--purple);font-family:'Cormorant Garamond',serif;font-size:1.7rem;margin:32px 0 14px;">Reviews: What to Look For</h2>
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Read the negative reviews first. Not because companies should be judged by their worst days, but because how a company responds to criticism reveals its character. A company that responds professionally, acknowledges the issue, and explains what was done to fix it is a company that takes quality seriously. A company that argues with reviewers online is telling you something important.</p>
-    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book With Confidence</a><a href="#" onclick="showPage('blog')" class="btn-secondary">← Back to Blog</a></div>
+    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book With Confidence</a><a href="#" onclick=\"return showPage('blog')\" class="btn-secondary">← Back to Blog</a></div>
   </div>
 </div>
 
 <div id="blog-seasonal-planning-page" class="page">
-  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><a href="#" onclick="showPage('blog')"> Blog</a></div><h1>Seasonal Limo Service Planning in Austin:<br><em>What You Need to Know</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Aug 2025 · 6 min read</p></div></div>
+  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span><a href="#" onclick=\"return showPage('blog')\"> Blog</a></div><h1>Seasonal Limo Service Planning in Austin:<br><em>What You Need to Know</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Aug 2025 · 6 min read</p></div></div>
   <div style="max-width:820px;margin:0 auto;padding:60px 5%;">
     <img src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?w=820&q=80&auto=format" alt="Seasonal limo service planning Austin Texas calendar" style="width:100%;border-radius:12px;margin-bottom:32px;" loading="lazy">
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Austin has no slow season. Every month of the year has events, occasions, and reasons why a limo is the right call. But each season has its own booking dynamics — and understanding them is the difference between getting exactly what you want and calling us two weeks before ACL to ask if we have anything available (we might, but we can't promise the vehicle you had in mind).</p>
@@ -2653,12 +2666,12 @@ window.initAutocomplete = initAutocomplete;
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">ACL Fest, Formula 1, fall wedding season, UT football games — fall in Austin is spectacular and extraordinarily busy. If you have a fall event that requires transportation, book early. Especially for F1 weekend at COTA, which is arguably the most logistically challenging weekend of the Austin year.</p>
     <h2 style="color:var(--purple);font-family:'Cormorant Garamond',serif;font-size:1.7rem;margin:32px 0 14px;">Winter (December-February): Holiday Season</h2>
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Holiday parties, corporate events, New Year's Eve (book NYE transportation by early December — it goes fast), and winter weddings. January and February are actually among our most consistent months for airport transfers as business travel resumes after the holidays.</p>
-    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book in Advance</a><a href="#" onclick="showPage('blog')" class="btn-secondary">← Back to Blog</a></div>
+    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book in Advance</a><a href="#" onclick=\"return showPage('blog')\" class="btn-secondary">← Back to Blog</a></div>
   </div>
 </div>
 
 <div id="blog-success-stories-page" class="page">
-  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><a href="#" onclick="showPage('blog')"> Blog</a></div><h1>Success Stories: Memorable Events with<br><em>Purple Heart Limousine Services</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Jul 2025 · 7 min read</p></div></div>
+  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span><a href="#" onclick=\"return showPage('blog')\"> Blog</a></div><h1>Success Stories: Memorable Events with<br><em>Purple Heart Limousine Services</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Jul 2025 · 7 min read</p></div></div>
   <div style="max-width:820px;margin:0 auto;padding:60px 5%;">
     <img src="https://images.unsplash.com/photo-1464219551459-ac14ae01fbe0?w=820&q=80&auto=format" alt="Purple Heart Limo success stories memorable events Austin" style="width:100%;border-radius:12px;margin-bottom:32px;" loading="lazy">
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">After thousands of rides across Austin, Dallas, and Houston, we've accumulated a collection of stories that range from heartwarming to hilarious to genuinely moving. Here are some of our favorites — told with permission and, in a few cases, with the names changed because the people involved are now embarrassed about the 2am hot dog stand detour.</p>
@@ -2668,12 +2681,12 @@ window.initAutocomplete = initAutocomplete;
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">A tech executive flying into Austin-Bergstrom every two weeks for a year. Same driver, same vehicle, same morning playlist. What started as a business arrangement became something more genuine — the driver knew his coffee order, his kids' names, and that he needed 20 minutes of silence after a red-eye before he was ready to talk. He renewed his corporate account for a third year and sent a handwritten note to our team at Christmas.</p>
     <h2 style="color:var(--purple);font-family:'Cormorant Garamond',serif;font-size:1.7rem;margin:32px 0 14px;">The Prom Group That Made Us Proud</h2>
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Fourteen students in an Escalade Stretch, all dressed up for prom, absolutely vibrating with excitement. At the end of the night, every student — every single one — said thank you to the driver by name before getting out of the vehicle. Their parents had raised them right. And yes, we teared up a little. We're veterans, not robots.</p>
-    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Create Your Story</a><a href="#" onclick="showPage('blog')" class="btn-secondary">← Back to Blog</a></div>
+    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Create Your Story</a><a href="#" onclick=\"return showPage('blog')\" class="btn-secondary">← Back to Blog</a></div>
   </div>
 </div>
 
 <div id="blog-ultimate-booking-guide-page" class="page">
-  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick="showPage('home')">Home</a><span>›</span><a href="#" onclick="showPage('blog')"> Blog</a></div><h1>The Ultimate Guide to Booking<br><em>a Limo Service in Austin</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Jul 2025 · 8 min read</p></div></div>
+  <div class="svc-hero"><div class="svc-hero-inner"><div class="breadcrumb"><a href="#" onclick=\"return showPage('home')\">Home</a><span>›</span><a href="#" onclick=\"return showPage('blog')\"> Blog</a></div><h1>The Ultimate Guide to Booking<br><em>a Limo Service in Austin</em></h1><div class="svc-hero-divider"></div><p style="color:rgba(255,255,255,0.7);">Jul 2025 · 8 min read</p></div></div>
   <div style="max-width:820px;margin:0 auto;padding:60px 5%;">
     <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=820&q=80&auto=format" alt="Ultimate guide booking limo service Austin Texas" style="width:100%;border-radius:12px;margin-bottom:32px;" loading="lazy">
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">This is the guide we wish existed when people first started asking us how to book a limo. It covers everything from the first Google search to the moment your ride arrives — including the questions nobody thinks to ask until something goes wrong, and the red flags that tell you to keep looking.</p>
@@ -2685,10 +2698,11 @@ window.initAutocomplete = initAutocomplete;
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Any legitimate limo company will send written confirmation with: vehicle type and description, pickup time and location, total price (and confirmation that it's all-inclusive), cancellation policy, and driver contact information. If you don't receive this, ask for it explicitly. If they won't provide it, book elsewhere.</p>
     <h2 style="color:var(--purple);font-family:'Cormorant Garamond',serif;font-size:1.7rem;margin:32px 0 14px;">Step 4: Day-Of Preparation</h2>
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Save the driver's contact information in your phone. Confirm the pickup address is correct and accessible. For airport arrivals, add your flight number to the booking if you haven't already so the driver can track your landing. Have the company's 24/7 number as a backup. Be ready slightly before your pickup time — good drivers arrive early, and it's a small courtesy to be ready for them.</p>
-    <div style="background:var(--gray-light);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:20px 24px;margin:28px 0;"><p style="color:var(--purple);font-size:0.9rem;line-height:1.7;margin:0;">Ready to book? Purple Heart Limo serves Austin, Dallas-Fort Worth, and Houston. Call <a href="tel:+18337400700" style="color:var(--gold);font-weight:700;">+1 (833) 740-0700</a> or book online — confirmation in 5 minutes.</p></div>
-    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Your Limo Now</a><a href="#" onclick="showPage('blog')" class="btn-secondary">← Back to Blog</a></div>
+    <div style="background:var(--gray-light);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:20px 24px;margin:28px 0;"><p style="color:var(--purple);font-size:0.9rem;line-height:1.7;margin:0;">Ready to book? Purple Heart Limo serves Austin, Dallas-Fort Worth, and Houston. Call <a href="tel:+18337400700" style="color:var(--gold);font-weight:700;">(8337) 400-700</a> or book online — confirmation in 5 minutes.</p></div>
+    <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Your Limo Now</a><a href="#" onclick=\"return showPage('blog')\" class="btn-secondary">← Back to Blog</a></div>
   </div>
 </div>
 
 </body>
 </html>
+<!-- Navigation fix applied -->
