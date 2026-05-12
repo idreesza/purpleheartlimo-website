@@ -325,5 +325,46 @@
 
   <button class="scroll-top" id="scrollTop" aria-label="Back to top">&#8679;</button>
   <script src="js/main.js"></script>
+  <script>
+  // Nominatim free address autocomplete
+  function initNominatimContact(inputId) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    const list = document.createElement('ul');
+    list.style.cssText = 'position:absolute;z-index:9999;background:#fff;border:1.5px solid #ccc;border-top:none;border-radius:0 0 8px 8px;list-style:none;margin:0;padding:0;max-height:210px;overflow-y:auto;width:100%;box-shadow:0 6px 20px rgba(0,0,0,0.12);display:none;';
+    const wrap = input.parentElement;
+    wrap.style.position = 'relative';
+    wrap.appendChild(list);
+    let timer;
+    input.addEventListener('input', () => {
+      clearTimeout(timer);
+      const q = input.value.trim();
+      if (q.length < 3) { list.style.display = 'none'; return; }
+      timer = setTimeout(async () => {
+        try {
+          const res = await fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(q) + '&countrycodes=us&limit=6', {headers:{'Accept-Language':'en'}});
+          const data = await res.json();
+          list.innerHTML = '';
+          if (!data.length) { list.style.display = 'none'; return; }
+          data.forEach(place => {
+            const li = document.createElement('li');
+            li.style.cssText = 'padding:10px 14px;cursor:pointer;font-size:0.84rem;color:#222;border-bottom:1px solid #f0f0f0;';
+            li.textContent = place.display_name;
+            li.addEventListener('mousedown', e => { e.preventDefault(); input.value = place.display_name; list.style.display = 'none'; });
+            li.addEventListener('mouseover', () => li.style.background = '#f5f0ff');
+            li.addEventListener('mouseout', () => li.style.background = '');
+            list.appendChild(li);
+          });
+          list.style.display = 'block';
+        } catch(e) { list.style.display = 'none'; }
+      }, 350);
+    });
+    input.addEventListener('blur', () => setTimeout(() => list.style.display = 'none', 200));
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    initNominatimContact('pickup');
+    initNominatimContact('dropoff');
+  });
+  </script>
 </body>
 </html>
