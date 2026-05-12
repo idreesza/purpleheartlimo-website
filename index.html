@@ -708,8 +708,8 @@ footer {
 
 <!-- ===== NAVBAR ===== -->
 <nav class="navbar" id="navbar">
-  <a href="#" class="nav-logo" onclick=\"return showPage('home')\">
-    <img src="logo.png" alt="Purple Heart Limo Logo" style="width:44px;height:44px;object-fit:contain;border-radius:50%;">
+  <a href="/" class="nav-logo">
+    <img src="/logo.webp" alt="Purple Heart Limo Logo" style="width:44px;height:44px;object-fit:contain;border-radius:50%;">
     <div>
       <div class="nav-logo-text">Purple Heart Limo</div>
       <span class="nav-logo-sub">Veteran Owned · TX</span>
@@ -718,28 +718,27 @@ footer {
 
   <ul class="nav-links">
     <li class="dropdown">
-      <a href="#" onclick="return false;">Services ▾</a>
+      <a href="/services.html">Services ▾</a>
       <div class="dropdown-menu">
-        <a href="#" onclick=\"return showPage('airport')\">✈️ Airport Transfer</a>
-        <a href="#" onclick=\"return showPage('wedding')\">💍 Wedding Limo</a>
-        <a href="#" onclick=\"return showPage('corporate')\">💼 Corporate Travel</a>
-        <a href="#" onclick=\"return showPage('prom')\">🎓 Prom & Graduation</a>
-        <a href="#" onclick=\"return showPage('nightout')\">🥂 Night Out & Party</a>
-        <a href="#" onclick=\"return showPage('hourly')\">🕐 Hourly Service</a>
-        <a href="#" onclick=\"return showPage('quinceaneara')\">🌹 Quinceañera</a>
-        <a href="#" onclick=\"return showPage('worldcup')\">⚽ World Cup 2026</a>
+        <a href="/services.html#airport">✈️ Airport Transfer</a>
+        <a href="/services.html#wedding">💍 Wedding Limo</a>
+        <a href="/services.html#corporate">💼 Corporate Travel</a>
+        <a href="/services.html#prom">🎓 Prom & Graduation</a>
+        <a href="/services.html#nightout">🥂 Night Out & Party</a>
+        <a href="/services.html#hourly">🕐 Hourly Service</a>
+        <a href="/services.html#quinceaneara">🌹 Quinceañera</a>
+        <a href="/services.html#worldcup">⚽ World Cup 2026</a>
       </div>
     </li>
-    <li><a href="#" onclick=\"return showPage('fleet')\">Our Fleet</a></li>
-    <li><a href="#" onclick=\"return showPage('blog')\">Blog</a></li>
-    <li><a href="#" onclick=\"return showPage('about')\">About</a></li>
-    <li><a href="#" onclick=\"return showPage('contact')\">Contact</a></li>
-    <li><a href="#" onclick=\"return showPage('es-home')\" style="color:var(--gold);font-weight:600;">🇲🇽 ES</a></li>
+    <li><a href="/fleet.html">Our Fleet</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/contact.html">Contact</a></li>
   </ul>
 
   <div class="nav-cta">
-    <a href="tel:+18337400700" class="nav-phone">📞 (8337) 400-700</a>
-    <a href="#" class="btn-primary" onclick=\"return showPage('contact')\" style="padding:10px 20px;font-size:0.78rem;">Book Now</a>
+    <a href="tel:+18337400700" class="nav-phone">📞 (833) 740-0700</a>
+    <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="padding:10px 20px;font-size:0.78rem;">Book Now</a>
   </div>
   <button class="hamburger" onclick="toggleMenu()" id="hamburger">
     <span></span><span></span><span></span>
@@ -748,12 +747,15 @@ footer {
 
 <!-- Mobile menu -->
 <div id="mobile-menu" style="display:none;position:fixed;top:72px;left:0;right:0;background:white;z-index:999;padding:20px;box-shadow:var(--shadow-lg);border-bottom:2px solid var(--gray-light);">
-  <a href="#" onclick=\"showPage('airport');toggleMenu();return false;\" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">✈️ Airport Transfer</a>
-  <a href="#" onclick=\"showPage('wedding');toggleMenu();return false;\" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">💍 Wedding Limo</a>
-  <a href="#" onclick=\"showPage('corporate');toggleMenu();return false;\" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">💼 Corporate Travel</a>
-  <a href="#" onclick=\"showPage('fleet');toggleMenu();return false;\" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">🚗 Our Fleet</a>
-  <a href="#" onclick=\"showPage('blog');toggleMenu();return false;\" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">📝 Blog</a>
-  <a href="#" onclick=\"showPage('contact');toggleMenu();return false;\" style="display:block;padding:14px;margin-top:8px;" class="btn-primary">Book Now</a>
+  <a href="/services.html" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">Services</a>
+  <a href="/services.html#airport" style="display:block;padding:12px 12px 12px 24px;font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--gray-light);">✈️ Airport Transfer</a>
+  <a href="/services.html#wedding" style="display:block;padding:12px 12px 12px 24px;font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--gray-light);">💍 Wedding Limo</a>
+  <a href="/services.html#corporate" style="display:block;padding:12px 12px 12px 24px;font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--gray-light);">💼 Corporate Travel</a>
+  <a href="/fleet.html" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">🚗 Our Fleet</a>
+  <a href="/blog/" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">📝 Blog</a>
+  <a href="/about.html" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">About Us</a>
+  <a href="/contact.html" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">Contact</a>
+  <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" style="display:block;padding:14px;margin-top:8px;" class="btn-primary">Book Now</a>
 </div>
 
 <!-- ===== FLOATING WIDGETS ===== -->
