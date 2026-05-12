@@ -4,297 +4,544 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Our Fleet | Purple Heart Limo Austin TX | Sedans, Limos &amp; Party Buses</title>
-  <meta name="description" content="Explore Purple Heart Limo's luxury fleet in Austin, TX — executive sedans, stretch limousines, SUV limos, sprinter vans & party buses. Find the perfect vehicle for your occasion.">
-  <meta name="keywords" content="limo fleet Austin TX, party bus Austin, stretch limo Austin, SUV limo Austin, sprinter van Austin, luxury vehicles Austin Texas">
+  <meta name="description" content="Explore Purple Heart Limo's luxury fleet — executive sedans, stretch limousines, SUV limos, sprinter vans & party buses. Find the perfect vehicle for your occasion.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://purpleheartlimo.com/fleet.html">
-  <meta property="og:type"        content="website">
-  <meta property="og:url"         content="https://purpleheartlimo.com/fleet.html">
-  <meta property="og:title"       content="Luxury Fleet | Purple Heart Limo Austin TX">
-  <meta property="og:description" content="Sedans, stretch limos, SUV limos, sprinter vans, and party buses available in Austin, TX.">
-  <meta property="og:image"       content="https://purpleheartlimo.com/images/og-image.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+:root{--purple:#2D0045;--purple-mid:#4a0070;--gold:#C9A84C;--gold-light:#E2C36A;--white:#FFFFFF;--gray:#6B7280;--gray-light:#F3F0FF;--text:#1a0028;--dark:#0f0f0f;--dark2:#1a1a1a;--dark3:#242424;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;color:#f5f5f5;background:var(--dark);overflow-x:hidden;}
+h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;}
+a{text-decoration:none;color:inherit;}
+
+/* NAV */
+.header{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all 0.3s;padding:1rem 5%;}
+.header.scrolled{background:rgba(15,15,15,0.97);backdrop-filter:blur(12px);box-shadow:0 2px 30px rgba(0,0,0,0.6);padding:0.6rem 5%;}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-logo img{width:44px;height:44px;object-fit:contain;border-radius:50%;}
+.nav-logo-text{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:#fff;}
+.nav-logo-sub{font-size:0.6rem;font-weight:500;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;display:block;}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+.nav-links a{color:rgba(255,255,255,0.85);font-size:0.88rem;font-weight:500;transition:color 0.2s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--gold);transition:width 0.3s;}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+.nav-cta{display:flex;align-items:center;gap:1rem;}
+.nav-phone{color:var(--gold);font-weight:700;font-size:0.88rem;}
+.btn-gold{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--dark);padding:10px 22px;border-radius:50px;font-size:0.82rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 16px rgba(201,168,76,0.4);}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,0.5);}
+.menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:0.5rem;background:none;border:none;}
+.menu-toggle span{display:block;width:25px;height:2px;background:#fff;transition:all 0.3s;border-radius:2px;}
+.menu-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.menu-toggle.active span:nth-child(2){opacity:0;}
+.menu-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+@media(max-width:768px){
+  .nav-links{position:fixed;top:0;right:-100%;width:280px;height:100vh;background:var(--dark2);flex-direction:column;align-items:flex-start;padding:5rem 2rem 2rem;gap:1.5rem;transition:right 0.3s;box-shadow:-5px 0 30px rgba(0,0,0,0.5);z-index:999;}
+  .nav-links.open{right:0;}
+  .menu-toggle{display:flex;}
+  .nav-cta .btn-gold{display:none;}
+}
+
+/* PAGE HERO */
+.page-hero{padding:9rem 5% 5rem;background:linear-gradient(135deg,#0f0f0f 0%,#1a0533 100%);position:relative;overflow:hidden;text-align:center;}
+.page-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top,rgba(124,58,237,0.15) 0%,transparent 70%);pointer-events:none;}
+.page-hero .inner{position:relative;z-index:2;}
+.section-label{display:inline-block;font-size:0.75rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;}
+.page-hero h1{font-size:clamp(2.2rem,5vw,3.5rem);color:#fff;margin-bottom:1rem;}
+.page-hero h1 em{color:var(--gold);font-style:italic;}
+.page-hero p{color:rgba(255,255,255,0.65);max-width:600px;margin:0 auto;font-size:1.05rem;}
+
+/* =====================================================
+   BLACKLANE-STYLE FLEET SHOWCASE — Car slides from right
+   ===================================================== */
+.fleet-showcase{padding:5rem 0;background:var(--dark);}
+.fleet-tabs{display:flex;justify-content:center;gap:0.5rem;flex-wrap:wrap;padding:0 5%;margin-bottom:3rem;}
+.fleet-tab{background:var(--dark2);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);padding:0.65rem 1.4rem;border-radius:50px;font-size:0.82rem;font-weight:600;cursor:pointer;transition:all 0.25s;white-space:nowrap;}
+.fleet-tab:hover{border-color:var(--gold);color:var(--gold);}
+.fleet-tab.active{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--dark);border-color:transparent;box-shadow:0 4px 16px rgba(201,168,76,0.4);}
+
+.fleet-stage{position:relative;overflow:hidden;background:var(--dark2);border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);}
+.fleet-panel{display:none;min-height:520px;}
+.fleet-panel.active{display:grid;grid-template-columns:1fr 1fr;align-items:center;}
+
+/* Car slides in from right */
+.fleet-panel .car-side{position:relative;overflow:hidden;min-height:520px;display:flex;align-items:center;justify-content:center;}
+.fleet-panel .car-side img{width:100%;height:100%;object-fit:cover;transform:translateX(100%);opacity:0;transition:transform 0.7s cubic-bezier(0.22,1,0.36,1),opacity 0.5s ease;}
+.fleet-panel.active .car-side img{transform:translateX(0);opacity:1;}
+
+/* Overlay gradient so text reads on the car side */
+.fleet-panel .car-side::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,var(--dark2) 0%,transparent 40%);}
+
+.fleet-panel .info-side{padding:3.5rem 4rem 3.5rem 3rem;}
+.vehicle-badge{font-size:0.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:block;}
+.fleet-panel h2{font-size:clamp(1.8rem,3vw,2.6rem);color:#fff;font-weight:400;margin-bottom:0.5rem;line-height:1.2;}
+.fleet-panel h2 em{color:var(--gold);font-style:italic;}
+.capacity-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);color:var(--gold);padding:0.35rem 0.9rem;border-radius:50px;font-size:0.82rem;font-weight:600;margin-bottom:1.25rem;}
+.fleet-panel p{color:rgba(255,255,255,0.65);line-height:1.85;margin-bottom:1.75rem;font-size:0.95rem;}
+.feature-chips{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2rem;}
+.chip{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.75);padding:0.35rem 0.85rem;border-radius:50px;font-size:0.78rem;}
+.chip::before{content:'✓ ';}
+.fleet-actions{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-outline-gold{display:inline-flex;align-items:center;gap:6px;background:transparent;color:var(--gold);padding:10px 22px;border-radius:50px;font-size:0.82rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;border:2px solid var(--gold);transition:all 0.2s;}
+.btn-outline-gold:hover{background:var(--gold);color:var(--dark);}
+
+/* Arrow nav */
+.fleet-arrows{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 5%;background:var(--dark3);}
+.fleet-arrow{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);background:none;color:#fff;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.fleet-arrow:hover{border-color:var(--gold);color:var(--gold);}
+.fleet-counter{color:rgba(255,255,255,0.4);font-size:0.85rem;letter-spacing:1px;}
+.fleet-dots{display:flex;gap:0.5rem;}
+.fleet-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.2);cursor:pointer;transition:all 0.25s;}
+.fleet-dot.active{background:var(--gold);width:22px;border-radius:4px;}
+
+@media(max-width:900px){
+  .fleet-panel.active{grid-template-columns:1fr;}
+  .fleet-panel .car-side{min-height:280px;}
+  .fleet-panel .car-side::after{background:linear-gradient(to top,var(--dark2) 0%,transparent 40%);}
+  .fleet-panel .info-side{padding:2rem 5%;}
+}
+
+/* FLEET POLICIES */
+.policies-section{padding:5rem 5%;background:var(--dark2);}
+.policies-section .inner{max-width:1100px;margin:0 auto;}
+.section-header{text-align:center;margin-bottom:3rem;}
+.section-title{font-size:clamp(1.8rem,3.5vw,2.5rem);color:#fff;margin-bottom:0.75rem;}
+.section-desc{color:rgba(255,255,255,0.55);max-width:540px;margin:0 auto;font-size:0.95rem;}
+.policies-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;}
+.policy-card{background:var(--dark3);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:1.75rem;}
+.policy-card h4{color:var(--gold);margin-bottom:0.75rem;font-size:1.05rem;display:flex;align-items:center;gap:0.5rem;}
+.policy-card p{color:rgba(255,255,255,0.55);font-size:0.88rem;line-height:1.75;}
+
+/* CTA */
+.cta-section{padding:5rem 5%;text-align:center;background:linear-gradient(135deg,#1a0533,#2d1b69);}
+.cta-section h2{font-size:clamp(1.8rem,3.5vw,2.6rem);color:#fff;margin-bottom:1rem;}
+.cta-section p{color:rgba(255,255,255,0.65);margin-bottom:2rem;font-size:1rem;}
+.btn-group{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;}
+.btn-call{display:inline-flex;align-items:center;gap:6px;background:transparent;color:#fff;padding:10px 22px;border-radius:50px;font-size:0.82rem;font-weight:700;text-transform:uppercase;border:2px solid rgba(255,255,255,0.35);transition:all 0.2s;}
+.btn-call:hover{border-color:#fff;background:rgba(255,255,255,0.08);}
+
+/* FOOTER */
+footer{background:var(--dark2);border-top:1px solid rgba(255,255,255,0.07);padding:4rem 5% 2rem;}
+.footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;}
+.footer-brand-name{font-family:'Cormorant Garamond',serif;font-size:1.45rem;color:#fff;margin-bottom:0.5rem;}
+.footer-brand-name span{color:var(--gold);}
+.footer-brand p{color:rgba(255,255,255,0.45);font-size:0.88rem;line-height:1.75;margin-bottom:1rem;}
+.footer-heading{color:#fff;font-size:0.82rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:1rem;}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:0.6rem;}
+.footer-links a{color:rgba(255,255,255,0.45);font-size:0.88rem;transition:color 0.2s;}
+.footer-links a:hover{color:var(--gold);}
+.footer-contact-item{display:flex;align-items:flex-start;gap:0.6rem;font-size:0.88rem;color:rgba(255,255,255,0.45);margin-bottom:0.6rem;}
+.footer-contact-item a{color:rgba(255,255,255,0.45);}
+.footer-contact-item a:hover{color:var(--gold);}
+.footer-social{display:flex;gap:0.5rem;margin-top:1rem;}
+.footer-social a{width:36px;height:36px;background:var(--dark3);border:1px solid rgba(255,255,255,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.45);font-size:0.85rem;font-weight:700;transition:all 0.2s;}
+.footer-social a:hover{background:var(--purple-mid);border-color:var(--purple-mid);color:#fff;}
+.footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid rgba(255,255,255,0.07);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-bottom p{color:rgba(255,255,255,0.3);font-size:0.82rem;}
+.footer-bottom-links{display:flex;gap:1.5rem;}
+.footer-bottom-links a{color:rgba(255,255,255,0.3);font-size:0.82rem;}
+.footer-bottom-links a:hover{color:var(--gold);}
+@media(max-width:1024px){.footer-grid{grid-template-columns:1fr 1fr;gap:2rem;}}
+@media(max-width:600px){.footer-grid{grid-template-columns:1fr;}.footer-bottom{flex-direction:column;text-align:center;}}
+.scroll-top{position:fixed;bottom:2rem;right:2rem;width:44px;height:44px;background:var(--purple-mid);color:#fff;border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:translateY(10px);transition:all 0.3s;z-index:500;font-size:1.2rem;}
+.scroll-top.visible{opacity:1;transform:translateY(0);}
+.scroll-top:hover{transform:translateY(-3px);}
+  </style>
 </head>
 <body>
 
-  <header class="header" id="header">
-    <div class="container">
-      <nav class="nav">
-        <a href="index.html" class="nav-logo">
-          <span class="nav-logo-name">Purple <span>Heart</span> Limo</span>
-          <span class="nav-logo-tagline">Austin's Premier Limousine Service</span>
-        </a>
-        <ul class="nav-links" id="navLinks">
-          <li><a href="/">Home</a></li>
-          <li><a href="/services.html">Services</a></li>
-          <li><a href="/fleet.html" class="active">Fleet</a></li>
-          <li><a href="/blog/">Blog</a></li>
-          <li><a href="/about.html">About</a></li>
-          <li><a href="/contact.html">Contact</a></li>
-        </ul>
-        <div class="nav-cta">
-          <a href="tel:+18337400700" class="nav-phone">&#128222; (833) 740-0700</a>
-          <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn btn-gold btn-sm">Book Now</a>
-        </div>
-        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
-          <span></span><span></span><span></span>
-        </button>
-      </nav>
+<header class="header" id="header">
+  <div class="nav">
+    <a href="/" class="nav-logo">
+      <img src="/logo.webp" alt="Purple Heart Limo">
+      <div><div class="nav-logo-text">Purple Heart Limo</div><span class="nav-logo-sub">Veteran Owned · TX</span></div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/services.html">Services</a></li>
+      <li><a href="/fleet.html" class="active">Fleet</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="tel:+18337400700" class="nav-phone">📞 (833) 740-0700</a>
+      <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-gold">Book Now</a>
     </div>
-  </header>
+    <button class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button>
+  </div>
+</header>
 
-  <main>
+<section class="page-hero">
+  <div class="inner">
+    <span class="section-label">Our Vehicles</span>
+    <h1>The Purple Heart <em>Fleet</em></h1>
+    <p>Every vehicle meticulously maintained, professionally detailed, and ready to deliver the luxury experience you deserve. Select a vehicle below to explore.</p>
+  </div>
+</section>
 
-    <section class="page-hero">
-      <div class="container">
-        <span class="section-label">Our Vehicles</span>
-        <h1>The Purple Heart Fleet</h1>
-        <p class="section-desc">Every vehicle is meticulously maintained, professionally cleaned, and inspected before each ride. Choose the perfect vehicle for your occasion.</p>
-        <div class="breadcrumb"><a href="index.html">Home</a> &rsaquo; <span>Fleet</span></div>
+<!-- FLEET TABS -->
+<section class="fleet-showcase">
+  <div class="fleet-tabs" id="fleetTabs">
+    <button class="fleet-tab active" data-panel="sedan">Executive Sedan</button>
+    <button class="fleet-tab" data-panel="suv">Luxury SUV</button>
+    <button class="fleet-tab" data-panel="stretch">Stretch Limo</button>
+    <button class="fleet-tab" data-panel="sprinter">Sprinter Van</button>
+    <button class="fleet-tab" data-panel="partybus">Party Bus</button>
+    <button class="fleet-tab" data-panel="jet">Sprinter Jet</button>
+  </div>
+
+  <div class="fleet-stage">
+
+    <!-- Executive Sedan -->
+    <div class="fleet-panel active" id="panel-sedan">
+      <div class="car-side">
+        <img src="images/sedan.webp" alt="Executive Sedan — Purple Heart Limo" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=900&q=75&auto=format'">
       </div>
-    </section>
-
-    <!-- Fleet Listing -->
-    <section class="section">
-      <div class="container">
-        <div class="fleet-grid">
-
-          <!-- Executive Sedan -->
-          <div class="fleet-card">
-            <div class="fleet-card-img">
-              <img src="images/sedan.jpg" alt="Executive Sedan - Purple Heart Limo Austin TX" loading="lazy" onerror="this.style.display='none'">
-              <div class="fleet-placeholder">&#128663;</div>
-            </div>
-            <div class="fleet-card-body">
-              <h3>Executive Sedan</h3>
-              <div class="fleet-capacity">&#128101; 1–3 Passengers</div>
-              <p class="fleet-desc">Our executive sedan is the perfect choice for solo business travel, airport transfers, and intimate point-to-point rides. Sleek, professional, and impeccably clean.</p>
-              <ul class="fleet-features">
-                <li>Premium Leather</li>
-                <li>Climate Control</li>
-                <li>Wi-Fi Available</li>
-                <li>USB Charging</li>
-                <li>Bottled Water</li>
-                <li>Privacy Shades</li>
-              </ul>
-              <a href="contact.html" class="btn btn-gold btn-sm" style="margin-top:0.75rem;">Book This Vehicle</a>
-            </div>
-          </div>
-
-          <!-- Mercedes-Benz S-Class -->
-          <div class="fleet-card">
-            <div class="fleet-card-img">
-              <img src="images/mercedes.jpg" alt="Mercedes-Benz S-Class - Purple Heart Limo Austin TX" loading="lazy" onerror="this.style.display='none'">
-              <div class="fleet-placeholder">&#128663;</div>
-            </div>
-            <div class="fleet-card-body">
-              <h3>Mercedes-Benz S-Class</h3>
-              <div class="fleet-capacity">&#128101; 1–3 Passengers</div>
-              <p class="fleet-desc">For those who demand the very best, our Mercedes-Benz S-Class delivers unrivaled luxury. Ideal for executives and VIP clients expecting a premium experience.</p>
-              <ul class="fleet-features">
-                <li>Massaging Seats</li>
-                <li>Ambient Lighting</li>
-                <li>Wi-Fi Hotspot</li>
-                <li>Champagne Service</li>
-                <li>Noise Isolation</li>
-                <li>Luggage Space</li>
-              </ul>
-              <a href="contact.html" class="btn btn-gold btn-sm" style="margin-top:0.75rem;">Book This Vehicle</a>
-            </div>
-          </div>
-
-          <!-- SUV Limousine -->
-          <div class="fleet-card">
-            <div class="fleet-card-img">
-              <img src="images/suv-limo.jpg" alt="Luxury SUV Limousine - Purple Heart Limo Austin TX" loading="lazy" onerror="this.style.display='none'">
-              <div class="fleet-placeholder">&#128665;</div>
-            </div>
-            <div class="fleet-card-body">
-              <h3>Luxury SUV Limo</h3>
-              <div class="fleet-capacity">&#128101; Up to 8 Passengers</div>
-              <p class="fleet-desc">The perfect blend of elegance and spaciousness. Our SUV limousine accommodates larger groups while maintaining the luxury experience you expect from Purple Heart Limo.</p>
-              <ul class="fleet-features">
-                <li>Leather Seating</li>
-                <li>LED Lighting</li>
-                <li>Surround Sound</li>
-                <li>Bar Area</li>
-                <li>Tinted Windows</li>
-                <li>Climate Control</li>
-              </ul>
-              <a href="contact.html" class="btn btn-gold btn-sm" style="margin-top:0.75rem;">Book This Vehicle</a>
-            </div>
-          </div>
-
-          <!-- Stretch Limousine -->
-          <div class="fleet-card">
-            <div class="fleet-card-img">
-              <img src="images/stretch-limo.jpg" alt="Stretch Limousine - Purple Heart Limo Austin TX" loading="lazy" onerror="this.style.display='none'">
-              <div class="fleet-placeholder">&#128663;</div>
-            </div>
-            <div class="fleet-card-body">
-              <h3>Stretch Limousine</h3>
-              <div class="fleet-capacity">&#128101; Up to 10 Passengers</div>
-              <p class="fleet-desc">The classic stretch limo — an icon of luxury transportation. Perfect for weddings, proms, and any occasion that calls for a grand arrival.</p>
-              <ul class="fleet-features">
-                <li>Full Bar Setup</li>
-                <li>LED Lighting</li>
-                <li>Premium Sound</li>
-                <li>Privacy Divider</li>
-                <li>Mirrored Ceiling</li>
-                <li>Champagne Service</li>
-              </ul>
-              <a href="contact.html" class="btn btn-gold btn-sm" style="margin-top:0.75rem;">Book This Vehicle</a>
-            </div>
-          </div>
-
-          <!-- Executive Sprinter Van -->
-          <div class="fleet-card">
-            <div class="fleet-card-img">
-              <img src="images/sprinter.jpg" alt="Executive Sprinter Van - Purple Heart Limo Austin TX" loading="lazy" onerror="this.style.display='none'">
-              <div class="fleet-placeholder">&#128657;</div>
-            </div>
-            <div class="fleet-card-body">
-              <h3>Executive Sprinter Van</h3>
-              <div class="fleet-capacity">&#128101; Up to 14 Passengers</div>
-              <p class="fleet-desc">A versatile luxury sprinter van for group travel. Ideal for corporate team transport, airport group pickups, and multi-stop event logistics.</p>
-              <ul class="fleet-features">
-                <li>Captain's Chairs</li>
-                <li>Entertainment Screen</li>
-                <li>Wi-Fi Hotspot</li>
-                <li>USB Ports</li>
-                <li>Ample Luggage</li>
-                <li>Privacy Windows</li>
-              </ul>
-              <a href="contact.html" class="btn btn-gold btn-sm" style="margin-top:0.75rem;">Book This Vehicle</a>
-            </div>
-          </div>
-
-          <!-- Party Bus -->
-          <div class="fleet-card">
-            <div class="fleet-card-img">
-              <img src="images/party-bus.jpg" alt="Luxury Party Bus - Purple Heart Limo Austin TX" loading="lazy" onerror="this.style.display='none'">
-              <div class="fleet-placeholder">&#128652;</div>
-            </div>
-            <div class="fleet-card-body">
-              <h3>Luxury Party Bus</h3>
-              <div class="fleet-capacity">&#128101; Up to 20 Passengers</div>
-              <p class="fleet-desc">The ultimate group experience on wheels. Our party bus turns the ride into the event itself — complete with dance floor, premium sound, and VIP-grade amenities.</p>
-              <ul class="fleet-features">
-                <li>Full Dance Floor</li>
-                <li>Premium Sound</li>
-                <li>LED Mood Lighting</li>
-                <li>VIP Bar Area</li>
-                <li>Flat Screen TVs</li>
-                <li>Bluetooth Hookup</li>
-              </ul>
-              <a href="contact.html" class="btn btn-gold btn-sm" style="margin-top:0.75rem;">Book This Vehicle</a>
-            </div>
-          </div>
-
+      <div class="info-side">
+        <span class="vehicle-badge">Vehicle 01 of 06</span>
+        <h2>Executive <em>Sedan</em></h2>
+        <div class="capacity-badge">👤 1–3 Passengers</div>
+        <p>The definitive choice for solo business travel, executive airport transfers, and point-to-point rides where a professional first impression matters. Sleek, silent, and impeccably clean every time.</p>
+        <div class="feature-chips">
+          <span class="chip">Premium Leather</span>
+          <span class="chip">Climate Control</span>
+          <span class="chip">Wi-Fi Available</span>
+          <span class="chip">USB Charging</span>
+          <span class="chip">Bottled Water</span>
+          <span class="chip">Privacy Shades</span>
         </div>
-      </div>
-    </section>
-
-    <!-- Fleet Policies -->
-    <section class="section bg-dark-2">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label">Good to Know</span>
-          <h2 class="section-title">Fleet Policies &amp; Information</h2>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.5rem;">
-          <div style="background:var(--dark-3);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.75rem;">
-            <h4 style="color:var(--accent);margin-bottom:0.75rem;">&#128204; Cleanliness Standard</h4>
-            <p style="color:var(--text-muted);font-size:0.9rem;">Every vehicle is professionally detailed and inspected before each trip. We take immense pride in presenting pristine vehicles every single time.</p>
-          </div>
-          <div style="background:var(--dark-3);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.75rem;">
-            <h4 style="color:var(--accent);margin-bottom:0.75rem;">&#127761; Maintenance Schedule</h4>
-            <p style="color:var(--text-muted);font-size:0.9rem;">All vehicles follow strict preventative maintenance schedules and are regularly inspected by certified mechanics to ensure your safety and comfort.</p>
-          </div>
-          <div style="background:var(--dark-3);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.75rem;">
-            <h4 style="color:var(--accent);margin-bottom:0.75rem;">&#128522; Non-Smoking Policy</h4>
-            <p style="color:var(--text-muted);font-size:0.9rem;">All Purple Heart Limo vehicles are strictly non-smoking. This ensures every client enjoys a fresh, clean environment regardless of the previous rider.</p>
-          </div>
-          <div style="background:var(--dark-3);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.75rem;">
-            <h4 style="color:var(--accent);margin-bottom:0.75rem;">&#128038; Pet Policy</h4>
-            <p style="color:var(--text-muted);font-size:0.9rem;">Service animals are always welcome. For pet transportation inquiries, please contact us in advance so we can prepare appropriately.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta-section">
-      <div class="container">
-        <span class="section-label">Let's Ride</span>
-        <h2>Reserve Your Perfect Vehicle</h2>
-        <p>Contact us today for availability, pricing, and a personalized quote for your occasion.</p>
-        <div class="btn-group" style="justify-content:center;">
-          <a href="contact.html" class="btn btn-gold btn-lg">Get a Free Quote</a>
-          <a href="tel:+15128900900" class="btn btn-outline btn-lg">&#128222; (512) 890-0900</a>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <h3>Purple <span>Heart</span> Limo</h3>
-          <p>Austin's premier luxury limousine service. Veteran-owned, professionally operated, dedicated to excellence on every ride.</p>
-          <div class="footer-social">
-            <a href="#" aria-label="Facebook">f</a>
-            <a href="#" aria-label="Instagram">in</a>
-            <a href="#" aria-label="Google">G</a>
-            <a href="#" aria-label="Yelp">Y</a>
-          </div>
-        </div>
-        <div>
-          <h4 class="footer-heading">Services</h4>
-          <ul class="footer-links">
-            <li><a href="services.html#airport">Airport Transfers</a></li>
-            <li><a href="services.html#weddings">Wedding Limos</a></li>
-            <li><a href="services.html#corporate">Corporate Travel</a></li>
-            <li><a href="services.html#events">Prom &amp; Events</a></li>
-            <li><a href="services.html#nightout">Concert &amp; Night Out</a></li>
-            <li><a href="services.html#charter">Hourly Charter</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="footer-heading">Company</h4>
-          <ul class="footer-links">
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="fleet.html">Our Fleet</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-            <li><a href="contact.html">Get a Quote</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="footer-heading">Contact</h4>
-          <div class="footer-contact-list">
-            <div class="footer-contact-item">&#128222; <a href="tel:+15128900900">(512) 890-0900</a></div>
-            <div class="footer-contact-item">&#9993;&#65039; <a href="mailto:info@purpleheartlimo.com">info@purpleheartlimo.com</a></div>
-            <div class="footer-contact-item">&#128205; Austin, TX &amp; Surrounding Areas</div>
-            <div class="footer-contact-item">&#128336; Available 24/7</div>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2025 Purple Heart Limo. All rights reserved. Veteran-Owned Business.</p>
-        <div class="footer-bottom-links">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
+        <div class="fleet-actions">
+          <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-gold">Book This Vehicle</a>
+          <a href="tel:+18337400700" class="btn-outline-gold">📞 Call Us</a>
         </div>
       </div>
     </div>
-  </footer>
 
-  <button class="scroll-top" id="scrollTop" aria-label="Back to top">&#8679;</button>
-  <script src="js/main.js"></script>
+    <!-- Luxury SUV -->
+    <div class="fleet-panel" id="panel-suv">
+      <div class="car-side">
+        <img src="images/suv.webp" alt="Luxury SUV — Purple Heart Limo" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1558981408-db0ecd8a1ee4?w=900&q=75&auto=format'">
+      </div>
+      <div class="info-side">
+        <span class="vehicle-badge">Vehicle 02 of 06</span>
+        <h2>Luxury <em>SUV</em></h2>
+        <div class="capacity-badge">👤 Up to 6 Passengers</div>
+        <p>The perfect blend of elegance and spaciousness for small executive groups, family airport runs, and VIP client transportation. Command any arrival in a commanding vehicle.</p>
+        <div class="feature-chips">
+          <span class="chip">Leather Seating</span>
+          <span class="chip">LED Lighting</span>
+          <span class="chip">Surround Sound</span>
+          <span class="chip">Bar Area</span>
+          <span class="chip">Tinted Windows</span>
+          <span class="chip">Climate Control</span>
+        </div>
+        <div class="fleet-actions">
+          <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-gold">Book This Vehicle</a>
+          <a href="tel:+18337400700" class="btn-outline-gold">📞 Call Us</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stretch Limo -->
+    <div class="fleet-panel" id="panel-stretch">
+      <div class="car-side">
+        <img src="images/stretched limo.webp" alt="Stretch Limousine — Purple Heart Limo" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1519741347686-c1e0aadf4611?w=900&q=75&auto=format'">
+      </div>
+      <div class="info-side">
+        <span class="vehicle-badge">Vehicle 03 of 06</span>
+        <h2>Stretch <em>Limousine</em></h2>
+        <div class="capacity-badge">👤 Up to 10 Passengers</div>
+        <p>The classic stretch — an icon of luxury transportation. Perfect for weddings, proms, milestone birthdays, and any occasion that calls for an unforgettable grand arrival. This is the one for the photos.</p>
+        <div class="feature-chips">
+          <span class="chip">Full Bar Setup</span>
+          <span class="chip">LED Lighting</span>
+          <span class="chip">Premium Sound</span>
+          <span class="chip">Privacy Divider</span>
+          <span class="chip">Mirrored Ceiling</span>
+          <span class="chip">Champagne Service</span>
+        </div>
+        <div class="fleet-actions">
+          <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-gold">Book This Vehicle</a>
+          <a href="tel:+18337400700" class="btn-outline-gold">📞 Call Us</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sprinter Van -->
+    <div class="fleet-panel" id="panel-sprinter">
+      <div class="car-side">
+        <img src="images/sprinter.webp" alt="Executive Sprinter Van — Purple Heart Limo" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=900&q=75&auto=format'">
+      </div>
+      <div class="info-side">
+        <span class="vehicle-badge">Vehicle 04 of 06</span>
+        <h2>Executive <em>Sprinter</em></h2>
+        <div class="capacity-badge">👤 Up to 14 Passengers</div>
+        <p>The workhorse of group luxury travel. Corporate team transport, airport group pickups, Hill Country wine tours, ACL Festival — the Sprinter handles any group itinerary with comfort and style.</p>
+        <div class="feature-chips">
+          <span class="chip">Captain's Chairs</span>
+          <span class="chip">Entertainment Screen</span>
+          <span class="chip">Wi-Fi Hotspot</span>
+          <span class="chip">USB Ports</span>
+          <span class="chip">Ample Luggage</span>
+          <span class="chip">Privacy Windows</span>
+        </div>
+        <div class="fleet-actions">
+          <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-gold">Book This Vehicle</a>
+          <a href="tel:+18337400700" class="btn-outline-gold">📞 Call Us</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Party Bus (24 pax) -->
+    <div class="fleet-panel" id="panel-partybus">
+      <div class="car-side">
+        <img src="images/24 pax.webp" alt="Luxury Party Bus 24 Passenger — Purple Heart Limo" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=900&q=75&auto=format'">
+      </div>
+      <div class="info-side">
+        <span class="vehicle-badge">Vehicle 05 of 06</span>
+        <h2>Luxury <em>Party Bus</em></h2>
+        <div class="capacity-badge">👤 Up to 24 Passengers</div>
+        <p>The ultimate group experience on wheels. Our party bus turns the ride into the event itself — full dance floor, VIP bar, premium sound, and LED mood lighting. For the occasions where the journey is the celebration.</p>
+        <div class="feature-chips">
+          <span class="chip">Full Dance Floor</span>
+          <span class="chip">Premium Sound</span>
+          <span class="chip">LED Mood Lighting</span>
+          <span class="chip">VIP Bar Area</span>
+          <span class="chip">Flat Screen TVs</span>
+          <span class="chip">Bluetooth Hookup</span>
+        </div>
+        <div class="fleet-actions">
+          <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-gold">Book This Vehicle</a>
+          <a href="tel:+18337400700" class="btn-outline-gold">📞 Call Us</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sprinter Jet -->
+    <div class="fleet-panel" id="panel-jet">
+      <div class="car-side">
+        <img src="images/sprinter jet.webp" alt="Sprinter Jet Interior — Purple Heart Limo" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=900&q=75&auto=format'">
+      </div>
+      <div class="info-side">
+        <span class="vehicle-badge">Vehicle 06 of 06</span>
+        <h2>Sprinter <em>Jet</em></h2>
+        <div class="capacity-badge">👤 Up to 14 Passengers</div>
+        <p>Our Sprinter Jet interior delivers an aircraft-cabin experience on the road — premium captain's seats, ambient lighting, entertainment system, and a sophisticated finish reserved for those who accept no compromise on comfort.</p>
+        <div class="feature-chips">
+          <span class="chip">Aircraft Seats</span>
+          <span class="chip">Ambient Lighting</span>
+          <span class="chip">Entertainment System</span>
+          <span class="chip">Executive Finish</span>
+          <span class="chip">Wi-Fi Hotspot</span>
+          <span class="chip">Climate Zones</span>
+        </div>
+        <div class="fleet-actions">
+          <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-gold">Book This Vehicle</a>
+          <a href="tel:+18337400700" class="btn-outline-gold">📞 Call Us</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /fleet-stage -->
+
+  <!-- Nav arrows + dots -->
+  <div class="fleet-arrows">
+    <button class="fleet-arrow" id="fleetPrev">&#8592;</button>
+    <div style="display:flex;align-items:center;gap:1.5rem;">
+      <div class="fleet-dots" id="fleetDots"></div>
+      <span class="fleet-counter" id="fleetCounter">1 / 6</span>
+    </div>
+    <button class="fleet-arrow" id="fleetNext">&#8594;</button>
+  </div>
+</section>
+
+<!-- FLEET POLICIES -->
+<section class="policies-section">
+  <div class="inner">
+    <div class="section-header">
+      <span class="section-label">Good to Know</span>
+      <h2 class="section-title">Fleet Policies &amp; Standards</h2>
+      <p class="section-desc">The Purple Heart Limo standard isn't a marketing line — it's the same discipline applied to every vehicle, every ride.</p>
+    </div>
+    <div class="policies-grid">
+      <div class="policy-card">
+        <h4>🧽 Cleanliness Standard</h4>
+        <p>Every vehicle is professionally detailed and white-glove inspected before each trip. You will never step into a vehicle that doesn't meet our standard — because we don't allow that to happen.</p>
+      </div>
+      <div class="policy-card">
+        <h4>🔧 Maintenance Schedule</h4>
+        <p>All vehicles follow strict preventative maintenance schedules and are inspected by certified mechanics regularly. Mechanical reliability is not optional when clients depend on you.</p>
+      </div>
+      <div class="policy-card">
+        <h4>🚭 Non-Smoking Policy</h4>
+        <p>All Purple Heart Limo vehicles are strictly non-smoking. Every client steps into a fresh, clean environment — no exceptions, no matter who rode before them.</p>
+      </div>
+      <div class="policy-card">
+        <h4>🐾 Pet Policy</h4>
+        <p>Service animals are always welcome. For pet transportation inquiries, contact us in advance so we can prepare the right vehicle and setup for your needs.</p>
+      </div>
+      <div class="policy-card">
+        <h4>🛡️ Fully Insured</h4>
+        <p>Every vehicle in our fleet carries full commercial limo insurance. Our drivers are licensed, background-checked, and professionally trained chauffeurs — not contractors.</p>
+      </div>
+      <div class="policy-card">
+        <h4>⏱️ Punctuality Guarantee</h4>
+        <p>Drivers arrive at least 10 minutes early. If we're running late for any reason, you hear from us first — proactive communication is part of the mission standard.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Reserve Your Perfect Vehicle</h2>
+  <p>Flat rates · No surge pricing · Veteran-owned and operated</p>
+  <div class="btn-group">
+    <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-gold btn-lg" style="padding:14px 32px;font-size:0.9rem;">Book Online Now</a>
+    <a href="tel:+18337400700" class="btn-call">📞 (833) 740-0700</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-brand-name">Purple <span>Heart</span> Limo</div>
+      <p>Veteran-owned luxury limousine & black car service in Austin, Dallas-Fort Worth & Houston, TX. Available 24/7.</p>
+      <a href="tel:+18337400700" style="color:var(--gold);font-size:0.9rem;">📞 (833) 740-0700</a>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Instagram">in</a>
+        <a href="#" aria-label="Google">G</a>
+        <a href="#" aria-label="Yelp">Y</a>
+      </div>
+    </div>
+    <div>
+      <h4 class="footer-heading">Services</h4>
+      <ul class="footer-links">
+        <li><a href="/services.html#airport">Airport Transfers</a></li>
+        <li><a href="/services.html#wedding">Wedding Limos</a></li>
+        <li><a href="/services.html#corporate">Corporate Travel</a></li>
+        <li><a href="/services.html#prom">Prom &amp; Events</a></li>
+        <li><a href="/services.html#nightout">Night Out</a></li>
+        <li><a href="/services.html#hourly">Hourly Charter</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-heading">Company</h4>
+      <ul class="footer-links">
+        <li><a href="/about.html">About Us</a></li>
+        <li><a href="/fleet.html">Our Fleet</a></li>
+        <li><a href="/rates.html">Pricing</a></li>
+        <li><a href="/gallery.html">Gallery</a></li>
+        <li><a href="/testimonials.html">Reviews</a></li>
+        <li><a href="/service-areas.html">Service Areas</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-heading">Legal</h4>
+      <ul class="footer-links">
+        <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+        <li><a href="/terms-of-service.html">Terms of Service</a></li>
+        <li><a href="/cancellation-policy.html">Cancellation Policy</a></li>
+      </ul>
+      <h4 class="footer-heading" style="margin-top:1.5rem;">Contact</h4>
+      <div class="footer-contact-item">📞 <a href="tel:+18337400700">(833) 740-0700</a></div>
+      <div class="footer-contact-item">✉️ <a href="mailto:info@purpleheartlimo.com">info@purpleheartlimo.com</a></div>
+      <div class="footer-contact-item">📍 Austin · DFW · Houston, TX</div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Purple Heart Limo. All rights reserved. Veteran-Owned Business.</p>
+    <div class="footer-bottom-links">
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms-of-service.html">Terms of Service</a>
+      <a href="/cancellation-policy.html">Cancellation Policy</a>
+    </div>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop">↑</button>
+
+<script>
+const panels = ['sedan','suv','stretch','sprinter','partybus','jet'];
+let current = 0;
+
+const dotsEl = document.getElementById('fleetDots');
+const counterEl = document.getElementById('fleetCounter');
+
+// Build dots
+panels.forEach((_,i) => {
+  const d = document.createElement('div');
+  d.className = 'fleet-dot' + (i===0?' active':'');
+  d.addEventListener('click', () => goTo(i));
+  dotsEl.appendChild(d);
+});
+
+function goTo(idx) {
+  const oldPanel = document.getElementById('panel-' + panels[current]);
+  const oldTab   = document.querySelectorAll('.fleet-tab')[current];
+  oldPanel.classList.remove('active');
+  oldTab.classList.remove('active');
+  dotsEl.children[current].classList.remove('active');
+
+  current = (idx + panels.length) % panels.length;
+
+  const newPanel = document.getElementById('panel-' + panels[current]);
+  const newTab   = document.querySelectorAll('.fleet-tab')[current];
+  newPanel.classList.add('active');
+  newTab.classList.add('active');
+  dotsEl.children[current].classList.add('active');
+  counterEl.textContent = (current+1) + ' / ' + panels.length;
+
+  // Reset and re-trigger the slide animation
+  const img = newPanel.querySelector('.car-side img');
+  img.style.transition = 'none';
+  img.style.transform = 'translateX(100%)';
+  img.style.opacity = '0';
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      img.style.transition = 'transform 0.7s cubic-bezier(0.22,1,0.36,1), opacity 0.5s ease';
+      img.style.transform = 'translateX(0)';
+      img.style.opacity = '1';
+    });
+  });
+}
+
+document.getElementById('fleetNext').addEventListener('click', () => goTo(current+1));
+document.getElementById('fleetPrev').addEventListener('click', () => goTo(current-1));
+
+// Tab clicks
+document.querySelectorAll('.fleet-tab').forEach((tab, i) => {
+  tab.addEventListener('click', () => goTo(i));
+});
+
+// Keyboard nav
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') goTo(current+1);
+  if (e.key === 'ArrowLeft')  goTo(current-1);
+});
+
+// Header scroll
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 60), {passive:true});
+
+// Mobile menu
+const menuToggle = document.getElementById('menuToggle');
+const navLinks   = document.getElementById('navLinks');
+menuToggle.addEventListener('click', () => {
+  const open = menuToggle.classList.toggle('active');
+  navLinks.classList.toggle('open', open);
+});
+
+// Scroll top
+const scrollBtn = document.getElementById('scrollTop');
+window.addEventListener('scroll', () => scrollBtn.classList.toggle('visible', scrollY > 400), {passive:true});
+scrollBtn.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+</script>
 </body>
 </html>

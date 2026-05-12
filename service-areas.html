@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>Service Areas | Purple Heart Limo Austin · DFW · Houston TX</title>
+<meta name="description" content="Purple Heart Limo serves all cities in the Austin, Dallas-Fort Worth, and Houston metro areas. See every city we cover across Texas.">
+<link rel="canonical" href="https://www.purpleheartlimo.com/service-areas.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#2D0045;--purple-mid:#4a0070;--gold:#C9A84C;--gold-light:#E2C36A;--dark:#0f0f0f;--dark2:#1a1a1a;--dark3:#242424;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;color:#f5f5f5;background:var(--dark);overflow-x:hidden;}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;}a{text-decoration:none;color:inherit;}
+.header{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all 0.3s;padding:1rem 5%;}
+.header.scrolled{background:rgba(15,15,15,0.97);backdrop-filter:blur(12px);box-shadow:0 2px 30px rgba(0,0,0,0.6);padding:0.6rem 5%;}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+.nav-logo{display:flex;align-items:center;gap:10px;}.nav-logo img{width:44px;height:44px;object-fit:contain;border-radius:50%;}
+.nav-logo-text{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:#fff;}
+.nav-logo-sub{font-size:0.6rem;font-weight:500;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;display:block;}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+.nav-links a{color:rgba(255,255,255,0.85);font-size:0.88rem;font-weight:500;transition:color 0.2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);}
+.nav-cta{display:flex;align-items:center;gap:1rem;}
+.nav-phone{color:var(--gold);font-weight:700;font-size:0.88rem;}
+.btn-gold{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--dark);padding:10px 22px;border-radius:50px;font-size:0.82rem;font-weight:700;text-transform:uppercase;transition:transform 0.2s;box-shadow:0 4px 16px rgba(201,168,76,0.4);}
+.btn-gold:hover{transform:translateY(-2px);}
+.menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:0.5rem;background:none;border:none;}
+.menu-toggle span{display:block;width:25px;height:2px;background:#fff;border-radius:2px;}
+@media(max-width:768px){.nav-links{position:fixed;top:0;right:-100%;width:280px;height:100vh;background:var(--dark2);flex-direction:column;align-items:flex-start;padding:5rem 2rem 2rem;gap:1.5rem;transition:right 0.3s;z-index:999;}.nav-links.open{right:0;}.menu-toggle{display:flex;}.nav-cta .btn-gold{display:none;}}
+.page-hero{padding:9rem 5% 5rem;background:linear-gradient(135deg,#0f0f0f 0%,#1a0533 100%);text-align:center;position:relative;overflow:hidden;}
+.page-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top,rgba(124,58,237,0.15) 0%,transparent 70%);pointer-events:none;}
+.page-hero .inner{position:relative;z-index:2;}
+.section-label{display:inline-block;font-size:0.75rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;}
+.page-hero h1{font-size:clamp(2.2rem,5vw,3.5rem);color:#fff;margin-bottom:1rem;}
+.page-hero h1 em{color:var(--gold);font-style:italic;}
+.page-hero p{color:rgba(255,255,255,0.6);max-width:600px;margin:0 auto;font-size:0.95rem;}
+.areas-content{max-width:1100px;margin:0 auto;padding:5rem 5%;}
+.metro-block{margin-bottom:4rem;}
+.metro-header{display:flex;align-items:center;gap:1.25rem;margin-bottom:2rem;padding-bottom:1.25rem;border-bottom:1px solid rgba(255,255,255,0.08);}
+.metro-icon{width:56px;height:56px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.25);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;}
+.metro-title h2{font-size:clamp(1.6rem,3vw,2.2rem);color:#fff;margin-bottom:0.25rem;}
+.metro-title p{color:rgba(255,255,255,0.45);font-size:0.88rem;}
+.cities-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0.75rem;}
+.city-tag{background:var(--dark2);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:0.65rem 1rem;color:rgba(255,255,255,0.65);font-size:0.88rem;transition:all 0.2s;display:flex;align-items:center;gap:0.5rem;}
+.city-tag::before{content:'📍';font-size:0.7rem;}
+.city-tag:hover{border-color:var(--gold);color:var(--gold);}
+.city-tag a{color:inherit;}
+.cta-band{background:linear-gradient(135deg,#1a0533,#2d1b69);padding:4rem 5%;text-align:center;margin-top:2rem;}
+.cta-band h2{font-size:clamp(1.6rem,3vw,2.2rem);color:#fff;margin-bottom:1rem;}
+.cta-band p{color:rgba(255,255,255,0.65);margin-bottom:2rem;}
+.btn-group{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;}
+.btn-call{display:inline-flex;align-items:center;gap:6px;background:transparent;color:#fff;padding:10px 22px;border-radius:50px;font-size:0.82rem;font-weight:700;text-transform:uppercase;border:2px solid rgba(255,255,255,0.35);transition:all 0.2s;}
+.btn-call:hover{border-color:#fff;}
+footer{background:var(--dark2);border-top:1px solid rgba(255,255,255,0.07);padding:3rem 5% 1.5rem;}
+.footer-bottom{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-bottom p{color:rgba(255,255,255,0.3);font-size:0.82rem;}
+.footer-bottom-links{display:flex;gap:1.5rem;}
+.footer-bottom-links a{color:rgba(255,255,255,0.3);font-size:0.82rem;}
+.footer-bottom-links a:hover{color:var(--gold);}
+</style>
+</head>
+<body>
+<header class="header" id="header">
+  <div class="nav">
+    <a href="/" class="nav-logo"><img src="/logo.webp" alt="Purple Heart Limo"><div><div class="nav-logo-text">Purple Heart Limo</div><span class="nav-logo-sub">Veteran Owned · TX</span></div></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li><li><a href="/services.html">Services</a></li><li><a href="/fleet.html">Fleet</a></li><li><a href="/blog/">Blog</a></li><li><a href="/about.html">About</a></li><li><a href="/contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta"><a href="tel:+18337400700" class="nav-phone">📞 (833) 740-0700</a><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-gold">Book Now</a></div>
+    <button class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="inner">
+    <span class="section-label">Coverage</span>
+    <h1>Service Areas Across <em>Texas</em></h1>
+    <p>Purple Heart Limo covers every major city and suburb in the Austin, Dallas-Fort Worth, and Houston metro areas. If you're in Texas, we can get you there.</p>
+  </div>
+</section>
+
+<div class="areas-content">
+
+  <!-- AUSTIN METRO -->
+  <div class="metro-block">
+    <div class="metro-header">
+      <div class="metro-icon">🏙️</div>
+      <div class="metro-title">
+        <h2>Austin Metro Area</h2>
+        <p>Austin-Bergstrom International Airport (AUS) · Travis, Williamson, Hays, Bastrop &amp; Caldwell Counties</p>
+      </div>
+    </div>
+    <div class="cities-grid">
+      <div class="city-tag">Austin</div>
+      <div class="city-tag">Round Rock</div>
+      <div class="city-tag">Cedar Park</div>
+      <div class="city-tag">Georgetown</div>
+      <div class="city-tag">Pflugerville</div>
+      <div class="city-tag">Leander</div>
+      <div class="city-tag">Kyle</div>
+      <div class="city-tag">Buda</div>
+      <div class="city-tag">San Marcos</div>
+      <div class="city-tag">Hutto</div>
+      <div class="city-tag">Manor</div>
+      <div class="city-tag">Taylor</div>
+      <div class="city-tag">Bastrop</div>
+      <div class="city-tag">Elgin</div>
+      <div class="city-tag">Lockhart</div>
+      <div class="city-tag">Wimberley</div>
+      <div class="city-tag">Dripping Springs</div>
+      <div class="city-tag">Lakeway</div>
+      <div class="city-tag">Bee Cave</div>
+      <div class="city-tag">West Lake Hills</div>
+      <div class="city-tag">Rollingwood</div>
+      <div class="city-tag">Sunset Valley</div>
+      <div class="city-tag">Steiner Ranch</div>
+      <div class="city-tag">Liberty Hill</div>
+      <div class="city-tag">Marble Falls</div>
+      <div class="city-tag">Burnet</div>
+      <div class="city-tag">Fredericksburg</div>
+      <div class="city-tag">Johnson City</div>
+      <div class="city-tag">Luling</div>
+      <div class="city-tag">Seguin</div>
+    </div>
+  </div>
+
+  <!-- DFW METRO -->
+  <div class="metro-block">
+    <div class="metro-header">
+      <div class="metro-icon">✈️</div>
+      <div class="metro-title">
+        <h2>Dallas-Fort Worth Metro</h2>
+        <p>DFW International Airport · Dallas Love Field · Dallas, Tarrant, Collin, Denton &amp; Rockwall Counties</p>
+      </div>
+    </div>
+    <div class="cities-grid">
+      <div class="city-tag">Dallas</div>
+      <div class="city-tag">Fort Worth</div>
+      <div class="city-tag">Arlington</div>
+      <div class="city-tag">Plano</div>
+      <div class="city-tag">Frisco</div>
+      <div class="city-tag">McKinney</div>
+      <div class="city-tag">Irving</div>
+      <div class="city-tag">Garland</div>
+      <div class="city-tag">Grand Prairie</div>
+      <div class="city-tag">Mesquite</div>
+      <div class="city-tag">Carrollton</div>
+      <div class="city-tag">Richardson</div>
+      <div class="city-tag">Denton</div>
+      <div class="city-tag">Lewisville</div>
+      <div class="city-tag">Allen</div>
+      <div class="city-tag">Flower Mound</div>
+      <div class="city-tag">Euless</div>
+      <div class="city-tag">Bedford</div>
+      <div class="city-tag">Hurst</div>
+      <div class="city-tag">Grapevine</div>
+      <div class="city-tag">Southlake</div>
+      <div class="city-tag">Colleyville</div>
+      <div class="city-tag">Keller</div>
+      <div class="city-tag">North Richland Hills</div>
+      <div class="city-tag">Mansfield</div>
+      <div class="city-tag">DeSoto</div>
+      <div class="city-tag">Cedar Hill</div>
+      <div class="city-tag">Duncanville</div>
+      <div class="city-tag">Rowlett</div>
+      <div class="city-tag">Wylie</div>
+      <div class="city-tag">Rockwall</div>
+      <div class="city-tag">Coppell</div>
+      <div class="city-tag">Farmers Branch</div>
+      <div class="city-tag">Addison</div>
+      <div class="city-tag">Waxahachie</div>
+      <div class="city-tag">Cleburne</div>
+      <div class="city-tag">Weatherford</div>
+      <div class="city-tag">Mineral Wells</div>
+    </div>
+  </div>
+
+  <!-- HOUSTON METRO -->
+  <div class="metro-block">
+    <div class="metro-header">
+      <div class="metro-icon">🌊</div>
+      <div class="metro-title">
+        <h2>Houston Metro Area</h2>
+        <p>George Bush Intercontinental (IAH) · William P. Hobby (HOU) · Harris, Fort Bend, Montgomery &amp; Brazoria Counties</p>
+      </div>
+    </div>
+    <div class="cities-grid">
+      <div class="city-tag">Houston</div>
+      <div class="city-tag">Sugar Land</div>
+      <div class="city-tag">The Woodlands</div>
+      <div class="city-tag">Pearland</div>
+      <div class="city-tag">Pasadena</div>
+      <div class="city-tag">Katy</div>
+      <div class="city-tag">Missouri City</div>
+      <div class="city-tag">Conroe</div>
+      <div class="city-tag">League City</div>
+      <div class="city-tag">Baytown</div>
+      <div class="city-tag">Friendswood</div>
+      <div class="city-tag">Deer Park</div>
+      <div class="city-tag">Stafford</div>
+      <div class="city-tag">Galveston</div>
+      <div class="city-tag">Lake Jackson</div>
+      <div class="city-tag">Alvin</div>
+      <div class="city-tag">Humble</div>
+      <div class="city-tag">Spring</div>
+      <div class="city-tag">Kingwood</div>
+      <div class="city-tag">Tomball</div>
+      <div class="city-tag">Cypress</div>
+      <div class="city-tag">Richmond</div>
+      <div class="city-tag">Rosenberg</div>
+      <div class="city-tag">Clute</div>
+      <div class="city-tag">Texas City</div>
+      <div class="city-tag">La Porte</div>
+      <div class="city-tag">Bellaire</div>
+      <div class="city-tag">West University Place</div>
+      <div class="city-tag">Cinco Ranch</div>
+      <div class="city-tag">Clear Lake City</div>
+    </div>
+  </div>
+
+</div>
+
+<section class="cta-band">
+  <h2>Don't See Your City?</h2>
+  <p>We serve beyond these lists. If you're in Texas and need luxury transportation, call us — we'll make it work.</p>
+  <div class="btn-group">
+    <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-gold" style="padding:14px 32px;font-size:0.9rem;">Book Online</a>
+    <a href="tel:+18337400700" class="btn-call">📞 (833) 740-0700</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-bottom">
+    <p>© 2026 Purple Heart Limo. All rights reserved. Veteran-Owned · Austin · DFW · Houston, TX</p>
+    <div class="footer-bottom-links"><a href="/privacy-policy.html">Privacy</a><a href="/terms-of-service.html">Terms</a><a href="/cancellation-policy.html">Cancellation</a></div>
+  </div>
+</footer>
+<script>
+const h=document.getElementById('header');
+window.addEventListener('scroll',()=>h.classList.toggle('scrolled',scrollY>60),{passive:true});
+const mt=document.getElementById('menuToggle'),nl=document.getElementById('navLinks');
+mt.addEventListener('click',()=>{const o=mt.classList.toggle('active');nl.classList.toggle('open',o);});
+</script>
+</body></html>
