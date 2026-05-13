@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Ride | Purple Heart Limo | Austin · DFW · Houston</title>
+  <meta name="description" content="Book your luxury limousine — instant pricing for airport transfers, weddings, and corporate travel across Austin, Dallas-Fort Worth, and Houston. Flat rates, no surge pricing.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://purpleheartlimo.com/booking.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   NEON NOIR — Color System
+   Primary   #FF007A  (hot pink)
+   Tertiary  #00F0FF  (cyan)
+   Base      #000000 / #0a0a0a / #121212
+   ============================================================ */
+:root {
+  --pink:       #FF007A;
+  --pink-mid:   #cc0062;
+  --pink-dim:   rgba(255,0,122,0.12);
+  --pink-glow:  0 0 24px rgba(255,0,122,0.35);
+  --cyan:       #00F0FF;
+  --cyan-dim:   rgba(0,240,255,0.09);
+  --dark:       #000000;
+  --dark2:      #080808;
+  --dark3:      #111111;
+  --dark4:      #191919;
+  --dark5:      #222222;
+  --white:      #ffffff;
+  --gray:       rgba(255,255,255,0.5);
+  --gray-lt:    rgba(255,255,255,0.08);
+  --border:     rgba(255,255,255,0.08);
+  --border-pk:  rgba(255,0,122,0.45);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--dark2);color:var(--white);overflow-x:hidden;min-height:100vh;}
+h1,h2,h3,h4,h5{font-family:'Space Grotesk',sans-serif;}
+a{text-decoration:none;color:inherit;}
+
+/* ── NAV ─────────────────────────────────────────────────── */
+.header{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(0,0,0,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--border);}
+.nav{display:flex;align-items:center;justify-content:space-between;height:62px;max-width:1440px;margin:0 auto;padding:0 5%;}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.nav-logo img{width:36px;height:36px;object-fit:contain;border-radius:50%;}
+.logo-name{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:700;color:#fff;}
+.logo-sub{font-size:0.56rem;color:var(--pink);letter-spacing:0.16em;text-transform:uppercase;display:block;margin-top:1px;}
+.nav-links{display:flex;align-items:center;gap:1.8rem;list-style:none;}
+.nav-links a{color:rgba(255,255,255,0.65);font-size:0.83rem;font-weight:500;transition:color 0.2s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--pink);transition:width 0.25s;}
+.nav-links a:hover,.nav-links a.active{color:var(--pink);}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+.nav-cta{display:flex;align-items:center;gap:1rem;}
+.nav-phone{color:var(--cyan);font-weight:700;font-size:0.83rem;white-space:nowrap;}
+.btn-pink{display:inline-flex;align-items:center;gap:6px;background:var(--pink);color:#fff;padding:9px 22px;border-radius:8px;font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:700;letter-spacing:0.04em;border:none;cursor:pointer;transition:all 0.2s;}
+.btn-pink:hover{background:var(--pink-mid);box-shadow:var(--pink-glow);}
+.menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:0.5rem;background:none;border:none;}
+.menu-toggle span{display:block;width:24px;height:2px;background:#fff;border-radius:2px;transition:all 0.3s;}
+.menu-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.menu-toggle.active span:nth-child(2){opacity:0;}
+.menu-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+@media(max-width:768px){
+  .nav-links{position:fixed;top:0;right:-100%;width:270px;height:100vh;background:var(--dark3);flex-direction:column;align-items:flex-start;padding:5rem 2rem 2rem;gap:1.5rem;transition:right 0.3s;z-index:999;box-shadow:-5px 0 30px rgba(0,0,0,0.7);}
+  .nav-links.open{right:0;}
+  .menu-toggle{display:flex;}
+  .nav-cta .btn-pink{display:none;}
+}
+
+/* ── HERO / SEARCH ────────────────────────────────────────── */
+.booking-hero{padding:88px 5% 0;background:radial-gradient(ellipse 80% 400px at 50% 0,rgba(255,0,122,0.10) 0%,transparent 70%),var(--dark);}
+.hero-inner{max-width:960px;margin:0 auto;text-align:center;padding:3rem 0 0;}
+.eyebrow{font-size:0.68rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--pink);margin-bottom:0.9rem;display:flex;align-items:center;justify-content:center;gap:0.75rem;}
+.eyebrow::before,.eyebrow::after{content:'';flex:1;max-width:50px;height:1px;background:var(--pink);opacity:0.35;}
+.booking-hero h1{font-size:clamp(1.9rem,4.5vw,3rem);font-weight:700;line-height:1.12;margin-bottom:0.6rem;}
+.booking-hero h1 .hl{color:var(--pink);}
+.booking-hero p{color:var(--gray);font-size:0.9rem;margin-bottom:2.5rem;}
+
+/* SEARCH WIDGET */
+.search-widget{background:var(--dark3);border:1px solid var(--border);border-radius:18px;padding:1.4rem 1.5rem;margin-bottom:0;text-align:left;}
+.svc-tabs{display:flex;gap:0;background:var(--dark4);border-radius:10px;padding:4px;width:fit-content;margin-bottom:1.25rem;}
+.svc-tab{padding:7px 22px;border-radius:7px;font-size:0.8rem;font-weight:600;cursor:pointer;border:none;background:none;color:var(--gray);transition:all 0.2s;white-space:nowrap;font-family:'Space Grotesk',sans-serif;}
+.svc-tab.active{background:var(--pink);color:#fff;box-shadow:0 0 14px rgba(255,0,122,0.4);}
+
+.search-row{display:grid;grid-template-columns:1fr 1fr 145px 125px auto;gap:0;background:var(--dark4);border-radius:12px;border:1px solid var(--border);overflow:hidden;}
+.sf{position:relative;border-right:1px solid var(--border);}
+.sf:last-child{border-right:none;}
+.sf label{display:block;font-size:0.6rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--pink);padding:10px 14px 0;}
+.sf input{width:100%;background:none;border:none;outline:none;color:#fff;font-family:'Inter',sans-serif;font-size:0.86rem;padding:3px 14px 10px;}
+.sf input::placeholder{color:rgba(255,255,255,0.28);}
+.search-btn{background:var(--pink);color:#fff;border:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.88rem;padding:0 24px;display:flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;transition:background 0.2s;}
+.search-btn:hover{background:var(--pink-mid);}
+
+.flight-row{margin-top:1rem;display:none;}
+.flight-row.show{display:flex;align-items:center;gap:8px;}
+.flight-label{font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--cyan);white-space:nowrap;}
+.flight-wrap{position:relative;flex:1;max-width:280px;}
+.flt-pre{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-family:'Courier New',monospace;font-size:0.72rem;color:var(--cyan);opacity:0.6;pointer-events:none;}
+.flight-wrap input{width:100%;background:var(--dark4);border:1px solid var(--border);border-radius:8px;color:#fff;padding:9px 14px 9px 50px;font-family:'Courier New',monospace;font-size:0.84rem;letter-spacing:0.1em;text-transform:uppercase;outline:none;transition:border-color 0.2s;}
+.flight-wrap input:focus{border-color:var(--cyan);}
+
+/* Autocomplete */
+.ac-list{position:absolute;top:100%;left:0;right:0;background:var(--dark3);border:1px solid var(--border-pk);border-radius:0 0 10px 10px;z-index:300;max-height:180px;overflow-y:auto;display:none;}
+.ac-list.open{display:block;}
+.ac-item{padding:9px 14px;font-size:0.82rem;color:rgba(255,255,255,0.75);cursor:pointer;border-bottom:1px solid var(--border);}
+.ac-item:last-child{border-bottom:none;}
+.ac-item:hover{background:var(--pink-dim);color:var(--pink);}
+
+@media(max-width:900px){
+  .search-row{grid-template-columns:1fr 1fr;border-radius:10px;}
+  .sf:nth-child(2){border-right:none;}
+  .sf:nth-child(3),.sf:nth-child(4){border-top:1px solid var(--border);}
+  .search-btn{grid-column:1/-1;padding:12px;border-radius:0 0 10px 10px;border-top:1px solid rgba(255,255,255,0.05);}
+}
+@media(max-width:580px){
+  .search-row{grid-template-columns:1fr;}
+  .sf{border-right:none;border-bottom:1px solid var(--border);}
+  .search-btn{grid-column:1;}
+}
+
+/* ── VEHICLE SELECTION ────────────────────────────────────── */
+.choose-section{max-width:1440px;margin:0 auto;padding:3.5rem 5% 2rem;}
+.choose-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;}
+.choose-header h2{font-size:clamp(1.4rem,2.8vw,1.9rem);color:#fff;}
+.choose-header p{color:var(--gray);font-size:0.84rem;}
+.price-mode-label{display:inline-flex;align-items:center;gap:6px;background:var(--dark4);border:1px solid var(--border);border-radius:50px;padding:5px 12px;font-size:0.72rem;color:var(--cyan);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;}
+
+.vehicles-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem;}
+@media(max-width:1200px){.vehicles-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:860px){.vehicles-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.vehicles-grid{grid-template-columns:1fr;}}
+
+.veh-card{background:var(--dark3);border:1.5px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s;position:relative;}
+.veh-card:hover{border-color:rgba(255,0,122,0.35);transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,0.5);}
+.veh-card.selected{border-color:var(--pink);box-shadow:0 0 0 1px var(--pink),0 10px 40px rgba(255,0,122,0.25);}
+.selected-badge{position:absolute;top:10px;right:10px;background:var(--pink);color:#fff;font-size:0.6rem;font-weight:800;letter-spacing:0.1em;padding:3px 9px;border-radius:50px;z-index:5;display:none;}
+.veh-card.selected .selected-badge{display:block;}
+
+.veh-img{height:168px;position:relative;overflow:hidden;}
+.veh-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.45s ease;}
+.veh-card:hover .veh-img img{transform:scale(1.06);}
+.veh-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,var(--dark3) 0%,rgba(0,0,0,0.1) 55%,transparent 100%);}
+
+.veh-body{padding:1rem 1rem 1.2rem;}
+.veh-name{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:2px;}
+.veh-desc{font-size:0.72rem;color:var(--gray);margin-bottom:0.7rem;}
+.veh-caps{display:flex;align-items:center;gap:0.9rem;margin-bottom:0.85rem;}
+.veh-cap{display:flex;align-items:center;gap:4px;font-size:0.74rem;color:var(--cyan);}
+.veh-cap svg{opacity:0.8;}
+.veh-price-row{display:flex;align-items:flex-end;justify-content:space-between;gap:0.5rem;}
+.veh-price{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:700;color:var(--pink);}
+.veh-price-sub{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--gray);}
+.veh-note{margin-top:5px;font-size:0.63rem;color:var(--cyan);font-weight:600;display:flex;align-items:center;gap:4px;}
+
+/* ── STEP 3 — PERSONAL DETAILS ────────────────────────────── */
+.details-wrap{max-width:680px;margin:0 auto;padding:2.5rem 5% 5rem;}
+.details-card{background:var(--dark3);border:1px solid var(--border);border-radius:18px;padding:2rem 2rem 2.25rem;}
+.details-head{margin-bottom:1.5rem;}
+.details-head h2{font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:0.3rem;}
+.sel-vehicle-display{display:flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--cyan);}
+.sel-dot{width:7px;height:7px;border-radius:50%;background:var(--pink);flex-shrink:0;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.form-row.single{grid-template-columns:1fr;}
+.fg{display:flex;flex-direction:column;gap:5px;}
+.fg label{font-size:0.62rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--pink);}
+.fg input,.fg textarea,.fg select{background:var(--dark4);border:1px solid var(--border);border-radius:8px;color:#fff;padding:11px 14px;font-family:'Inter',sans-serif;font-size:0.86rem;outline:none;transition:border-color 0.2s;}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--pink);}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(255,255,255,0.28);}
+.fg select{cursor:pointer;}
+.fg select option{background:var(--dark3);}
+.fg textarea{resize:vertical;min-height:80px;}
+.opt-label{font-size:0.6rem;color:rgba(255,255,255,0.3);margin-left:4px;font-weight:400;letter-spacing:0;}
+
+.btn-submit{width:100%;background:var(--pink);color:#fff;border:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.95rem;letter-spacing:0.05em;padding:14px;border-radius:10px;transition:all 0.2s;margin-top:1.25rem;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-submit:hover{background:var(--pink-mid);box-shadow:var(--pink-glow);}
+.btn-submit:disabled{opacity:0.55;cursor:not-allowed;box-shadow:none;}
+
+.alert{padding:12px 16px;border-radius:9px;font-size:0.84rem;font-weight:500;margin-top:1rem;display:none;line-height:1.6;}
+.alert.show{display:block;}
+.alert-success{background:var(--cyan-dim);border:1px solid rgba(0,240,255,0.3);color:var(--cyan);}
+.alert-error{background:var(--pink-dim);border:1px solid rgba(255,0,122,0.3);color:#ff6aab;}
+
+.moovs-cta{display:none;text-align:center;margin-top:1.25rem;}
+.moovs-cta a{display:inline-block;background:var(--dark4);border:1.5px solid var(--pink);color:var(--pink);padding:10px 26px;border-radius:8px;font-size:0.82rem;font-weight:700;font-family:'Space Grotesk',sans-serif;letter-spacing:0.05em;transition:all 0.2s;}
+.moovs-cta a:hover{background:var(--pink);color:#fff;}
+
+/* ── TRUST BAR ────────────────────────────────────────────── */
+.trust-bar{border-top:1px solid var(--border);padding:2rem 5%;background:var(--dark);}
+.trust-inner{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;gap:2rem;justify-content:center;}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:0.78rem;color:var(--gray);}
+.trust-dot{width:6px;height:6px;border-radius:50%;background:var(--pink);flex-shrink:0;}
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+footer{background:var(--dark3);border-top:1px solid var(--border);padding:1.75rem 5%;text-align:center;}
+footer p{color:rgba(255,255,255,0.25);font-size:0.78rem;}
+footer a{color:rgba(255,255,255,0.35);}
+footer a:hover{color:var(--pink);}
+
+/* scroll-top */
+.scroll-top{position:fixed;bottom:1.75rem;right:1.75rem;width:42px;height:42px;background:var(--pink);color:#fff;border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;opacity:0;transform:translateY(12px);transition:all 0.3s;z-index:400;}
+.scroll-top.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────────────── -->
+<header class="header" id="header">
+  <div class="nav">
+    <a href="/" class="nav-logo">
+      <img src="/logo.webp" alt="Purple Heart Limo">
+      <div>
+        <div class="logo-name">Purple Heart Limo</div>
+        <span class="logo-sub">Veteran Owned · TX</span>
+      </div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Home</a></li>
+      <li><a href="/services.html">Services</a></li>
+      <li><a href="/fleet.html">Fleet</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/booking.html" class="active">Book</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="tel:+18337400700" class="nav-phone">📞 (833) 740-0700</a>
+      <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-pink">Book Online</a>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ── HERO + SEARCH ─────────────────────────────────────────── -->
+<section class="booking-hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Flat Rates · No Surge · Veteran-Owned</div>
+    <h1>Book Your <span class="hl">Luxury Ride</span><br>Across Texas</h1>
+    <p>Austin · Dallas-Fort Worth · Houston &nbsp;·&nbsp; 24/7 availability &nbsp;·&nbsp; Real-time flight tracking</p>
+
+    <div class="search-widget">
+      <!-- Service type tabs -->
+      <div class="svc-tabs" id="svcTabs">
+        <button class="svc-tab active" data-svc="airport">✈ Airport</button>
+        <button class="svc-tab" data-svc="oneway">→ One Way</button>
+        <button class="svc-tab" data-svc="hourly">⏱ Hourly</button>
+      </div>
+
+      <!-- Main search row -->
+      <div class="search-row">
+        <div class="sf">
+          <label>Pickup Location</label>
+          <input type="text" id="pickupInput" placeholder="Address, airport or hotel…" autocomplete="off">
+          <div class="ac-list" id="pickupAc"></div>
+        </div>
+        <div class="sf">
+          <label>Drop-off Location</label>
+          <input type="text" id="dropoffInput" placeholder="Destination…" autocomplete="off">
+          <div class="ac-list" id="dropoffAc"></div>
+        </div>
+        <div class="sf">
+          <label>Date</label>
+          <input type="date" id="dateInput">
+        </div>
+        <div class="sf">
+          <label>Pickup Time</label>
+          <input type="time" id="timeInput">
+        </div>
+        <button class="search-btn" id="searchBtn" onclick="scrollToVehicles()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Find Ride
+        </button>
+      </div>
+
+      <!-- Flight number (airport tab only) -->
+      <div class="flight-row show" id="flightRow">
+        <span class="flight-label">✈ Flight No.</span>
+        <div class="flight-wrap">
+          <span class="flt-pre">FLT#</span>
+          <input type="text" id="flightInput" placeholder="AA1234" autocomplete="off">
+        </div>
+        <span style="font-size:0.72rem;color:var(--gray);">optional — for real-time flight tracking</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── VEHICLE SELECTION ──────────────────────────────────────── -->
+<section class="choose-section" id="vehicleSection">
+  <div class="choose-header">
+    <div>
+      <h2>Choose Your Experience</h2>
+      <p>Select a vehicle — pricing updates automatically with your service type.</p>
+    </div>
+    <div class="price-mode-label" id="priceModeLabel">✈ Airport Pricing</div>
+  </div>
+
+  <div class="vehicles-grid" id="vehiclesGrid">
+    <!-- Rendered by JS -->
+  </div>
+</section>
+
+<!-- ── PERSONAL DETAILS ───────────────────────────────────────── -->
+<div class="details-wrap">
+  <div class="details-card">
+    <div class="details-head">
+      <h2>Your Details</h2>
+      <div class="sel-vehicle-display" id="selVehicleDisplay">
+        <span class="sel-dot"></span>
+        <span id="selVehicleText">No vehicle selected yet — pick one above</span>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="fg">
+        <label>Full Name <span style="color:var(--pink)">*</span></label>
+        <input type="text" id="fname" placeholder="John Smith" autocomplete="name">
+      </div>
+      <div class="fg">
+        <label>Phone <span style="color:var(--pink)">*</span></label>
+        <input type="tel" id="fphone" placeholder="(555) 000-0000" autocomplete="tel">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="fg">
+        <label>Email <span class="opt-label">(optional)</span></label>
+        <input type="email" id="femail" placeholder="you@email.com" autocomplete="email">
+      </div>
+      <div class="fg">
+        <label>Passengers</label>
+        <select id="fpax">
+          <option value="">Select…</option>
+          <option>1</option><option>2</option><option>3</option><option>4</option>
+          <option>5</option><option>6</option><option>7–10</option>
+          <option>11–14</option><option>15–24</option><option>25+</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row single">
+      <div class="fg">
+        <label>Special Requests <span class="opt-label">(optional)</span></label>
+        <textarea id="fmessage" placeholder="Decorations, stops, accessibility needs, anything else…"></textarea>
+      </div>
+    </div>
+
+    <div id="alertSuccess" class="alert alert-success"></div>
+    <div id="alertError"   class="alert alert-error"></div>
+
+    <button class="btn-submit" id="submitBtn" onclick="submitBooking()">
+      🚗 Request My Ride — We'll Confirm Within 5 Min
+    </button>
+    <div class="moovs-cta" id="moovsLink">
+      <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank">Or book instantly online via our booking portal →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── TRUST BAR ─────────────────────────────────────────────── -->
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item"><span class="trust-dot"></span>Flat rates — no surge pricing</div>
+    <div class="trust-item"><span class="trust-dot"></span>Real-time flight tracking</div>
+    <div class="trust-item"><span class="trust-dot"></span>Free cancellation 24 hrs before</div>
+    <div class="trust-item"><span class="trust-dot"></span>Veteran-owned &amp; operated</div>
+    <div class="trust-item"><span class="trust-dot"></span>Austin · DFW · Houston</div>
+    <div class="trust-item"><span class="trust-dot"></span>Available 24/7 · 365 days</div>
+  </div>
+</div>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────── -->
+<footer>
+  <p>© 2026 Purple Heart Limo. Veteran-Owned · Austin · Dallas-Fort Worth · Houston, TX · <a href="tel:+18337400700">(833) 740-0700</a> · <a href="mailto:info@purpleheartlimo.com">info@purpleheartlimo.com</a></p>
+</footer>
+
+<button class="scroll-top" id="scrollTop" aria-label="Back to top">↑</button>
+
+<!-- ── JAVASCRIPT ─────────────────────────────────────────────── -->
+<script>
+/* ── NAV ── */
+const h=document.getElementById('header');
+window.addEventListener('scroll',()=>h.classList.toggle('scrolled',scrollY>40),{passive:true});
+const mt=document.getElementById('menuToggle'),nl=document.getElementById('navLinks');
+mt.addEventListener('click',()=>{const o=mt.classList.toggle('active');nl.classList.toggle('open',o);});
+const st=document.getElementById('scrollTop');
+window.addEventListener('scroll',()=>st.classList.toggle('visible',scrollY>300),{passive:true});
+st.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+/* ── VEHICLE DATA ── */
+const VEHICLES = [
+  {
+    id:'sedan', name:'Sedan',
+    desc:'Executive sedan — ideal for business & airport runs',
+    img:'images/sedan.webp',
+    pax:3, lug:3,
+    prices:{airport:'From $119',oneway:'From $119',hourly:'$95 / hr'},
+    note:null
+  },
+  {
+    id:'luxury-sedan', name:'Luxury Sedan',
+    desc:'Premium class — Mercedes S-Class or similar',
+    img:'images/stretched limo.webp',
+    pax:3, lug:2,
+    prices:{airport:'From $149',oneway:'From $149',hourly:'$115 / hr'},
+    note:null
+  },
+  {
+    id:'suv', name:'SUV',
+    desc:'Full-size luxury SUV — spacious & commanding',
+    img:'images/suv.webp',
+    pax:6, lug:5,
+    prices:{airport:'From $159',oneway:'From $159',hourly:'$125 / hr'},
+    note:null
+  },
+  {
+    id:'luxury-suv', name:'Luxury SUV',
+    desc:'Premium large SUV — VIP configuration',
+    img:'images/suv jet.webp',
+    pax:6, lug:5,
+    prices:{airport:'From $189',oneway:'From $189',hourly:'$149 / hr'},
+    note:null
+  },
+  {
+    id:'sprinter', name:'Executive Van',
+    desc:'Mercedes Sprinter — groups & corporate',
+    img:'images/sprinter.webp',
+    pax:12, lug:8,
+    prices:{airport:'From $199',oneway:'From $199',hourly:'$150 / hr'},
+    note:'3-hr minimum'
+  },
+  {
+    id:'sprinter-jet', name:'Sprinter Jet',
+    desc:'Aircraft-cabin Sprinter — uncompromised comfort',
+    img:'images/sprinter jet.webp',
+    pax:14, lug:10,
+    prices:{airport:'From $249',oneway:'From $249',hourly:'$175 / hr'},
+    note:'3-hr minimum'
+  },
+  {
+    id:'party-bus', name:'Party Bus',
+    desc:'Luxury party bus — full dance floor & bar',
+    img:'images/24 pax.webp',
+    pax:24, lug:0,
+    prices:{airport:'From $349',oneway:'From $349',hourly:'$225 / hr'},
+    note:'4-hr minimum'
+  },
+  {
+    id:'mini-coach', name:'Mini Coach',
+    desc:'40-passenger coach — groups & events',
+    img:'images/24 pax g.webp',
+    pax:40, lug:0,
+    prices:{airport:'From $449',oneway:'From $449',hourly:'$275 / hr'},
+    note:'4-hr minimum'
+  },
+];
+
+let activeService = 'airport';
+let selectedVehicle = null;
+
+/* ── SERVICE TABS ── */
+document.querySelectorAll('.svc-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.svc-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    activeService = tab.dataset.svc;
+
+    // Toggle flight row
+    const fr = document.getElementById('flightRow');
+    fr.classList.toggle('show', activeService === 'airport');
+
+    // Update price mode label
+    const labels = {airport:'✈ Airport Pricing',oneway:'→ One Way Pricing',hourly:'⏱ Hourly Pricing'};
+    document.getElementById('priceModeLabel').textContent = labels[activeService];
+
+    // Re-render prices on cards
+    updateCardPrices();
+  });
+});
+
+/* ── RENDER VEHICLE CARDS ── */
+function renderCards() {
+  const grid = document.getElementById('vehiclesGrid');
+  grid.innerHTML = VEHICLES.map(v => `
+    <div class="veh-card" id="card-${v.id}" onclick="selectVehicle('${v.id}')">
+      <div class="selected-badge">✓ Selected</div>
+      <div class="veh-img">
+        <img src="${v.img}" alt="${v.name}" loading="lazy"
+          onerror="this.style.display='none'">
+      </div>
+      <div class="veh-body">
+        <div class="veh-name">${v.name}</div>
+        <div class="veh-desc">${v.desc}</div>
+        <div class="veh-caps">
+          <span class="veh-cap">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            ${v.pax} pax
+          </span>
+          ${v.lug > 0 ? `<span class="veh-cap">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+            ${v.lug} bags
+          </span>` : ''}
+        </div>
+        <div class="veh-price-row">
+          <div>
+            <div class="veh-price" id="price-${v.id}">${v.prices[activeService]}</div>
+            <div class="veh-price-sub">flat rate · all-inclusive</div>
+          </div>
+        </div>
+        ${v.note ? `<div class="veh-note">⚠ ${v.note}</div>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function updateCardPrices() {
+  VEHICLES.forEach(v => {
+    const el = document.getElementById(`price-${v.id}`);
+    if (el) el.textContent = v.prices[activeService];
+  });
+}
+
+function selectVehicle(id) {
+  // Remove previous selection
+  document.querySelectorAll('.veh-card').forEach(c => c.classList.remove('selected'));
+
+  // Select new
+  const card = document.getElementById(`card-${id}`);
+  if (card) {
+    card.classList.add('selected');
+    card.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+
+  selectedVehicle = VEHICLES.find(v => v.id === id);
+
+  // Update form indicator
+  const disp = document.getElementById('selVehicleText');
+  if (selectedVehicle) {
+    disp.textContent = `${selectedVehicle.name} — ${selectedVehicle.prices[activeService]}`;
+    document.getElementById('selVehicleDisplay').style.color = 'var(--cyan)';
+  }
+}
+
+function scrollToVehicles() {
+  document.getElementById('vehicleSection').scrollIntoView({behavior:'smooth'});
+}
+
+/* ── NOMINATIM AUTOCOMPLETE ── */
+function initAc(inputId, listId) {
+  const input = document.getElementById(inputId);
+  const list  = document.getElementById(listId);
+  let timer;
+
+  input.addEventListener('input', () => {
+    clearTimeout(timer);
+    const q = input.value.trim();
+    if (q.length < 3) { list.classList.remove('open'); return; }
+    timer = setTimeout(async () => {
+      try {
+        const r = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&addressdetails=1&limit=5&countrycodes=us`, {headers:{'Accept-Language':'en'}});
+        const d = await r.json();
+        list.innerHTML = d.map(i => `<div class="ac-item" data-val="${i.display_name.split(',').slice(0,3).join(',')}">${i.display_name.split(',').slice(0,3).join(', ')}</div>`).join('');
+        list.classList.toggle('open', d.length > 0);
+        list.querySelectorAll('.ac-item').forEach(item => {
+          item.addEventListener('click', () => {
+            input.value = item.dataset.val;
+            list.classList.remove('open');
+          });
+        });
+      } catch(e) { list.classList.remove('open'); }
+    }, 350);
+  });
+
+  document.addEventListener('click', e => {
+    if (!input.contains(e.target) && !list.contains(e.target)) list.classList.remove('open');
+  });
+}
+
+initAc('pickupInput','pickupAc');
+initAc('dropoffInput','dropoffAc');
+
+/* ── Auto-uppercase flight number ── */
+document.getElementById('flightInput').addEventListener('input', function() {
+  this.value = this.value.toUpperCase();
+});
+
+/* ── FORM SUBMIT ── */
+async function submitBooking() {
+  const name    = document.getElementById('fname').value.trim();
+  const phone   = document.getElementById('fphone').value.trim();
+  const email   = document.getElementById('femail').value.trim();
+  const pax     = document.getElementById('fpax').value;
+  const message = document.getElementById('fmessage').value.trim();
+  const pickup  = document.getElementById('pickupInput').value.trim();
+  const dropoff = document.getElementById('dropoffInput').value.trim();
+  const date    = document.getElementById('dateInput').value;
+  const time    = document.getElementById('timeInput').value;
+  const flight  = document.getElementById('flightInput').value.trim();
+
+  const okSuccess = document.getElementById('alertSuccess');
+  const okError   = document.getElementById('alertError');
+  [okSuccess, okError].forEach(e => e.classList.remove('show'));
+
+  if (!name || !phone) {
+    showAlert(okError, 'Please enter your full name and phone number.');
+    return;
+  }
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showAlert(okError, 'Please enter a valid email address.');
+    return;
+  }
+
+  const svcLabel = {airport:'Airport Transfer',oneway:'One Way Transfer',hourly:'Hourly Charter'}[activeService];
+  const vehicleName = selectedVehicle ? selectedVehicle.name : 'Not selected';
+  const vehiclePrice = selectedVehicle ? selectedVehicle.prices[activeService] : '';
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳  Sending your request…';
+
+  const payload = {
+    name, phone, email,
+    service: svcLabel,
+    vehicle: vehicleName + (vehiclePrice ? ' — ' + vehiclePrice : ''),
+    passengers: pax,
+    pickup: pickup || 'Not specified',
+    dropoff: dropoff || 'Not specified',
+    date: date || 'Not specified',
+    time: time || 'Not specified',
+    flightNumber: flight,
+    message: message || `Booking request via booking page.\nService: ${svcLabel}\nVehicle: ${vehicleName}${vehiclePrice ? ' (' + vehiclePrice + ')' : ''}${flight ? '\nFlight: ' + flight : ''}`
+  };
+
+  try {
+    const res = await fetch('/.netlify/functions/contact', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      showAlert(okSuccess, `✅ Request received, ${name.split(' ')[0]}! We'll call or text you within 5 minutes with confirmation and your exact flat rate.`);
+      document.getElementById('moovsLink').style.display = 'block';
+      btn.textContent = '✓ Request Sent';
+    } else {
+      showAlert(okError, data.error || 'Something went wrong. Please call (833) 740-0700.');
+      btn.disabled = false;
+      btn.textContent = '🚗 Request My Ride — We\'ll Confirm Within 5 Min';
+    }
+  } catch(e) {
+    showAlert(okError, 'Network error. Please call us at (833) 740-0700.');
+    btn.disabled = false;
+    btn.textContent = '🚗 Request My Ride — We\'ll Confirm Within 5 Min';
+  }
+}
+
+function showAlert(el, msg) {
+  el.textContent = msg;
+  el.classList.add('show');
+  el.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+/* ── INIT ── */
+renderCards();
+</script>
+</body>
+</html>
