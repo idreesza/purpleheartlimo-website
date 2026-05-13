@@ -8,7 +8,10 @@
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://purpleheartlimo.com/fleet.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+  <link rel="preload" as="image" href="images/sedan.webp" fetchpriority="high">
   <style>
 :root{--purple:#2D0045;--purple-mid:#4a0070;--gold:#C9A84C;--gold-light:#E2C36A;--white:#FFFFFF;--gray:#6B7280;--gray-light:#F3F0FF;--text:#1a0028;--dark:#0f0f0f;--dark2:#1a1a1a;--dark3:#242424;}
 *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
@@ -67,10 +70,10 @@ a{text-decoration:none;color:inherit;}
 .fleet-panel{display:none;min-height:520px;}
 .fleet-panel.active{display:grid;grid-template-columns:1fr 1fr;align-items:center;}
 
-/* Car slides in from right */
+/* Car image reveal */
 .fleet-panel .car-side{position:relative;overflow:hidden;min-height:520px;display:flex;align-items:center;justify-content:center;}
-.fleet-panel .car-side img{width:100%;height:100%;object-fit:cover;transform:translateX(100%);opacity:0;transition:transform 0.7s cubic-bezier(0.22,1,0.36,1),opacity 0.5s ease;}
-.fleet-panel.active .car-side img{transform:translateX(0);opacity:1;}
+.fleet-panel .car-side img{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.35s ease;}
+.fleet-panel.active .car-side img{opacity:1;}
 
 /* Overlay gradient so text reads on the car side */
 .fleet-panel .car-side::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,var(--dark2) 0%,transparent 40%);}
@@ -199,7 +202,7 @@ footer{background:var(--dark2);border-top:1px solid rgba(255,255,255,0.07);paddi
     <!-- Executive Sedan -->
     <div class="fleet-panel active" id="panel-sedan">
       <div class="car-side">
-        <img src="images/sedan.webp" alt="Executive Sedan — Purple Heart Limo" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=900&q=75&auto=format'">
+        <img src="images/sedan.webp" alt="Executive Sedan — Purple Heart Limo" loading="eager" fetchpriority="high" onerror="this.src='https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=900&q=75&auto=format'">
       </div>
       <div class="info-side">
         <span class="vehicle-badge">Vehicle 01 of 06</span>
@@ -503,15 +506,13 @@ function goTo(idx) {
   dotsEl.children[current].classList.add('active');
   counterEl.textContent = (current+1) + ' / ' + panels.length;
 
-  // Reset and re-trigger the slide animation
+  // Fade in the new image
   const img = newPanel.querySelector('.car-side img');
   img.style.transition = 'none';
-  img.style.transform = 'translateX(100%)';
   img.style.opacity = '0';
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      img.style.transition = 'transform 0.7s cubic-bezier(0.22,1,0.36,1), opacity 0.5s ease';
-      img.style.transform = 'translateX(0)';
+      img.style.transition = 'opacity 0.35s ease';
       img.style.opacity = '1';
     });
   });

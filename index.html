@@ -877,16 +877,17 @@ footer {
           <input type="text" id="dropoff-input" placeholder="Destination..." autocomplete="off">
         </div>
 
-        <!-- Flight fields — only visible for Airport tab -->
+        <!-- Flight field — only visible for Airport tab -->
         <div class="flight-field show" id="flight-field">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Flight No. <span class="optional-badge">optional</span></label>
-              <input type="text" placeholder="e.g. AA1234" id="flight-input">
-            </div>
-            <div class="form-group">
-              <label>Airline <span class="optional-badge">optional</span></label>
-              <input type="text" placeholder="e.g. American" id="airline-input">
+          <div class="form-group">
+            <label style="display:flex;align-items:center;gap:6px;">
+              <span style="font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);font-weight:700;">✈ Flight No.</span>
+              <span class="optional-badge">optional</span>
+            </label>
+            <div style="position:relative;">
+              <span style="position:absolute;left:11px;top:50%;transform:translateY(-50%);font-family:'Courier New',monospace;font-size:0.78rem;color:rgba(45,0,69,0.35);pointer-events:none;letter-spacing:0.08em;">FLT#</span>
+              <input type="text" id="flight-input" placeholder="AA1234" autocomplete="off"
+                style="font-family:'Courier New',monospace;letter-spacing:0.12em;text-transform:uppercase;padding-left:50px;background:rgba(45,0,69,0.04);border:1.5px solid rgba(45,0,69,0.18);border-radius:8px;">
             </div>
           </div>
         </div>
@@ -928,6 +929,7 @@ footer {
           <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">Estimated Rate</div>
           <div id="price-value" style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--purple);font-weight:400;"></div>
           <div style="font-size:0.65rem;color:var(--gray);margin-top:2px;">Flat rate · No surge · All-inclusive</div>
+          <div id="price-note" style="font-size:0.68rem;color:#b45309;font-weight:600;margin-top:4px;"></div>
         </div>
 
         <button class="btn-book-full" id="quote-btn" onclick="submitQuote()">🚗 See My Price &amp; Book</button>
@@ -2070,12 +2072,12 @@ function submitCloud() {
 
 // ===== QUOTE FORM =====
 const PRICE_RATES = {
-  'Sedan (1–3 passengers)':    { airport: 'From $79', oneway: 'From $99', hourly: '$75/hr' },
-  'SUV (1–6 passengers)':      { airport: 'From $99', oneway: 'From $129', hourly: '$95/hr' },
-  'Stretch Limo (up to 10)':   { airport: 'From $149', oneway: 'From $189', hourly: '$125/hr' },
-  'Sprinter Van (up to 14)':   { airport: 'From $149', oneway: 'From $175', hourly: '$110/hr' },
-  'Party Bus (up to 22)':      { airport: 'From $199', oneway: 'From $249', hourly: '$150/hr' },
-  'Coach Bus (22+)':           { airport: 'From $299', oneway: 'From $349', hourly: '$200/hr' },
+  'Sedan (1–3 passengers)':    { airport: 'From $119', oneway: 'From $119', hourly: '$95/hr' },
+  'SUV (1–6 passengers)':      { airport: 'From $159', oneway: 'From $159', hourly: '$125/hr' },
+  'Stretch Limo (up to 10)':   { airport: 'From $249', oneway: 'From $249', hourly: '$175/hr', note: '3-hr minimum required' },
+  'Sprinter Van (up to 14)':   { airport: 'From $199', oneway: 'From $199', hourly: '$150/hr', note: '3-hr minimum required' },
+  'Party Bus (up to 22)':      { airport: 'From $349', oneway: 'From $349', hourly: '$225/hr', note: '4-hr minimum required' },
+  'Coach Bus (22+)':           { airport: 'From $449', oneway: 'From $449', hourly: '$275/hr', note: '4-hr minimum required' },
 };
 
 function getActiveTab() {
@@ -2097,6 +2099,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const rate = PRICE_RATES[v];
       if (rate) {
         document.getElementById('price-value').textContent = rate[tab] || rate.airport;
+        const noteEl = document.getElementById('price-note');
+        if (noteEl) noteEl.textContent = rate.note ? '⚠ ' + rate.note : '';
         document.getElementById('price-estimate').style.display = 'block';
       }
     };
@@ -2114,8 +2118,7 @@ async function submitQuote() {
   const date     = document.getElementById('date-input')?.value || '';
   const time     = document.getElementById('time-input')?.value || '';
   const vehicle  = document.getElementById('vehicle-input')?.value || '';
-  const flight   = (document.getElementById('flight-input')?.value || '').trim();
-  const airline  = (document.getElementById('airline-input')?.value || '').trim();
+  const flight   = (document.getElementById('flight-input')?.value || '').trim().toUpperCase();
   const service  = getActiveTab() === 'airport' ? 'Airport Transfer' :
                    getActiveTab() === 'hourly'  ? 'Hourly Charter'   : 'One Way Transfer';
 
@@ -2130,8 +2133,8 @@ async function submitQuote() {
   btn.textContent = 'Sending…';
 
   const payload = { name, phone, service, date, time, vehicle, pickup, dropoff,
-    flightNumber: flight, airline,
-    message: `Quote request from home page.\nService: ${service}\nVehicle: ${vehicle}${flight ? '\nFlight: ' + flight + (airline ? ' (' + airline + ')' : '') : ''}` };
+    flightNumber: flight,
+    message: `Quote request from home page.\nService: ${service}\nVehicle: ${vehicle}${flight ? '\nFlight: ' + flight : ''}` };
 
   try {
     await fetch('/.netlify/functions/contact', {
