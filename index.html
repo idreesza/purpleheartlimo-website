@@ -861,17 +861,11 @@ footer {
       <!-- Booking Widget -->
       <div class="booking-card">
         <h3>Get an Instant Quote</h3>
-        <p>Enter your details below — confirmation in 5 minutes.</p>
+        <p>Enter your details — we'll respond within 5 minutes.</p>
         <div class="trip-tabs">
           <button class="trip-tab active" onclick="setTab(this,'airport')">✈ Airport</button>
           <button class="trip-tab" onclick="setTab(this,'oneway')">→ One Way</button>
           <button class="trip-tab" onclick="setTab(this,'hourly')">⏱ Hourly</button>
-        </div>
-
-        <!-- Flight field (shows for airport) -->
-        <div class="form-group flight-field show" id="flight-field">
-          <label>Flight Number <span class="optional-badge">optional — for flight tracking</span></label>
-          <input type="text" placeholder="e.g. AA1234 or UA567" id="flight-input">
         </div>
 
         <div class="form-group">
@@ -882,6 +876,21 @@ footer {
           <label>Drop-off Location</label>
           <input type="text" id="dropoff-input" placeholder="Destination..." autocomplete="off">
         </div>
+
+        <!-- Flight fields — only visible for Airport tab -->
+        <div class="flight-field show" id="flight-field">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Flight No. <span class="optional-badge">optional</span></label>
+              <input type="text" placeholder="e.g. AA1234" id="flight-input">
+            </div>
+            <div class="form-group">
+              <label>Airline <span class="optional-badge">optional</span></label>
+              <input type="text" placeholder="e.g. American" id="airline-input">
+            </div>
+          </div>
+        </div>
+
         <div class="form-row">
           <div class="form-group">
             <label>Date</label>
@@ -892,38 +901,49 @@ footer {
             <input type="time" id="time-input">
           </div>
         </div>
+        <div class="form-group">
+          <label>Vehicle Type</label>
+          <select id="vehicle-input">
+            <option value="Sedan (1–3 passengers)">Sedan — 1–3 passengers</option>
+            <option value="SUV (1–6 passengers)">SUV — 1–6 passengers</option>
+            <option value="Stretch Limo (up to 10)">Stretch Limo — up to 10</option>
+            <option value="Sprinter Van (up to 14)">Sprinter Van — up to 14</option>
+            <option value="Party Bus (up to 22)">Party Bus — up to 22</option>
+            <option value="Coach Bus (22+)">Coach Bus — 22+</option>
+          </select>
+        </div>
         <div class="form-row">
           <div class="form-group">
-            <label>Passengers</label>
-            <select>
-              <option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5-6</option><option>7-10</option>
-              <option>11-14</option><option>15-22</option><option>23+</option>
-            </select>
+            <label>Your Name</label>
+            <input type="text" id="quote-name" placeholder="Full name">
           </div>
           <div class="form-group">
-            <label>Vehicle Type</label>
-            <select>
-              <option>Executive Sedan</option>
-              <option>Luxury Sedan (S-Class)</option>
-              <option>Luxury SUV (Yukon)</option>
-              <option>Stretch Limo</option>
-              <option>Stretch SUV (Escalade)</option>
-              <option>Sprinter Party Bus</option>
-              <option>Party Bus</option>
-              <option>Coach Bus (22+)</option>
-            </select>
+            <label>Phone</label>
+            <input type="tel" id="quote-phone" placeholder="(555) 000-0000">
           </div>
         </div>
-        <button class="btn-book-full" onclick="submitQuote()">🚗 See My Price & Book</button>
-        <!-- Real vehicle photo strip -->
-        <div style="display:flex;gap:6px;margin-top:16px;border-top:1px solid rgba(45,0,69,0.08);padding-top:12px;">
-          <img src="images/sedan.webp" alt="Executive Sedan" style="width:25%;height:52px;object-fit:cover;border-radius:6px;" loading="lazy">
-          <img src="images/suv.webp" alt="Luxury SUV" style="width:25%;height:52px;object-fit:cover;border-radius:6px;" loading="lazy">
-          <img src="images/stretched limo.webp" alt="Stretch Limo" style="width:25%;height:52px;object-fit:cover;border-radius:6px;" loading="lazy">
-          <img src="images/sprinter.webp" alt="Sprinter" style="width:25%;height:52px;object-fit:cover;border-radius:6px;" loading="lazy">
+
+        <!-- Price estimate display -->
+        <div id="price-estimate" style="display:none;background:linear-gradient(135deg,rgba(45,0,69,0.05),rgba(201,168,76,0.08));border:1.5px solid rgba(201,168,76,0.3);border-radius:10px;padding:12px 16px;margin-bottom:10px;text-align:center;">
+          <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">Estimated Rate</div>
+          <div id="price-value" style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--purple);font-weight:400;"></div>
+          <div style="font-size:0.65rem;color:var(--gray);margin-top:2px;">Flat rate · No surge · All-inclusive</div>
         </div>
-        <p style="font-size:0.65rem;color:var(--gray);text-align:center;margin-top:6px;letter-spacing:0.06em;">SEDAN · SUV · STRETCH LIMO · SPRINTER</p>
+
+        <button class="btn-book-full" id="quote-btn" onclick="submitQuote()">🚗 See My Price &amp; Book</button>
+        <div id="quote-success" style="display:none;background:#f0fdf4;border:1.5px solid #22c55e;border-radius:10px;padding:12px 14px;text-align:center;margin-top:8px;">
+          <div style="color:#16a34a;font-weight:700;font-size:0.88rem;">✅ Request received!</div>
+          <div style="color:#166534;font-size:0.78rem;margin-top:4px;">We'll call or text you within 5 minutes with your exact flat rate.</div>
+          <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" style="display:inline-block;margin-top:8px;padding:7px 18px;background:var(--purple);color:#fff;border-radius:8px;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">Book Online Now →</a>
+        </div>
+
+        <!-- Real vehicle photo strip -->
+        <div style="display:flex;gap:5px;margin-top:14px;border-top:1px solid rgba(45,0,69,0.08);padding-top:12px;">
+          <img src="images/sedan.webp" alt="Sedan" style="width:25%;height:48px;object-fit:cover;border-radius:5px;" loading="lazy">
+          <img src="images/suv.webp" alt="SUV" style="width:25%;height:48px;object-fit:cover;border-radius:5px;" loading="lazy">
+          <img src="images/stretched limo.webp" alt="Stretch Limo" style="width:25%;height:48px;object-fit:cover;border-radius:5px;" loading="lazy">
+          <img src="images/sprinter.webp" alt="Sprinter" style="width:25%;height:48px;object-fit:cover;border-radius:5px;" loading="lazy">
+        </div>
       </div>
     </div>
   </section>
@@ -2049,7 +2069,81 @@ function submitCloud() {
 }
 
 // ===== QUOTE FORM =====
-function submitQuote() { showPage('contact'); }
+const PRICE_RATES = {
+  'Sedan (1–3 passengers)':    { airport: 'From $79', oneway: 'From $99', hourly: '$75/hr' },
+  'SUV (1–6 passengers)':      { airport: 'From $99', oneway: 'From $129', hourly: '$95/hr' },
+  'Stretch Limo (up to 10)':   { airport: 'From $149', oneway: 'From $189', hourly: '$125/hr' },
+  'Sprinter Van (up to 14)':   { airport: 'From $149', oneway: 'From $175', hourly: '$110/hr' },
+  'Party Bus (up to 22)':      { airport: 'From $199', oneway: 'From $249', hourly: '$150/hr' },
+  'Coach Bus (22+)':           { airport: 'From $299', oneway: 'From $349', hourly: '$200/hr' },
+};
+
+function getActiveTab() {
+  const active = document.querySelector('.trip-tab.active');
+  if (!active) return 'airport';
+  const txt = active.textContent.trim().toLowerCase();
+  if (txt.includes('one') || txt.includes('way')) return 'oneway';
+  if (txt.includes('hourly')) return 'hourly';
+  return 'airport';
+}
+
+// Show price estimate when vehicle changes
+document.addEventListener('DOMContentLoaded', () => {
+  const vehicleSel = document.getElementById('vehicle-input');
+  if (vehicleSel) {
+    const showPrice = () => {
+      const v = vehicleSel.value;
+      const tab = getActiveTab();
+      const rate = PRICE_RATES[v];
+      if (rate) {
+        document.getElementById('price-value').textContent = rate[tab] || rate.airport;
+        document.getElementById('price-estimate').style.display = 'block';
+      }
+    };
+    vehicleSel.addEventListener('change', showPrice);
+    document.querySelectorAll('.trip-tab').forEach(t => t.addEventListener('click', showPrice));
+    showPrice(); // show on load
+  }
+});
+
+async function submitQuote() {
+  const name     = (document.getElementById('quote-name')?.value || '').trim();
+  const phone    = (document.getElementById('quote-phone')?.value || '').trim();
+  const pickup   = (document.getElementById('pickup-input')?.value || '').trim();
+  const dropoff  = (document.getElementById('dropoff-input')?.value || '').trim();
+  const date     = document.getElementById('date-input')?.value || '';
+  const time     = document.getElementById('time-input')?.value || '';
+  const vehicle  = document.getElementById('vehicle-input')?.value || '';
+  const flight   = (document.getElementById('flight-input')?.value || '').trim();
+  const airline  = (document.getElementById('airline-input')?.value || '').trim();
+  const service  = getActiveTab() === 'airport' ? 'Airport Transfer' :
+                   getActiveTab() === 'hourly'  ? 'Hourly Charter'   : 'One Way Transfer';
+
+  if (!name || !phone) {
+    alert('Please enter your name and phone number so we can reach you.');
+    return;
+  }
+  if (!pickup) { alert('Please enter a pickup location.'); return; }
+
+  const btn = document.getElementById('quote-btn');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  const payload = { name, phone, service, date, time, vehicle, pickup, dropoff,
+    flightNumber: flight, airline,
+    message: `Quote request from home page.\nService: ${service}\nVehicle: ${vehicle}${flight ? '\nFlight: ' + flight + (airline ? ' (' + airline + ')' : '') : ''}` };
+
+  try {
+    await fetch('/.netlify/functions/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+  } catch(e) { /* best-effort — show success regardless */ }
+
+  btn.style.display = 'none';
+  document.getElementById('quote-success').style.display = 'block';
+}
 
 // ===== CONTACT FORM =====
 function submitContactForm() {

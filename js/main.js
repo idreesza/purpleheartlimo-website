@@ -89,25 +89,36 @@ function initContactForm() {
     e.preventDefault();
 
     const name    = form.querySelector('[name="name"]')?.value.trim();
+    const phone   = form.querySelector('[name="phone"]')?.value.trim();
     const email   = form.querySelector('[name="email"]')?.value.trim();
-    const message = form.querySelector('[name="message"]')?.value.trim();
+    const service = form.querySelector('[name="service"]')?.value.trim();
+    const date    = form.querySelector('[name="date"]')?.value.trim();
 
-    if (!name || !email || !message) {
-      showAlert(alertError, 'Please fill in all required fields.');
+    if (!name || !phone) {
+      showAlert(alertError, 'Please enter your full name and phone number.');
       return;
     }
-    if (!validEmail(email)) {
+    if (!service) {
+      showAlert(alertError, 'Please select a service type.');
+      return;
+    }
+    if (!date) {
+      showAlert(alertError, 'Please select your event date.');
+      return;
+    }
+    if (email && !validEmail(email)) {
       showAlert(alertError, 'Please enter a valid email address.');
       return;
     }
 
     const origText = submitBtn.innerHTML;
     submitBtn.disabled = true;
-    submitBtn.innerHTML = 'Sending…';
+    submitBtn.innerHTML = '⏳ Sending…';
     hideAlerts();
 
+    // Collect all fields including new ones
     const payload = {};
-    new FormData(form).forEach((v, k) => { payload[k] = v; });
+    new FormData(form).forEach((v, k) => { if (v) payload[k] = v; });
 
     try {
       const res  = await fetch('/.netlify/functions/contact', {
@@ -118,14 +129,14 @@ function initContactForm() {
       const data = await res.json();
 
       if (res.ok && data.success) {
-        showAlert(alertSuccess, data.message || "Thank you! We'll be in touch shortly.");
+        showAlert(alertSuccess, data.message || "✅ Request received! We'll call or text you within 5 minutes.");
         form.reset();
-        setTimeout(() => { window.location.href = 'thank-you.html'; }, 2000);
+        document.getElementById('cf-flight-row').style.display = 'none';
       } else {
-        showAlert(alertError, data.error || 'Something went wrong. Please call us at (512) 890-0900.');
+        showAlert(alertError, data.error || 'Something went wrong. Please call (833) 740-0700.');
       }
     } catch {
-      showAlert(alertError, 'Network error. Please call us at (512) 890-0900.');
+      showAlert(alertError, 'Network error. Please call (833) 740-0700.');
     } finally {
       submitBtn.disabled = false;
       submitBtn.innerHTML = origText;
@@ -147,4 +158,10 @@ function initContactForm() {
 
 function validEmail(v) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+}
+
+/* ---- Toggle Flight Fields (contact.html) ---- */
+function toggleFlightFields(serviceValue) {
+  const row = document.getElementById('cf-flight-row');
+  if (row) row.style.display = serviceValue === 'Airport Transfer' ? 'block' : 'none';
 }
