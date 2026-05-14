@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow">
 <title>Purple Heart Limo | Luxury Limousine & Black Car Service | Austin · Dallas · Houston</title>
-<meta name="description" content="Purple Heart Limo — veteran-owned luxury limousine & black car service in Austin, Dallas-Fort Worth & Houston TX. Airport transfers, weddings, corporate travel. No surge pricing. Call (8337) 400-700.">
+<meta name="description" content="Purple Heart Limo — veteran-owned luxury limousine & black car service in Austin, Dallas-Fort Worth & Houston TX. Airport transfers, weddings, corporate travel. No surge pricing. Call (833) 740-0700.">
 <meta name="keywords" content="limo service austin tx, limo service dallas tx, limo service houston tx, black car service texas, airport transfer austin, dfw airport limo, luxury transportation texas, veteran owned limo, wedding limo texas, corporate car service texas">
 <link rel="canonical" href="https://www.purpleheartlimo.com/">
 <meta property="og:title" content="Purple Heart Limo | Veteran-Owned Luxury Car Service TX">
@@ -199,10 +199,10 @@ a { text-decoration:none; color:inherit; }
 
 /* ===== HERO ===== */
 .hero {
-  min-height: 100vh;
+  min-height: 88vh;
   background: linear-gradient(150deg, #f8f4ff 0%, #ede5ff 40%, #e8deff 100%);
   display: flex; align-items:center;
-  padding: 100px 5% 60px;
+  padding: 80px 5% 48px;
   position: relative; overflow:hidden;
 }
 .hero::before {
@@ -732,9 +732,33 @@ footer {
   .blog-grid { grid-template-columns:1fr; }
   .form-row { grid-template-columns:1fr; }
   .mobile-bar { display:flex; }
-  body { padding-bottom:72px; }
-  .floating-widgets { bottom:82px; right:14px; }
+  body { padding-bottom:80px; }
+  .floating-widgets { display:none; }
   .sitemap-grid { grid-template-columns:1fr; }
+  /* Hero stacks cleanly on mobile */
+  .hero { padding:76px 4% 40px; min-height:auto; }
+  .hero-inner { gap:28px; }
+  .hero h1 { font-size:clamp(1.9rem,7vw,2.6rem); }
+  .hero-badge { font-size:0.65rem; padding:5px 12px; }
+  .hero-trust { gap:10px; }
+  .trust-item { font-size:0.72rem; }
+  .hero-btns { flex-direction:column; gap:10px; }
+  .hero-btns .btn-primary, .hero-btns .btn-secondary { width:100%; justify-content:center; text-align:center; }
+  /* Quote card tighter on mobile */
+  .booking-card { padding:20px 16px; }
+  .booking-card h3 { font-size:1.2rem; }
+  .trip-tabs { overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; gap:6px; scrollbar-width:none; }
+  .trip-tabs::-webkit-scrollbar { display:none; }
+  .trip-tab { flex:0 0 auto; padding:8px 14px; font-size:0.7rem; white-space:nowrap; }
+  /* Mobile bar sizing */
+  .mobile-bar { padding:10px 10px 10px; gap:8px; }
+  .mobile-bar a { padding:10px 6px; font-size:0.68rem; border-radius:8px; }
+  /* Discount cloud & tab off-screen on mobile */
+  .discount-cloud { right:10px; max-width:calc(100vw - 20px); }
+  .discount-tab { bottom:90px; }
+  /* Prevent any overflow source */
+  .booking-card, .hero-content, .hero-inner { max-width:100%; box-sizing:border-box; }
+  .svc-hero { padding:100px 4% 50px; }
 }
 </style>
 </head>
@@ -810,7 +834,7 @@ footer {
 <div class="mobile-bar">
   <a href="tel:+18337400700" class="m-call">📞 Call</a>
   <a href="https://wa.me/18337400700" target="_blank" class="m-wa">💬 WhatsApp</a>
-  <a href="#" class="m-book" onclick=\"return showPage('contact')\">🚗 Book Now</a>
+  <a href="/booking.html" class="m-book">Book a Ride</a>
 </div>
 
 <!-- ===== DISCOUNT CLOUD WIDGET ===== -->
@@ -840,21 +864,42 @@ footer {
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-content">
-        <div class="hero-badge">⭐ 4.9 Stars · 214+ Reviews · Veteran-Owned</div>
+        <div class="hero-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          4.9-Star Rated · Veteran-Owned · Texas
+        </div>
         <h1>Luxury Rides.<br><em>No Surge Pricing.</em><br>Anywhere in Texas.</h1>
         <div class="hero-divider"></div>
         <p class="hero-sub">Premium black car & limo service across Austin, Dallas-Fort Worth and Houston. Flat rates, professional chauffeurs, and military precision on every ride.</p>
         <div class="hero-trust">
-          <div class="trust-item"><span class="trust-icon">🎖️</span> Veteran-Owned</div>
-          <div class="trust-item"><span class="trust-icon">✅</span> Licensed & Insured</div>
-          <div class="trust-item"><span class="trust-icon">🚫</span> No Surge Pricing</div>
-          <div class="trust-item"><span class="trust-icon">✈️</span> Flight Tracking</div>
-          <div class="trust-item"><span class="trust-icon">💳</span> No Upfront Payment</div>
-          <div class="trust-item"><span class="trust-icon">⏱️</span> Confirm in 5 Min</div>
+          <div class="trust-item">
+            <svg class="trust-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Veteran-Owned
+          </div>
+          <div class="trust-item">
+            <svg class="trust-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Licensed &amp; Insured
+          </div>
+          <div class="trust-item">
+            <svg class="trust-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            No Surge Pricing
+          </div>
+          <div class="trust-item">
+            <svg class="trust-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Real-Time Flight Tracking
+          </div>
+          <div class="trust-item">
+            <svg class="trust-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            No Upfront Payment
+          </div>
+          <div class="trust-item">
+            <svg class="trust-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Confirmed in 5 Min
+          </div>
         </div>
         <div class="hero-btns">
-          <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">🚗 Book Your Ride</a>
-          <a href="tel:+18337400700" class="btn-secondary">📞 (833) 740-0700</a>
+          <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Your Ride</a>
+          <a href="tel:+18337400700" class="btn-secondary">(833) 740-0700</a>
         </div>
       </div>
 
@@ -955,8 +1000,8 @@ footer {
     <div class="section-inner">
       <div class="text-center">
         <span class="section-tag">What Riders Say</span>
-        <h2 class="section-title">4.9 Stars · 214+ Reviews</h2>
-        <p class="section-sub">Real customers across Austin, Dallas and Houston.</p>
+        <h2 class="section-title">Trusted by Riders Across Texas</h2>
+        <p class="section-sub">A selection of testimonials from our customers in Austin, Dallas and Houston.</p>
       </div>
       <div class="reviews-grid">
         <div class="review-card">
@@ -979,7 +1024,7 @@ footer {
         </div>
       </div>
       <div style="text-align:center;margin-top:36px;">
-        <a href="#" class="btn-secondary" onclick="return showPage('testimonials')">Read All 214+ Reviews →</a>
+        <a href="https://g.page/r/purpleheartlimo/review" target="_blank" rel="noopener" class="btn-secondary">See Our Reviews on Google →</a>
       </div>
     </div>
   </section>
@@ -1009,7 +1054,7 @@ footer {
       <p>Flat-rate airport transfers with real-time flight tracking, name-sign meet & greet at baggage claim, and 60 minutes of complimentary wait time. No surge pricing — ever.</p>
       <div class="hero-btns">
         <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Airport Transfer</a>
-        <a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a>
+        <a href="tel:+18337400700" class="btn-white">📞 (833) 740-0700</a>
       </div>
     </div>
   </div>
@@ -1041,7 +1086,7 @@ footer {
       <p>Book your guaranteed flat-rate airport transfer today.</p>
       <div class="cta-btns">
         <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Airport Transfer</a>
-        <a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a>
+        <a href="tel:+18337400700" class="btn-white">📞 (833) 740-0700</a>
       </div>
     </div>
   </section>
@@ -1059,7 +1104,7 @@ footer {
       <p>Your wedding day deserves flawless transportation. We coordinate with your planner, arrive early, and deliver an experience as beautiful as the ceremony itself. 500+ Texas weddings served.</p>
       <div class="hero-btns">
         <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Plan My Wedding Transport</a>
-        <a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a>
+        <a href="tel:+18337400700" class="btn-white">📞 (833) 740-0700</a>
       </div>
     </div>
   </div>
@@ -1082,7 +1127,7 @@ footer {
       </div>
     </div>
   </section>
-  <section class="cta-section"><div class="section-inner"><h2>Let's Plan Your Perfect Wedding Transport</h2><p>Custom transportation plans for your big day.</p><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Start Planning</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div></div></section>
+  <section class="cta-section"><div class="section-inner"><h2>Let's Plan Your Perfect Wedding Transport</h2><p>Custom transportation plans for your big day.</p><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Start Planning</a><a href="tel:+18337400700" class="btn-white">📞 (833) 740-0700</a></div></div></section>
 </div>
 
 <!-- ================================================================
@@ -1095,7 +1140,7 @@ footer {
       <h1>Corporate Car Service<br><em>Austin · Dallas · Houston</em></h1>
       <div class="svc-hero-divider"></div>
       <p>Executive airport transfers, client entertainment, roadshows, and recurring travel programs. Monthly invoicing, dedicated account management, locked-in flat rates.</p>
-      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Open Corporate Account</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div>
+      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Open Corporate Account</a><a href="tel:+18337400700" class="btn-white">📞 (833) 740-0700</a></div>
     </div>
   </div>
   <section style="background:var(--white);">
@@ -1108,7 +1153,7 @@ footer {
       </div>
     </div>
   </section>
-  <section class="cta-section"><div class="section-inner"><h2>Open a Corporate Account Today</h2><p>Set up in 24 hours with a custom travel program.</p><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Open Account</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div></div></section>
+  <section class="cta-section"><div class="section-inner"><h2>Open a Corporate Account Today</h2><p>Set up in 24 hours with a custom travel program.</p><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Open Account</a><a href="tel:+18337400700" class="btn-white">📞 (833) 740-0700</a></div></div></section>
 </div>
 
 <!-- ================================================================
@@ -1121,7 +1166,7 @@ footer {
       <h1>Prom & Graduation<br><em>Limo Service Texas</em></h1>
       <div class="svc-hero-divider"></div>
       <p>Make the most memorable night of high school even more unforgettable. Safe, stylish, and completely over-the-top — exactly how prom should be.</p>
-      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Prom Limo</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div>
+      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Prom Limo</a><a href="tel:+18337400700" class="btn-white">📞 (833) 740-0700</a></div>
     </div>
   </div>
   <section style="background:var(--white);">
@@ -1134,7 +1179,7 @@ footer {
       </div>
     </div>
   </section>
-  <section class="cta-section"><div class="section-inner"><h2>Book Prom Limo Before It's Gone</h2><p>Prom vehicles book fast — reserve your date now.</p><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Check Availability</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div></div></section>
+  <section class="cta-section"><div class="section-inner"><h2>Book Prom Limo Before It's Gone</h2><p>Prom vehicles book fast — reserve your date now.</p><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Check Availability</a><a href="tel:+18337400700" class="btn-white">📞 (833) 740-0700</a></div></div></section>
 </div>
 
 <!-- ================================================================
@@ -1147,7 +1192,7 @@ footer {
       <h1>Night Out & Party<br><em>Austin · Dallas · Houston</em></h1>
       <div class="svc-hero-divider"></div>
       <p>Bachelor/bachelorette, birthday, concert, bar crawl — when the group is going out, leave the driving to us.</p>
-      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Party Limo</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div>
+      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Party Limo</a><a href="tel:+18337400700" class="btn-white">📞 (833) 740-0700</a></div>
     </div>
   </div>
   <section style="background:var(--white);">
@@ -1160,7 +1205,7 @@ footer {
       </div>
     </div>
   </section>
-  <section class="cta-section"><div class="section-inner"><h2>Ready for a Night You Won't Forget?</h2><p>Book your party limo today — weekends fill fast.</p><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Party Limo</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div></div></section>
+  <section class="cta-section"><div class="section-inner"><h2>Ready for a Night You Won't Forget?</h2><p>Book your party limo today — weekends fill fast.</p><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Party Limo</a><a href="tel:+18337400700" class="btn-white">📞 (833) 740-0700</a></div></div></section>
 </div>
 
 <!-- ================================================================
@@ -1173,7 +1218,7 @@ footer {
       <h1>Hourly Car Service<br><em>Your Schedule, Your Driver</em></h1>
       <div class="svc-hero-divider"></div>
       <p>Your dedicated professional chauffeur, available by the hour. Perfect for roadshows, multi-stop business days, city tours, or any time you need a driver on standby.</p>
-      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Hourly Service</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div>
+      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Hourly Service</a><a href="tel:+18337400700" class="btn-white">📞 (833) 740-0700</a></div>
     </div>
   </div>
   <section style="background:var(--white);">
@@ -1181,7 +1226,7 @@ footer {
       <div class="text-center"><span class="section-tag">As-Directed Service</span><h2 class="section-title">Your Time, Your Schedule</h2><p class="section-sub">Multiple stops, changes of plans, waiting while you're in a meeting — all included. 2-hour minimum.</p></div>
     </div>
   </section>
-  <section class="cta-section"><div class="section-inner"><h2>Book Your Hourly Chauffeur Today</h2><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Hourly Service</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div></div></section>
+  <section class="cta-section"><div class="section-inner"><h2>Book Your Hourly Chauffeur Today</h2><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Hourly Service</a><a href="tel:+18337400700" class="btn-white">📞 (833) 740-0700</a></div></div></section>
 </div>
 
 <!-- ================================================================
@@ -1194,7 +1239,7 @@ footer {
       <h1>Quinceañera & Sweet 16<br><em>Limo Service Texas</em></h1>
       <div class="svc-hero-divider"></div>
       <p>El día más especial merece el servicio más especial. Luxury limousine service for quinceañeras and sweet 16 celebrations across Austin, Dallas and Houston.</p>
-      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Quinceañera Limo</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div>
+      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Quinceañera Limo</a><a href="tel:+18337400700" class="btn-white">📞 (833) 740-0700</a></div>
     </div>
   </div>
   <section style="background:var(--white);">
@@ -1207,7 +1252,7 @@ footer {
       </div>
     </div>
   </section>
-  <section class="cta-section"><div class="section-inner"><h2>Haz Tu Quinceañera Inolvidable</h2><p>Book your quinceañera or sweet 16 limo today. / Reserva tu limusina hoy.</p><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Now / Reservar</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div></div></section>
+  <section class="cta-section"><div class="section-inner"><h2>Haz Tu Quinceañera Inolvidable</h2><p>Book your quinceañera or sweet 16 limo today. / Reserva tu limusina hoy.</p><div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Now / Reservar</a><a href="tel:+18337400700" class="btn-white">📞 (833) 740-0700</a></div></div></section>
 </div>
 
 <!-- ================================================================
@@ -1217,53 +1262,49 @@ footer {
   <div class="svc-hero" style="background:linear-gradient(135deg,#0a2a0a,#1a4a1a,#0a1a0a);">
     <div class="svc-hero-inner">
       <div class="breadcrumb" style="color:rgba(255,255,255,0.4);"><a href="#" onclick=\"return showPage('home')\" style="color:rgba(255,255,255,0.4);">Home</a><span>›</span> World Cup 2026</div>
-      <div style="display:inline-block;background:#006633;color:white;font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;padding:5px 14px;border-radius:4px;margin-bottom:12px;">⚽ FIFA World Cup 2026™</div>
-      <h1>World Cup 2026<br><em>Dallas & Houston Transportation</em></h1>
+      <div style="display:inline-block;background:#006633;color:white;font-size:0.68rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;padding:5px 14px;border-radius:4px;margin-bottom:12px;">FIFA World Cup 2026</div>
+      <h1>World Cup 2026<br><em>Dallas &amp; Houston Transportation</em></h1>
       <div class="svc-hero-divider"></div>
-      <p>The world is coming to Texas. Don't let parking and Uber surge ruin the biggest soccer event of your lifetime. Purple Heart Limo handles your World Cup transportation — flat rates, guaranteed driver, no stress.</p>
-      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book World Cup Transfer</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div>
+      <p>The world is coming to Texas. Dallas (AT&T Stadium) and Houston (NRG Stadium) host multiple group stage and knockout matches. Don't let parking and surge pricing ruin the biggest soccer event of your lifetime — Purple Heart Limo gets you there flat-rate, guaranteed.</p>
+      <div class="hero-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book World Cup Transfer</a><a href="tel:+18337400700" class="btn-white">📞 (833) 740-0700</a></div>
     </div>
   </div>
   <section style="background:var(--white);">
     <div class="section-inner">
-      <div class="text-center"><span class="section-tag">📍 Dallas — 9 Matches at AT&T Stadium</span><h2 class="section-title">Dallas World Cup Schedule</h2><p class="section-sub">Dallas hosts more matches than any other city — including a Semifinal on July 14.</p></div>
+      <div class="text-center"><span class="section-tag">Dallas · Houston · Arlington</span><h2 class="section-title">World Cup 2026 in Texas</h2><p class="section-sub">Dallas (AT&amp;T Stadium) hosts group stage matches and a Semifinal. Houston (NRG Stadium) hosts group stage and Round of 16 matches. No matter which match you're attending — we'll get you there stress-free.</p></div>
       <div style="border:1px solid rgba(45,0,69,0.1);border-radius:var(--radius-lg);overflow:hidden;margin-top:32px;">
         <div style="display:grid;grid-template-columns:120px 1fr auto;padding:14px 24px;background:var(--gray-light);font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);">
-          <div>Date</div><div>Match</div><div>Time (CT)</div>
+          <div>Stage</div><div>Venue</div><div>Matches</div>
         </div>
         <div style="display:grid;grid-template-columns:120px 1fr auto;padding:14px 24px;border-bottom:1px solid var(--gray-light);align-items:center;">
-          <div style="font-size:0.78rem;color:var(--gold);font-weight:600;">June 14</div>
-          <div><div style="font-size:0.9rem;color:var(--purple);font-weight:500;">Netherlands vs Japan · Group F</div><div style="font-size:0.72rem;color:var(--gray);">AT&T Stadium, Arlington TX</div></div>
-          <div style="font-size:0.78rem;color:var(--gray);">3:00 PM</div>
+          <div style="font-size:0.78rem;color:var(--gold);font-weight:600;">Group Stage</div>
+          <div><div style="font-size:0.9rem;color:var(--purple);font-weight:500;">AT&amp;T Stadium — Arlington, TX</div><div style="font-size:0.72rem;color:var(--gray);">Multiple group stage matches, June 2026</div></div>
+          <div style="font-size:0.78rem;color:var(--gray);">TBD</div>
         </div>
         <div style="display:grid;grid-template-columns:120px 1fr auto;padding:14px 24px;border-bottom:1px solid var(--gray-light);align-items:center;background:rgba(201,168,76,0.04);">
-          <div style="font-size:0.78rem;color:var(--gold);font-weight:600;">June 17</div>
-          <div><div style="font-size:0.9rem;color:var(--purple);font-weight:500;">England vs Croatia · Group L</div><div style="font-size:0.72rem;color:var(--gray);">AT&T Stadium, Arlington TX</div></div>
-          <div style="font-size:0.78rem;color:var(--gray);">3:00 PM</div>
+          <div style="font-size:0.78rem;color:var(--gold);font-weight:600;">Group Stage</div>
+          <div><div style="font-size:0.9rem;color:var(--purple);font-weight:500;">NRG Stadium — Houston, TX</div><div style="font-size:0.72rem;color:var(--gray);">Multiple group stage matches, June 2026</div></div>
+          <div style="font-size:0.78rem;color:var(--gray);">TBD</div>
         </div>
         <div style="display:grid;grid-template-columns:120px 1fr auto;padding:14px 24px;border-bottom:1px solid var(--gray-light);align-items:center;">
-          <div style="font-size:0.78rem;color:var(--gold);font-weight:600;">June 22</div>
-          <div><div style="font-size:0.9rem;color:var(--purple);font-weight:500;">🇦🇷 Argentina vs Austria · Group J</div><div style="font-size:0.72rem;color:var(--gray);">AT&T Stadium, Arlington TX</div></div>
-          <div style="font-size:0.78rem;color:var(--gray);">12:00 PM</div>
-        </div>
-        <div style="display:grid;grid-template-columns:120px 1fr auto;padding:14px 24px;border-bottom:1px solid var(--gray-light);align-items:center;background:rgba(201,168,76,0.04);">
-          <div style="font-size:0.78rem;color:var(--gold);font-weight:600;">June 27</div>
-          <div><div style="font-size:0.9rem;color:var(--purple);font-weight:500;">🇦🇷 Jordan vs Argentina · Group J</div><div style="font-size:0.72rem;color:var(--gray);">AT&T Stadium, Arlington TX · NIGHT MATCH</div></div>
-          <div style="font-size:0.78rem;color:var(--gray);">9:00 PM</div>
+          <div style="font-size:0.78rem;color:var(--gold);font-weight:600;">Round of 16</div>
+          <div><div style="font-size:0.9rem;color:var(--purple);font-weight:500;">NRG Stadium — Houston, TX</div><div style="font-size:0.72rem;color:var(--gray);">Knockout stage, July 2026</div></div>
+          <div style="font-size:0.78rem;color:var(--gray);">TBD</div>
         </div>
         <div style="display:grid;grid-template-columns:120px 1fr auto;padding:14px 24px;align-items:center;background:rgba(201,168,76,0.08);border-left:4px solid var(--gold);">
+          <div style="font-size:0.78rem;color:var(--gold);font-weight:600;">Semifinal</div>
+          <div><div style="font-size:0.9rem;color:var(--purple);font-weight:600;">AT&amp;T Stadium — Arlington, TX</div><div style="font-size:0.72rem;color:var(--gray);">July 14, 2026 — The biggest match in Dallas history</div></div>
           <div style="font-size:0.78rem;color:var(--gold);font-weight:600;">July 14</div>
-          <div><div style="font-size:0.9rem;color:var(--purple);font-weight:600;">🏆 SEMIFINAL — TBD vs TBD</div><div style="font-size:0.72rem;color:var(--gray);">AT&T Stadium, Arlington TX — THE BIG ONE</div></div>
-          <div style="font-size:0.78rem;color:var(--gold);font-weight:600;">3:00 PM</div>
         </div>
       </div>
+      <p style="font-size:0.72rem;color:var(--gray);margin-top:12px;text-align:center;">Match details subject to official FIFA 2026 schedule. <a href="https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026" target="_blank" rel="noopener" style="color:var(--gold);">View official FIFA schedule →</a></p>
     </div>
   </section>
   <section class="cta-section" style="background:linear-gradient(135deg,#0a2a0a,#1a4a1a);">
     <div class="section-inner">
       <h2>Don't Let Parking Ruin the World Cup</h2>
       <p>Flat-rate transfers to AT&T Stadium and NRG Stadium. Guaranteed driver. Zero surge pricing.</p>
-      <div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book World Cup Transfer</a><a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a></div>
+      <div class="cta-btns"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book World Cup Transfer</a><a href="tel:+18337400700" class="btn-white">📞 (833) 740-0700</a></div>
     </div>
   </section>
 </div>
@@ -1479,7 +1520,7 @@ footer {
 
         <div class="faq-item"><button class="faq-q" onclick="toggleFAQ(this)">Do you charge surge pricing? <span class="faq-icon">+</span></button><div class="faq-a"><p>Never. Unlike rideshare apps that can charge 4-5x during events, Purple Heart Limo uses flat rates that never change based on demand, time of day, weather, or special events. The price you see when you book is exactly what you pay. Period. Full stop. No asterisk.</p></div></div>
 
-        <div class="faq-item"><button class="faq-q" onclick="toggleFAQ(this)">How do I make a reservation? <span class="faq-icon">+</span></button><div class="faq-a"><p>You can book anytime using our online booking system (Moovs), by calling (8337) 400-700, texting us, via WhatsApp, or by filling out our contact form. We confirm every reservation within 5 minutes during normal hours.</p></div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFAQ(this)">How do I make a reservation? <span class="faq-icon">+</span></button><div class="faq-a"><p>You can book anytime using our online booking system (Moovs), by calling (833) 740-0700, texting us, via WhatsApp, or by filling out our contact form. We confirm every reservation within 5 minutes during normal hours.</p></div></div>
 
         <div class="faq-item"><button class="faq-q" onclick="toggleFAQ(this)">Will I know my driver's information ahead of time? <span class="faq-icon">+</span></button><div class="faq-a"><p>Yes. When your chauffeur is en route and when they arrive, you'll receive an automated SMS with their name, phone number, and vehicle details including make, model, and license plate. You can also request this information earlier via email if preferred.</p></div></div>
 
@@ -1547,8 +1588,8 @@ footer {
       <div class="contact-grid">
         <div>
           <h2 class="section-title" style="margin-bottom:32px;">Let's Connect</h2>
-          <div class="contact-info-item"><div class="ci-icon">📞</div><div class="ci-body"><h4>Call or Text 24/7</h4><a href="tel:+18337400700">(8337) 400-700</a><p>Available around the clock, every day of the year</p></div></div>
-          <div class="contact-info-item"><div class="ci-icon">💬</div><div class="ci-body"><h4>WhatsApp</h4><a href="https://wa.me/18337400700" target="_blank">(8337) 400-700</a><p>Message us on WhatsApp for fast responses</p></div></div>
+          <div class="contact-info-item"><div class="ci-icon">📞</div><div class="ci-body"><h4>Call or Text 24/7</h4><a href="tel:+18337400700">(833) 740-0700</a><p>Available around the clock, every day of the year</p></div></div>
+          <div class="contact-info-item"><div class="ci-icon">💬</div><div class="ci-body"><h4>WhatsApp</h4><a href="https://wa.me/18337400700" target="_blank">(833) 740-0700</a><p>Message us on WhatsApp for fast responses</p></div></div>
           <div class="contact-info-item"><div class="ci-icon">✉️</div><div class="ci-body"><h4>Email</h4><a href="mailto:info@purpleheartlimo.com">info@purpleheartlimo.com</a><p>We respond within 5 minutes during business hours</p></div></div>
           <div class="contact-info-item"><div class="ci-icon">📍</div><div class="ci-body"><h4>Service Area</h4><p>Austin Metroplex · Dallas-Fort Worth Metroplex · Houston Metroplex<br>City-to-city transfers available statewide</p></div></div>
           <div class="contact-info-item"><div class="ci-icon">⏰</div><div class="ci-body"><h4>Hours</h4><p>24 hours a day · 7 days a week · 365 days a year<br>Including all holidays</p></div></div>
@@ -1670,13 +1711,13 @@ footer {
     <h2>5. Data Security</h2>
     <p>We implement industry-standard security measures to protect your personal information. No internet transmission is 100% secure.</p>
     <h2>6. Your Rights</h2>
-    <p>You may request a copy, correction, or deletion of your personal information by contacting info@purpleheartlimo.com or calling (8337) 400-700.</p>
+    <p>You may request a copy, correction, or deletion of your personal information by contacting info@purpleheartlimo.com or calling (833) 740-0700.</p>
     <h2>7. Cookies</h2>
     <p>We use cookies for site functionality, preference storage, and analytics. You can control cookies via your browser settings.</p>
     <h2>8. Children's Privacy</h2>
     <p>We do not knowingly collect personal information from children under 13.</p>
     <h2>9. Contact</h2>
-    <p>Purple Heart Limo · info@purpleheartlimo.com · (8337) 400-700</p>
+    <p>Purple Heart Limo · info@purpleheartlimo.com · (833) 740-0700</p>
   </div>
 </div>
 
@@ -1704,7 +1745,7 @@ footer {
     <h2>7. Governing Law</h2>
     <p>These Terms are governed by the laws of the State of Texas.</p>
     <h2>8. Contact</h2>
-    <p>Purple Heart Limo · info@purpleheartlimo.com · (8337) 400-700</p>
+    <p>Purple Heart Limo · info@purpleheartlimo.com · (833) 740-0700</p>
   </div>
 </div>
 
@@ -1718,7 +1759,7 @@ footer {
     <span class="legal-date">Last Updated: May 9, 2026</span>
     <p>Purple Heart Limo is committed to ensuring digital accessibility for people with disabilities. We continually improve the user experience and apply WCAG 2.1 Level AA guidelines.</p>
     <h2>Feedback</h2>
-    <p>If you experience accessibility barriers, please contact us: info@purpleheartlimo.com | (8337) 400-700. We respond to accessibility feedback within 2 business days.</p>
+    <p>If you experience accessibility barriers, please contact us: info@purpleheartlimo.com | (833) 740-0700. We respond to accessibility feedback within 2 business days.</p>
     <h2>Wheelchair Accessible Vehicles</h2>
     <p>Purple Heart Limo has access to vehicles equipped to handle individuals with mobility challenges. Please inform us at booking so we can arrange appropriate transportation.</p>
   </div>
@@ -1791,7 +1832,7 @@ footer {
         </div>
         <div class="hero-btns">
           <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">🚗 Reservar Mi Viaje</a>
-          <a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a>
+          <a href="tel:+18337400700" class="btn-white">📞 (833) 740-0700</a>
         </div>
       </div>
       <div class="booking-card">
@@ -1862,7 +1903,7 @@ footer {
       <p>Lujo de propiedad veterana. Sin precios inflados. Tarifas planas en Austin, Dallas y Houston.</p>
       <div class="cta-btns">
         <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">🚗 Reservar en Línea</a>
-        <a href="tel:+18337400700" class="btn-white">📞 (8337) 400-700</a>
+        <a href="tel:+18337400700" class="btn-white">📞 (833) 740-0700</a>
       </div>
     </div>
   </section>
@@ -2302,7 +2343,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <h2 style="color:var(--purple);font-family:'Cormorant Garamond',serif;font-size:1.7rem;margin:32px 0 14px;">Luxury Limo & Black Car Service</h2>
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">For airport transfers, weddings, corporate travel, events, and any occasion where reliability and presentation matter, a professional limo service is the clear choice. Flat rates eliminate surge pricing entirely. Pre-assigned chauffeurs mean no cancellations. Flight tracking means no waiting at baggage claim alone. It's a fundamentally different — and better — transportation experience.</p>
     <div style="background:var(--gray-light);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:20px 24px;margin:28px 0;">
-      <p style="color:var(--purple);font-size:0.9rem;line-height:1.7;margin:0;">Purple Heart Limo serves the entire Austin metro — Austin, Round Rock, Cedar Park, Georgetown, San Marcos, Kyle, and beyond. Available 24/7. No surge pricing. <a href="tel:+18337400700" style="color:var(--gold);font-weight:700;">(8337) 400-700</a></p>
+      <p style="color:var(--purple);font-size:0.9rem;line-height:1.7;margin:0;">Purple Heart Limo serves the entire Austin metro — Austin, Round Rock, Cedar Park, Georgetown, San Marcos, Kyle, and beyond. Available 24/7. No surge pricing. <a href="tel:+18337400700" style="color:var(--gold);font-weight:700;">(833) 740-0700</a></p>
     </div>
     <div style="margin-top:40px;text-align:center;">
       <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Your Austin Ride</a>
@@ -2556,7 +2597,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Any legitimate limo company will send written confirmation with: vehicle type and description, pickup time and location, total price (and confirmation that it's all-inclusive), cancellation policy, and driver contact information. If you don't receive this, ask for it explicitly. If they won't provide it, book elsewhere.</p>
     <h2 style="color:var(--purple);font-family:'Cormorant Garamond',serif;font-size:1.7rem;margin:32px 0 14px;">Step 4: Day-Of Preparation</h2>
     <p style="color:var(--gray);font-size:0.95rem;line-height:1.85;margin-bottom:20px;">Save the driver's contact information in your phone. Confirm the pickup address is correct and accessible. For airport arrivals, add your flight number to the booking if you haven't already so the driver can track your landing. Have the company's 24/7 number as a backup. Be ready slightly before your pickup time — good drivers arrive early, and it's a small courtesy to be ready for them.</p>
-    <div style="background:var(--gray-light);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:20px 24px;margin:28px 0;"><p style="color:var(--purple);font-size:0.9rem;line-height:1.7;margin:0;">Ready to book? Purple Heart Limo serves Austin, Dallas-Fort Worth, and Houston. Call <a href="tel:+18337400700" style="color:var(--gold);font-weight:700;">(8337) 400-700</a> or book online — confirmation in 5 minutes.</p></div>
+    <div style="background:var(--gray-light);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:20px 24px;margin:28px 0;"><p style="color:var(--purple);font-size:0.9rem;line-height:1.7;margin:0;">Ready to book? Purple Heart Limo serves Austin, Dallas-Fort Worth, and Houston. Call <a href="tel:+18337400700" style="color:var(--gold);font-weight:700;">(833) 740-0700</a> or book online — confirmation in 5 minutes.</p></div>
     <div style="margin-top:40px;text-align:center;"><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-right:12px;">Book Your Limo Now</a><a href="#" onclick=\"return showPage('blog')\" class="btn-secondary">← Back to Blog</a></div>
   </div>
 </div>

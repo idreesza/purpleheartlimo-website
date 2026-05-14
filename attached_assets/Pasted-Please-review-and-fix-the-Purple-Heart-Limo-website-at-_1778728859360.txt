@@ -1,0 +1,86 @@
+Please review and fix the Purple Heart Limo website at `purpleheartlimo-website.replit.app`. Keep the current premium purple/gold/veteran-owned branding, but clean up the layout, mobile responsiveness, CTAs, phone number formatting, and SEO structure.
+
+Important fixes needed:
+
+1. Fix mobile horizontal overflow/clipping
+- On mobile, some hero text, badges, and buttons are cut off on the right.
+- Find any fixed-width elements, oversized grids, buttons, cards, tabs, or sticky bars causing viewport overflow.
+- Ensure the site fits cleanly within 100vw on phone screens.
+- Add `max-width: 100%`, `box-sizing: border-box`, responsive wrapping, and remove any unnecessary fixed widths.
+- Test around 390px wide mobile viewport.
+
+2. Fix phone number typo everywhere
+- Correct all visible instances of `(8337) 400-700`.
+- The correct displayed number should be `(833) 740-0700`.
+- Keep all phone links pointing to `tel:+18337400700`.
+- Search the full project for `8337`, `400-700`, and inconsistent phone text.
+
+3. Fix sticky mobile Book Now link
+- The sticky/mobile “Book Now” link currently points to `#` in at least one place.
+- Change it to the real Moovs booking URL:
+  `https://customer.moovs.app/purple-heart-limo/request/new`
+- Make sure all booking CTAs go to the correct booking URL.
+
+4. Reduce desktop hero empty space
+- On desktop, the hero area has too much empty lavender space and feels like something failed to load.
+- Move the hero content and quote card higher.
+- Reduce unnecessary hero min-height/padding/margins.
+- Keep it luxurious and spacious, but make the headline, trust badges, and quote action visible sooner above the fold.
+
+5. Simplify CTA hierarchy
+- There are too many competing CTAs: Book Now, Book Your Ride, phone, WhatsApp, sticky bar, quote box, etc.
+- Keep one clear primary action: “Get Quote / Book Ride” or “Book Your Ride.”
+- Keep “Call” as the main secondary action.
+- Reduce duplicate CTA buttons where they crowd mobile.
+- Make CTA wording more consistent across the site.
+
+6. Verify the instant quote / booking UI actually submits
+- The page appears to show an “Instant Quote” style UI, but there may not be a real `<form>` element in the source.
+- Verify the quote/booking card either:
+  a) correctly submits to the Moovs booking flow, or
+  b) clearly acts as a pre-booking UI and then sends the user to Moovs.
+- If it is visual-only or incomplete, fix it so users can actually complete the intended booking/quote action.
+
+7. Improve mobile quote card usability
+- Vehicle/service tabs overflow or truncate on mobile.
+- Let tabs wrap, scroll horizontally with clear affordance, or become a select/dropdown on small screens.
+- Reduce the number of required-looking fields shown upfront if possible.
+- Improve label and placeholder contrast for readability.
+- Make date/time fields look intentional and polished.
+
+8. Fix sticky bottom bar overlap/crowding
+- On mobile, the sticky bottom CTA bar crowds content and the “Book” button can appear partially cut off.
+- Add bottom padding to the page so content is not hidden behind the sticky bar.
+- Ensure sticky bar buttons fit inside the viewport.
+- Consider showing only Call + Book on mobile, with WhatsApp lower priority if space is tight.
+
+9. Improve trust proof presentation
+- “4.9 stars · 214+ reviews · veteran-owned” is good, but make it feel more credible.
+- If real, mention the review platform, e.g. Google reviews, and link “Read reviews” to the real review source instead of `#`.
+- If there is no verified review link yet, avoid making it look clickable or replace with safer wording.
+
+10. Clean up heading / SEO structure
+- The homepage currently has many `<h1>` sections because service sections are embedded with H1 headings.
+- Use one main H1 for the homepage hero.
+- Convert service section headings to H2/H3 as appropriate.
+- Keep page titles and meta descriptions focused on “luxury limo / black car service in Austin, Dallas-Fort Worth, Houston, Texas.”
+
+11. Reduce emoji-heavy premium sections
+- Some emoji icons make the site feel less premium.
+- Replace key benefit emojis with cleaner icons, SVGs, or styled checkmarks where practical.
+- Keep the tone luxury/professional, not playful.
+
+12. Check World Cup/event claims
+- If the World Cup schedule/team matchups are included, verify they are accurate and sourced.
+- If uncertain, use safer wording like “major 2026 World Cup matches in Dallas/Houston” and avoid exact team claims unless confirmed.
+
+After fixes, please test:
+- Desktop homepage around 1440px wide.
+- Mobile homepage around 390px wide.
+- All visible phone numbers.
+- All Book Now / booking CTAs.
+- Mobile sticky bar.
+- No horizontal scrolling on mobile.
+- Internal links: Home, Services, Fleet, Blog, About, Contact.
+
+Please preserve the existing brand direction: premium purple/gold, veteran-owned, luxury transportation, no surge pricing, flat-rate confidence, professional chauffeur service.
