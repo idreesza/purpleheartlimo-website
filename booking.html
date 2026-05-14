@@ -13,15 +13,15 @@
 <style>
 /* ============================================================
    NEON NOIR — Color System
-   Primary   #FF007A  (hot pink)
+   Primary   #C9A84C  (hot pink)
    Tertiary  #00F0FF  (cyan)
    Base      #000000 / #0a0a0a / #121212
    ============================================================ */
 :root {
-  --pink:       #FF007A;
-  --pink-mid:   #cc0062;
-  --pink-dim:   rgba(255,0,122,0.12);
-  --pink-glow:  0 0 24px rgba(255,0,122,0.35);
+  --pink:       #C9A84C;
+  --pink-mid:   #a88a3a;
+  --pink-dim:   rgba(201,168,76,0.12);
+  --pink-glow:  0 0 24px rgba(201,168,76,0.35);
   --cyan:       #00F0FF;
   --cyan-dim:   rgba(0,240,255,0.09);
   --dark:       #000000;
@@ -33,7 +33,7 @@
   --gray:       rgba(255,255,255,0.5);
   --gray-lt:    rgba(255,255,255,0.08);
   --border:     rgba(255,255,255,0.08);
-  --border-pk:  rgba(255,0,122,0.45);
+  --border-pk:  rgba(201,168,76,0.45);
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -46,7 +46,7 @@ a{text-decoration:none;color:inherit;}
 .header{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(0,0,0,0.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--border);}
 .nav{display:flex;align-items:center;justify-content:space-between;height:62px;max-width:1440px;margin:0 auto;padding:0 5%;}
 .nav-logo{display:flex;align-items:center;gap:10px;}
-.nav-logo img{width:36px;height:36px;object-fit:contain;border-radius:50%;}
+.nav-logo img{width:36px;height:36px;object-fit:contain;border-radius:0;}
 .logo-name{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:700;color:#fff;}
 .logo-sub{font-size:0.56rem;color:var(--pink);letter-spacing:0.16em;text-transform:uppercase;display:block;margin-top:1px;}
 .nav-links{display:flex;align-items:center;gap:1.8rem;list-style:none;}
@@ -83,7 +83,7 @@ a{text-decoration:none;color:inherit;}
 .search-widget{background:var(--dark3);border:1px solid var(--border);border-radius:18px;padding:1.4rem 1.5rem;margin-bottom:0;text-align:left;}
 .svc-tabs{display:flex;gap:0;background:var(--dark4);border-radius:10px;padding:4px;width:fit-content;margin-bottom:1.25rem;}
 .svc-tab{padding:7px 22px;border-radius:7px;font-size:0.8rem;font-weight:600;cursor:pointer;border:none;background:none;color:var(--gray);transition:all 0.2s;white-space:nowrap;font-family:'Space Grotesk',sans-serif;}
-.svc-tab.active{background:var(--pink);color:#fff;box-shadow:0 0 14px rgba(255,0,122,0.4);}
+.svc-tab.active{background:var(--pink);color:#fff;box-shadow:0 0 14px rgba(201,168,76,0.4);}
 
 .search-row{display:grid;grid-template-columns:1fr 1fr 145px 195px auto;gap:0;background:var(--dark4);border-radius:12px;border:1px solid var(--border);overflow:hidden;}
 .sf{position:relative;border-right:1px solid var(--border);}
@@ -134,7 +134,7 @@ a{text-decoration:none;color:inherit;}
 @media(max-width:480px){.vehicles-grid{grid-template-columns:1fr;}}
 
 .veh-card{background:var(--dark3);border:1.5px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s;position:relative;}
-.veh-card:hover{border-color:rgba(255,0,122,0.35);transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,0.5);}
+.veh-card:hover{border-color:rgba(201,168,76,0.35);transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,0.5);}
 .veh-card.selected{border-color:var(--pink);box-shadow:0 0 0 1px var(--pink),0 10px 40px rgba(255,0,122,0.25);}
 .selected-badge{position:absolute;top:10px;right:10px;background:var(--pink);color:#fff;font-size:0.6rem;font-weight:800;letter-spacing:0.1em;padding:3px 9px;border-radius:50px;z-index:5;display:none;}
 .veh-card.selected .selected-badge{display:block;}
@@ -161,7 +161,7 @@ a{text-decoration:none;color:inherit;}
 .details-head{margin-bottom:1.5rem;}
 .details-head h2{font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:0.3rem;}
 .sel-vehicle-display{display:flex;align-items:center;gap:8px;font-size:0.8rem;color:var(--cyan);}
-.sel-dot{width:7px;height:7px;border-radius:50%;background:var(--pink);flex-shrink:0;}
+.sel-dot{width:7px;height:7px;border-radius:0;background:var(--pink);flex-shrink:0;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
 .form-row.single{grid-template-columns:1fr;}
 .fg{display:flex;flex-direction:column;gap:5px;}
@@ -191,7 +191,7 @@ a{text-decoration:none;color:inherit;}
 .trust-bar{border-top:1px solid var(--border);padding:2rem 5%;background:var(--dark);}
 .trust-inner{max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;gap:2rem;justify-content:center;}
 .trust-item{display:flex;align-items:center;gap:8px;font-size:0.78rem;color:var(--gray);}
-.trust-dot{width:6px;height:6px;border-radius:50%;background:var(--pink);flex-shrink:0;}
+.trust-dot{width:6px;height:6px;border-radius:0;background:var(--pink);flex-shrink:0;}
 
 /* ── FOOTER ───────────────────────────────────────────────── */
 footer{background:var(--dark3);border-top:1px solid var(--border);padding:1.75rem 5%;text-align:center;}
@@ -200,7 +200,7 @@ footer a{color:rgba(255,255,255,0.35);}
 footer a:hover{color:var(--pink);}
 
 /* scroll-top */
-.scroll-top{position:fixed;bottom:1.75rem;right:1.75rem;width:42px;height:42px;background:var(--pink);color:#fff;border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;opacity:0;transform:translateY(12px);transition:all 0.3s;z-index:400;}
+.scroll-top{position:fixed;bottom:1.75rem;right:1.75rem;width:42px;height:42px;background:var(--pink);color:#fff;border:none;border-radius:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;opacity:0;transform:translateY(12px);transition:all 0.3s;z-index:400;}
 .scroll-top.visible{opacity:1;transform:translateY(0);}
 </style>
 </head>
@@ -242,7 +242,7 @@ footer a:hover{color:var(--pink);}
       <!-- Service type tabs -->
       <div class="svc-tabs" id="svcTabs">
         <button class="svc-tab active" data-svc="airport">✈ Airport</button>
-        <button class="svc-tab" data-svc="oneway">→ One Way</button>
+        <button class="svc-tab" data-svc="oneway">Point to Point</button>
         <button class="svc-tab" data-svc="hourly">⏱ Hourly</button>
       </div>
 
@@ -410,7 +410,7 @@ const VEHICLES = [
   {
     id:'sedan', name:'Sedan',
     desc:'Executive sedan — ideal for business & airport runs',
-    img:'images/sedan.webp',
+    img:'images/sedan-cadillac.png',
     pax:3, lug:3,
     prices:{airport:'From $119',oneway:'From $119',hourly:'$95 / hr'},
     note:null
@@ -426,23 +426,23 @@ const VEHICLES = [
   {
     id:'suv', name:'SUV',
     desc:'Full-size luxury SUV — spacious & commanding',
-    img:'images/suv.webp',
+    img:'images/suv-yukon.png',
     pax:6, lug:5,
     prices:{airport:'From $159',oneway:'From $159',hourly:'$125 / hr'},
     note:null
   },
   {
     id:'luxury-suv', name:'Luxury SUV',
-    desc:'Premium large SUV — VIP configuration',
-    img:'images/suv jet.webp',
+    desc:'Cadillac Escalade — VIP configuration',
+    img:'images/luxsuv-escalade.png',
     pax:6, lug:5,
     prices:{airport:'From $189',oneway:'From $189',hourly:'$149 / hr'},
     note:null
   },
   {
     id:'sprinter', name:'Executive Van',
-    desc:'Mercedes Sprinter — groups & corporate',
-    img:'images/sprinter.webp',
+    desc:'Sprinter Van — groups & corporate',
+    img:'images/sprinter-new.png',
     pax:12, lug:8,
     prices:{airport:'From $199',oneway:'From $199',hourly:'$150 / hr'},
     note:'3-hr minimum'
@@ -488,7 +488,7 @@ document.querySelectorAll('.svc-tab').forEach(tab => {
     fr.classList.toggle('show', activeService === 'airport');
 
     // Update price mode label
-    const labels = {airport:'✈ Airport Pricing',oneway:'→ One Way Pricing',hourly:'⏱ Hourly Pricing'};
+    const labels = {airport:'✈ Airport Pricing',oneway:'→ Point to Point Pricing',hourly:'⏱ Hourly Pricing'};
     document.getElementById('priceModeLabel').textContent = labels[activeService];
 
     // Re-render prices on cards
@@ -649,7 +649,7 @@ async function submitBooking() {
     return;
   }
 
-  const svcLabel = {airport:'Airport Transfer',oneway:'One Way Transfer',hourly:'Hourly Charter'}[activeService];
+  const svcLabel = {airport:'Airport Transfer',oneway:'Point to Point',hourly:'Hourly Charter'}[activeService];
   const vehicleName = selectedVehicle ? selectedVehicle.name : 'Not selected';
   const vehiclePrice = selectedVehicle ? selectedVehicle.prices[activeService] : '';
 

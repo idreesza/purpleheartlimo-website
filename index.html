@@ -767,7 +767,7 @@ footer {
 <!-- ===== NAVBAR ===== -->
 <nav class="navbar" id="navbar">
   <a href="/" class="nav-logo">
-    <img src="/logo.webp" alt="Purple Heart Limo Logo" style="width:44px;height:44px;object-fit:contain;border-radius:50%;">
+    <img src="/logo.webp" alt="Purple Heart Limo Logo" style="width:44px;height:44px;object-fit:contain;">
     <div>
       <div class="nav-logo-text">Purple Heart Limo</div>
       <span class="nav-logo-sub">Texan Owned · Est. 2020</span>
@@ -882,7 +882,7 @@ footer {
         <p>Enter your details — we'll respond within 5 minutes.</p>
         <div class="trip-tabs">
           <button class="trip-tab active" onclick="setTab(this,'airport')">✈ Airport</button>
-          <button class="trip-tab" onclick="setTab(this,'oneway')">→ One Way</button>
+          <button class="trip-tab" onclick="setTab(this,'pointtopoint')">→ Point to Point</button>
           <button class="trip-tab" onclick="setTab(this,'hourly')">⏱ Hourly</button>
         </div>
 
@@ -890,9 +890,15 @@ footer {
           <label>Pickup Location</label>
           <input type="text" id="pickup-input" placeholder="Address, hotel or airport..." autocomplete="off">
         </div>
-        <div class="form-group">
-          <label>Drop-off Location</label>
-          <input type="text" id="dropoff-input" placeholder="Destination..." autocomplete="off">
+        <div id="dropoff-section">
+          <div class="form-group">
+            <label>Drop-off Location</label>
+            <input type="text" id="dropoff-input" placeholder="Destination..." autocomplete="off">
+          </div>
+        </div>
+        <div id="extra-stops-container"></div>
+        <div id="add-stop-row" style="display:none;margin-bottom:12px;">
+          <button type="button" onclick="addQuoteStop()" style="background:transparent;border:1.5px dashed rgba(45,0,69,0.25);border-radius:8px;padding:9px 16px;width:100%;font-family:inherit;font-size:0.8rem;font-weight:600;color:var(--purple);cursor:pointer;transition:all 0.2s;letter-spacing:0.05em;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)';" onmouseout="this.style.borderColor='rgba(45,0,69,0.25)';this.style.color='var(--purple)';">+ Add Extra Stop</button>
         </div>
 
         <!-- Flight field — only visible for Airport tab -->
@@ -947,20 +953,21 @@ footer {
         <div class="form-group">
           <label>Vehicle Type</label>
           <div style="display:grid;grid-template-columns:1fr auto;gap:0;border:1.5px solid rgba(0,0,0,0.12);border-radius:8px;overflow:hidden;">
-            <select id="vehicle-input" style="border:none;padding:10px 12px;font-family:inherit;font-size:0.85rem;background:#fff;color:var(--text);outline:none;">
+            <select id="vehicle-input" onchange="updatePaxOptions(this.value)" style="border:none;padding:10px 12px;font-family:inherit;font-size:0.85rem;background:#fff;color:var(--text);outline:none;">
               <option value="Sedan">Sedan</option>
               <option value="Luxury Sedan">Luxury Sedan</option>
               <option value="SUV">SUV</option>
-              <option value="Stretch Limo">Stretch Limo</option>
+              <option value="Luxury SUV">Luxury SUV</option>
               <option value="Sprinter Van">Sprinter Van</option>
+              <option value="Sprinter Jet">Sprinter Jet</option>
+              <option value="Stretch Sedan">Stretch Sedan</option>
+              <option value="Stretch SUV">Stretch SUV</option>
               <option value="Party Bus">Party Bus</option>
               <option value="Coach Bus">Coach Bus</option>
             </select>
             <select id="pax-input" style="border:none;border-left:1.5px solid rgba(0,0,0,0.12);padding:10px 8px;font-family:inherit;font-size:0.82rem;background:#f9f9f9;color:var(--gray);outline:none;min-width:80px;">
               <option value="">Pax</option>
-              <option>1</option><option>2</option><option>3</option><option>4</option>
-              <option>5</option><option>6</option><option>7–10</option>
-              <option>11–14</option><option>15–24</option><option>25+</option>
+              <option>1</option><option>2</option><option>3</option>
             </select>
           </div>
         </div>
@@ -1343,11 +1350,10 @@ footer {
     <div class="section-inner">
       <div class="fleet-grid">
         <div class="fleet-card">
-          <div class="fleet-carousel" id="fc-1">
-            <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&q=80&auto=format" alt="2026 Genesis G90 exterior" class="active" loading="lazy">
-            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=80&auto=format" alt="Genesis G90 luxury interior" loading="lazy">
+          <div class="fleet-carousel" id="fc-1" style="background:linear-gradient(135deg,#0d0d0d 0%,#1a1208 60%,#0d0d0d 100%);display:flex;align-items:center;justify-content:center;">
+            <img src="images/sedan-cadillac.png" alt="Cadillac CT5 Sedan" class="active" loading="lazy" style="object-fit:contain;width:100%;height:100%;padding:10px;">
           </div>
-          <div class="fleet-body"><h3>Executive Sedan</h3><div class="fleet-cap">2026 Genesis G90 · 3 pax · 3 bags</div><p>Premium leather, Wi-Fi, ambient lighting, chilled water. The ultimate executive airport transfer vehicle.</p><div class="fleet-price"><span class="price-from">From</span><span class="price-val">$149</span></div><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-top:14px;display:inline-flex;">Book Sedan</a></div>
+          <div class="fleet-body"><h3>Sedan</h3><div class="fleet-cap">Cadillac CT5 · 3 pax · 3 bags</div><p>Premium leather, Wi-Fi, ambient lighting, chilled water. The ideal executive airport transfer vehicle.</p><div class="fleet-price"><span class="price-from">From</span><span class="price-val">$119</span></div><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-top:14px;display:inline-flex;">Book Sedan</a></div>
         </div>
         <div class="fleet-card">
           <div class="fleet-carousel" id="fc-2" style="background:linear-gradient(135deg,#0d0d0d 0%,#1a1208 60%,#0d0d0d 100%);display:flex;align-items:center;justify-content:center;">
@@ -1356,11 +1362,16 @@ footer {
           <div class="fleet-body"><h3>Luxury Sedan</h3><div class="fleet-cap">Mercedes-Benz S-Class · 3 pax · 3 bags</div><p>Iconic elegance, Burmester sound system, massaging seats. The definition of effortless luxury.</p><div class="fleet-price"><span class="price-from">From</span><span class="price-val">$149</span></div><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-top:14px;display:inline-flex;">Book S-Class</a></div>
         </div>
         <div class="fleet-card">
-          <div class="fleet-carousel" id="fc-3">
-            <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&q=80&auto=format" alt="2026 Yukon SUV exterior" class="active" loading="lazy">
-            <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=600&q=80&auto=format" alt="Yukon luxury interior" loading="lazy">
+          <div class="fleet-carousel" id="fc-3" style="background:linear-gradient(135deg,#0d0d0d 0%,#1a1208 60%,#0d0d0d 100%);display:flex;align-items:center;justify-content:center;">
+            <img src="images/suv-yukon.png" alt="GMC Yukon Denali SUV" class="active" loading="lazy" style="object-fit:contain;width:100%;height:100%;padding:10px;">
           </div>
-          <div class="fleet-body"><h3>Luxury SUV</h3><div class="fleet-cap">2026 Yukon · 6 pax · 5 bags</div><p>Commanding presence, panoramic views, premium sound. Perfect for groups and families with luggage.</p><div class="fleet-price"><span class="price-from">From</span><span class="price-val">$189</span></div><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-top:14px;display:inline-flex;">Book SUV</a></div>
+          <div class="fleet-body"><h3>SUV</h3><div class="fleet-cap">GMC Yukon Denali · 6 pax · 5 bags</div><p>Commanding presence, panoramic views, premium sound. Perfect for groups and families with luggage.</p><div class="fleet-price"><span class="price-from">From</span><span class="price-val">$159</span></div><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-top:14px;display:inline-flex;">Book SUV</a></div>
+        </div>
+        <div class="fleet-card">
+          <div class="fleet-carousel" id="fc-3b" style="background:linear-gradient(135deg,#0d0d0d 0%,#1a1208 60%,#0d0d0d 100%);display:flex;align-items:center;justify-content:center;">
+            <img src="images/luxsuv-escalade.png" alt="Cadillac Escalade Luxury SUV" class="active" loading="lazy" style="object-fit:contain;width:100%;height:100%;padding:10px;">
+          </div>
+          <div class="fleet-body"><h3>Luxury SUV</h3><div class="fleet-cap">Cadillac Escalade · 6 pax · 5 bags</div><p>VIP configuration, ambient lighting, premium sound. The pinnacle of full-size luxury SUV travel.</p><div class="fleet-price"><span class="price-from">From</span><span class="price-val">$189</span></div><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-top:14px;display:inline-flex;">Book Escalade</a></div>
         </div>
         <div class="fleet-card">
           <div class="fleet-carousel" id="fc-4">
@@ -1377,11 +1388,10 @@ footer {
           <div class="fleet-body"><h3>Stretch SUV Limo</h3><div class="fleet-cap">Escalade Stretched · Up to 14 pax</div><p>The most head-turning vehicle in the fleet. Built for prom, bachelorette, and any night that demands a statement.</p><div class="fleet-price"><span class="price-from">From</span><span class="price-val">$250/hr</span></div><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-top:14px;display:inline-flex;">Book Escalade Stretch</a></div>
         </div>
         <div class="fleet-card">
-          <div class="fleet-carousel" id="fc-6">
-            <img src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=600&q=80&auto=format" alt="Sprinter Party Bus exterior" class="active" loading="lazy">
-            <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=600&q=80&auto=format" alt="Sprinter Party Bus interior" loading="lazy">
+          <div class="fleet-carousel" id="fc-6" style="background:linear-gradient(135deg,#0d0d0d 0%,#1a1208 60%,#0d0d0d 100%);display:flex;align-items:center;justify-content:center;">
+            <img src="images/sprinter-new.png" alt="Sprinter Van" class="active" loading="lazy" style="object-fit:contain;width:100%;height:100%;padding:10px;">
           </div>
-          <div class="fleet-body"><h3>Sprinter Party Bus</h3><div class="fleet-cap">Luxury Sprinter · 14+ pax</div><p>Club seating, fiber optic lighting, entertainment system, mini bar. Best for groups and events.</p><div class="fleet-price"><span class="price-from">From</span><span class="price-val">$225/hr</span></div><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-top:14px;display:inline-flex;">Book Sprinter</a></div>
+          <div class="fleet-body"><h3>Sprinter Van</h3><div class="fleet-cap">Luxury Sprinter · Up to 12 pax</div><p>Spacious cabin, club seating, fiber optic lighting, entertainment system, mini bar. Best for groups and events.</p><div class="fleet-price"><span class="price-from">From</span><span class="price-val">$199/hr</span></div><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-top:14px;display:inline-flex;">Book Sprinter</a></div>
         </div>
         <div class="fleet-card">
           <div class="fleet-carousel" id="fc-7">
@@ -2043,10 +2053,59 @@ function toggleFAQ(btn) {
 function setTab(btn, mode) {
   btn.closest('.trip-tabs').querySelectorAll('.trip-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
+  window._quoteTab = mode;
+
   const flightField = document.getElementById('flight-field');
-  if (flightField) {
-    flightField.classList.toggle('show', mode === 'airport');
+  const dropoffSection = document.getElementById('dropoff-section');
+  const addStopRow = document.getElementById('add-stop-row');
+  const extraStops = document.getElementById('extra-stops-container');
+
+  if (flightField)    flightField.classList.toggle('show', mode === 'airport');
+  if (dropoffSection) dropoffSection.style.display = (mode === 'hourly') ? 'none' : '';
+  if (addStopRow)     addStopRow.style.display = (mode === 'airport') ? 'none' : 'block';
+  if (mode === 'hourly' && extraStops) {
+    extraStops.innerHTML = '';
+    window._stopCount = 0;
   }
+}
+
+let _stopCount = 0;
+function addQuoteStop() {
+  _stopCount++;
+  const container = document.getElementById('extra-stops-container');
+  const isHourly = window._quoteTab === 'hourly';
+  const label = isHourly ? `Drop-off ${_stopCount}` : `Extra Stop ${_stopCount}`;
+  const div = document.createElement('div');
+  div.className = 'form-group';
+  div.id = `stop-group-${_stopCount}`;
+  div.innerHTML = `<label style="display:flex;justify-content:space-between;align-items:center;">${label} <button type="button" onclick="removeQuoteStop(${_stopCount})" style="background:none;border:none;cursor:pointer;font-size:0.75rem;color:#9ca3af;padding:0;font-weight:600;letter-spacing:0.05em;">× Remove</button></label><input type="text" id="stop-input-${_stopCount}" placeholder="Address..." autocomplete="off" style="width:100%;">`;
+  container.appendChild(div);
+  if (typeof initNominatimAutocomplete === 'function') initNominatimAutocomplete(`stop-input-${_stopCount}`);
+}
+
+function removeQuoteStop(n) {
+  const el = document.getElementById(`stop-group-${n}`);
+  if (el) el.remove();
+}
+
+const PAX_RANGES = {
+  'Sedan':         [1,2,3],
+  'Luxury Sedan':  [1,2,3],
+  'SUV':           [1,2,3,4,5,6],
+  'Luxury SUV':    [1,2,3,4,5,6],
+  'Sprinter Van':  [1,2,3,4,5,6,7,8,9,10,11,12],
+  'Sprinter Jet':  [1,2,3,4,5,6],
+  'Stretch Sedan': [6,7,8,9,10],
+  'Stretch SUV':   [6,7,8,9,10,11,12,13,14],
+  'Party Bus':     ['10+','11','12','13','14','15','16','17','18','19','20+'],
+  'Coach Bus':     ['22+','24','26','28','30+'],
+};
+
+function updatePaxOptions(vehicle) {
+  const sel = document.getElementById('pax-input');
+  if (!sel) return;
+  const opts = PAX_RANGES[vehicle] || [1,2,3,4,5,6];
+  sel.innerHTML = '<option value="">Pax</option>' + opts.map(v=>`<option value="${v}">${v}</option>`).join('');
 }
 
 // ===== FLEET CAROUSEL =====
