@@ -800,8 +800,9 @@ footer {
   </ul>
 
   <div class="nav-cta">
+    <button id="lang-toggle" onclick="toggleLang()" title="Switch language" style="background:none;border:1.5px solid rgba(0,0,0,0.15);border-radius:20px;padding:5px 12px;font-family:inherit;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;cursor:pointer;color:var(--purple);display:flex;align-items:center;gap:5px;transition:all 0.2s;">🌐 <span id="lang-label">EN</span></button>
     <a href="tel:+18337400700" class="nav-phone">📞 (833) 740-0700</a>
-    <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="padding:10px 20px;font-size:0.78rem;">Book Now</a>
+    <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="padding:10px 20px;font-size:0.78rem;" id="btn-booknow" data-en="Book Now" data-es="Reservar">Book Now</a>
   </div>
   <button class="hamburger" onclick="toggleMenu()" id="hamburger">
     <span></span><span></span><span></span>
@@ -958,7 +959,7 @@ footer {
         <div class="form-group">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
             <div>
-              <label style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Type</label>
+              <label id="label-type" style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;" data-en="Type" data-es="Tipo">Type</label>
               <select id="vehicle-input" onchange="onVehicleChange(this.value)" style="width:100%;border:1.5px solid rgba(0,0,0,0.12);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:0.85rem;background:#fff;color:var(--text);outline:none;">
                 <option value="Sedan">Sedan</option>
                 <option value="Luxury Sedan">Luxury Sedan</option>
@@ -973,13 +974,30 @@ footer {
               </select>
             </div>
             <div>
-              <label style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Pax</label>
-              <select id="pax-input" style="width:100%;border:1.5px solid rgba(0,0,0,0.12);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:0.85rem;background:#fff;color:var(--text);outline:none;">
+              <label id="label-pax" style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;" data-en="Pax" data-es="Pasaj.">Pax</label>
+              <select id="pax-input" onchange="checkCapacity()" style="width:100%;border:1.5px solid rgba(0,0,0,0.12);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:0.85rem;background:#fff;color:var(--text);outline:none;">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
               </select>
             </div>
+          </div>
+          <!-- Capacity warning -->
+          <div id="capacity-warning" style="display:none;margin-top:8px;background:#fffbeb;border:1.5px solid #f59e0b;border-radius:8px;padding:9px 12px;font-size:0.78rem;color:#92400e;line-height:1.5;"></div>
+          <!-- Luggage row — airport only -->
+          <div id="luggage-row" style="display:none;margin-top:10px;">
+            <label id="label-luggage" style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;" data-en="🧳 Luggage" data-es="🧳 Equipaje">🧳 Luggage</label>
+            <select id="luggage-input" style="width:100%;border:1.5px solid rgba(0,0,0,0.12);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:0.85rem;background:#fff;color:var(--text);outline:none;">
+              <option value="0" data-en="0 bags" data-es="0 maletas">0 bags</option>
+              <option value="1" data-en="1 bag" data-es="1 maleta">1 bag</option>
+              <option value="2" data-en="2 bags" data-es="2 maletas">2 bags</option>
+              <option value="3" data-en="3 bags" data-es="3 maletas">3 bags</option>
+              <option value="4" data-en="4 bags" data-es="4 maletas">4 bags</option>
+              <option value="5" data-en="5 bags" data-es="5 maletas">5 bags</option>
+              <option value="6" data-en="6 bags" data-es="6 maletas">6 bags</option>
+              <option value="7" data-en="7 bags" data-es="7 maletas">7 bags</option>
+              <option value="8+" data-en="8+ bags" data-es="8+ maletas">8+ bags</option>
+            </select>
           </div>
         </div>
 
@@ -2034,7 +2052,7 @@ footer {
   <div class="footer-grid">
     <div class="footer-brand">
       <a href="#" onclick="return showPage('home')" style="display:inline-flex;align-items:center;gap:10px;margin-bottom:14px;">
-        <img src="logo.png" alt="Purple Heart Limo" style="width:40px;height:40px;object-fit:contain;border-radius:50%;background:rgba(255,255,255,0.1);">
+        <img src="/logo.webp" alt="Purple Heart Limo" style="width:40px;height:40px;object-fit:contain;border-radius:50%;background:rgba(255,255,255,0.1);">
         <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--white);font-weight:600;">Purple Heart Limo</div>
       </a>
       <p>Veteran-owned luxury limousine & black car service in Austin, Dallas-Fort Worth & Houston, Texas. No surge pricing. Flat rates. Professional chauffeurs. The ride you deserve. 🎖️</p>
@@ -2150,6 +2168,8 @@ function setTab(btn, mode) {
   if (flightField)    flightField.classList.toggle('show', mode === 'airport');
   if (dropoffSection) dropoffSection.style.display = (mode === 'hourly') ? 'none' : '';
   if (addStopRow)     addStopRow.style.display = (mode === 'airport') ? 'none' : 'block';
+  const luggageRow = document.getElementById('luggage-row');
+  if (luggageRow) luggageRow.style.display = (mode === 'airport') ? 'block' : 'none';
   if (mode === 'hourly' && extraStops) {
     extraStops.innerHTML = '';
     window._stopCount = 0;
@@ -2195,18 +2215,160 @@ const PAX_OPTIONS = {
   'Luxury Sedan':  [['1','1'],['2','2'],['3','3']],
   'SUV':           [['1','1'],['2','2'],['3','3'],['4','4'],['5','5'],['6','6']],
   'Luxury SUV':    [['1','1'],['2','2'],['3','3'],['4','4'],['5','5'],['6','6']],
-  'Sprinter Van':  [['1–4','1'],['5–8','5'],['9–12','9']],
-  'Sprinter Jet':  [['1–3','1'],['4–6','4']],
-  'Stretch Sedan': [['6–8','6'],['9–10','9']],
-  'Stretch SUV':   [['6–8','6'],['9–12','9'],['13–14','13']],
-  'Party Bus':     [['10–15','10'],['16–20+','16']],
-  'Coach Bus':     [['22–30+','22']]
+  'Sprinter Van':  [['1','1'],['2','2'],['3','3'],['4','4'],['5','5'],['6','6'],['7','7'],['8','8'],['9','9'],['10','10'],['11','11'],['12','12']],
+  'Sprinter Jet':  [['1','1'],['2','2'],['3','3'],['4','4'],['5','5'],['6','6']],
+  'Stretch Sedan': [['6','6'],['7','7'],['8','8'],['9','9'],['10','10']],
+  'Stretch SUV':   [['6','6'],['7','7'],['8','8'],['9','9'],['10','10'],['11','11'],['12','12'],['13','13'],['14','14']],
+  'Party Bus':     [['10','10'],['11','11'],['12','12'],['13','13'],['14','14'],['15','15'],['16','16'],['17','17'],['18','18'],['19','19'],['20+','20']],
+  'Coach Bus':     [['22','22'],['24','24'],['26','26'],['28','28'],['30+','30']]
 };
+
+const VEHICLE_CAPACITY = {
+  'Sedan':         { maxPax: 3,  maxBags: 2,  upgrade: 'SUV' },
+  'Luxury Sedan':  { maxPax: 3,  maxBags: 2,  upgrade: 'Luxury SUV' },
+  'SUV':           { maxPax: 6,  maxBags: 5,  upgrade: 'Luxury SUV' },
+  'Luxury SUV':    { maxPax: 6,  maxBags: 5,  upgrade: 'Sprinter Van' },
+  'Sprinter Van':  { maxPax: 12, maxBags: 12, upgrade: 'Party Bus' },
+  'Sprinter Jet':  { maxPax: 6,  maxBags: 6,  upgrade: 'Sprinter Van' },
+  'Stretch Sedan': { maxPax: 10, maxBags: 4,  upgrade: 'Stretch SUV' },
+  'Stretch SUV':   { maxPax: 14, maxBags: 6,  upgrade: 'Party Bus' },
+  'Party Bus':     { maxPax: 20, maxBags: 0,  upgrade: 'Coach Bus' },
+  'Coach Bus':     { maxPax: 30, maxBags: 30, upgrade: null }
+};
+
 function onVehicleChange(vehicle) {
   const pi = document.getElementById('pax-input');
   if (!pi) return;
   const opts = PAX_OPTIONS[vehicle] || [['1','1']];
   pi.innerHTML = opts.map(([label, val]) => `<option value="${val}">${label}</option>`).join('');
+  checkCapacity();
+}
+
+function checkCapacity() {
+  const vehicle = (document.getElementById('vehicle-input') || {}).value || 'Sedan';
+  const pax = parseInt((document.getElementById('pax-input') || {}).value) || 1;
+  const cap = VEHICLE_CAPACITY[vehicle];
+  const warn = document.getElementById('capacity-warning');
+  if (!warn || !cap) return;
+  const isEs = document.documentElement.getAttribute('data-lang') === 'es';
+  if (pax > cap.maxPax) {
+    const upgradeMsg = cap.upgrade
+      ? (isEs ? `Considera actualizar a <strong>${cap.upgrade}</strong> o reservar <strong>2 vehículos</strong>.`
+               : `Consider upgrading to a <strong>${cap.upgrade}</strong> or booking <strong>2 vehicles</strong>.`)
+      : (isEs ? 'Este es nuestro vehículo más grande disponible. Por favor contáctanos.'
+               : 'This is our largest vehicle. Please contact us for group arrangements.');
+    warn.innerHTML = (isEs
+      ? `⚠️ Este vehículo tiene capacidad para <strong>${cap.maxPax} pasajeros</strong> como máximo. ${upgradeMsg}`
+      : `⚠️ This vehicle fits up to <strong>${cap.maxPax} passengers</strong>. ${upgradeMsg}`);
+    warn.style.display = 'block';
+  } else {
+    warn.style.display = 'none';
+  }
+}
+
+// ===== LANGUAGE TOGGLE =====
+const I18N = {
+  en: {
+    'label-type':    'Type',
+    'label-pax':     'Pax',
+    'label-luggage': '🧳 Luggage',
+    'btn-booknow':   'Book Now',
+  },
+  es: {
+    'label-type':    'Tipo',
+    'label-pax':     'Pasaj.',
+    'label-luggage': '🧳 Equipaje',
+    'btn-booknow':   'Reservar',
+  }
+};
+
+const I18N_ATTRS = [
+  // [selector, attribute (null = textContent), en-text, es-text]
+  ['#label-type',    null, 'Type',       'Tipo'],
+  ['#label-pax',     null, 'Pax',        'Pasaj.'],
+  ['#label-luggage', null, '🧳 Luggage', '🧳 Equipaje'],
+  ['#btn-booknow',   null, 'Book Now',   'Reservar'],
+  // Booking card
+  ['.booking-card h3',          null, 'Get an Instant Quote',                   'Obtén una Cotización Rápida'],
+  ['.booking-card > p',         null, "Enter your details — we'll respond within 5 minutes.", 'Ingresa tus datos — te respondemos en 5 minutos.'],
+  // Trip tabs
+  ['button[onclick*="airport"]',    null, '✈ Airport',        '✈ Aeropuerto'],
+  ['button[onclick*="pointtopoint"]',null, '→ Point to Point', '→ Punto a Punto'],
+  ['button[onclick*="hourly"]',     null, '⏱ Hourly',         '⏱ Por Hora'],
+  // Form labels
+  ['label[for="pickup-input"], #dropoff-section label, .form-group label:first-child', null, null, null],
+  // Book button
+  ['#quote-btn', null, '🚗 See My Price & Book', '🚗 Ver Precio y Reservar'],
+  // Luggage options
+  ['#luggage-input option[value="0"]', null, '0 bags', '0 maletas'],
+  ['#luggage-input option[value="1"]', null, '1 bag',  '1 maleta'],
+  ['#luggage-input option[value="2"]', null, '2 bags', '2 maletas'],
+  ['#luggage-input option[value="3"]', null, '3 bags', '3 maletas'],
+  ['#luggage-input option[value="4"]', null, '4 bags', '4 maletas'],
+  ['#luggage-input option[value="5"]', null, '5 bags', '5 maletas'],
+  ['#luggage-input option[value="6"]', null, '6 bags', '6 maletas'],
+  ['#luggage-input option[value="7"]', null, '7 bags', '7 maletas'],
+  ['#luggage-input option[value="8+"]',null, '8+ bags','8+ maletas'],
+];
+
+const LABEL_MAP = {
+  en: { 'Pickup Location':'Pickup Location','Drop-off Location':'Drop-off Location','✈ Flight No.':'✈ Flight No.','Your Name':'Your Name','Phone':'Phone','Date':'Date','Pickup Time':'Pickup Time' },
+  es: { 'Pickup Location':'Lugar de Recogida','Drop-off Location':'Destino','✈ Flight No.':'✈ No. de Vuelo','Your Name':'Tu Nombre','Phone':'Teléfono','Date':'Fecha','Pickup Time':'Hora de Recogida' }
+};
+
+function toggleLang() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-lang') || 'en';
+  const next = current === 'en' ? 'es' : 'en';
+  html.setAttribute('data-lang', next);
+  const lbl = document.getElementById('lang-label');
+  if (lbl) lbl.textContent = next.toUpperCase();
+
+  // Swap data-en / data-es on all marked elements
+  document.querySelectorAll('[data-en][data-es]').forEach(el => {
+    el.textContent = el.getAttribute(`data-${next}`);
+  });
+
+  // Swap form labels by text content
+  const lm = LABEL_MAP[next];
+  document.querySelectorAll('.form-group label').forEach(lbl => {
+    const txt = lbl.textContent.trim();
+    const mapped = LABEL_MAP[next === 'en' ? 'es' : 'en'][Object.keys(LABEL_MAP.en).find(k => LABEL_MAP[next === 'en' ? 'es' : 'en'][k] === txt || k === txt)];
+    if (mapped !== undefined) return;
+    const key = Object.keys(LABEL_MAP.en).find(k => lbl.textContent.trim() === (next === 'es' ? k : LABEL_MAP.es[k]));
+    if (key) lbl.textContent = lm[key];
+  });
+
+  // Swap booking card title + subtitle
+  const card = document.querySelector('.booking-card');
+  if (card) {
+    const h3 = card.querySelector('h3');
+    const sub = card.querySelector('p');
+    if (h3) h3.textContent = next === 'es' ? 'Obtén una Cotización Rápida' : 'Get an Instant Quote';
+    if (sub) sub.textContent = next === 'es' ? 'Ingresa tus datos — te respondemos en 5 minutos.' : "Enter your details — we'll respond within 5 minutes.";
+  }
+
+  // Swap trip tab labels
+  document.querySelectorAll('.trip-tab').forEach(btn => {
+    if (btn.onclick && btn.getAttribute('onclick')) {
+      const oc = btn.getAttribute('onclick');
+      if (oc.includes('airport'))      btn.textContent = next === 'es' ? '✈ Aeropuerto'    : '✈ Airport';
+      if (oc.includes('pointtopoint')) btn.textContent = next === 'es' ? '→ Punto a Punto' : '→ Point to Point';
+      if (oc.includes('hourly'))       btn.textContent = next === 'es' ? '⏱ Por Hora'      : '⏱ Hourly';
+    }
+  });
+
+  // Swap quote button
+  const qBtn = document.getElementById('quote-btn');
+  if (qBtn) qBtn.textContent = next === 'es' ? '🚗 Ver Precio y Reservar' : '🚗 See My Price & Book';
+
+  // Swap luggage options
+  document.querySelectorAll('#luggage-input option').forEach(opt => {
+    opt.textContent = opt.getAttribute(`data-${next}`) || opt.textContent;
+  });
+
+  // Re-run capacity check to get translated warning
+  checkCapacity();
 }
 
 // ===== FLEET CAROUSEL =====
@@ -2326,6 +2488,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.trip-tab').forEach(t => t.addEventListener('click', showPrice));
     showPrice(); // show on load
   }
+  // Show luggage row on initial load (Airport is default tab)
+  const luggageRow = document.getElementById('luggage-row');
+  if (luggageRow) luggageRow.style.display = 'block';
+  window._quoteTab = 'airport';
 });
 
 async function submitQuote() {
