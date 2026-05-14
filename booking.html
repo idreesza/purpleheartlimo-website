@@ -85,7 +85,7 @@ a{text-decoration:none;color:inherit;}
 .svc-tab{padding:7px 22px;border-radius:7px;font-size:0.8rem;font-weight:600;cursor:pointer;border:none;background:none;color:var(--gray);transition:all 0.2s;white-space:nowrap;font-family:'Space Grotesk',sans-serif;}
 .svc-tab.active{background:var(--pink);color:#fff;box-shadow:0 0 14px rgba(255,0,122,0.4);}
 
-.search-row{display:grid;grid-template-columns:1fr 1fr 145px 125px auto;gap:0;background:var(--dark4);border-radius:12px;border:1px solid var(--border);overflow:hidden;}
+.search-row{display:grid;grid-template-columns:1fr 1fr 145px 195px auto;gap:0;background:var(--dark4);border-radius:12px;border:1px solid var(--border);overflow:hidden;}
 .sf{position:relative;border-right:1px solid var(--border);}
 .sf:last-child{border-right:none;}
 .sf label{display:block;font-size:0.6rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--pink);padding:10px 14px 0;}
@@ -564,7 +564,7 @@ function scrollToVehicles() {
   document.getElementById('vehicleSection').scrollIntoView({behavior:'smooth'});
 }
 
-/* ── ADDRESS AUTOCOMPLETE (Nominatim via no-CORS proxy) ── */
+/* ── ADDRESS AUTOCOMPLETE (Photon — browser-safe, no API key) ── */
 function initAc(inputId, listId) {
   const input = document.getElementById(inputId);
   const list  = document.getElementById(listId);
@@ -576,21 +576,24 @@ function initAc(inputId, listId) {
     if (q.length < 3) { list.classList.remove('open'); return; }
     timer = setTimeout(async () => {
       try {
-        const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&addressdetails=1&limit=6&countrycodes=us`;
-        const r = await fetch(url, {
-          headers: {
-            'Accept-Language': 'en',
-            'User-Agent': 'PurpleHeartLimo/1.0 (purpleheartlimo.com)'
-          }
-        });
+        // Photon is CORS-friendly and requires no API key
+        const url = `https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=6&lang=en&bbox=-106.6,25.8,-93.5,36.5`;
+        const r = await fetch(url);
         if (!r.ok) throw new Error('fetch failed');
         const d = await r.json();
-        if (!d.length) { list.classList.remove('open'); return; }
-        list.innerHTML = d.map(i => {
-          const parts = i.display_name.split(',').slice(0,4).map(s => s.trim());
-          const label = parts.join(', ');
-          return `<div class="ac-item" data-val="${label}">${label}</div>`;
+        const features = d.features || [];
+        if (!features.length) { list.classList.remove('open'); return; }
+
+        list.innerHTML = features.map(f => {
+          const p = f.properties;
+          const parts = [p.name, p.street && p.housenumber ? `${p.housenumber} ${p.street}` : p.street, p.city || p.county, p.state].filter(Boolean);
+          // Deduplicate (name sometimes equals street)
+          const seen = new Set();
+          const unique = parts.filter(x => { if (seen.has(x)) return false; seen.add(x); return true; });
+          const label = unique.slice(0, 3).join(', ');
+          return `<div class="ac-item" data-val="${label.replace(/"/g,'&quot;')}">${label}</div>`;
         }).join('');
+
         list.classList.add('open');
         list.querySelectorAll('.ac-item').forEach(item => {
           item.addEventListener('mousedown', e => {
@@ -600,7 +603,7 @@ function initAc(inputId, listId) {
           });
         });
       } catch(e) { list.classList.remove('open'); }
-    }, 400);
+    }, 350);
   });
 
   input.addEventListener('blur', () => setTimeout(() => list.classList.remove('open'), 200));
