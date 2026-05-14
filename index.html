@@ -956,42 +956,31 @@ footer {
           </div>
         </div>
         <div class="form-group">
-          <label>Vehicle &amp; Passengers</label>
-          <select id="vehicle-pax-input" onchange="onVehiclePaxChange(this.value)" style="width:100%;border:1.5px solid rgba(0,0,0,0.12);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:0.85rem;background:#fff;color:var(--text);outline:none;">
-            <option value="Sedan|1">Sedan — 1 passenger</option>
-            <option value="Sedan|2">Sedan — 2 passengers</option>
-            <option value="Sedan|3">Sedan — 3 passengers</option>
-            <option value="Luxury Sedan|1">Luxury Sedan — 1 passenger</option>
-            <option value="Luxury Sedan|2">Luxury Sedan — 2 passengers</option>
-            <option value="Luxury Sedan|3">Luxury Sedan — 3 passengers</option>
-            <option value="SUV|1">SUV — 1 passenger</option>
-            <option value="SUV|2">SUV — 2 passengers</option>
-            <option value="SUV|3">SUV — 3 passengers</option>
-            <option value="SUV|4">SUV — 4 passengers</option>
-            <option value="SUV|5">SUV — 5 passengers</option>
-            <option value="SUV|6">SUV — 6 passengers</option>
-            <option value="Luxury SUV|1">Luxury SUV — 1 passenger</option>
-            <option value="Luxury SUV|2">Luxury SUV — 2 passengers</option>
-            <option value="Luxury SUV|3">Luxury SUV — 3 passengers</option>
-            <option value="Luxury SUV|4">Luxury SUV — 4 passengers</option>
-            <option value="Luxury SUV|5">Luxury SUV — 5 passengers</option>
-            <option value="Luxury SUV|6">Luxury SUV — 6 passengers</option>
-            <option value="Sprinter Van|1">Sprinter Van — 1–4 passengers</option>
-            <option value="Sprinter Van|5">Sprinter Van — 5–8 passengers</option>
-            <option value="Sprinter Van|9">Sprinter Van — 9–12 passengers</option>
-            <option value="Sprinter Jet|1">Sprinter Jet — 1–3 passengers</option>
-            <option value="Sprinter Jet|4">Sprinter Jet — 4–6 passengers</option>
-            <option value="Stretch Sedan|6">Stretch Sedan — 6–8 passengers</option>
-            <option value="Stretch Sedan|9">Stretch Sedan — 9–10 passengers</option>
-            <option value="Stretch SUV|6">Stretch SUV — 6–8 passengers</option>
-            <option value="Stretch SUV|9">Stretch SUV — 9–12 passengers</option>
-            <option value="Stretch SUV|13">Stretch SUV — 13–14 passengers</option>
-            <option value="Party Bus|10">Party Bus — 10–15 passengers</option>
-            <option value="Party Bus|16">Party Bus — 16–20+ passengers</option>
-            <option value="Coach Bus|22">Coach Bus — 22–30+ passengers</option>
-          </select>
-          <input type="hidden" id="vehicle-input" value="Sedan">
-          <input type="hidden" id="pax-input" value="1">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div>
+              <label style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Type</label>
+              <select id="vehicle-input" onchange="onVehicleChange(this.value)" style="width:100%;border:1.5px solid rgba(0,0,0,0.12);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:0.85rem;background:#fff;color:var(--text);outline:none;">
+                <option value="Sedan">Sedan</option>
+                <option value="Luxury Sedan">Luxury Sedan</option>
+                <option value="SUV">SUV</option>
+                <option value="Luxury SUV">Luxury SUV</option>
+                <option value="Sprinter Van">Sprinter Van</option>
+                <option value="Sprinter Jet">Sprinter Jet</option>
+                <option value="Stretch Sedan">Stretch Sedan</option>
+                <option value="Stretch SUV">Stretch SUV</option>
+                <option value="Party Bus">Party Bus</option>
+                <option value="Coach Bus">Coach Bus</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Pax</label>
+              <select id="pax-input" style="width:100%;border:1.5px solid rgba(0,0,0,0.12);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:0.85rem;background:#fff;color:var(--text);outline:none;">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <!-- Price estimate display -->
@@ -2201,13 +2190,23 @@ const PAX_RANGES = {
 
 function updatePaxOptions(vehicle) {}
 
-function onVehiclePaxChange(val) {
-  if (!val) return;
-  const [vehicle, pax] = val.split('|');
-  const vi = document.getElementById('vehicle-input');
+const PAX_OPTIONS = {
+  'Sedan':         [['1','1'],['2','2'],['3','3']],
+  'Luxury Sedan':  [['1','1'],['2','2'],['3','3']],
+  'SUV':           [['1','1'],['2','2'],['3','3'],['4','4'],['5','5'],['6','6']],
+  'Luxury SUV':    [['1','1'],['2','2'],['3','3'],['4','4'],['5','5'],['6','6']],
+  'Sprinter Van':  [['1–4','1'],['5–8','5'],['9–12','9']],
+  'Sprinter Jet':  [['1–3','1'],['4–6','4']],
+  'Stretch Sedan': [['6–8','6'],['9–10','9']],
+  'Stretch SUV':   [['6–8','6'],['9–12','9'],['13–14','13']],
+  'Party Bus':     [['10–15','10'],['16–20+','16']],
+  'Coach Bus':     [['22–30+','22']]
+};
+function onVehicleChange(vehicle) {
   const pi = document.getElementById('pax-input');
-  if (vi) vi.value = vehicle;
-  if (pi) pi.value = pax;
+  if (!pi) return;
+  const opts = PAX_OPTIONS[vehicle] || [['1','1']];
+  pi.innerHTML = opts.map(([label, val]) => `<option value="${val}">${label}</option>`).join('');
 }
 
 // ===== FLEET CAROUSEL =====
