@@ -52,19 +52,19 @@
 <style>
 /* ===== CSS VARIABLES ===== */
 :root {
-  --purple: #2D0045;
-  --purple-mid: #4a0070;
-  --purple-light: #7b2fa8;
+  --purple: #0a0a0a;
+  --purple-mid: #1a1a1a;
+  --purple-light: #2a2a2a;
   --gold: #C9A84C;
   --gold-light: #E2C36A;
   --gold-pale: #FBF3DC;
   --white: #FFFFFF;
-  --off-white: #F9F8FF;
-  --gray: #6B7280;
-  --gray-light: #F3F0FF;
-  --text: #1a0028;
-  --shadow: 0 4px 24px rgba(45,0,69,0.12);
-  --shadow-lg: 0 12px 48px rgba(45,0,69,0.18);
+  --off-white: #F7F5F0;
+  --gray: #8a8a8a;
+  --gray-light: #F2EFE8;
+  --text: #0a0a0a;
+  --shadow: 0 4px 24px rgba(0,0,0,0.18);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,0.28);
   --radius: 12px;
   --radius-lg: 20px;
 }
@@ -200,7 +200,7 @@ a { text-decoration:none; color:inherit; }
 /* ===== HERO ===== */
 .hero {
   min-height: 88vh;
-  background: linear-gradient(150deg, #f8f4ff 0%, #ede5ff 40%, #e8deff 100%);
+  background: linear-gradient(160deg, #0d0d0d 0%, #111008 50%, #0d0b06 100%);
   display: flex; align-items:center;
   padding: 80px 5% 48px;
   position: relative; overflow:hidden;
@@ -208,8 +208,8 @@ a { text-decoration:none; color:inherit; }
 .hero::before {
   content:'';
   position:absolute; inset:0;
-  background: radial-gradient(ellipse 60% 60% at 80% 30%, rgba(201,168,76,0.12) 0%, transparent 60%),
-              radial-gradient(ellipse 40% 40% at 10% 80%, rgba(45,0,69,0.06) 0%, transparent 50%);
+  background: radial-gradient(ellipse 55% 65% at 75% 35%, rgba(201,168,76,0.09) 0%, transparent 65%),
+              radial-gradient(ellipse 35% 45% at 10% 80%, rgba(201,168,76,0.04) 0%, transparent 55%);
 }
 .hero-inner {
   max-width:1300px; margin:0 auto; width:100%;
@@ -770,7 +770,7 @@ footer {
     <img src="/logo.webp" alt="Purple Heart Limo Logo" style="width:44px;height:44px;object-fit:contain;border-radius:50%;">
     <div>
       <div class="nav-logo-text">Purple Heart Limo</div>
-      <span class="nav-logo-sub">Veteran Owned · TX</span>
+      <span class="nav-logo-sub">Texan Owned · Est. 2020</span>
     </div>
   </a>
 
@@ -864,42 +864,15 @@ footer {
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-content">
-        <div class="hero-badge">
+        <div class="hero-badge" style="border-color:rgba(201,168,76,0.4);background:rgba(201,168,76,0.08);color:var(--gold);">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          4.9-Star Rated · Veteran-Owned · Texas
+          Texan Owned · Est. 2020
         </div>
-        <h1>Luxury Rides.<br><em>No Surge Pricing.</em><br>Anywhere in Texas.</h1>
-        <div class="hero-divider"></div>
-        <p class="hero-sub">Premium black car & limo service across Austin, Dallas-Fort Worth and Houston. Flat rates, professional chauffeurs, and military precision on every ride.</p>
-        <div class="hero-trust">
-          <div class="trust-item">
-            <svg class="trust-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Veteran-Owned
-          </div>
-          <div class="trust-item">
-            <svg class="trust-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Licensed &amp; Insured
-          </div>
-          <div class="trust-item">
-            <svg class="trust-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            No Surge Pricing
-          </div>
-          <div class="trust-item">
-            <svg class="trust-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Real-Time Flight Tracking
-          </div>
-          <div class="trust-item">
-            <svg class="trust-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            No Upfront Payment
-          </div>
-          <div class="trust-item">
-            <svg class="trust-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            Confirmed in 5 Min
-          </div>
-        </div>
-        <div class="hero-btns">
+        <h1 style="color:#ffffff;">Luxury Rides.<br><em>Premier Limo Service.</em><br>Prime Limo Fleet.</h1>
+        <div class="hero-divider" style="background:var(--gold);"></div>
+        <div class="hero-btns" style="margin-top:0;">
           <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Your Ride</a>
-          <a href="tel:+18337400700" class="btn-secondary">(833) 740-0700</a>
+          <a href="tel:+18337400700" class="btn-secondary" style="color:#fff;border-color:rgba(255,255,255,0.3);">(833) 740-0700</a>
         </div>
       </div>
 
@@ -939,33 +912,56 @@ footer {
 
         <div class="form-row">
           <div class="form-group">
-            <label>Date</label>
-            <input type="date" id="date-input">
-          </div>
-          <div class="form-group">
-            <label>Pickup Time</label>
-            <input type="time" id="time-input">
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Vehicle Type</label>
-          <select id="vehicle-input">
-            <option value="Sedan (1–3 passengers)">Sedan — 1–3 passengers</option>
-            <option value="SUV (1–6 passengers)">SUV — 1–6 passengers</option>
-            <option value="Stretch Limo (up to 10)">Stretch Limo — up to 10</option>
-            <option value="Sprinter Van (up to 14)">Sprinter Van — up to 14</option>
-            <option value="Party Bus (up to 22)">Party Bus — up to 22</option>
-            <option value="Coach Bus (22+)">Coach Bus — 22+</option>
-          </select>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
             <label>Your Name</label>
             <input type="text" id="quote-name" placeholder="Full name">
           </div>
           <div class="form-group">
             <label>Phone</label>
             <input type="tel" id="quote-phone" placeholder="(555) 000-0000">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Date</label>
+            <input type="date" id="date-input">
+          </div>
+          <div class="form-group">
+            <label>Pickup Time</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr 80px;gap:6px;">
+              <select id="time-hour" style="padding:10px 8px;border:1.5px solid rgba(0,0,0,0.12);border-radius:8px;font-family:inherit;font-size:0.85rem;background:#fff;color:var(--text);">
+                <option value="">Hr</option>
+                <option>1</option><option>2</option><option>3</option><option>4</option>
+                <option>5</option><option>6</option><option>7</option><option>8</option>
+                <option>9</option><option>10</option><option>11</option><option>12</option>
+              </select>
+              <select id="time-min" style="padding:10px 8px;border:1.5px solid rgba(0,0,0,0.12);border-radius:8px;font-family:inherit;font-size:0.85rem;background:#fff;color:var(--text);">
+                <option value="">Min</option>
+                <option>00</option><option>15</option><option>30</option><option>45</option>
+              </select>
+              <select id="time-ampm" style="padding:10px 8px;border:1.5px solid rgba(0,0,0,0.12);border-radius:8px;font-family:inherit;font-size:0.85rem;background:#fff;color:var(--text);">
+                <option>AM</option><option>PM</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Vehicle Type</label>
+          <div style="display:grid;grid-template-columns:1fr auto;gap:0;border:1.5px solid rgba(0,0,0,0.12);border-radius:8px;overflow:hidden;">
+            <select id="vehicle-input" style="border:none;padding:10px 12px;font-family:inherit;font-size:0.85rem;background:#fff;color:var(--text);outline:none;">
+              <option value="Sedan">Sedan</option>
+              <option value="Luxury Sedan">Luxury Sedan</option>
+              <option value="SUV">SUV</option>
+              <option value="Stretch Limo">Stretch Limo</option>
+              <option value="Sprinter Van">Sprinter Van</option>
+              <option value="Party Bus">Party Bus</option>
+              <option value="Coach Bus">Coach Bus</option>
+            </select>
+            <select id="pax-input" style="border:none;border-left:1.5px solid rgba(0,0,0,0.12);padding:10px 8px;font-family:inherit;font-size:0.82rem;background:#f9f9f9;color:var(--gray);outline:none;min-width:80px;">
+              <option value="">Pax</option>
+              <option>1</option><option>2</option><option>3</option><option>4</option>
+              <option>5</option><option>6</option><option>7–10</option>
+              <option>11–14</option><option>15–24</option><option>25+</option>
+            </select>
           </div>
         </div>
 
@@ -1029,13 +1025,35 @@ footer {
     </div>
   </section>
 
-  <!-- Thin CTA bar before footer -->
-  <div style="background:linear-gradient(135deg,var(--purple),#3d0060);padding:40px 5%;text-align:center;">
-    <p style="color:rgba(255,255,255,0.8);font-size:0.9rem;margin-bottom:16px;">Veteran-owned luxury. No surge pricing. Flat rates across Austin, Dallas &amp; Houston.</p>
-    <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;">
-      <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">🚗 Book Online Now</a>
-      <a href="tel:+18337400700" class="btn-white">📞 (833) 740-0700</a>
-    </div>
+  <!-- Trust strip + CTA bar -->
+  <div style="background:#0a0a0a;padding:60px 5% 40px;text-align:center;border-top:1px solid rgba(201,168,76,0.15);">
+    <div style="max-width:900px;margin:0 auto;">
+      <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:32px;margin-bottom:40px;padding-bottom:36px;border-bottom:1px solid rgba(201,168,76,0.12);">
+        <div style="text-align:center;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--gold);font-weight:300;line-height:1;">Veteran-Owned</div>
+          <div style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:4px;">Texan Owned · Est. 2020</div>
+        </div>
+        <div style="width:1px;background:rgba(201,168,76,0.2);align-self:stretch;"></div>
+        <div style="text-align:center;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--gold);font-weight:300;line-height:1;">Licensed &amp; Insured</div>
+          <div style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:4px;">Fully Covered · Every Ride</div>
+        </div>
+        <div style="width:1px;background:rgba(201,168,76,0.2);align-self:stretch;"></div>
+        <div style="text-align:center;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--gold);font-weight:300;line-height:1;">No Surge Pricing</div>
+          <div style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:4px;">Flat Rates · Always Guaranteed</div>
+        </div>
+        <div style="width:1px;background:rgba(201,168,76,0.2);align-self:stretch;"></div>
+        <div style="text-align:center;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--gold);font-weight:300;line-height:1;">Confirmed in 5 Min</div>
+          <div style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:4px;">24 / 7 · Austin · DFW · Houston</div>
+        </div>
+      </div>
+      <p style="color:rgba(255,255,255,0.5);font-size:0.88rem;margin-bottom:20px;">Luxury Rides · Premier Limo Service · Prime Limo Fleet · Anywhere in Texas.</p>
+      <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;">
+        <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary">Book Online Now</a>
+        <a href="tel:+18337400700" class="btn-white">(833) 740-0700</a>
+      </div>
     </div>
   </div>
 
@@ -1332,9 +1350,8 @@ footer {
           <div class="fleet-body"><h3>Executive Sedan</h3><div class="fleet-cap">2026 Genesis G90 · 3 pax · 3 bags</div><p>Premium leather, Wi-Fi, ambient lighting, chilled water. The ultimate executive airport transfer vehicle.</p><div class="fleet-price"><span class="price-from">From</span><span class="price-val">$149</span></div><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-top:14px;display:inline-flex;">Book Sedan</a></div>
         </div>
         <div class="fleet-card">
-          <div class="fleet-carousel" id="fc-2">
-            <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&q=80&auto=format" alt="Mercedes-Benz S-Class exterior" class="active" loading="lazy">
-            <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=600&q=80&auto=format" alt="Mercedes S-Class interior" loading="lazy">
+          <div class="fleet-carousel" id="fc-2" style="background:linear-gradient(135deg,#0d0d0d 0%,#1a1208 60%,#0d0d0d 100%);display:flex;align-items:center;justify-content:center;">
+            <img src="images/sclass-nobg.png" alt="Mercedes-Benz S-Class" class="active" loading="lazy" style="object-fit:contain;width:100%;height:100%;padding:10px;">
           </div>
           <div class="fleet-body"><h3>Luxury Sedan</h3><div class="fleet-cap">Mercedes-Benz S-Class · 3 pax · 3 bags</div><p>Iconic elegance, Burmester sound system, massaging seats. The definition of effortless luxury.</p><div class="fleet-price"><span class="price-from">From</span><span class="price-val">$149</span></div><a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="margin-top:14px;display:inline-flex;">Book S-Class</a></div>
         </div>
@@ -2157,7 +2174,10 @@ async function submitQuote() {
   const pickup   = (document.getElementById('pickup-input')?.value || '').trim();
   const dropoff  = (document.getElementById('dropoff-input')?.value || '').trim();
   const date     = document.getElementById('date-input')?.value || '';
-  const time     = document.getElementById('time-input')?.value || '';
+  const hr = document.getElementById('time-hour')?.value || '';
+  const mn = document.getElementById('time-min')?.value || '';
+  const ap = document.getElementById('time-ampm')?.value || '';
+  const time = (hr && mn) ? `${hr}:${mn} ${ap}` : '';
   const vehicle  = document.getElementById('vehicle-input')?.value || '';
   const flight   = (document.getElementById('flight-input')?.value || '').trim().toUpperCase();
   const service  = getActiveTab() === 'airport' ? 'Airport Transfer' :

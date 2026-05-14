@@ -262,9 +262,29 @@ footer a:hover{color:var(--pink);}
           <label>Date</label>
           <input type="date" id="dateInput">
         </div>
-        <div class="sf">
-          <label>Pickup Time</label>
-          <input type="time" id="timeInput">
+        <div class="sf" style="display:grid;grid-template-columns:1fr 1fr 1fr;">
+          <div style="border-right:1px solid var(--border);">
+            <label style="padding:10px 10px 0;">Hour</label>
+            <select id="timeHour" style="width:100%;background:none;border:none;outline:none;color:#fff;font-family:'Inter',sans-serif;font-size:0.86rem;padding:3px 10px 10px;-webkit-appearance:none;">
+              <option value="" style="background:#111;">--</option>
+              <option style="background:#111;">1</option><option style="background:#111;">2</option><option style="background:#111;">3</option><option style="background:#111;">4</option>
+              <option style="background:#111;">5</option><option style="background:#111;">6</option><option style="background:#111;">7</option><option style="background:#111;">8</option>
+              <option style="background:#111;">9</option><option style="background:#111;">10</option><option style="background:#111;">11</option><option style="background:#111;">12</option>
+            </select>
+          </div>
+          <div style="border-right:1px solid var(--border);">
+            <label style="padding:10px 10px 0;">Min</label>
+            <select id="timeMin" style="width:100%;background:none;border:none;outline:none;color:#fff;font-family:'Inter',sans-serif;font-size:0.86rem;padding:3px 10px 10px;-webkit-appearance:none;">
+              <option value="" style="background:#111;">--</option>
+              <option style="background:#111;">00</option><option style="background:#111;">15</option><option style="background:#111;">30</option><option style="background:#111;">45</option>
+            </select>
+          </div>
+          <div>
+            <label style="padding:10px 10px 0;">AM/PM</label>
+            <select id="timeAmpm" style="width:100%;background:none;border:none;outline:none;color:#fff;font-family:'Inter',sans-serif;font-size:0.86rem;padding:3px 10px 10px;-webkit-appearance:none;">
+              <option style="background:#111;">AM</option><option style="background:#111;">PM</option>
+            </select>
+          </div>
         </div>
         <button class="search-btn" id="searchBtn" onclick="scrollToVehicles()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -398,7 +418,7 @@ const VEHICLES = [
   {
     id:'luxury-sedan', name:'Luxury Sedan',
     desc:'Premium class — Mercedes S-Class or similar',
-    img:'images/stretched limo.webp',
+    img:'images/sclass-nobg.png',
     pax:3, lug:2,
     prices:{airport:'From $149',oneway:'From $149',hourly:'$115 / hr'},
     note:null
@@ -482,9 +502,10 @@ function renderCards() {
   grid.innerHTML = VEHICLES.map(v => `
     <div class="veh-card" id="card-${v.id}" onclick="selectVehicle('${v.id}')">
       <div class="selected-badge">✓ Selected</div>
-      <div class="veh-img">
+      <div class="veh-img" style="${v.id==='luxury-sedan' ? 'background:linear-gradient(135deg,#0d0d0d 0%,#1a1208 60%,#0d0d0d 100%);display:flex;align-items:center;justify-content:center;' : ''}">
         <img src="${v.img}" alt="${v.name}" loading="lazy"
-          onerror="this.style.display='none'">
+          onerror="this.style.display='none'"
+          style="${v.id==='luxury-sedan' ? 'object-fit:contain;width:100%;height:100%;padding:8px;' : ''}">
       </div>
       <div class="veh-body">
         <div class="veh-name">${v.name}</div>
@@ -543,7 +564,7 @@ function scrollToVehicles() {
   document.getElementById('vehicleSection').scrollIntoView({behavior:'smooth'});
 }
 
-/* ── NOMINATIM AUTOCOMPLETE ── */
+/* ── ADDRESS AUTOCOMPLETE (Nominatim via no-CORS proxy) ── */
 function initAc(inputId, listId) {
   const input = document.getElementById(inputId);
   const list  = document.getElementById(listId);
@@ -555,20 +576,34 @@ function initAc(inputId, listId) {
     if (q.length < 3) { list.classList.remove('open'); return; }
     timer = setTimeout(async () => {
       try {
-        const r = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&addressdetails=1&limit=5&countrycodes=us`, {headers:{'Accept-Language':'en'}});
+        const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&addressdetails=1&limit=6&countrycodes=us`;
+        const r = await fetch(url, {
+          headers: {
+            'Accept-Language': 'en',
+            'User-Agent': 'PurpleHeartLimo/1.0 (purpleheartlimo.com)'
+          }
+        });
+        if (!r.ok) throw new Error('fetch failed');
         const d = await r.json();
-        list.innerHTML = d.map(i => `<div class="ac-item" data-val="${i.display_name.split(',').slice(0,3).join(',')}">${i.display_name.split(',').slice(0,3).join(', ')}</div>`).join('');
-        list.classList.toggle('open', d.length > 0);
+        if (!d.length) { list.classList.remove('open'); return; }
+        list.innerHTML = d.map(i => {
+          const parts = i.display_name.split(',').slice(0,4).map(s => s.trim());
+          const label = parts.join(', ');
+          return `<div class="ac-item" data-val="${label}">${label}</div>`;
+        }).join('');
+        list.classList.add('open');
         list.querySelectorAll('.ac-item').forEach(item => {
-          item.addEventListener('click', () => {
+          item.addEventListener('mousedown', e => {
+            e.preventDefault();
             input.value = item.dataset.val;
             list.classList.remove('open');
           });
         });
       } catch(e) { list.classList.remove('open'); }
-    }, 350);
+    }, 400);
   });
 
+  input.addEventListener('blur', () => setTimeout(() => list.classList.remove('open'), 200));
   document.addEventListener('click', e => {
     if (!input.contains(e.target) && !list.contains(e.target)) list.classList.remove('open');
   });
@@ -592,7 +627,10 @@ async function submitBooking() {
   const pickup  = document.getElementById('pickupInput').value.trim();
   const dropoff = document.getElementById('dropoffInput').value.trim();
   const date    = document.getElementById('dateInput').value;
-  const time    = document.getElementById('timeInput').value;
+  const tHr = document.getElementById('timeHour').value;
+  const tMn = document.getElementById('timeMin').value;
+  const tAp = document.getElementById('timeAmpm').value;
+  const time = (tHr && tMn) ? `${tHr}:${tMn} ${tAp}` : '';
   const flight  = document.getElementById('flightInput').value.trim();
 
   const okSuccess = document.getElementById('alertSuccess');
