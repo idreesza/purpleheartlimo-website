@@ -193,7 +193,7 @@ a { text-decoration:none; color:inherit; }
 .dropdown-menu a:hover { background:var(--gray-light); color:var(--purple); }
 
 .nav-cta { display:flex; align-items:center; gap:12px; }
-.nav-phone { color:var(--purple); font-weight:700; font-size:0.88rem; display:flex; align-items:center; gap:6px; }
+.nav-phone { color:#1A3A6B; font-weight:700; font-size:0.88rem; display:flex; align-items:center; gap:6px; }
 .hamburger { display:none; background:none; border:none; cursor:pointer; padding:8px; flex-direction:column; gap:5px; }
 .hamburger span { display:block; width:24px; height:2px; background:var(--purple); border-radius:2px; transition:all 0.3s; }
 
@@ -254,7 +254,7 @@ a { text-decoration:none; color:inherit; }
   letter-spacing:0.06em; text-transform:uppercase; color:var(--gray);
   font-family:'Inter',sans-serif; transition:all 0.2s;
 }
-.trip-tab.active { background:var(--purple); color:var(--white); }
+.trip-tab.active { background:#EDD49A; color:#3D2300; }
 
 .form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 .form-group { margin-bottom:14px; }
@@ -540,7 +540,17 @@ footer {
   border-radius:10px; font-size:0.76rem; font-weight:700;
   letter-spacing:0.06em; text-transform:uppercase;
 }
-.m-call { background:var(--purple); color:var(--white); }
+.m-call { background:#C0C0C0; color:#1A3A6B; animation:ring-shake 1.8s ease-in-out infinite; }
+@keyframes ring-shake {
+  0%,40%,100% { transform:rotate(0deg); }
+  42%  { transform:rotate(-8deg); }
+  46%  { transform:rotate(8deg); }
+  50%  { transform:rotate(-7deg); }
+  54%  { transform:rotate(7deg); }
+  58%  { transform:rotate(-4deg); }
+  62%  { transform:rotate(4deg); }
+  66%  { transform:rotate(0deg); }
+}
 .m-wa { background:#25D366; color:var(--white); }
 .m-book {
   background: linear-gradient(135deg, var(--gold), var(--gold-light));
@@ -763,6 +773,9 @@ footer {
   .discount-tab { bottom:90px; }
   /* Prevent any overflow source */
   .booking-card, .hero-content, .hero-inner { max-width:100%; box-sizing:border-box; }
+  html, body { overflow-x:hidden; max-width:100%; }
+  .hero { overflow-x:hidden; }
+  .booking-card { width:100%; }
   .svc-hero { padding:100px 4% 50px; }
 }
 </style>
