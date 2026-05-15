@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flight Tracker | Purple Heart Limo | Real-Time Flight Status · DFW · AUS · IAH · HOU</title>
+  <meta name="description" content="Track your flight in real time — status, terminal, baggage claim, and live traffic conditions at DFW, Austin, IAH, and Hobby airports. Purple Heart Limo monitors every flight automatically.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://purpleheartlimo.com/flight-tracker.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/page.css">
+  <style>
+    /* ── FLIGHT TRACKER SPECIFIC ────────────────────────────── */
+    :root {
+      --gold: #C9A84C;
+      --gold-lt: #E2C36A;
+      --rose: #C9967A;
+      --purple-deep: #0a0a0a;
+      --gray: #6a6a6a;
+      --gray-lt: #8a8a8a;
+      --border: rgba(45,0,69,0.09);
+      --bg-tint: #faf8ff;
+      --blue: #2563eb;
+      --green: #16a34a;
+      --amber: #d97706;
+      --red: #dc2626;
+    }
+
+    /* Hero overrides */
+    .ft-hero {
+      background: linear-gradient(160deg,#f5f0ff 0%,#ede6ff 50%,#f8f4ff 100%);
+      padding: 110px 5% 56px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .ft-hero::before {
+      content:'';
+      position:absolute; inset:0;
+      background:
+        radial-gradient(ellipse 55% 65% at 75% 35%,rgba(138,43,226,.07) 0%,transparent 65%),
+        radial-gradient(ellipse 35% 45% at 10% 80%,rgba(138,43,226,.04) 0%,transparent 55%);
+      pointer-events:none;
+    }
+    .ft-hero .inner { position: relative; z-index: 1; }
+    .ft-hero h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(2.2rem,5vw,3.4rem); color:var(--rose); font-weight:300; margin-bottom:10px; line-height:1.15; }
+    .ft-hero h1 em { color:var(--gold); font-style:italic; }
+    .ft-hero p { color:var(--gray); max-width:560px; margin:0 auto 32px; font-size:0.95rem; line-height:1.7; }
+
+    /* Search widget */
+    .search-card {
+      background:#fff;
+      border:1.5px solid var(--border);
+      border-radius:20px;
+      padding:28px 32px;
+      max-width:720px;
+      margin:0 auto;
+      box-shadow:0 8px 40px rgba(45,0,69,0.1);
+    }
+    .search-card h2 { font-family:'Inter',sans-serif; font-size:0.95rem; font-weight:700; color:var(--purple-deep); margin-bottom:20px; display:flex; align-items:center; gap:8px; }
+    .search-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:14px; }
+    .sf-group { display:flex; flex-direction:column; gap:5px; }
+    .sf-group label { font-size:0.62rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); }
+    .sf-group input, .sf-group select {
+      background:var(--bg-tint); border:1.5px solid var(--border);
+      border-radius:10px; color:var(--purple-deep);
+      padding:11px 14px; font-family:'Inter',sans-serif; font-size:0.88rem;
+      outline:none; transition:border-color 0.2s;
+    }
+    .sf-group input:focus, .sf-group select:focus { border-color:var(--gold); }
+    .sf-group input::placeholder { color:#bbb; }
+    .flight-hint { font-size:0.72rem; color:var(--gray-lt); margin-bottom:12px; }
+    .flight-hint span { color:var(--blue); font-weight:600; }
+
+    .btn-track {
+      width:100%; background:linear-gradient(135deg,var(--gold),var(--gold-lt));
+      color:#0a0a0a; border:none; cursor:pointer;
+      font-family:'Inter',sans-serif; font-weight:700; font-size:0.9rem;
+      letter-spacing:0.04em; padding:13px; border-radius:10px;
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      transition:all 0.2s; box-shadow:0 4px 20px rgba(201,168,76,0.3);
+    }
+    .btn-track:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(201,168,76,0.45); }
+    .btn-track:disabled { opacity:0.55; cursor:not-allowed; transform:none; }
+
+    /* Loading spinner */
+    .spinner { display:none; width:20px; height:20px; border:3px solid rgba(0,0,0,0.1); border-top-color:#0a0a0a; border-radius:50%; animation:spin 0.8s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    /* Status result */
+    .result-section { max-width:1200px; margin:0 auto; padding:56px 5%; }
+
+    .status-card {
+      background:#fff; border:1.5px solid var(--border); border-radius:20px;
+      padding:28px 32px; margin-bottom:24px;
+      box-shadow:0 4px 24px rgba(45,0,69,0.07);
+      display:none;
+    }
+    .status-card.visible { display:block; }
+    .status-head { display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:24px; }
+    .flight-id { display:flex; align-items:center; gap:14px; }
+    .flight-num-badge { background:var(--purple-deep); color:#fff; padding:8px 16px; border-radius:8px; font-family:'Courier New',monospace; font-size:1.1rem; font-weight:700; letter-spacing:0.08em; }
+    .flight-name { font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:300; color:var(--purple-deep); }
+    .flight-name small { font-family:'Inter',sans-serif; font-size:0.8rem; color:var(--gray); font-weight:400; display:block; }
+    .status-badge { display:inline-flex; align-items:center; gap:6px; padding:7px 18px; border-radius:50px; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; }
+    .status-active { background:rgba(22,163,74,0.1); color:var(--green); border:1px solid rgba(22,163,74,0.25); }
+    .status-delayed { background:rgba(217,119,6,0.1); color:var(--amber); border:1px solid rgba(217,119,6,0.25); }
+    .status-landed { background:rgba(37,99,235,0.1); color:var(--blue); border:1px solid rgba(37,99,235,0.25); }
+    .status-unknown { background:rgba(45,0,69,0.07); color:var(--gray); border:1px solid rgba(45,0,69,0.12); }
+    .status-live-dot { width:8px; height:8px; border-radius:50%; background:var(--green); animation:pulse-dot 1.4s ease-in-out infinite; }
+    @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.5;transform:scale(1.3);} }
+
+    .route-bar { display:grid; grid-template-columns:1fr auto 1fr; gap:16px; align-items:center; background:var(--bg-tint); border-radius:14px; padding:20px 24px; margin-bottom:24px; }
+    .route-end { }
+    .route-end .code { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:600; color:var(--purple-deep); line-height:1; }
+    .route-end .city { font-size:0.78rem; color:var(--gray); margin-top:3px; }
+    .route-end .time-sch { font-size:1.1rem; font-weight:700; color:var(--purple-deep); margin-top:8px; }
+    .route-end .time-act { font-size:0.8rem; color:var(--gold); font-weight:600; }
+    .route-end .gate { font-size:0.75rem; color:var(--blue); margin-top:4px; font-weight:600; }
+    .route-arrow { text-align:center; color:var(--gold); }
+    .route-arrow svg { width:48px; opacity:0.6; }
+    .route-arrow .progress-bar { height:3px; background:rgba(45,0,69,0.1); border-radius:2px; margin-top:8px; overflow:hidden; }
+    .route-arrow .progress-fill { height:100%; background:linear-gradient(90deg,var(--gold),var(--gold-lt)); border-radius:2px; transition:width 0.5s ease; }
+
+    .detail-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; }
+    .detail-item { background:var(--bg-tint); border:1px solid var(--border); border-radius:12px; padding:14px 16px; }
+    .detail-item .lbl { font-size:0.62rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); margin-bottom:6px; }
+    .detail-item .val { font-size:0.95rem; font-weight:600; color:var(--purple-deep); }
+    .detail-item .sub { font-size:0.72rem; color:var(--gray); margin-top:2px; }
+
+    /* Error / empty states */
+    .state-msg {
+      text-align:center; padding:40px 20px; display:none;
+    }
+    .state-msg.show { display:block; }
+    .state-msg .ico { font-size:3rem; margin-bottom:14px; }
+    .state-msg h3 { color:var(--purple-deep); font-size:1.2rem; margin-bottom:8px; }
+    .state-msg p { color:var(--gray); font-size:0.88rem; line-height:1.7; }
+
+    /* Quick links to airline status pages */
+    .airline-links { margin-top:20px; background:rgba(37,99,235,0.04); border:1px solid rgba(37,99,235,0.15); border-radius:12px; padding:16px 20px; }
+    .airline-links p { font-size:0.8rem; color:var(--blue); font-weight:600; margin-bottom:10px; }
+    .airline-links .links { display:flex; flex-wrap:wrap; gap:8px; }
+    .al-link { display:inline-block; background:#fff; border:1px solid rgba(37,99,235,0.2); color:var(--blue); padding:5px 12px; border-radius:6px; font-size:0.74rem; font-weight:600; text-decoration:none; transition:all 0.15s; }
+    .al-link:hover { background:var(--blue); color:#fff; }
+
+    /* Airport tabs section */
+    .airports-section { background:var(--bg-tint); padding:64px 5%; }
+    .airports-inner { max-width:1200px; margin:0 auto; }
+    .airport-tabs { display:flex; gap:0; background:#fff; border:1.5px solid var(--border); border-radius:14px; overflow:hidden; margin-bottom:32px; }
+    .airport-tab { flex:1; padding:14px 20px; text-align:center; cursor:pointer; border:none; background:none; font-family:'Inter',sans-serif; font-size:0.82rem; font-weight:600; color:var(--gray); transition:all 0.2s; border-right:1px solid var(--border); }
+    .airport-tab:last-child { border-right:none; }
+    .airport-tab:hover { background:var(--bg-tint); color:var(--purple-deep); }
+    .airport-tab.active { background:linear-gradient(135deg,var(--gold),var(--gold-lt)); color:#0a0a0a; }
+    .airport-tab .ap-code { display:block; font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:inherit; margin-bottom:2px; }
+
+    .airport-panel { display:none; }
+    .airport-panel.active { display:grid; grid-template-columns:2fr 1fr; gap:28px; }
+
+    .traffic-map-wrap { border-radius:16px; overflow:hidden; border:1.5px solid var(--border); position:relative; min-height:400px; }
+    .traffic-map-wrap iframe { width:100%; height:420px; border:none; display:block; }
+    .map-overlay-label { position:absolute; top:12px; left:12px; background:rgba(255,255,255,0.95); border:1px solid var(--border); border-radius:8px; padding:6px 12px; font-size:0.72rem; font-weight:700; color:var(--purple-deep); letter-spacing:0.05em; z-index:10; display:flex; align-items:center; gap:6px; }
+    .live-dot { width:7px; height:7px; border-radius:50%; background:#16a34a; flex-shrink:0; animation:pulse-dot 1.4s ease-in-out infinite; }
+
+    .airport-info-col { display:flex; flex-direction:column; gap:16px; }
+    .info-block { background:#fff; border:1.5px solid var(--border); border-radius:14px; padding:20px; }
+    .info-block h4 { font-family:'Inter',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+    .info-row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid rgba(45,0,69,0.06); font-size:0.84rem; }
+    .info-row:last-child { border-bottom:none; }
+    .info-row .ir-label { color:var(--gray); }
+    .info-row .ir-val { color:var(--purple-deep); font-weight:600; }
+    .ext-link { display:inline-flex; align-items:center; gap:6px; color:var(--blue); font-size:0.78rem; font-weight:600; text-decoration:none; margin-top:10px; }
+    .ext-link:hover { text-decoration:underline; }
+
+    .phl-badge { background:linear-gradient(135deg,rgba(45,0,69,0.06),rgba(45,0,69,0.02)); border:1.5px solid rgba(45,0,69,0.12); border-radius:14px; padding:18px 20px; }
+    .phl-badge h4 { font-size:0.82rem; font-weight:700; color:var(--purple-deep); margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+    .phl-badge p { font-size:0.78rem; color:var(--gray); line-height:1.7; }
+    .phl-badge a { color:var(--gold); font-weight:700; text-decoration:none; }
+
+    /* Assurance banner */
+    .assurance-section { padding:56px 5%; }
+    .assurance-inner { max-width:1000px; margin:0 auto; }
+    .assurance-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .assurance-card { background:#fff; border:1.5px solid var(--border); border-radius:16px; padding:24px; text-align:center; }
+    .assurance-icon { font-size:2rem; margin-bottom:12px; }
+    .assurance-card h3 { font-size:1.1rem; color:var(--purple-deep); margin-bottom:8px; font-family:'Cormorant Garamond',serif; }
+    .assurance-card p { font-size:0.84rem; color:var(--gray); line-height:1.7; }
+
+    @media(max-width:900px) {
+      .airport-panel.active { grid-template-columns:1fr; }
+      .assurance-grid { grid-template-columns:1fr; }
+    }
+    @media(max-width:640px) {
+      .search-row { grid-template-columns:1fr; }
+      .airport-tabs { flex-wrap:wrap; }
+      .airport-tab { flex:1 1 45%; border-bottom:1px solid var(--border); }
+      .route-bar { grid-template-columns:1fr; gap:12px; }
+      .search-card { padding:22px 18px; }
+      .detail-grid { grid-template-columns:1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <a href="/" class="nav-logo">
+    <img src="/logo.webp" alt="Purple Heart Limo Logo">
+    <div><div class="nav-logo-text">Purple Heart Limo</div><span class="nav-logo-sub">Texan Owned · Est. 2020</span></div>
+  </a>
+  <ul class="nav-links">
+    <li class="dropdown">
+      <a href="/services.html">Services ▾</a>
+      <div class="dropdown-menu">
+        <a href="/services.html#airport">✈️ Airport Transfer</a>
+        <a href="/services.html#weddings">💍 Wedding Limo</a>
+        <a href="/services.html#corporate">💼 Corporate Travel</a>
+        <a href="/services.html#events">🎓 Prom & Graduation</a>
+        <a href="/services.html#nightout">🥂 Night Out & Party</a>
+        <a href="/services.html#charter">🕐 Hourly Service</a>
+      </div>
+    </li>
+    <li><a href="/fleet.html">Our Fleet</a></li>
+    <li><a href="/flight-tracker.html" style="color:#C9A84C;font-weight:600;">✈ Flight Tracker</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/booking.html">Book</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="tel:+18337400700" class="nav-phone">📞 (833) 740-0700</a>
+    <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="padding:10px 20px;font-size:0.78rem;">Book Now</a>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div id="mobile-menu" style="display:none;position:fixed;top:72px;left:0;right:0;background:white;z-index:999;padding:20px;box-shadow:0 12px 48px rgba(45,0,69,0.18);border-bottom:2px solid #F2EFE8;">
+  <a href="/services.html" style="display:block;padding:12px;font-size:0.9rem;color:#0a0a0a;border-bottom:1px solid #F2EFE8;">Services</a>
+  <a href="/fleet.html" style="display:block;padding:12px;font-size:0.9rem;color:#0a0a0a;border-bottom:1px solid #F2EFE8;">🚗 Our Fleet</a>
+  <a href="/flight-tracker.html" style="display:block;padding:12px;font-size:0.9rem;color:#C9A84C;font-weight:700;border-bottom:1px solid #F2EFE8;">✈ Flight Tracker</a>
+  <a href="/about.html" style="display:block;padding:12px;font-size:0.9rem;color:#0a0a0a;border-bottom:1px solid #F2EFE8;">About Us</a>
+  <a href="/booking.html" style="display:block;padding:12px;font-size:0.9rem;color:#0a0a0a;">Book a Ride</a>
+</div>
+
+<!-- HERO -->
+<section class="ft-hero">
+  <div class="inner">
+    <span class="section-label">Real-Time Flight Status</span>
+    <h1>Track Your Flight <em>Instantly</em></h1>
+    <p>Enter your flight number below for live status, estimated arrival, terminal &amp; gate info — plus live traffic conditions at all four Texas airports.</p>
+    <div class="search-card">
+      <h2>✈️ Flight Status Lookup</h2>
+      <div class="search-row">
+        <div class="sf-group">
+          <label>Flight Number</label>
+          <input type="text" id="flightNum" placeholder="e.g. AA1234" maxlength="8" autocomplete="off" oninput="this.value=this.value.toUpperCase()">
+        </div>
+        <div class="sf-group">
+          <label>Airline</label>
+          <select id="airlineSelect">
+            <option value="">Select Airline…</option>
+            <option value="AAL">American Airlines (AA)</option>
+            <option value="DAL">Delta Air Lines (DL)</option>
+            <option value="UAL">United Airlines (UA)</option>
+            <option value="SWA">Southwest Airlines (WN)</option>
+            <option value="JBU">JetBlue (B6)</option>
+            <option value="ASA">Alaska Airlines (AS)</option>
+            <option value="NKS">Spirit Airlines (NK)</option>
+            <option value="FFT">Frontier Airlines (F9)</option>
+            <option value="SKW">SkyWest (OO)</option>
+            <option value="EDV">Endeavor Air (9E)</option>
+            <option value="CPZ">Comair (OH)</option>
+          </select>
+        </div>
+        <div class="sf-group">
+          <label>Date</label>
+          <input type="date" id="flightDate">
+        </div>
+      </div>
+      <p class="flight-hint">Enter your flight number, select your airline, and your date. <span>Data powered by OpenSky Network.</span></p>
+      <button class="btn-track" id="trackBtn" onclick="trackFlight()">
+        <span id="trackBtnTxt">🔍 Track My Flight</span>
+        <div class="spinner" id="trackSpinner"></div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS AREA -->
+<div class="result-section" id="resultSection">
+
+  <!-- Loading / error / empty states -->
+  <div class="state-msg" id="stateLoading">
+    <div class="ico">✈️</div>
+    <h3>Searching flight data…</h3>
+    <p>Querying live aviation databases — this takes just a moment.</p>
+  </div>
+
+  <div class="state-msg" id="stateError">
+    <div class="ico">🔍</div>
+    <h3>Flight Not Found in Live Data</h3>
+    <p>This flight may not currently be in the air, or the callsign format differs from what the live tracker uses.<br>Check the airline's official status page below for full schedule info including gate and baggage claim.</p>
+  </div>
+
+  <div class="state-msg" id="stateEmpty">
+    <div class="ico">✈️</div>
+    <h3>Enter a Flight Above to Get Started</h3>
+    <p>Type your flight number, select the airline, choose the date, and press Track.</p>
+  </div>
+
+  <!-- FLIGHT STATUS CARD (appears after search) -->
+  <div class="status-card" id="statusCard">
+    <div class="status-head">
+      <div class="flight-id">
+        <div class="flight-num-badge" id="res_flightNum">AA1234</div>
+        <div class="flight-name" id="res_airline">American Airlines <small id="res_aircraft">Aircraft en route</small></div>
+      </div>
+      <div class="status-badge status-active" id="res_statusBadge">
+        <div class="status-live-dot" id="res_liveOrb"></div>
+        <span id="res_statusText">Live — In Air</span>
+      </div>
+    </div>
+
+    <div class="route-bar">
+      <div class="route-end">
+        <div class="code" id="res_depCode">—</div>
+        <div class="city" id="res_depCity">Departure</div>
+        <div class="time-sch" id="res_depTime">—</div>
+        <div class="gate" id="res_depGate"></div>
+      </div>
+      <div class="route-arrow">
+        <svg viewBox="0 0 120 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M4 12h112M100 4l12 8-12 8"/>
+          <circle cx="20" cy="12" r="3" fill="#C9A84C" stroke="none"/>
+          <circle cx="60" cy="12" r="3" fill="#C9A84C" stroke="none"/>
+        </svg>
+        <div class="progress-bar"><div class="progress-fill" id="res_progress" style="width:50%"></div></div>
+        <div style="margin-top:6px;font-size:0.72rem;color:var(--gray);text-align:center;" id="res_duration">Flight time —</div>
+      </div>
+      <div class="route-end" style="text-align:right;">
+        <div class="code" id="res_arrCode">—</div>
+        <div class="city" id="res_arrCity">Arrival</div>
+        <div class="time-sch" id="res_arrTime">—</div>
+        <div class="gate" id="res_arrGate"></div>
+      </div>
+    </div>
+
+    <div class="detail-grid" id="detailGrid">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Airline status page links -->
+    <div class="airline-links" id="airlineLinksSection">
+      <p>🔗 For terminal, gate &amp; baggage claim — check official airline status:</p>
+      <div class="links" id="airlineLinksInner"></div>
+    </div>
+  </div>
+</div>
+
+<!-- AIRPORT INFO + TRAFFIC TABS -->
+<section class="airports-section">
+  <div class="airports-inner">
+    <div class="section-header">
+      <span class="section-label">Airport Info &amp; Live Traffic</span>
+      <h2>Texas Airport Dashboard</h2>
+      <p>Live traffic conditions, terminal info, and baggage claim resources for all four major Texas airports.</p>
+    </div>
+
+    <div class="airport-tabs" id="airportTabsEl">
+      <button class="airport-tab active" onclick="showAirport('dfw',this)"><span class="ap-code">DFW</span>Dallas/Fort Worth</button>
+      <button class="airport-tab" onclick="showAirport('aus',this)"><span class="ap-code">AUS</span>Austin-Bergstrom</button>
+      <button class="airport-tab" onclick="showAirport('iah',this)"><span class="ap-code">IAH</span>George Bush Int'l</button>
+      <button class="airport-tab" onclick="showAirport('hou',this)"><span class="ap-code">HOU</span>Hobby Airport</button>
+    </div>
+
+    <!-- DFW -->
+    <div class="airport-panel active" id="ap-dfw">
+      <div>
+        <div class="traffic-map-wrap">
+          <div class="map-overlay-label"><span class="live-dot"></span> Live Traffic — DFW Area</div>
+          <iframe
+            src="https://maps.google.com/maps?q=Dallas+Fort+Worth+International+Airport&t=&z=12&ie=UTF8&iwloc=B&layer=t&output=embed"
+            title="DFW Airport Live Traffic Map"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+      <div class="airport-info-col">
+        <div class="info-block">
+          <h4>DFW Airport — Quick Info</h4>
+          <div class="info-row"><span class="ir-label">Airport Code</span><span class="ir-val">DFW</span></div>
+          <div class="info-row"><span class="ir-label">Terminals</span><span class="ir-val">A, B, C, D, E</span></div>
+          <div class="info-row"><span class="ir-label">Phone</span><span class="ir-val">(972) 973-8888</span></div>
+          <div class="info-row"><span class="ir-label">Uber/Lyft Pick-up</span><span class="ir-val">Ground Level</span></div>
+          <div class="info-row"><span class="ir-label">Limo Pick-up</span><span class="ir-val">Terminals A–E Arrivals</span></div>
+          <a href="https://www.dfwairport.com/flights/arrivals/" target="_blank" rel="noopener" class="ext-link">🔗 Live DFW Arrivals Board ↗</a><br>
+          <a href="https://www.dfwairport.com/guide/" target="_blank" rel="noopener" class="ext-link">🗺 Terminal Maps ↗</a>
+        </div>
+        <div class="info-block">
+          <h4>Baggage Claim — By Terminal</h4>
+          <div class="info-row"><span class="ir-label">Terminal A</span><span class="ir-val">Lower Level</span></div>
+          <div class="info-row"><span class="ir-label">Terminal B</span><span class="ir-val">Lower Level</span></div>
+          <div class="info-row"><span class="ir-label">Terminal C</span><span class="ir-val">Lower Level</span></div>
+          <div class="info-row"><span class="ir-label">Terminal D (Intl)</span><span class="ir-val">Level 1</span></div>
+          <div class="info-row"><span class="ir-label">Terminal E</span><span class="ir-val">Lower Level</span></div>
+          <a href="https://www.dfwairport.com/flights/arrivals/" target="_blank" rel="noopener" class="ext-link">🔗 Check Real-Time Baggage Claim Belt →</a>
+        </div>
+        <div class="phl-badge">
+          <h4>🎖️ Your PHL Driver is Ready</h4>
+          <p>Purple Heart Limo drivers meet you at Arrivals after you clear baggage claim. We track your flight and adjust automatically — no stressful calls needed. <a href="/booking.html">Book your DFW pickup →</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- AUS -->
+    <div class="airport-panel" id="ap-aus">
+      <div>
+        <div class="traffic-map-wrap">
+          <div class="map-overlay-label"><span class="live-dot"></span> Live Traffic — AUS Area</div>
+          <iframe
+            src="https://maps.google.com/maps?q=Austin-Bergstrom+International+Airport&t=&z=12&ie=UTF8&iwloc=B&layer=t&output=embed"
+            title="Austin AUS Airport Live Traffic Map"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+      <div class="airport-info-col">
+        <div class="info-block">
+          <h4>Austin-Bergstrom — Quick Info</h4>
+          <div class="info-row"><span class="ir-label">Airport Code</span><span class="ir-val">AUS</span></div>
+          <div class="info-row"><span class="ir-label">Terminals</span><span class="ir-val">Barbara Jordan (Main)</span></div>
+          <div class="info-row"><span class="ir-label">Phone</span><span class="ir-val">(512) 530-2242</span></div>
+          <div class="info-row"><span class="ir-label">TNCs Pick-up</span><span class="ir-val">Level 1 Curb</span></div>
+          <div class="info-row"><span class="ir-label">Limo Pick-up</span><span class="ir-val">Arrivals — Level 1</span></div>
+          <a href="https://www.austintexas.gov/airport/flights-arrivals" target="_blank" rel="noopener" class="ext-link">🔗 AUS Live Arrivals Board ↗</a><br>
+          <a href="https://www.austintexas.gov/airport/maps-and-directions" target="_blank" rel="noopener" class="ext-link">🗺 Terminal Maps ↗</a>
+        </div>
+        <div class="info-block">
+          <h4>Baggage Claim — AUS</h4>
+          <div class="info-row"><span class="ir-label">Location</span><span class="ir-val">Lower Level (Level 1)</span></div>
+          <div class="info-row"><span class="ir-label">Carousels</span><span class="ir-val">1–7</span></div>
+          <div class="info-row"><span class="ir-label">Oversized Bags</span><span class="ir-val">Carousel 7 Area</span></div>
+          <a href="https://www.austintexas.gov/airport/baggage" target="_blank" rel="noopener" class="ext-link">🔗 AUS Baggage Info →</a>
+        </div>
+        <div class="phl-badge">
+          <h4>🎖️ Your PHL Driver is Ready</h4>
+          <p>Purple Heart Limo is Austin's home base. We know AUS like the back of our hand — every carousel, every curb. <a href="/booking.html">Book your AUS pickup →</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- IAH -->
+    <div class="airport-panel" id="ap-iah">
+      <div>
+        <div class="traffic-map-wrap">
+          <div class="map-overlay-label"><span class="live-dot"></span> Live Traffic — IAH Area</div>
+          <iframe
+            src="https://maps.google.com/maps?q=George+Bush+Intercontinental+Airport+Houston&t=&z=12&ie=UTF8&iwloc=B&layer=t&output=embed"
+            title="Houston IAH Airport Live Traffic Map"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+      <div class="airport-info-col">
+        <div class="info-block">
+          <h4>George Bush Intercontinental — Quick Info</h4>
+          <div class="info-row"><span class="ir-label">Airport Code</span><span class="ir-val">IAH</span></div>
+          <div class="info-row"><span class="ir-label">Terminals</span><span class="ir-val">A, B, C, D, E</span></div>
+          <div class="info-row"><span class="ir-label">Phone</span><span class="ir-val">(281) 230-3100</span></div>
+          <div class="info-row"><span class="ir-label">Limo Pick-up</span><span class="ir-val">Arrivals — Outer Curb</span></div>
+          <div class="info-row"><span class="ir-label">Intl Arrivals</span><span class="ir-val">Terminal E</span></div>
+          <a href="https://www.fly2houston.com/iah/flight-status" target="_blank" rel="noopener" class="ext-link">🔗 IAH Live Arrivals Board ↗</a><br>
+          <a href="https://www.fly2houston.com/iah/terminal-maps" target="_blank" rel="noopener" class="ext-link">🗺 Terminal Maps ↗</a>
+        </div>
+        <div class="info-block">
+          <h4>Baggage Claim — IAH</h4>
+          <div class="info-row"><span class="ir-label">Terminal A</span><span class="ir-val">Ground Level</span></div>
+          <div class="info-row"><span class="ir-label">Terminal B</span><span class="ir-val">Ground Level</span></div>
+          <div class="info-row"><span class="ir-label">Terminal C</span><span class="ir-val">Level 1</span></div>
+          <div class="info-row"><span class="ir-label">Terminal D</span><span class="ir-val">Level 1 (Intl Arrivals)</span></div>
+          <div class="info-row"><span class="ir-label">Terminal E</span><span class="ir-val">Level 1</span></div>
+          <a href="https://www.fly2houston.com/iah/baggage-claim" target="_blank" rel="noopener" class="ext-link">🔗 IAH Baggage Info →</a>
+        </div>
+        <div class="phl-badge">
+          <h4>🎖️ Your PHL Driver is Ready</h4>
+          <p>Bush Intercontinental is one of our busiest airports. We know IAH's complex terminal layout so you don't have to. <a href="/booking.html">Book your IAH pickup →</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOU -->
+    <div class="airport-panel" id="ap-hou">
+      <div>
+        <div class="traffic-map-wrap">
+          <div class="map-overlay-label"><span class="live-dot"></span> Live Traffic — HOU Area</div>
+          <iframe
+            src="https://maps.google.com/maps?q=William+P+Hobby+Airport+Houston&t=&z=12&ie=UTF8&iwloc=B&layer=t&output=embed"
+            title="Houston Hobby Airport Live Traffic Map"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+      <div class="airport-info-col">
+        <div class="info-block">
+          <h4>Hobby Airport — Quick Info</h4>
+          <div class="info-row"><span class="ir-label">Airport Code</span><span class="ir-val">HOU</span></div>
+          <div class="info-row"><span class="ir-label">Terminal</span><span class="ir-val">Single Terminal</span></div>
+          <div class="info-row"><span class="ir-label">Phone</span><span class="ir-val">(713) 847-4900</span></div>
+          <div class="info-row"><span class="ir-label">Limo Pick-up</span><span class="ir-val">Baggage Claim Curb</span></div>
+          <div class="info-row"><span class="ir-label">Primary Airline</span><span class="ir-val">Southwest Airlines</span></div>
+          <a href="https://www.fly2houston.com/hou/flight-status" target="_blank" rel="noopener" class="ext-link">🔗 HOU Live Arrivals Board ↗</a><br>
+          <a href="https://www.fly2houston.com/hou/terminal-maps" target="_blank" rel="noopener" class="ext-link">🗺 Terminal Map ↗</a>
+        </div>
+        <div class="info-block">
+          <h4>Baggage Claim — HOU</h4>
+          <div class="info-row"><span class="ir-label">Location</span><span class="ir-val">Arrivals Level (Level 1)</span></div>
+          <div class="info-row"><span class="ir-label">Carousels</span><span class="ir-val">1–5</span></div>
+          <div class="info-row"><span class="ir-label">Oversized Bags</span><span class="ir-val">East End of Terminal</span></div>
+          <a href="https://www.fly2houston.com/hou/baggage-claim" target="_blank" rel="noopener" class="ext-link">🔗 HOU Baggage Info →</a>
+        </div>
+        <div class="phl-badge">
+          <h4>🎖️ Your PHL Driver is Ready</h4>
+          <p>Hobby is compact and easy — but traffic on I-45 and Broadway can catch you off guard. We manage all of it for you. <a href="/booking.html">Book your HOU pickup →</a></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ASSURANCE SECTION -->
+<section class="assurance-section">
+  <div class="assurance-inner">
+    <div class="section-header">
+      <span class="section-label">Why Purple Heart Limo</span>
+      <h2>We Track Your Flight So You Don't Have To</h2>
+    </div>
+    <div class="assurance-grid">
+      <div class="assurance-card">
+        <div class="assurance-icon">📡</div>
+        <h3>Automatic Flight Monitoring</h3>
+        <p>Every booked airport transfer is automatically linked to your flight. If your flight is early, late, or diverted — your driver adjusts in real time. No calls needed from you.</p>
+      </div>
+      <div class="assurance-card">
+        <div class="assurance-icon">⏱️</div>
+        <h3>60-Min Free Wait</h3>
+        <p>After your flight lands, you have 60 minutes of complimentary wait time included. Customs, baggage, long walks — we've got you covered without a clock ticking against you.</p>
+      </div>
+      <div class="assurance-card">
+        <div class="assurance-icon">🎖️</div>
+        <h3>Veteran Reliability</h3>
+        <p>Military precision means your driver is there before you are. We don't do fashionably late. We do on-time, every time — because your schedule matters as much as the mission.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="inner">
+    <span class="section-label">Ready to Book?</span>
+    <h2>Book Your Airport Ride Today</h2>
+    <p>Flat rate. Flight tracked. Driver ready. No stress — that's the Purple Heart Limo promise.</p>
+    <div class="btn-group">
+      <a href="/booking.html" class="btn-gold">Book Airport Transfer</a>
+      <a href="tel:+18337400700" class="btn-call">📞 (833) 740-0700</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/" style="display:inline-flex;align-items:center;gap:10px;margin-bottom:14px;">
+        <img src="/logo.webp" alt="Purple Heart Limo" style="width:40px;height:40px;object-fit:contain;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#fff;font-weight:600;">Purple Heart Limo</div>
+      </a>
+      <p>Veteran-owned luxury limousine & black car service in Austin, Dallas-Fort Worth & Houston, Texas. No surge pricing. Flat rates. Professional chauffeurs.</p>
+      <p style="margin-top:14px;"><a href="tel:+18337400700" style="color:#C9A84C;font-size:0.85rem;font-weight:600;">📞 (833) 740-0700</a></p>
+      <p style="margin-top:4px;"><a href="mailto:info@purpleheartlimo.com" style="color:rgba(255,255,255,0.45);font-size:0.8rem;">info@purpleheartlimo.com</a></p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="/services.html#airport">Airport Transfer</a>
+      <a href="/services.html#weddings">Wedding Limo</a>
+      <a href="/services.html#corporate">Corporate Travel</a>
+      <a href="/services.html#events">Prom & Graduation</a>
+    </div>
+    <div class="footer-col">
+      <h4>Texas Airports</h4>
+      <a href="#" onclick="showAirport('dfw',null);return false;">DFW Airport</a>
+      <a href="#" onclick="showAirport('aus',null);return false;">Austin AUS</a>
+      <a href="#" onclick="showAirport('iah',null);return false;">Houston IAH</a>
+      <a href="#" onclick="showAirport('hou',null);return false;">Houston HOU</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="/about.html">About Us</a>
+      <a href="/fleet.html">Our Fleet</a>
+      <a href="/rates.html">Pricing</a>
+      <a href="/flight-tracker.html">Flight Tracker</a>
+      <h4 style="margin-top:16px;">Legal</h4>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms-of-service.html">Terms of Service</a>
+      <a href="/cancellation-policy.html">Cancellation</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Purple Heart Limo. All rights reserved. Veteran-owned & operated in Texas. 🎖️</p>
+    <div class="footer-legal">
+      <a href="/privacy-policy.html">Privacy</a>
+      <a href="/terms-of-service.html">Terms</a>
+      <a href="/cancellation-policy.html">Cancellation</a>
+    </div>
+  </div>
+</footer>
+
+<div class="floating-widgets">
+  <a href="https://wa.me/18337400700" target="_blank" class="wa-widget" aria-label="Chat on WhatsApp">
+    <div class="wa-pulse"></div>
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+</div>
+<div class="mobile-bar">
+  <a href="tel:+18337400700" class="m-call">📞 Call</a>
+  <a href="https://wa.me/18337400700" target="_blank" class="m-wa">💬 WhatsApp</a>
+  <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="m-book">Book a Ride</a>
+</div>
+
+<script>
+function toggleMenu(){const m=document.getElementById('mobile-menu');m.style.display=m.style.display==='block'?'none':'block';}
+
+// Airport tab switching
+function showAirport(code, btn) {
+  document.querySelectorAll('.airport-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.airport-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('ap-'+code).classList.add('active');
+  if(btn) btn.classList.add('active');
+  document.getElementById('airports-section') && document.getElementById('airports-section').scrollIntoView({behavior:'smooth'});
+}
+
+// Airline ICAO → display name + status URL
+const AIRLINES = {
+  AAL:{name:'American Airlines',url:'https://www.aa.com/reservation/flightStatusIndex.jsp',logo:'AA'},
+  DAL:{name:'Delta Air Lines',url:'https://www.delta.com/us/en/flight-search/search-by-flight-number',logo:'DL'},
+  UAL:{name:'United Airlines',url:'https://www.united.com/en/us/flight-search/find-flights',logo:'UA'},
+  SWA:{name:'Southwest Airlines',url:'https://www.southwest.com/air/flight-status/',logo:'WN'},
+  JBU:{name:'JetBlue',url:'https://www.jetblue.com/travel/flight-status',logo:'B6'},
+  ASA:{name:'Alaska Airlines',url:'https://www.alaskaair.com/status',logo:'AS'},
+  NKS:{name:'Spirit Airlines',url:'https://www.spirit.com/myflight',logo:'NK'},
+  FFT:{name:'Frontier Airlines',url:'https://www.flyfrontier.com/fly/my-trips/flight-status/',logo:'F9'},
+  SKW:{name:'SkyWest Airlines',url:'https://www.skywest.com/flight-status/',logo:'OO'},
+  EDV:{name:'Endeavor Air',url:'https://www.delta.com/us/en/flight-search/search-by-flight-number',logo:'9E'},
+};
+
+// Airport ICAO codes for OpenSky
+const AIRPORT_ICAO = {
+  AAL:'KDFW',DAL:'KDFW',UAL:'KIAH',SWA:'KHOU',JBU:'KAUS',
+  ASA:'KAUS',NKS:'KDFW',FFT:'KDFW',SKW:'KDFW',EDV:'KDFW',
+};
+
+// OpenSky Network API call
+async function trackFlight() {
+  const flightRaw = document.getElementById('flightNum').value.trim().toUpperCase();
+  const icao = document.getElementById('airlineSelect').value;
+  const dateVal = document.getElementById('flightDate').value;
+
+  if(!flightRaw || !icao) {
+    alert('Please enter a flight number and select your airline.');
+    return;
+  }
+
+  // Build callsign (OpenSky uses ICAO airline code + numeric digits, padded to 8 chars)
+  const digits = flightRaw.replace(/[^0-9]/g,'');
+  const callsign = (icao + digits).padEnd(8,' ');
+
+  setLoading(true);
+  showState('loading');
+
+  try {
+    // OpenSky real-time states — search by callsign
+    const resp = await fetch(
+      `https://opensky-network.org/api/states/all?callsign=${encodeURIComponent(callsign.trim())}`,
+      { signal: AbortSignal.timeout(10000) }
+    );
+
+    if(!resp.ok) throw new Error('API error');
+    const data = await resp.json();
+
+    if(data.states && data.states.length > 0) {
+      const s = data.states[0];
+      // OpenSky state vector fields:
+      // [0]=icao24, [1]=callsign, [2]=origin_country, [3]=time_position, [4]=last_contact,
+      // [5]=lon, [6]=lat, [7]=baro_altitude, [8]=on_ground, [9]=velocity,
+      // [10]=true_track, [11]=vertical_rate, [12]=sensors, [13]=geo_altitude,
+      // [14]=squawk, [15]=spi, [16]=position_source
+      renderFlightResult({
+        callsign: s[1]?.trim() || flightRaw,
+        airline: AIRLINES[icao]?.name || icao,
+        icao24: s[0],
+        onGround: s[8],
+        latitude: s[6],
+        longitude: s[5],
+        altitude: s[7] ? Math.round(s[7] * 3.28084) : null,
+        velocity: s[9] ? Math.round(s[9] * 1.94384) : null,
+        heading: s[10] ? Math.round(s[10]) : null,
+        country: s[2],
+        lastContact: s[4],
+        selectedIcao: icao,
+        flightInput: flightRaw,
+      });
+    } else {
+      // Flight not currently airborne or not found
+      showNotFoundState(icao, flightRaw, dateVal);
+    }
+  } catch(err) {
+    showNotFoundState(icao, flightRaw, dateVal);
+  }
+
+  setLoading(false);
+}
+
+function renderFlightResult(d) {
+  showState('result');
+
+  const card = document.getElementById('statusCard');
+  card.classList.add('visible');
+
+  document.getElementById('res_flightNum').textContent = d.callsign || d.flightInput;
+  document.getElementById('res_airline').childNodes[0].textContent = d.airline + ' ';
+  document.getElementById('res_aircraft').textContent = d.country ? `Origin: ${d.country}` : 'Aircraft tracked';
+
+  const badge = document.getElementById('res_statusBadge');
+  const orb = document.getElementById('res_liveOrb');
+  const statusTxt = document.getElementById('res_statusText');
+
+  if(d.onGround) {
+    badge.className = 'status-badge status-landed';
+    orb.style.background = '#2563eb';
+    orb.style.animation = 'none';
+    statusTxt.textContent = 'On Ground';
+  } else {
+    badge.className = 'status-badge status-active';
+    orb.style.background = '#16a34a';
+    orb.style.animation = '';
+    statusTxt.textContent = 'Live — Airborne';
+  }
+
+  // Route bar — best we can do without schedule API
+  document.getElementById('res_depCode').textContent = '—';
+  document.getElementById('res_depCity').textContent = 'Departure';
+  document.getElementById('res_depTime').textContent = '—';
+  document.getElementById('res_arrCode').textContent = '—';
+  document.getElementById('res_arrCity').textContent = 'Arrival';
+  document.getElementById('res_arrTime').textContent = '—';
+  document.getElementById('res_progress').style.width = d.onGround ? '95%' : '50%';
+  document.getElementById('res_duration').textContent = d.onGround ? 'On ground' : 'In flight';
+
+  // Detail grid
+  const details = [];
+  if(d.altitude) details.push({label:'Altitude', val: d.altitude.toLocaleString() + ' ft', sub:'Barometric'});
+  if(d.velocity) details.push({label:'Ground Speed', val: d.velocity + ' kts', sub:'Current velocity'});
+  if(d.heading !== null && d.heading !== undefined) details.push({label:'Heading', val: d.heading + '°', sub:'True track'});
+  if(d.latitude) details.push({label:'Position', val: `${d.latitude.toFixed(2)}°N`, sub:`${Math.abs(d.longitude?.toFixed(2))}°W`});
+  if(d.icao24) details.push({label:'Aircraft ID', val: d.icao24.toUpperCase(), sub:'ICAO 24-bit'});
+  const updated = d.lastContact ? new Date(d.lastContact*1000).toLocaleTimeString() : '—';
+  details.push({label:'Last Updated', val: updated, sub:'OpenSky Network'});
+
+  document.getElementById('detailGrid').innerHTML = details.map(d=>
+    `<div class="detail-item"><div class="lbl">${d.label}</div><div class="val">${d.val}</div><div class="sub">${d.sub}</div></div>`
+  ).join('');
+
+  // Airline links
+  renderAirlineLinks(d.selectedIcao, d.flightInput);
+}
+
+function showNotFoundState(icao, flightNum, dateVal) {
+  document.getElementById('statusCard').classList.add('visible');
+  const badge = document.getElementById('res_statusBadge');
+  badge.className = 'status-badge status-unknown';
+  document.getElementById('res_liveOrb').style.display = 'none';
+  document.getElementById('res_statusText').textContent = 'Not Airborne / Not Found';
+  document.getElementById('res_flightNum').textContent = flightNum;
+  document.getElementById('res_airline').childNodes[0].textContent = (AIRLINES[icao]?.name || icao) + ' ';
+  document.getElementById('res_aircraft').textContent = 'Flight not currently tracked in live data';
+  document.getElementById('res_depCode').textContent = '—';
+  document.getElementById('res_arrCode').textContent = '—';
+  document.getElementById('res_depTime').textContent = 'See airline';
+  document.getElementById('res_arrTime').textContent = 'See airline';
+  document.getElementById('res_duration').textContent = 'Check airline for schedule';
+  document.getElementById('res_progress').style.width = '0%';
+  document.getElementById('detailGrid').innerHTML = `
+    <div class="detail-item" style="grid-column:1/-1;border:1.5px solid rgba(217,119,6,0.2);background:rgba(217,119,6,0.04);">
+      <div class="lbl">Status Note</div>
+      <div class="val" style="color:#d97706;">Flight Not in Live Air Data</div>
+      <div class="sub">The flight may be scheduled (not yet departed), already landed, or the callsign format may differ. Please check the airline's official status page below.</div>
+    </div>`;
+  renderAirlineLinks(icao, flightNum);
+  showState('result');
+}
+
+function renderAirlineLinks(icao, flightNum) {
+  const section = document.getElementById('airlineLinksSection');
+  const inner = document.getElementById('airlineLinksInner');
+  const airline = AIRLINES[icao];
+  inner.innerHTML = '';
+
+  // Official airline link
+  if(airline) {
+    inner.innerHTML += `<a href="${airline.url}" target="_blank" rel="noopener" class="al-link">✈ ${airline.name} Official Status</a>`;
+  }
+  // FlightAware deep link
+  inner.innerHTML += `<a href="https://flightaware.com/live/flight/${(icao||'') + flightNum.replace(/[^0-9]/g,'')}" target="_blank" rel="noopener" class="al-link">🛩 FlightAware</a>`;
+  // Flightradar24
+  inner.innerHTML += `<a href="https://www.flightradar24.com/data/flights/${flightNum.toLowerCase()}" target="_blank" rel="noopener" class="al-link">📡 FlightRadar24</a>`;
+  // Airport links for TX airports
+  inner.innerHTML += `<a href="https://www.dfwairport.com/flights/arrivals/" target="_blank" rel="noopener" class="al-link">DFW Arrivals</a>`;
+  inner.innerHTML += `<a href="https://www.austintexas.gov/airport/flights-arrivals" target="_blank" rel="noopener" class="al-link">AUS Arrivals</a>`;
+  inner.innerHTML += `<a href="https://www.fly2houston.com/iah/flight-status" target="_blank" rel="noopener" class="al-link">IAH Arrivals</a>`;
+  inner.innerHTML += `<a href="https://www.fly2houston.com/hou/flight-status" target="_blank" rel="noopener" class="al-link">HOU Arrivals</a>`;
+
+  section.style.display = 'block';
+}
+
+function showState(state) {
+  document.getElementById('stateLoading').classList.toggle('show', state==='loading');
+  document.getElementById('stateError').classList.toggle('show', state==='error');
+  document.getElementById('stateEmpty').classList.toggle('show', state==='empty');
+  if(state !== 'result') document.getElementById('statusCard').classList.remove('visible');
+}
+
+function setLoading(on) {
+  const btn = document.getElementById('trackBtn');
+  const txt = document.getElementById('trackBtnTxt');
+  const spinner = document.getElementById('trackSpinner');
+  btn.disabled = on;
+  txt.textContent = on ? 'Searching…' : '🔍 Track My Flight';
+  spinner.style.display = on ? 'block' : 'none';
+}
+
+// Init
+document.getElementById('flightDate').value = new Date().toISOString().split('T')[0];
+showState('empty');
+
+// Allow Enter key to submit
+document.getElementById('flightNum').addEventListener('keydown', e => { if(e.key==='Enter') trackFlight(); });
+
+// Auto-select airline from flight number prefix
+document.getElementById('flightNum').addEventListener('input', function() {
+  const v = this.value.toUpperCase();
+  const prefix = v.replace(/[0-9]/g,'');
+  const iataToIcao = {AA:'AAL',DL:'DAL',UA:'UAL',WN:'SWA',B6:'JBU',AS:'ASA',NK:'NKS',F9:'FFT',OO:'SKW'};
+  if(iataToIcao[prefix] && !document.getElementById('airlineSelect').value) {
+    document.getElementById('airlineSelect').value = iataToIcao[prefix];
+  }
+});
+</script>
+</body>
+</html>
