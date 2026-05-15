@@ -848,15 +848,6 @@ document.getElementById('flightNum').focus();
 // Allow Enter key to submit (also set in oninput attr but keeping here for safety)
 document.getElementById('flightNum').addEventListener('keydown', e => { if(e.key==='Enter') trackFlight(); });
 
-// Placeholder cleanup
-document.getElementById('flightNum').addEventListener('input', function() {
-  const v = this.value.toUpperCase();
-  const prefix = v.replace(/[0-9]/g,'');
-  const iataToIcao = {AA:'AAL',DL:'DAL',UA:'UAL',WN:'SWA',B6:'JBU',AS:'ASA',NK:'NKS',F9:'FFT',OO:'SKW'};
-  if(iataToIcao[prefix] && !document.getElementById('airlineSelect').value) {
-    document.getElementById('airlineSelect').value = iataToIcao[prefix];
-  }
-});
 </script>
 </body>
 </html>
