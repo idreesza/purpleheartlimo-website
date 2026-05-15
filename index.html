@@ -931,8 +931,10 @@ footer {
   <h4>15% Off<br>Your First Ride</h4>
   <p>Enter your name &amp; phone — we'll text your code in 60 seconds. Texan-owned Texas luxury.</p>
   <div class="discount-cloud-form">
-    <input type="text" placeholder="Your Name" id="dc-name" autocomplete="name">
-    <input type="tel" placeholder="Phone Number" id="dc-phone" autocomplete="tel">
+    <input type="text" placeholder="Your Name" id="dc-name" autocomplete="name" oninput="clearFieldError('dc-name','err-dc-name')">
+    <span class="field-error" id="err-dc-name">⚠ Name is required</span>
+    <input type="tel" placeholder="Phone Number" id="dc-phone" autocomplete="tel" oninput="clearFieldError('dc-phone','err-dc-phone')">
+    <span class="field-error" id="err-dc-phone">⚠ Phone number is required</span>
     <button class="discount-cloud-btn" onclick="submitCloud()">🎁 Claim My 15% Off</button>
   </div>
   <p class="discount-cloud-note">No spam, ever. Code arrives within 60 seconds.</p>
@@ -1868,9 +1870,9 @@ footer {
         <div class="contact-form-card">
           <h3>Request a Quote</h3>
           <p>Fill out the form and we'll get back to you within 5 minutes.</p>
-          <div class="form-group"><label>Your Name *</label><input type="text" placeholder="Full name" id="cf-name"></div>
+          <div class="form-group"><label>Your Name *</label><input type="text" placeholder="Full name" id="cf-name" oninput="clearFieldError('cf-name','err-cf-name')"><span class="field-error" id="err-cf-name">⚠ Name is required</span></div>
           <div class="form-row">
-            <div class="form-group"><label>Phone *</label><input type="tel" placeholder="(xxx) xxx-xxxx" id="cf-phone"></div>
+            <div class="form-group"><label>Phone *</label><input type="tel" placeholder="(xxx) xxx-xxxx" id="cf-phone" oninput="clearFieldError('cf-phone','err-cf-phone')"><span class="field-error" id="err-cf-phone">⚠ Phone number is required</span></div>
             <div class="form-group"><label>Email *</label><input type="email" placeholder="you@email.com" id="cf-email"></div>
           </div>
           <div class="form-group"><label>Service Type</label>
@@ -2628,7 +2630,10 @@ function closeCloud() {
 function submitCloud() {
   const name = document.getElementById('dc-name').value.trim();
   const phone = document.getElementById('dc-phone').value.trim();
-  if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
+  let hasErr = false;
+  if (!name)  { showFieldError('dc-name',  'err-dc-name');  hasErr = true; }
+  if (!phone) { showFieldError('dc-phone', 'err-dc-phone'); hasErr = true; }
+  if (hasErr) return;
   const cloud = document.getElementById('discountCloud');
   const tab = document.getElementById('discountTab');
   cloud.innerHTML = '<div style="padding:8px 0;text-align:center;"><div style="font-size:2rem;margin-bottom:10px;">🎁</div><h4 style="color:var(--purple);font-family:\'Cormorant Garamond\',serif;font-size:1.3rem;margin-bottom:8px;">Code: FIRSTRIDE15</h4><p style="color:var(--gray);font-size:0.78rem;line-height:1.5;">Mention this code when you call <strong>(833) 740-0700</strong> or use it online. 15% off your first ride — thank you for choosing a Texan-owned business!</p><button onclick="closeCloud()" style="margin-top:12px;padding:8px 20px;background:var(--purple);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:0.75rem;font-family:\'Inter\',sans-serif;">Got it!</button></div>';
@@ -2766,7 +2771,10 @@ function submitContactForm() {
   const btn = document.querySelector('.contact-form-card .btn-book-full');
   const name = document.getElementById('cf-name')?.value;
   const phone = document.getElementById('cf-phone')?.value;
-  if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
+  let cfErr = false;
+  if (!name)  { showFieldError('cf-name',  'err-cf-name');  cfErr = true; }
+  if (!phone) { showFieldError('cf-phone', 'err-cf-phone'); cfErr = true; }
+  if (cfErr) return;
   if (btn) {
     btn.textContent = '✅ Request Received! We\'ll respond within 5 minutes.';
     btn.style.background = '#22c55e';
