@@ -163,6 +163,10 @@ body { background: var(--bg); color: var(--text-c); }
 
 @media(max-width:768px){ .form-row{grid-template-columns:1fr;} }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  (function(){ emailjs.init({ publicKey: 'coK69SSFSbc1x8dc6' }); })();
+</script>
 </head>
 <body>
 
@@ -649,9 +653,13 @@ async function submitBooking(){
   const veh=selVeh?VEHICLES.find(v=>v.id===selVeh)?.name:'Not selected';
   const body={name,phone,email,vehicle:veh,service:curSvc,pickup,dropoff,stops:stops.join(' → '),date,time:`${hour}:${min} ${ampm}`,flight,pax,message:msg};
   try{
-    const r=await fetch('https://formspree.io/f/purpleheartlimo',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(body)});
-    if(r.ok){succ.textContent='Request received! We\'ll confirm your ride within 5 minutes. ✅';succ.classList.add('show');document.getElementById('moovsLink').style.display='block';}
-    else throw new Error();
+    await emailjs.send('service_53lh00r', 'template_xwek3ac', {
+      from_name: name, phone, service: curSvc, pickup, dropoff,
+      date: date||'—', time: `${hour}:${min} ${ampm}`, vehicle: veh,
+      flight: flight||'—', source: 'Booking Page',
+      dropoff: [dropoff, stops.length ? 'Stops: '+stops.join(' → ') : '', msg].filter(Boolean).join('\n')
+    });
+    succ.textContent='Request received! We\'ll confirm your ride within 5 minutes. ✅';succ.classList.add('show');document.getElementById('moovsLink').style.display='block';
   }catch{
     succ.textContent='Request sent! We\'ll confirm your ride within 5 minutes. ✅';succ.classList.add('show');document.getElementById('moovsLink').style.display='block';
   }

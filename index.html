@@ -845,6 +845,13 @@ footer {
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  (function(){
+    var EJS_PUB = 'coK69SSFSbc1x8dc6';
+    emailjs.init({ publicKey: EJS_PUB });
+  })();
+</script>
 </head>
 <body>
 
@@ -2627,13 +2634,20 @@ function closeCloud() {
     tab.style.display = 'block';
   }, 440);
 }
-function submitCloud() {
+async function submitCloud() {
   const name = document.getElementById('dc-name').value.trim();
   const phone = document.getElementById('dc-phone').value.trim();
   let hasErr = false;
   if (!name)  { showFieldError('dc-name',  'err-dc-name');  hasErr = true; }
   if (!phone) { showFieldError('dc-phone', 'err-dc-phone'); hasErr = true; }
   if (hasErr) return;
+  try {
+    await emailjs.send('service_53lh00r', 'template_xwek3ac', {
+      from_name: name, phone, service: 'Discount Code Request',
+      pickup: '—', dropoff: '—', date: '—', time: '—', vehicle: '—', flight: '—',
+      source: '15% Discount Popup'
+    });
+  } catch(e) {}
   const cloud = document.getElementById('discountCloud');
   const tab = document.getElementById('discountTab');
   cloud.innerHTML = '<div style="padding:8px 0;text-align:center;"><div style="font-size:2rem;margin-bottom:10px;">🎁</div><h4 style="color:var(--purple);font-family:\'Cormorant Garamond\',serif;font-size:1.3rem;margin-bottom:8px;">Code: FIRSTRIDE15</h4><p style="color:var(--gray);font-size:0.78rem;line-height:1.5;">Mention this code when you call <strong>(833) 740-0700</strong> or use it online. 15% off your first ride — thank you for choosing a Texan-owned business!</p><button onclick="closeCloud()" style="margin-top:12px;padding:8px 20px;background:var(--purple);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:0.75rem;font-family:\'Inter\',sans-serif;">Got it!</button></div>';
@@ -2750,16 +2764,21 @@ async function submitQuote() {
   btn.disabled = true;
   btn.textContent = 'Sending…';
 
-  const payload = { name, phone, service, date, time, vehicle, pickup, dropoff,
-    flightNumber: flight,
-    message: `Quote request from home page.\nService: ${service}\nVehicle: ${vehicle}${flight ? '\nFlight: ' + flight : ''}` };
+  const templateParams = {
+    from_name:   name,
+    phone:        phone,
+    service:      service,
+    pickup:       pickup,
+    dropoff:      dropoff || '—',
+    date:         date || '—',
+    time:         time || '—',
+    vehicle:      vehicle || '—',
+    flight:       flight || '—',
+    source:       'Homepage Quote Widget'
+  };
 
   try {
-    await fetch('/.netlify/functions/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
+    await emailjs.send('service_53lh00r', 'template_xwek3ac', templateParams);
   } catch(e) { /* best-effort — show success regardless */ }
 
   btn.style.display = 'none';
@@ -2767,19 +2786,30 @@ async function submitQuote() {
 }
 
 // ===== CONTACT FORM =====
-function submitContactForm() {
+async function submitContactForm() {
   const btn = document.querySelector('.contact-form-card .btn-book-full');
-  const name = document.getElementById('cf-name')?.value;
-  const phone = document.getElementById('cf-phone')?.value;
+  const name  = document.getElementById('cf-name')?.value?.trim();
+  const phone = document.getElementById('cf-phone')?.value?.trim();
+  const email = document.getElementById('cf-email')?.value?.trim() || '—';
+  const service = document.getElementById('cf-service')?.value || '—';
+  const msg   = document.getElementById('cf-message')?.value?.trim() || '—';
   let cfErr = false;
   if (!name)  { showFieldError('cf-name',  'err-cf-name');  cfErr = true; }
   if (!phone) { showFieldError('cf-phone', 'err-cf-phone'); cfErr = true; }
   if (cfErr) return;
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+  try {
+    await emailjs.send('service_53lh00r', 'template_xwek3ac', {
+      from_name: name, phone, service, pickup: email, dropoff: msg,
+      date: '—', time: '—', vehicle: service, flight: '—', source: 'Contact Form'
+    });
+  } catch(e) {}
   if (btn) {
     btn.textContent = '✅ Request Received! We\'ll respond within 5 minutes.';
     btn.style.background = '#22c55e';
     btn.style.backgroundImage = 'none';
     btn.style.animation = 'none';
+    btn.disabled = false;
   }
 }
 
