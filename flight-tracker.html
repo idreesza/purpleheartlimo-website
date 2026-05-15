@@ -60,6 +60,7 @@
       box-shadow:0 8px 40px rgba(45,0,69,0.1);
     }
     .search-card h2 { font-family:'Inter',sans-serif; font-size:0.95rem; font-weight:700; color:var(--purple-deep); margin-bottom:20px; display:flex; align-items:center; gap:8px; }
+    .single-search-row { display:flex; gap:12px; align-items:flex-end; margin-bottom:14px; }
     .search-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:14px; }
     .sf-group { display:flex; flex-direction:column; gap:5px; }
     .sf-group label { font-size:0.62rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); }
@@ -249,38 +250,17 @@
     <p>Enter your flight number below for live status, estimated arrival, terminal &amp; gate info — plus live traffic conditions at all four Texas airports.</p>
     <div class="search-card">
       <h2>✈️ Flight Status Lookup</h2>
-      <div class="search-row">
-        <div class="sf-group">
+      <div class="single-search-row">
+        <div class="sf-group" style="flex:1;">
           <label>Flight Number</label>
-          <input type="text" id="flightNum" placeholder="e.g. AA1234" maxlength="8" autocomplete="off" oninput="this.value=this.value.toUpperCase()">
+          <input type="text" id="flightNum" placeholder="e.g. AA1234 · DL405 · UA1680" maxlength="10" autocomplete="off" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')trackFlight()">
         </div>
-        <div class="sf-group">
-          <label>Airline</label>
-          <select id="airlineSelect">
-            <option value="">Select Airline…</option>
-            <option value="AAL">American Airlines (AA)</option>
-            <option value="DAL">Delta Air Lines (DL)</option>
-            <option value="UAL">United Airlines (UA)</option>
-            <option value="SWA">Southwest Airlines (WN)</option>
-            <option value="JBU">JetBlue (B6)</option>
-            <option value="ASA">Alaska Airlines (AS)</option>
-            <option value="NKS">Spirit Airlines (NK)</option>
-            <option value="FFT">Frontier Airlines (F9)</option>
-            <option value="SKW">SkyWest (OO)</option>
-            <option value="EDV">Endeavor Air (9E)</option>
-            <option value="CPZ">Comair (OH)</option>
-          </select>
-        </div>
-        <div class="sf-group">
-          <label>Date</label>
-          <input type="date" id="flightDate">
-        </div>
+        <button class="btn-track" id="trackBtn" onclick="trackFlight()" style="margin-top:22px;width:auto;padding:13px 32px;white-space:nowrap;">
+          <span id="trackBtnTxt">🔍 Track Flight</span>
+          <div class="spinner" id="trackSpinner"></div>
+        </button>
       </div>
-      <p class="flight-hint">Enter your flight number, select your airline, and your date. <span>Data powered by OpenSky Network.</span></p>
-      <button class="btn-track" id="trackBtn" onclick="trackFlight()">
-        <span id="trackBtnTxt">🔍 Track My Flight</span>
-        <div class="spinner" id="trackSpinner"></div>
-      </button>
+      <p class="flight-hint">Just enter your flight number — airline is detected automatically. <span>Data powered by OpenSky Network.</span></p>
     </div>
   </div>
 </section>
@@ -646,49 +626,72 @@ function showAirport(code, btn) {
   document.getElementById('airports-section') && document.getElementById('airports-section').scrollIntoView({behavior:'smooth'});
 }
 
-// Airline ICAO → display name + status URL
-const AIRLINES = {
-  AAL:{name:'American Airlines',url:'https://www.aa.com/reservation/flightStatusIndex.jsp',logo:'AA'},
-  DAL:{name:'Delta Air Lines',url:'https://www.delta.com/us/en/flight-search/search-by-flight-number',logo:'DL'},
-  UAL:{name:'United Airlines',url:'https://www.united.com/en/us/flight-search/find-flights',logo:'UA'},
-  SWA:{name:'Southwest Airlines',url:'https://www.southwest.com/air/flight-status/',logo:'WN'},
-  JBU:{name:'JetBlue',url:'https://www.jetblue.com/travel/flight-status',logo:'B6'},
-  ASA:{name:'Alaska Airlines',url:'https://www.alaskaair.com/status',logo:'AS'},
-  NKS:{name:'Spirit Airlines',url:'https://www.spirit.com/myflight',logo:'NK'},
-  FFT:{name:'Frontier Airlines',url:'https://www.flyfrontier.com/fly/my-trips/flight-status/',logo:'F9'},
-  SKW:{name:'SkyWest Airlines',url:'https://www.skywest.com/flight-status/',logo:'OO'},
-  EDV:{name:'Endeavor Air',url:'https://www.delta.com/us/en/flight-search/search-by-flight-number',logo:'9E'},
+// IATA prefix → ICAO code + airline info (auto-detection from flight number)
+const IATA_MAP = {
+  AA:{icao:'AAL',name:'American Airlines',url:'https://www.aa.com/reservation/flightStatusIndex.jsp'},
+  DL:{icao:'DAL',name:'Delta Air Lines',url:'https://www.delta.com/us/en/flight-search/search-by-flight-number'},
+  UA:{icao:'UAL',name:'United Airlines',url:'https://www.united.com/en/us/flight-search/find-flights'},
+  WN:{icao:'SWA',name:'Southwest Airlines',url:'https://www.southwest.com/air/flight-status/'},
+  B6:{icao:'JBU',name:'JetBlue',url:'https://www.jetblue.com/travel/flight-status'},
+  AS:{icao:'ASA',name:'Alaska Airlines',url:'https://www.alaskaair.com/status'},
+  NK:{icao:'NKS',name:'Spirit Airlines',url:'https://www.spirit.com/myflight'},
+  F9:{icao:'FFT',name:'Frontier Airlines',url:'https://www.flyfrontier.com/fly/my-trips/flight-status/'},
+  OO:{icao:'SKW',name:'SkyWest Airlines',url:'https://www.skywest.com/flight-status/'},
+  G4:{icao:'AAY',name:'Allegiant Air',url:'https://www.allegiantair.com/manage-travel/flight-status'},
+  HA:{icao:'HAL',name:'Hawaiian Airlines',url:'https://www.hawaiianairlines.com/my-trips/flight-status'},
+  MX:{icao:'MXA',name:'Mexicana',url:'https://flightaware.com'},
+  AM:{icao:'AMX',name:'Aeromexico',url:'https://aeromexico.com/en-us/flight-status'},
+  VX:{icao:'VRD',name:'Virgin America',url:'https://flightaware.com'},
+  AC:{icao:'ACA',name:'Air Canada',url:'https://www.aircanada.com/ca/en/aco/home/fly/flight-status.html'},
+  BA:{icao:'BAW',name:'British Airways',url:'https://www.britishairways.com/travel/flightstatus'},
+  LH:{icao:'DLH',name:'Lufthansa',url:'https://www.lufthansa.com/us/en/flight-status'},
+  AF:{icao:'AFR',name:'Air France',url:'https://wwws.airfrance.us/en/information/practical/flight-status'},
+  KL:{icao:'KLM',name:'KLM',url:'https://www.klm.com/us/en/flight-status'},
+  EK:{icao:'UAE',name:'Emirates',url:'https://www.emirates.com/us/english/manage-booking/flight-status.aspx'},
 };
 
-// Airport ICAO codes for OpenSky
-const AIRPORT_ICAO = {
-  AAL:'KDFW',DAL:'KDFW',UAL:'KIAH',SWA:'KHOU',JBU:'KAUS',
-  ASA:'KAUS',NKS:'KDFW',FFT:'KDFW',SKW:'KDFW',EDV:'KDFW',
-};
+// Airline ICAO → display name + status URL (for results display)
+const AIRLINES = Object.fromEntries(
+  Object.values(IATA_MAP).map(v => [v.icao, {name:v.name, url:v.url}])
+);
 
-// OpenSky Network API call
+function detectAirline(flightNum) {
+  // Try 2-char prefix first, then 1-char
+  const two = flightNum.slice(0,2).replace(/[0-9]/g,'');
+  const one = flightNum.slice(0,1);
+  if(two.length === 2 && IATA_MAP[two]) return { iata: two, ...IATA_MAP[two] };
+  if(two.length === 1 && IATA_MAP[two]) return { iata: two, ...IATA_MAP[two] };
+  if(IATA_MAP[one]) return { iata: one, ...IATA_MAP[one] };
+  return null;
+}
+
+// OpenSky Network API call — flight number only
 async function trackFlight() {
   const flightRaw = document.getElementById('flightNum').value.trim().toUpperCase();
-  const icao = document.getElementById('airlineSelect').value;
-  const dateVal = document.getElementById('flightDate').value;
 
-  if(!flightRaw || !icao) {
-    alert('Please enter a flight number and select your airline.');
+  if(!flightRaw) {
+    document.getElementById('flightNum').focus();
     return;
   }
 
-  // Build callsign (OpenSky uses ICAO airline code + numeric digits, padded to 8 chars)
+  const detected = detectAirline(flightRaw);
   const digits = flightRaw.replace(/[^0-9]/g,'');
+
+  if(!detected) {
+    // Unknown prefix — try searching by the raw callsign as-is
+  }
+
+  const icao = detected ? detected.icao : flightRaw.replace(/[0-9]/g,'').padEnd(3,'X');
+  // Build callsign: ICAO code + digits padded to 8 chars total
   const callsign = (icao + digits).padEnd(8,' ');
 
   setLoading(true);
   showState('loading');
 
   try {
-    // OpenSky real-time states — search by callsign
     const resp = await fetch(
       `https://opensky-network.org/api/states/all?callsign=${encodeURIComponent(callsign.trim())}`,
-      { signal: AbortSignal.timeout(10000) }
+      { signal: AbortSignal.timeout(12000) }
     );
 
     if(!resp.ok) throw new Error('API error');
@@ -696,14 +699,9 @@ async function trackFlight() {
 
     if(data.states && data.states.length > 0) {
       const s = data.states[0];
-      // OpenSky state vector fields:
-      // [0]=icao24, [1]=callsign, [2]=origin_country, [3]=time_position, [4]=last_contact,
-      // [5]=lon, [6]=lat, [7]=baro_altitude, [8]=on_ground, [9]=velocity,
-      // [10]=true_track, [11]=vertical_rate, [12]=sensors, [13]=geo_altitude,
-      // [14]=squawk, [15]=spi, [16]=position_source
       renderFlightResult({
         callsign: s[1]?.trim() || flightRaw,
-        airline: AIRLINES[icao]?.name || icao,
+        airline: detected ? detected.name : 'Unknown Airline',
         icao24: s[0],
         onGround: s[8],
         latitude: s[6],
@@ -715,13 +713,13 @@ async function trackFlight() {
         lastContact: s[4],
         selectedIcao: icao,
         flightInput: flightRaw,
+        detectedIata: detected ? detected.iata : null,
       });
     } else {
-      // Flight not currently airborne or not found
-      showNotFoundState(icao, flightRaw, dateVal);
+      showNotFoundState(icao, flightRaw, detected);
     }
   } catch(err) {
-    showNotFoundState(icao, flightRaw, dateVal);
+    showNotFoundState(icao, flightRaw, detected);
   }
 
   setLoading(false);
@@ -778,17 +776,18 @@ function renderFlightResult(d) {
   ).join('');
 
   // Airline links
-  renderAirlineLinks(d.selectedIcao, d.flightInput);
+  const det = d.detectedIata ? IATA_MAP[d.detectedIata] : null;
+  renderAirlineLinks(d.selectedIcao, d.flightInput, det);
 }
 
-function showNotFoundState(icao, flightNum, dateVal) {
+function showNotFoundState(icao, flightNum, detected) {
   document.getElementById('statusCard').classList.add('visible');
   const badge = document.getElementById('res_statusBadge');
   badge.className = 'status-badge status-unknown';
   document.getElementById('res_liveOrb').style.display = 'none';
   document.getElementById('res_statusText').textContent = 'Not Airborne / Not Found';
   document.getElementById('res_flightNum').textContent = flightNum;
-  document.getElementById('res_airline').childNodes[0].textContent = (AIRLINES[icao]?.name || icao) + ' ';
+  document.getElementById('res_airline').childNodes[0].textContent = (detected ? detected.name : AIRLINES[icao]?.name || 'Airline') + ' ';
   document.getElementById('res_aircraft').textContent = 'Flight not currently tracked in live data';
   document.getElementById('res_depCode').textContent = '—';
   document.getElementById('res_arrCode').textContent = '—';
@@ -802,25 +801,22 @@ function showNotFoundState(icao, flightNum, dateVal) {
       <div class="val" style="color:#d97706;">Flight Not in Live Air Data</div>
       <div class="sub">The flight may be scheduled (not yet departed), already landed, or the callsign format may differ. Please check the airline's official status page below.</div>
     </div>`;
-  renderAirlineLinks(icao, flightNum);
+  renderAirlineLinks(icao, flightNum, detected);
   showState('result');
 }
 
-function renderAirlineLinks(icao, flightNum) {
+function renderAirlineLinks(icao, flightNum, detected) {
   const section = document.getElementById('airlineLinksSection');
   const inner = document.getElementById('airlineLinksInner');
-  const airline = AIRLINES[icao];
+  const airline = detected || AIRLINES[icao];
   inner.innerHTML = '';
 
-  // Official airline link
-  if(airline) {
+  if(airline && airline.url) {
     inner.innerHTML += `<a href="${airline.url}" target="_blank" rel="noopener" class="al-link">✈ ${airline.name} Official Status</a>`;
   }
-  // FlightAware deep link
-  inner.innerHTML += `<a href="https://flightaware.com/live/flight/${(icao||'') + flightNum.replace(/[^0-9]/g,'')}" target="_blank" rel="noopener" class="al-link">🛩 FlightAware</a>`;
-  // Flightradar24
+  const digits = flightNum.replace(/[^0-9]/g,'');
+  inner.innerHTML += `<a href="https://flightaware.com/live/flight/${icao + digits}" target="_blank" rel="noopener" class="al-link">🛩 FlightAware</a>`;
   inner.innerHTML += `<a href="https://www.flightradar24.com/data/flights/${flightNum.toLowerCase()}" target="_blank" rel="noopener" class="al-link">📡 FlightRadar24</a>`;
-  // Airport links for TX airports
   inner.innerHTML += `<a href="https://www.dfwairport.com/flights/arrivals/" target="_blank" rel="noopener" class="al-link">DFW Arrivals</a>`;
   inner.innerHTML += `<a href="https://www.austintexas.gov/airport/flights-arrivals" target="_blank" rel="noopener" class="al-link">AUS Arrivals</a>`;
   inner.innerHTML += `<a href="https://www.fly2houston.com/iah/flight-status" target="_blank" rel="noopener" class="al-link">IAH Arrivals</a>`;
@@ -841,18 +837,18 @@ function setLoading(on) {
   const txt = document.getElementById('trackBtnTxt');
   const spinner = document.getElementById('trackSpinner');
   btn.disabled = on;
-  txt.textContent = on ? 'Searching…' : '🔍 Track My Flight';
+  txt.textContent = on ? 'Searching…' : '🔍 Track Flight';
   spinner.style.display = on ? 'block' : 'none';
 }
 
 // Init
-document.getElementById('flightDate').value = new Date().toISOString().split('T')[0];
 showState('empty');
+document.getElementById('flightNum').focus();
 
-// Allow Enter key to submit
+// Allow Enter key to submit (also set in oninput attr but keeping here for safety)
 document.getElementById('flightNum').addEventListener('keydown', e => { if(e.key==='Enter') trackFlight(); });
 
-// Auto-select airline from flight number prefix
+// Placeholder cleanup
 document.getElementById('flightNum').addEventListener('input', function() {
   const v = this.value.toUpperCase();
   const prefix = v.replace(/[0-9]/g,'');
