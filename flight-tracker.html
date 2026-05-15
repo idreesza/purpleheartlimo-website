@@ -140,28 +140,59 @@
     .state-msg h3 { color:var(--purple-deep); font-size:1.2rem; margin-bottom:8px; }
     .state-msg p { color:var(--gray); font-size:0.88rem; line-height:1.7; }
 
-    /* Deep-link hub result */
+    /* ── Comparison hub card ──────────────────────────────── */
     .hub-card { background:#fff; border:1.5px solid var(--border); border-radius:20px; padding:28px 32px; margin-bottom:24px; box-shadow:0 4px 24px rgba(45,0,69,0.07); display:none; }
     .hub-card.visible { display:block; }
-    .hub-head { display:flex; align-items:center; gap:16px; margin-bottom:24px; flex-wrap:wrap; }
+    .hub-head { display:flex; align-items:center; gap:16px; margin-bottom:8px; flex-wrap:wrap; }
     .hub-badge { background:var(--purple-deep); color:#fff; padding:10px 18px; border-radius:10px; font-family:'Courier New',monospace; font-size:1.2rem; font-weight:700; letter-spacing:0.1em; }
     .hub-airline { font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:300; color:var(--purple-deep); }
-    .hub-detected { font-size:0.72rem; color:var(--gray); font-family:'Inter',sans-serif; margin-top:2px; }
-    .hub-section-label { font-size:0.65rem; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
-    .hub-primary-links { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
-    .hub-primary-links a { display:flex; align-items:center; gap:10px; background:linear-gradient(135deg,#f5f0ff,#ede6ff); border:1.5px solid rgba(45,0,69,0.12); border-radius:12px; padding:14px 18px; text-decoration:none; transition:all 0.2s; }
-    .hub-primary-links a:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(45,0,69,0.12); border-color:var(--gold); }
-    .hub-link-ico { font-size:1.5rem; }
-    .hub-link-name { font-size:0.88rem; font-weight:700; color:var(--purple-deep); }
-    .hub-link-sub { font-size:0.72rem; color:var(--gray); margin-top:1px; }
-    .hub-airline-link { display:flex; align-items:center; gap:10px; background:rgba(37,99,235,0.06); border:1.5px solid rgba(37,99,235,0.2); border-radius:12px; padding:14px 18px; text-decoration:none; transition:all 0.2s; margin-bottom:20px; }
-    .hub-airline-link:hover { background:rgba(37,99,235,0.12); }
-    .hub-airline-link .hub-link-name { color:var(--blue); }
+    .hub-detected { font-size:0.72rem; color:var(--gray-lt); margin-bottom:22px; }
+
+    /* Comparison table */
+    .cmp-note { font-size:0.76rem; color:var(--gray-lt); margin-bottom:16px; line-height:1.6; }
+    .cmp-note strong { color:var(--gold); }
+    .cmp-table { width:100%; border-collapse:separate; border-spacing:0; border:1.5px solid var(--border); border-radius:14px; overflow:hidden; margin-bottom:20px; }
+    .cmp-table thead tr { background:linear-gradient(135deg,var(--gold),var(--gold-lt)); }
+    .cmp-table thead th { padding:11px 14px; font-size:0.62rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:#0a0a0a; text-align:left; white-space:nowrap; border-right:1px solid rgba(0,0,0,0.08); }
+    .cmp-table thead th:last-child { border-right:none; text-align:center; }
+    .cmp-table tbody tr { border-bottom:1px solid var(--border); transition:background 0.15s; }
+    .cmp-table tbody tr:last-child { border-bottom:none; }
+    .cmp-table tbody tr:hover { background:var(--bg-tint); }
+    .cmp-table tbody td { padding:12px 14px; font-size:0.83rem; color:var(--purple-deep); vertical-align:middle; border-right:1px solid var(--border); }
+    .cmp-table tbody td:last-child { border-right:none; text-align:center; }
+    .src-cell { display:flex; align-items:center; gap:9px; white-space:nowrap; }
+    .src-ico { font-size:1.1rem; }
+    .src-name { font-weight:700; font-size:0.84rem; color:var(--purple-deep); }
+    .src-tag { display:inline-block; font-size:0.6rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:2px 7px; border-radius:50px; margin-top:2px; }
+    .tag-blue { background:rgba(37,99,235,0.1); color:var(--blue); }
+    .tag-green { background:rgba(22,163,74,0.1); color:var(--green); }
+    .tag-gold { background:rgba(201,168,76,0.12); color:#a07010; }
+    .tag-purple { background:rgba(120,60,180,0.1); color:#7c3aed; }
+    .data-cell { color:var(--gray); font-size:0.8rem; }
+    .data-cell a { color:var(--blue); font-weight:600; font-size:0.78rem; text-decoration:none; display:inline-flex; align-items:center; gap:3px; }
+    .data-cell a:hover { text-decoration:underline; }
+    .best-badge { font-size:0.6rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--green); }
+    .check-btn { display:inline-flex; align-items:center; gap:5px; background:linear-gradient(135deg,#f5f0ff,#ede6ff); border:1.5px solid rgba(45,0,69,0.14); color:var(--purple-deep); padding:7px 14px; border-radius:8px; font-size:0.76rem; font-weight:700; text-decoration:none; white-space:nowrap; transition:all 0.18s; }
+    .check-btn:hover { border-color:var(--gold); background:linear-gradient(135deg,var(--gold),var(--gold-lt)); color:#0a0a0a; transform:translateY(-1px); }
+
+    /* Airport quick links bar */
+    .hub-divider { border:none; border-top:1px solid var(--border); margin:18px 0; }
+    .hub-section-label { font-size:0.62rem; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
     .hub-airport-links { display:flex; flex-wrap:wrap; gap:8px; }
     .hub-ap-link { display:inline-flex; align-items:center; gap:5px; background:var(--bg-tint); border:1.5px solid var(--border); color:var(--purple-deep); padding:7px 14px; border-radius:8px; font-size:0.78rem; font-weight:600; text-decoration:none; transition:all 0.15s; }
     .hub-ap-link:hover { border-color:var(--gold); color:var(--gold); }
-    .hub-divider { border:none; border-top:1px solid var(--border); margin:18px 0; }
-    @media(max-width:580px){ .hub-primary-links{grid-template-columns:1fr;} }
+
+    @media(max-width:780px){
+      .cmp-table thead th:nth-child(3),
+      .cmp-table tbody td:nth-child(3) { display:none; }
+    }
+    @media(max-width:580px){
+      .hub-card { padding:18px 14px; }
+      .cmp-table thead th:nth-child(4),
+      .cmp-table tbody td:nth-child(4) { display:none; }
+      .cmp-table thead th:nth-child(5),
+      .cmp-table tbody td:nth-child(5) { display:none; }
+    }
 
     /* Airport tabs section */
     .airports-section { background:var(--bg-tint); padding:64px 5%; }
@@ -290,33 +321,34 @@
     <p>Type your flight number (e.g. AA1234, DL405, UA680) and press Track — we'll build your live tracking links instantly.</p>
   </div>
 
-  <!-- DEEP-LINK HUB CARD -->
+  <!-- COMPARISON HUB CARD -->
   <div class="hub-card" id="hubCard">
     <div class="hub-head">
       <div class="hub-badge" id="hub_flightNum">AA1234</div>
       <div>
         <div class="hub-airline" id="hub_airline">American Airlines</div>
-        <div class="hub-detected" id="hub_detected">Airline detected from flight number prefix</div>
       </div>
     </div>
+    <div class="hub-detected" id="hub_detected">Airline detected from flight number prefix</div>
 
-    <div class="hub-section-label">Live Tracking — Click to View Full Status</div>
-    <div class="hub-primary-links">
-      <a href="#" id="hub_fa" target="_blank" rel="noopener">
-        <span class="hub-link-ico">🛩</span>
-        <div><div class="hub-link-name">FlightAware</div><div class="hub-link-sub">Live position · gate · delay</div></div>
-      </a>
-      <a href="#" id="hub_fr" target="_blank" rel="noopener">
-        <span class="hub-link-ico">📡</span>
-        <div><div class="hub-link-name">FlightRadar24</div><div class="hub-link-sub">Live radar map · route</div></div>
-      </a>
-    </div>
+    <p class="cmp-note">Click any cell to open that data point live on each tracking site. Each site may show slightly different scheduled times — <strong>the airline's own page is the most accurate for baggage claim.</strong></p>
 
-    <div class="hub-section-label">Official Airline Status Page</div>
-    <a href="#" id="hub_airline_link" target="_blank" rel="noopener" class="hub-airline-link">
-      <span class="hub-link-ico">✈️</span>
-      <div><div class="hub-link-name" id="hub_airline_link_name">Airline Status Page</div><div class="hub-link-sub">Terminal · gate · baggage claim direct from the airline</div></div>
-    </a>
+    <table class="cmp-table" id="cmpTable">
+      <thead>
+        <tr>
+          <th>Tracking Source</th>
+          <th>Departed From</th>
+          <th>Arriving To</th>
+          <th>Dep. Time</th>
+          <th>Arr. Time</th>
+          <th>Baggage Claim</th>
+          <th>Open</th>
+        </tr>
+      </thead>
+      <tbody id="cmpBody">
+        <!-- filled by JS -->
+      </tbody>
+    </table>
 
     <hr class="hub-divider">
     <div class="hub-section-label">Texas Airport Arrivals Boards</div>
@@ -656,38 +688,76 @@ function trackFlight() {
   const digits   = raw.replace(/[^0-9]/g,'');
   const letters  = raw.replace(/[0-9]/g,'');
 
-  // Build FlightAware callsign: ICAO prefix + digits (e.g. AAL1234)
-  const faCode   = detected ? detected.fa : letters;
-  const faUrl    = `https://flightaware.com/live/flight/${faCode}${digits}`;
+  // ── Build per-source URLs ─────────────────────────────────
+  const faCode = detected ? detected.fa : letters;
+  const faUrl  = `https://flightaware.com/live/flight/${faCode}${digits}`;
+  const frUrl  = `https://www.flightradar24.com/data/flights/${raw.toLowerCase()}`;
+  const fvUrl  = `https://www.flightview.com/TravelTools/FlightStatusByFlight.asp?fstype=1&airline=${letters}&flight=${digits}`;
+  const alUrl  = detected ? detected.url : null;
 
-  // FlightRadar24 uses IATA lowercase (e.g. aa1234)
-  const frUrl    = `https://www.flightradar24.com/data/flights/${raw.toLowerCase()}`;
+  // ── Table rows definition ─────────────────────────────────
+  // Each source: { ico, name, tag, tagClass, depNote, arrNote, depTimeNote, arrTimeNote, baggageNote, baggageClass, url }
+  const sources = [
+    {
+      ico:'🛩', name:'FlightAware', tagTxt:'Most Detailed', tagCls:'tag-blue',
+      dep:'See live →', arr:'See live →',
+      depTime:'See live →', arrTime:'See live →',
+      baggage:'See live →', bagClass:'data-cell',
+      url: faUrl
+    },
+    {
+      ico:'📡', name:'FlightRadar24', tagTxt:'Live Radar Map', tagCls:'tag-green',
+      dep:'See live →', arr:'See live →',
+      depTime:'See live →', arrTime:'See live →',
+      baggage:'Check airline', bagClass:'data-cell',
+      url: frUrl
+    },
+    {
+      ico:'🌐', name:'FlightView', tagTxt:'Schedule Focus', tagCls:'tag-purple',
+      dep:'See live →', arr:'See live →',
+      depTime:'See live →', arrTime:'See live →',
+      baggage:'See live →', bagClass:'data-cell',
+      url: fvUrl
+    },
+    {
+      ico:'✈️', name: detected ? detected.name : 'Airline Official', tagTxt:'Best for Baggage', tagCls:'tag-gold',
+      dep:'See live →', arr:'See live →',
+      depTime:'See live →', arrTime:'See live →',
+      baggage:'✅ Best Source', bagClass:'data-cell best-badge',
+      url: alUrl || faUrl
+    }
+  ];
 
-  // Populate hub card
+  // ── Render table body ─────────────────────────────────────
+  document.getElementById('cmpBody').innerHTML = sources.map(s => `
+    <tr>
+      <td>
+        <div class="src-cell">
+          <span class="src-ico">${s.ico}</span>
+          <div>
+            <div class="src-name">${s.name}</div>
+            <span class="src-tag ${s.tagCls}">${s.tagTxt}</span>
+          </div>
+        </div>
+      </td>
+      <td class="data-cell"><a href="${s.url}" target="_blank" rel="noopener">${s.dep} ↗</a></td>
+      <td class="data-cell"><a href="${s.url}" target="_blank" rel="noopener">${s.arr} ↗</a></td>
+      <td class="data-cell"><a href="${s.url}" target="_blank" rel="noopener">${s.depTime} ↗</a></td>
+      <td class="data-cell"><a href="${s.url}" target="_blank" rel="noopener">${s.arrTime} ↗</a></td>
+      <td class="${s.bagClass}"><a href="${s.url}" target="_blank" rel="noopener">${s.baggage} ↗</a></td>
+      <td><a href="${s.url}" target="_blank" rel="noopener" class="check-btn">Open ↗</a></td>
+    </tr>`).join('');
+
+  // ── Update header ─────────────────────────────────────────
   document.getElementById('hub_flightNum').textContent = raw;
   document.getElementById('hub_airline').textContent   = detected ? detected.name : 'Unknown Airline';
   document.getElementById('hub_detected').textContent  = detected
-    ? `Airline detected from prefix "${detected.iata}" — ${detected.name}`
-    : 'Airline not auto-detected — links still work on FlightAware & FlightRadar24';
+    ? `Airline detected from prefix "${detected.iata}" — click any row to view live data on that site`
+    : 'Airline prefix not recognized — FlightAware & FlightRadar24 links still work with your flight number';
 
-  document.getElementById('hub_fa').href = faUrl;
-  document.getElementById('hub_fr').href = frUrl;
-
-  const airlineLink = document.getElementById('hub_airline_link');
-  const airlineLinkName = document.getElementById('hub_airline_link_name');
-  if(detected && detected.url) {
-    airlineLink.href = detected.url;
-    airlineLinkName.textContent = detected.name + ' — Official Status Page';
-    airlineLink.style.display = 'flex';
-  } else {
-    airlineLink.style.display = 'none';
-  }
-
-  // Show hub card, hide empty state
+  // ── Show result ───────────────────────────────────────────
   document.getElementById('stateEmpty').classList.remove('show');
   document.getElementById('hubCard').classList.add('visible');
-
-  // Scroll to result
   document.getElementById('hubCard').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
