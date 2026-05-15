@@ -815,7 +815,27 @@ footer {
   .booking-card { width:100%; }
   .svc-hero { padding:100px 4% 50px; }
 }
+/* Flatpickr overrides — make it match widget style */
+.flatpickr-calendar {
+  font-family: 'Inter', sans-serif !important;
+  border-radius: 14px !important;
+  box-shadow: 0 12px 40px rgba(45,0,69,0.18) !important;
+  border: 1.5px solid rgba(45,0,69,0.14) !important;
+}
+.flatpickr-day.selected,
+.flatpickr-day.selected:hover {
+  background: var(--purple) !important;
+  border-color: var(--purple) !important;
+}
+.flatpickr-day:hover { background: rgba(45,0,69,0.08) !important; }
+.flatpickr-months .flatpickr-month { background: var(--purple) !important; border-radius: 12px 12px 0 0 !important; }
+.flatpickr-current-month, .flatpickr-monthDropdown-months { color: #fff !important; }
+.flatpickr-weekday { color: var(--gold) !important; font-weight: 700 !important; }
+.numInputWrapper:hover { background: transparent !important; }
+#date-input { cursor: pointer; }
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 <body>
 
@@ -987,7 +1007,7 @@ footer {
         <div class="form-row">
           <div class="form-group">
             <label>Date</label>
-            <input type="date" id="date-input">
+            <input type="text" id="date-input" placeholder="mm/dd/yyyy" autocomplete="off" readonly style="cursor:pointer;">
           </div>
           <div class="form-group">
             <label>Pickup Time</label>
@@ -2621,6 +2641,20 @@ function getActiveTab() {
 
 // Show price estimate when vehicle changes
 document.addEventListener('DOMContentLoaded', () => {
+  // ── Flatpickr date picker (replaces native <input type="date"> to fix OS popup misposition) ──
+  if (typeof flatpickr !== 'undefined') {
+    flatpickr('#date-input', {
+      minDate: 'today',
+      dateFormat: 'm/d/Y',
+      disableMobile: true,
+      appendTo: document.querySelector('.booking-card') || document.body,
+      position: 'auto',
+      onReady(_, __, fp) {
+        fp.calendarContainer.style.zIndex = '99999';
+      }
+    });
+  }
+
   const vehicleSel = document.getElementById('vehicle-input');
   if (vehicleSel) {
     const showPrice = () => {
