@@ -832,6 +832,11 @@ footer {
 .flatpickr-current-month, .flatpickr-monthDropdown-months { color: #fff !important; }
 .flatpickr-weekday { color: var(--gold) !important; font-weight: 700 !important; }
 .numInputWrapper:hover { background: transparent !important; }
+/* Field validation errors */
+.field-error { display:none; font-size:0.72rem; color:#dc2626; font-weight:600; margin-top:4px; padding-left:2px; }
+.field-error.show { display:block; }
+.input-invalid { border-color:#dc2626 !important; background:rgba(220,38,38,0.04) !important; }
+
 .flatpickr-prev-month, .flatpickr-next-month { color: var(--gold) !important; fill: var(--gold) !important; opacity: 1 !important; }
 .flatpickr-prev-month:hover, .flatpickr-next-month:hover { color: #fff !important; opacity: 1 !important; }
 .flatpickr-prev-month svg, .flatpickr-next-month svg { fill: var(--gold) !important; width: 20px !important; height: 20px !important; stroke: var(--gold) !important; stroke-width: 2 !important; }
@@ -970,7 +975,8 @@ footer {
 
         <div class="form-group">
           <label>Pickup Location</label>
-          <input type="text" id="pickup-input" placeholder="Address, hotel or airport..." autocomplete="off">
+          <input type="text" id="pickup-input" placeholder="Address, hotel or airport..." autocomplete="off" oninput="clearFieldError('pickup-input','err-pickup')">
+          <span class="field-error" id="err-pickup">⚠ Pickup location is required</span>
         </div>
         <div id="dropoff-section">
           <div class="form-group">
@@ -1001,11 +1007,13 @@ footer {
         <div class="form-row">
           <div class="form-group">
             <label>Your Name</label>
-            <input type="text" id="quote-name" placeholder="Full name">
+            <input type="text" id="quote-name" placeholder="Full name" oninput="clearFieldError('quote-name','err-name')">
+            <span class="field-error" id="err-name">⚠ Name is required</span>
           </div>
           <div class="form-group">
             <label>Phone</label>
-            <input type="tel" id="quote-phone" placeholder="(555) 000-0000">
+            <input type="tel" id="quote-phone" placeholder="(555) 000-0000" oninput="clearFieldError('quote-phone','err-phone')">
+            <span class="field-error" id="err-phone">⚠ Phone number is required</span>
           </div>
         </div>
         <div class="form-row">
@@ -2694,6 +2702,19 @@ document.addEventListener('DOMContentLoaded', () => {
   window._quoteTab = 'airport';
 });
 
+function showFieldError(inputId, errId) {
+  const inp = document.getElementById(inputId);
+  const err = document.getElementById(errId);
+  if (inp) inp.classList.add('input-invalid');
+  if (err) err.classList.add('show');
+}
+function clearFieldError(inputId, errId) {
+  const inp = document.getElementById(inputId);
+  const err = document.getElementById(errId);
+  if (inp) inp.classList.remove('input-invalid');
+  if (err) err.classList.remove('show');
+}
+
 async function submitQuote() {
   const name     = (document.getElementById('quote-name')?.value || '').trim();
   const phone    = (document.getElementById('quote-phone')?.value || '').trim();
@@ -2709,11 +2730,16 @@ async function submitQuote() {
   const service  = getActiveTab() === 'airport' ? 'Airport Transfer' :
                    getActiveTab() === 'hourly'  ? 'Hourly Charter'   : 'One Way Transfer';
 
-  if (!name || !phone) {
-    alert('Please enter your name and phone number so we can reach you.');
+  // Inline validation — show red errors under each missing field
+  let hasError = false;
+  if (!name)  { showFieldError('quote-name',   'err-name');   hasError = true; }
+  if (!phone) { showFieldError('quote-phone',  'err-phone');  hasError = true; }
+  if (!pickup){ showFieldError('pickup-input', 'err-pickup'); hasError = true; }
+  if (hasError) {
+    // Scroll the first error into view
+    document.querySelector('.field-error.show')?.scrollIntoView({ behavior:'smooth', block:'center' });
     return;
   }
-  if (!pickup) { alert('Please enter a pickup location.'); return; }
 
   const btn = document.getElementById('quote-btn');
   btn.disabled = true;
