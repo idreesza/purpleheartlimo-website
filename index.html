@@ -289,6 +289,44 @@ a { text-decoration:none; color:inherit; }
 .flight-field.show { display:block; }
 .optional-badge { font-size:0.62rem; color:var(--gray); font-weight:400; margin-left:6px; text-transform:none; letter-spacing:0; }
 
+/* ===== CUSTOM SELECT (replaces native <select> to avoid OS popup misposition) ===== */
+.csel { position:relative; }
+.csel-btn {
+  width:100%; padding:10px 32px 10px 12px;
+  border:1.5px solid rgba(45,0,69,0.15); border-radius:10px;
+  font-size:0.85rem; font-family:'Inter',sans-serif; color:var(--text);
+  background:var(--white); text-align:left; cursor:pointer;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  transition:border-color 0.2s; outline:none;
+  appearance:none; -webkit-appearance:none;
+}
+.csel-btn::after {
+  content:''; position:absolute; right:11px; top:50%;
+  transform:translateY(-50%); pointer-events:none;
+  border:5px solid transparent; border-top-color:var(--gray);
+  margin-top:3px;
+}
+.csel-btn.open::after { border-top-color:transparent; border-bottom-color:var(--purple); margin-top:-3px; }
+.csel-btn:focus, .csel-btn.open { border-color:var(--purple); }
+.csel-list {
+  position:absolute; top:calc(100% + 4px); left:0; right:0;
+  background:#fff; border:1.5px solid rgba(45,0,69,0.18);
+  border-radius:10px; z-index:99999;
+  box-shadow:0 8px 32px rgba(45,0,69,0.18);
+  max-height:220px; overflow-y:auto; display:none;
+}
+.csel-list.open { display:block; }
+.csel-opt {
+  padding:9px 14px; font-size:0.84rem; color:var(--text);
+  cursor:pointer; border-bottom:1px solid rgba(45,0,69,0.05);
+  font-family:'Inter',sans-serif;
+}
+.csel-opt:last-child { border-bottom:none; }
+.csel-opt:hover, .csel-opt.selected { background:rgba(45,0,69,0.06); color:var(--purple); font-weight:600; }
+/* Compact variant for time pickers */
+.csel.compact .csel-btn { padding:10px 24px 10px 8px; font-size:0.84rem; }
+.csel.compact .csel-btn::after { right:7px; }
+
 .btn-book-full {
   width:100%; padding:14px;
   background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
@@ -954,19 +992,44 @@ footer {
           <div class="form-group">
             <label>Pickup Time</label>
             <div style="display:grid;grid-template-columns:1fr 1fr 80px;gap:6px;">
-              <select id="time-hour" style="padding:10px 8px;border:1.5px solid rgba(0,0,0,0.12);border-radius:8px;font-family:inherit;font-size:0.85rem;background:#fff;color:var(--text);">
-                <option value="">Hr</option>
-                <option>1</option><option>2</option><option>3</option><option>4</option>
-                <option>5</option><option>6</option><option>7</option><option>8</option>
-                <option>9</option><option>10</option><option>11</option><option>12</option>
-              </select>
-              <select id="time-min" style="padding:10px 8px;border:1.5px solid rgba(0,0,0,0.12);border-radius:8px;font-family:inherit;font-size:0.85rem;background:#fff;color:var(--text);">
-                <option value="">Min</option>
-                <option>00</option><option>15</option><option>30</option><option>45</option>
-              </select>
-              <select id="time-ampm" style="padding:10px 8px;border:1.5px solid rgba(0,0,0,0.12);border-radius:8px;font-family:inherit;font-size:0.85rem;background:#fff;color:var(--text);">
-                <option>AM</option><option>PM</option>
-              </select>
+              <div class="csel compact" id="csel-hour">
+                <button type="button" class="csel-btn" onclick="cselToggle('csel-hour')">Hr</button>
+                <div class="csel-list">
+                  <div class="csel-opt" onclick="cselPick('csel-hour','time-hour','')">Hr</div>
+                  <div class="csel-opt" onclick="cselPick('csel-hour','time-hour','1')">1</div>
+                  <div class="csel-opt" onclick="cselPick('csel-hour','time-hour','2')">2</div>
+                  <div class="csel-opt" onclick="cselPick('csel-hour','time-hour','3')">3</div>
+                  <div class="csel-opt" onclick="cselPick('csel-hour','time-hour','4')">4</div>
+                  <div class="csel-opt" onclick="cselPick('csel-hour','time-hour','5')">5</div>
+                  <div class="csel-opt" onclick="cselPick('csel-hour','time-hour','6')">6</div>
+                  <div class="csel-opt" onclick="cselPick('csel-hour','time-hour','7')">7</div>
+                  <div class="csel-opt" onclick="cselPick('csel-hour','time-hour','8')">8</div>
+                  <div class="csel-opt" onclick="cselPick('csel-hour','time-hour','9')">9</div>
+                  <div class="csel-opt" onclick="cselPick('csel-hour','time-hour','10')">10</div>
+                  <div class="csel-opt" onclick="cselPick('csel-hour','time-hour','11')">11</div>
+                  <div class="csel-opt" onclick="cselPick('csel-hour','time-hour','12')">12</div>
+                </div>
+                <input type="hidden" id="time-hour" value="">
+              </div>
+              <div class="csel compact" id="csel-min">
+                <button type="button" class="csel-btn" onclick="cselToggle('csel-min')">Min</button>
+                <div class="csel-list">
+                  <div class="csel-opt" onclick="cselPick('csel-min','time-min','')">Min</div>
+                  <div class="csel-opt" onclick="cselPick('csel-min','time-min','00')">00</div>
+                  <div class="csel-opt" onclick="cselPick('csel-min','time-min','15')">15</div>
+                  <div class="csel-opt" onclick="cselPick('csel-min','time-min','30')">30</div>
+                  <div class="csel-opt" onclick="cselPick('csel-min','time-min','45')">45</div>
+                </div>
+                <input type="hidden" id="time-min" value="">
+              </div>
+              <div class="csel compact" id="csel-ampm">
+                <button type="button" class="csel-btn" onclick="cselToggle('csel-ampm')">AM</button>
+                <div class="csel-list">
+                  <div class="csel-opt selected" onclick="cselPick('csel-ampm','time-ampm','AM')">AM</div>
+                  <div class="csel-opt" onclick="cselPick('csel-ampm','time-ampm','PM')">PM</div>
+                </div>
+                <input type="hidden" id="time-ampm" value="AM">
+              </div>
             </div>
           </div>
         </div>
@@ -974,26 +1037,45 @@ footer {
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
             <div>
               <label id="label-type" style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;" data-en="Type" data-es="Tipo">Type</label>
-              <select id="vehicle-input" onchange="onVehicleChange(this.value)" style="width:100%;border:1.5px solid rgba(0,0,0,0.12);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:0.85rem;background:#fff;color:var(--text);outline:none;">
-                <option value="Sedan">Sedan</option>
-                <option value="Luxury Sedan">Luxury Sedan</option>
-                <option value="SUV">SUV</option>
-                <option value="Luxury SUV">Luxury SUV</option>
-                <option value="Sprinter Van">Sprinter Van</option>
-                <option value="Sprinter Jet">Sprinter Jet</option>
-                <option value="Stretch Sedan">Stretch Sedan</option>
-                <option value="Stretch SUV">Stretch SUV</option>
-                <option value="Party Bus">Party Bus</option>
-                <option value="Coach Bus">Coach Bus</option>
-              </select>
+              <div class="csel" id="csel-vehicle">
+                <button type="button" class="csel-btn" onclick="cselToggle('csel-vehicle')">Sedan</button>
+                <div class="csel-list">
+                  <div class="csel-opt selected" onclick="cselPick('csel-vehicle','vehicle-input','Sedan');onVehicleChange('Sedan')">Sedan</div>
+                  <div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','Luxury Sedan');onVehicleChange('Luxury Sedan')">Luxury Sedan</div>
+                  <div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','SUV');onVehicleChange('SUV')">SUV</div>
+                  <div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','Luxury SUV');onVehicleChange('Luxury SUV')">Luxury SUV</div>
+                  <div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','Sprinter Van');onVehicleChange('Sprinter Van')">Sprinter Van</div>
+                  <div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','Sprinter Jet');onVehicleChange('Sprinter Jet')">Sprinter Jet</div>
+                  <div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','Stretch Sedan');onVehicleChange('Stretch Sedan')">Stretch Sedan</div>
+                  <div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','Stretch SUV');onVehicleChange('Stretch SUV')">Stretch SUV</div>
+                  <div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','Party Bus');onVehicleChange('Party Bus')">Party Bus</div>
+                  <div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','Coach Bus');onVehicleChange('Coach Bus')">Coach Bus</div>
+                </div>
+                <input type="hidden" id="vehicle-input" value="Sedan">
+              </div>
             </div>
             <div>
               <label id="label-pax" style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;" data-en="Pax" data-es="Pasaj.">Pax</label>
-              <select id="pax-input" onchange="checkCapacity()" style="width:100%;border:1.5px solid rgba(0,0,0,0.12);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:0.85rem;background:#fff;color:var(--text);outline:none;">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-              </select>
+              <div class="csel" id="csel-pax">
+                <button type="button" class="csel-btn" onclick="cselToggle('csel-pax')">1</button>
+                <div class="csel-list">
+                  <div class="csel-opt selected" onclick="cselPick('csel-pax','pax-input','1');checkCapacity()">1</div>
+                  <div class="csel-opt" onclick="cselPick('csel-pax','pax-input','2');checkCapacity()">2</div>
+                  <div class="csel-opt" onclick="cselPick('csel-pax','pax-input','3');checkCapacity()">3</div>
+                  <div class="csel-opt" onclick="cselPick('csel-pax','pax-input','4');checkCapacity()">4</div>
+                  <div class="csel-opt" onclick="cselPick('csel-pax','pax-input','5');checkCapacity()">5</div>
+                  <div class="csel-opt" onclick="cselPick('csel-pax','pax-input','6');checkCapacity()">6</div>
+                  <div class="csel-opt" onclick="cselPick('csel-pax','pax-input','7');checkCapacity()">7</div>
+                  <div class="csel-opt" onclick="cselPick('csel-pax','pax-input','8');checkCapacity()">8</div>
+                  <div class="csel-opt" onclick="cselPick('csel-pax','pax-input','9');checkCapacity()">9</div>
+                  <div class="csel-opt" onclick="cselPick('csel-pax','pax-input','10');checkCapacity()">10</div>
+                  <div class="csel-opt" onclick="cselPick('csel-pax','pax-input','12');checkCapacity()">12</div>
+                  <div class="csel-opt" onclick="cselPick('csel-pax','pax-input','14');checkCapacity()">14</div>
+                  <div class="csel-opt" onclick="cselPick('csel-pax','pax-input','18');checkCapacity()">18</div>
+                  <div class="csel-opt" onclick="cselPick('csel-pax','pax-input','24');checkCapacity()">24</div>
+                </div>
+                <input type="hidden" id="pax-input" value="1">
+              </div>
             </div>
           </div>
           <!-- Capacity warning -->
@@ -1001,17 +1083,21 @@ footer {
           <!-- Luggage row — airport only -->
           <div id="luggage-row" style="display:none;margin-top:10px;">
             <label id="label-luggage" style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;" data-en="🧳 Luggage" data-es="🧳 Equipaje">🧳 Luggage</label>
-            <select id="luggage-input" style="width:100%;border:1.5px solid rgba(0,0,0,0.12);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:0.85rem;background:#fff;color:var(--text);outline:none;">
-              <option value="0" data-en="0 bags" data-es="0 maletas">0 bags</option>
-              <option value="1" data-en="1 bag" data-es="1 maleta">1 bag</option>
-              <option value="2" data-en="2 bags" data-es="2 maletas">2 bags</option>
-              <option value="3" data-en="3 bags" data-es="3 maletas">3 bags</option>
-              <option value="4" data-en="4 bags" data-es="4 maletas">4 bags</option>
-              <option value="5" data-en="5 bags" data-es="5 maletas">5 bags</option>
-              <option value="6" data-en="6 bags" data-es="6 maletas">6 bags</option>
-              <option value="7" data-en="7 bags" data-es="7 maletas">7 bags</option>
-              <option value="8+" data-en="8+ bags" data-es="8+ maletas">8+ bags</option>
-            </select>
+            <div class="csel" id="csel-luggage">
+              <button type="button" class="csel-btn" onclick="cselToggle('csel-luggage')">0 bags</button>
+              <div class="csel-list">
+                <div class="csel-opt selected" onclick="cselPick('csel-luggage','luggage-input','0','0 bags')">0 bags</div>
+                <div class="csel-opt" onclick="cselPick('csel-luggage','luggage-input','1','1 bag')">1 bag</div>
+                <div class="csel-opt" onclick="cselPick('csel-luggage','luggage-input','2','2 bags')">2 bags</div>
+                <div class="csel-opt" onclick="cselPick('csel-luggage','luggage-input','3','3 bags')">3 bags</div>
+                <div class="csel-opt" onclick="cselPick('csel-luggage','luggage-input','4','4 bags')">4 bags</div>
+                <div class="csel-opt" onclick="cselPick('csel-luggage','luggage-input','5','5 bags')">5 bags</div>
+                <div class="csel-opt" onclick="cselPick('csel-luggage','luggage-input','6','6 bags')">6 bags</div>
+                <div class="csel-opt" onclick="cselPick('csel-luggage','luggage-input','7','7 bags')">7 bags</div>
+                <div class="csel-opt" onclick="cselPick('csel-luggage','luggage-input','8+','8+ bags')">8+ bags</div>
+              </div>
+              <input type="hidden" id="luggage-input" value="0">
+            </div>
           </div>
         </div>
 
@@ -2250,11 +2336,61 @@ const VEHICLE_CAPACITY = {
   'Coach Bus':     { maxPax: 30, maxBags: 30, upgrade: null }
 };
 
+// ===== CUSTOM SELECT ENGINE =====
+function cselToggle(id) {
+  const wrap = document.getElementById(id);
+  if (!wrap) return;
+  const btn  = wrap.querySelector('.csel-btn');
+  const list = wrap.querySelector('.csel-list');
+  const isOpen = list.classList.contains('open');
+  // close all others first
+  document.querySelectorAll('.csel-list.open').forEach(l => {
+    l.classList.remove('open');
+    l.closest('.csel').querySelector('.csel-btn').classList.remove('open');
+  });
+  if (!isOpen) {
+    list.classList.add('open');
+    btn.classList.add('open');
+  }
+}
+
+function cselPick(wrapId, hiddenId, value, label) {
+  const wrap   = document.getElementById(wrapId);
+  const hidden = document.getElementById(hiddenId);
+  if (!wrap || !hidden) return;
+  const displayText = label || value;
+  wrap.querySelector('.csel-btn').textContent = displayText;
+  wrap.querySelector('.csel-btn').classList.remove('open');
+  wrap.querySelector('.csel-list').classList.remove('open');
+  hidden.value = value;
+  // mark selected
+  wrap.querySelectorAll('.csel-opt').forEach(o => o.classList.remove('selected'));
+  event.target.closest('.csel-opt').classList.add('selected');
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.csel')) {
+    document.querySelectorAll('.csel-list.open').forEach(l => {
+      l.classList.remove('open');
+      l.closest('.csel').querySelector('.csel-btn').classList.remove('open');
+    });
+  }
+});
+// ===== END CUSTOM SELECT ENGINE =====
+
 function onVehicleChange(vehicle) {
-  const pi = document.getElementById('pax-input');
-  if (!pi) return;
+  // Update the custom pax dropdown options based on vehicle
+  const paxWrap = document.getElementById('csel-pax');
+  if (!paxWrap) return;
   const opts = PAX_OPTIONS[vehicle] || [['1','1']];
-  pi.innerHTML = opts.map(([label, val]) => `<option value="${val}">${label}</option>`).join('');
+  const list = paxWrap.querySelector('.csel-list');
+  list.innerHTML = opts.map(([label, val]) =>
+    `<div class="csel-opt" onclick="cselPick('csel-pax','pax-input','${val}','${label}');checkCapacity()">${label}</div>`
+  ).join('');
+  // reset selection to first option
+  const firstOpt = PAX_OPTIONS[vehicle]?.[0] || ['1','1'];
+  paxWrap.querySelector('.csel-btn').textContent = firstOpt[0];
+  document.getElementById('pax-input').value = firstOpt[1];
   checkCapacity();
 }
 
