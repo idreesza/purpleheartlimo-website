@@ -1007,7 +1007,10 @@ footer {
         <div class="form-row">
           <div class="form-group">
             <label>Date</label>
-            <input type="text" id="date-input" placeholder="mm/dd/yyyy" autocomplete="off" readonly style="cursor:pointer;">
+            <div style="position:relative;">
+              <input type="text" id="date-input" placeholder="mm/dd/yyyy" autocomplete="off" readonly style="cursor:pointer;padding-right:36px;">
+              <svg style="position:absolute;right:11px;top:50%;transform:translateY(-50%);pointer-events:none;width:18px;height:18px;opacity:0.55;" viewBox="0 0 24 24" fill="none" stroke="#5B21B6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
           </div>
           <div class="form-group">
             <label>Pickup Time</label>
@@ -2647,10 +2650,18 @@ document.addEventListener('DOMContentLoaded', () => {
       minDate: 'today',
       dateFormat: 'm/d/Y',
       disableMobile: true,
-      appendTo: document.querySelector('.booking-card') || document.body,
-      position: 'auto',
+      static: false,
       onReady(_, __, fp) {
-        fp.calendarContainer.style.zIndex = '99999';
+        fp.calendarContainer.style.zIndex = '999999';
+        fp.calendarContainer.style.position = 'fixed';
+        const reposition = () => {
+          const rect = fp._input.getBoundingClientRect();
+          fp.calendarContainer.style.top  = (rect.bottom + 4) + 'px';
+          fp.calendarContainer.style.left = rect.left + 'px';
+        };
+        fp._input.addEventListener('click', reposition);
+        window.addEventListener('scroll', () => { if(fp.isOpen) reposition(); }, true);
+        window.addEventListener('resize', () => { if(fp.isOpen) reposition(); });
       }
     });
   }
