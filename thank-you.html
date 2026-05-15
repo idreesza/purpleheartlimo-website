@@ -9,84 +9,69 @@
   <link rel="canonical" href="https://purpleheartlimo.com/thank-you.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/page.css">
   <style>
     .thank-you-page {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #0f0f0f 0%, #1a0533 60%, #0f0f0f 100%);
+      background: linear-gradient(160deg, #f5f0ff 0%, #ede6ff 50%, #f8f4ff 100%);
       position: relative;
       text-align: center;
       padding: 2rem;
     }
-    .thank-you-page::after {
+    .thank-you-page::before {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse at center, rgba(124,58,237,0.15) 0%, transparent 70%);
+      background: radial-gradient(ellipse 55% 65% at 75% 35%, rgba(138,43,226,0.07) 0%, transparent 65%);
+      pointer-events: none;
     }
     .thank-you-card {
       position: relative;
       z-index: 2;
-      max-width: 580px;
+      max-width: 560px;
       width: 100%;
-      background: rgba(26,26,26,0.9);
-      border: 1px solid rgba(212,175,55,0.3);
-      border-radius: 20px;
+      background: rgba(255,255,255,0.95);
+      border: 1.5px solid rgba(45,0,69,0.08);
+      border-radius: 24px;
       padding: 3.5rem 3rem;
+      box-shadow: 0 20px 60px rgba(45,0,69,0.12);
       backdrop-filter: blur(10px);
     }
-    .thank-you-icon {
-      font-size: 4.5rem;
-      margin-bottom: 1.5rem;
-      display: block;
-    }
-    .countdown {
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      margin-top: 2rem;
-    }
-    .countdown span {
-      color: var(--accent);
-      font-weight: 700;
-    }
+    .thank-you-icon { font-size: 4rem; margin-bottom: 20px; display: block; }
+    .thank-you-card h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; color: #C9967A; margin: 0.5rem 0 1rem; font-weight: 300; }
+    .thank-you-card p { color: #6a6a6a; font-size: 0.95rem; line-height: 1.8; margin-bottom: 12px; }
+    .btn-ty-primary { display: block; width: 100%; background: linear-gradient(135deg, #C9A84C, #E2C36A); color: #0a0a0a; padding: 14px; border-radius: 12px; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.04em; text-decoration: none; margin-top: 20px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(201,168,76,0.35); }
+    .btn-ty-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.5); }
+    .btn-ty-secondary { display: block; width: 100%; background: transparent; color: #0a0a0a; padding: 13px; border-radius: 12px; font-size: 0.88rem; font-weight: 600; text-decoration: none; margin-top: 10px; border: 2px solid rgba(45,0,69,0.12); transition: all 0.2s; }
+    .btn-ty-secondary:hover { background: #faf8ff; border-color: rgba(45,0,69,0.2); }
+    .countdown { color: #8a8a8a; font-size: 0.82rem; margin-top: 20px; }
+    .countdown span { color: #C9A84C; font-weight: 700; }
+    .section-label-ty { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #C9A84C; }
   </style>
 </head>
 <body>
   <div class="thank-you-page">
     <div class="thank-you-card">
-      <span class="thank-you-icon">&#9989;</span>
-      <span class="section-label">Message Received</span>
-      <h1 style="color:var(--text);font-size:2.2rem;margin:0.75rem 0 1rem;">Thank You!</h1>
-      <p style="color:var(--text-muted);font-size:1.05rem;line-height:1.8;margin-bottom:1.5rem;">
-        Your booking request has been received. Our team at <strong style="color:var(--accent);">Purple Heart Limo</strong> will review your details and respond within <strong style="color:var(--text);">1 hour</strong>.
-      </p>
-      <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:2rem;">
-        Need an immediate response? Call or text us directly:
-      </p>
-      <a href="tel:+18337400700" class="btn btn-gold btn-lg" style="width:100%;justify-content:center;">
-        &#128222; (833) 740-0700
-      </a>
-      <div style="margin-top:1.25rem;">
-        <a href="index.html" class="btn btn-outline" style="width:100%;justify-content:center;">
-          &#8592; Return to Homepage
-        </a>
-      </div>
-      <div class="countdown" id="countdown">
-        Redirecting to homepage in <span id="timer">10</span> seconds…
-      </div>
+      <span class="thank-you-icon">✅</span>
+      <span class="section-label-ty">Message Received</span>
+      <h1>Thank You!</h1>
+      <p>Your booking request has been received. Our team at <strong style="color:#0a0a0a;">Purple Heart Limo</strong> will review your details and respond within <strong style="color:#C9A84C;">1 hour</strong>.</p>
+      <p>Need an immediate response? Call or text us directly:</p>
+      <a href="tel:+18337400700" class="btn-ty-primary">📞 (833) 740-0700</a>
+      <a href="/" class="btn-ty-secondary">← Return to Homepage</a>
+      <div class="countdown" id="countdown">Redirecting to homepage in <span id="timer">10</span> seconds…</div>
     </div>
   </div>
-
   <script>
     let t = 10;
     const el = document.getElementById('timer');
     const iv = setInterval(() => {
       t--;
       if (el) el.textContent = t;
-      if (t <= 0) { clearInterval(iv); window.location.href = 'index.html'; }
+      if (t <= 0) { clearInterval(iv); window.location.href = '/'; }
     }, 1000);
   </script>
 </body>

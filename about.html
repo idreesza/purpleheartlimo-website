@@ -7,269 +7,247 @@
   <meta name="description" content="Learn about Purple Heart Limo — Texas's veteran-owned luxury limousine company. Serving Austin, Dallas-Fort Worth, and Houston with professional, reliable transportation.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://purpleheartlimo.com/about.html">
-  <meta property="og:type"        content="website">
-  <meta property="og:url"         content="https://purpleheartlimo.com/about.html">
-  <meta property="og:title"       content="About Purple Heart Limo | Veteran-Owned Austin Limousine Service">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://purpleheartlimo.com/about.html">
+  <meta property="og:title" content="About Purple Heart Limo | Veteran-Owned Austin Limousine Service">
   <meta property="og:description" content="Veteran-owned and operated Austin limousine company committed to excellence and service.">
-  <meta property="og:image"       content="https://purpleheartlimo.com/images/og-image.jpg">
+  <meta property="og:image" content="https://purpleheartlimo.com/images/og-image.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
-
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/page.css">
+  <style>
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+    .feature-item { background: #fff; border: 1.5px solid rgba(45,0,69,0.08); border-radius: 16px; padding: 28px; text-align: center; transition: box-shadow 0.3s, transform 0.3s; }
+    .feature-item:hover { box-shadow: 0 8px 32px rgba(45,0,69,0.1); transform: translateY(-3px); }
+    .feature-icon { font-size: 2rem; margin-bottom: 14px; }
+    .feature-item h3 { color: #0a0a0a; font-size: 1.2rem; margin-bottom: 8px; }
+    .feature-item p { color: #6a6a6a; font-size: 0.88rem; line-height: 1.7; }
+    .promise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .promise-card { background: #fff; border: 1.5px solid rgba(45,0,69,0.08); border-radius: 16px; padding: 24px; }
+    .promise-card h4 { color: #0a0a0a; margin-bottom: 8px; font-size: 1rem; font-family: 'Inter', sans-serif; font-weight: 600; }
+    .promise-card p { color: #6a6a6a; font-size: 0.88rem; line-height: 1.7; }
+    .stat-row { display: flex; gap: 32px; justify-content: center; margin-top: 28px; padding-top: 24px; border-top: 1px solid rgba(45,0,69,0.08); flex-wrap: wrap; }
+    .stat-item { text-align: center; }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; color: #C9A84C; }
+    .stat-lbl { font-size: 0.75rem; color: #8a8a8a; letter-spacing: 1px; text-transform: uppercase; }
+    .veteran-card { background: linear-gradient(135deg, #faf8ff, #f5f0ff); border: 1.5px solid rgba(45,0,69,0.1); border-radius: 20px; padding: 36px; text-align: center; }
+    @media (max-width: 768px) { .story-grid { grid-template-columns: 1fr !important; } }
+  </style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "AboutPage",
     "name": "About Purple Heart Limo",
     "url": "https://purpleheartlimo.com/about.html",
-    "description": "About Purple Heart Limo — Austin's veteran-owned luxury limousine service.",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Purple Heart Limo",
-      "url": "https://purpleheartlimo.com",
-      "telephone": "+18337400700"
-    }
+    "description": "About Purple Heart Limo — Texas's veteran-owned luxury limousine service.",
+    "publisher": { "@type": "Organization", "name": "Purple Heart Limo", "url": "https://purpleheartlimo.com", "telephone": "+18337400700" }
   }
   </script>
 </head>
 <body>
 
-  <header class="header" id="header">
-    <div class="container">
-      <nav class="nav">
-        <a href="index.html" class="nav-logo">
-          <span class="nav-logo-name">Purple <span>Heart</span> Limo</span>
-          <span class="nav-logo-tagline">Austin's Premier Limousine Service</span>
-        </a>
-        <ul class="nav-links" id="navLinks">
-          <li><a href="/">Home</a></li>
-          <li><a href="/services.html">Services</a></li>
-          <li><a href="/fleet.html">Fleet</a></li>
-          <li><a href="/blog/">Blog</a></li>
-          <li><a href="/about.html" class="active">About</a></li>
-          <li><a href="/booking.html">Book</a></li>
-        </ul>
-        <div class="nav-cta">
-          <a href="tel:+18337400700" class="nav-phone">&#128222; (833) 740-0700</a>
-          <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn btn-gold btn-sm">Book Now</a>
-        </div>
-        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
-          <span></span><span></span><span></span>
-        </button>
-      </nav>
-    </div>
-  </header>
+<nav class="navbar" id="navbar">
+  <a href="/" class="nav-logo">
+    <img src="/logo.webp" alt="Purple Heart Limo Logo">
+    <div><div class="nav-logo-text">Purple Heart Limo</div><span class="nav-logo-sub">Texan Owned · Est. 2020</span></div>
+  </a>
+  <ul class="nav-links">
+    <li class="dropdown">
+      <a href="/services.html">Services ▾</a>
+      <div class="dropdown-menu">
+        <a href="/services.html#airport">✈️ Airport Transfer</a>
+        <a href="/services.html#weddings">💍 Wedding Limo</a>
+        <a href="/services.html#corporate">💼 Corporate Travel</a>
+        <a href="/services.html#events">🎓 Prom & Graduation</a>
+        <a href="/services.html#nightout">🥂 Night Out & Party</a>
+        <a href="/services.html#charter">🕐 Hourly Service</a>
+      </div>
+    </li>
+    <li><a href="/fleet.html">Our Fleet</a></li>
+    <li><a href="/blog/">Blog</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/booking.html">Book</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="tel:+18337400700" class="nav-phone">📞 (833) 740-0700</a>
+    <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="padding:10px 20px;font-size:0.78rem;">Book Now</a>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div id="mobile-menu" style="display:none;position:fixed;top:72px;left:0;right:0;background:white;z-index:999;padding:20px;box-shadow:0 12px 48px rgba(45,0,69,0.18);border-bottom:2px solid #F2EFE8;">
+  <a href="/services.html" style="display:block;padding:12px;font-size:0.9rem;color:#0a0a0a;border-bottom:1px solid #F2EFE8;">Services</a>
+  <a href="/fleet.html" style="display:block;padding:12px;font-size:0.9rem;color:#0a0a0a;border-bottom:1px solid #F2EFE8;">🚗 Our Fleet</a>
+  <a href="/blog/" style="display:block;padding:12px;font-size:0.9rem;color:#0a0a0a;border-bottom:1px solid #F2EFE8;">📝 Blog</a>
+  <a href="/about.html" style="display:block;padding:12px;font-size:0.9rem;color:#0a0a0a;border-bottom:1px solid #F2EFE8;">About Us</a>
+  <a href="/booking.html" style="display:block;padding:12px;font-size:0.9rem;color:#0a0a0a;">Book a Ride</a>
+</div>
 
-  <main>
+<section class="page-hero">
+  <div class="inner">
+    <span class="section-label">Our Story</span>
+    <h1>About Purple Heart Limo</h1>
+    <p>Veteran-owned. Professionally operated. Committed to excellence on every ride across Austin, DFW & Houston.</p>
+  </div>
+</section>
 
-    <!-- Page Hero -->
-    <section class="page-hero">
-      <div class="container">
-        <span class="section-label">Our Story</span>
-        <h1>About Purple Heart Limo</h1>
-        <p class="section-desc">Veteran-owned. Professionally operated. Committed to excellence on every ride.</p>
-        <div class="breadcrumb">
-          <a href="index.html">Home</a> &rsaquo; <span>About Us</span>
+<section class="section">
+  <div class="section-inner">
+    <div class="story-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
+      <div>
+        <span class="section-label">Who We Are</span>
+        <h2 style="font-size:clamp(1.8rem,3vw,2.6rem);color:#0a0a0a;margin-bottom:20px;font-weight:300;">Built on Service,<br><em style="color:#C9A84C;font-style:italic;">Driven by Excellence</em></h2>
+        <p style="color:#6a6a6a;margin-bottom:16px;line-height:1.8;">
+          Purple Heart Limo was founded by a United States military veteran with a simple mission: to bring the same discipline, reliability, and commitment to service that defines military life to the luxury transportation industry across Texas.
+        </p>
+        <p style="color:#6a6a6a;margin-bottom:16px;line-height:1.8;">
+          The name "Purple Heart" is a tribute to the valor and sacrifice of America's service members. Every ride we provide is delivered with that same sense of honor — because you deserve nothing less than the best.
+        </p>
+        <p style="color:#6a6a6a;margin-bottom:32px;line-height:1.8;">
+          From a single vehicle to a growing fleet serving Austin, Dallas-Fort Worth, and Houston, we've built our reputation one exceptional ride at a time. Our clients return because they trust us — with their time, their safety, and their most important moments.
+        </p>
+        <div class="btn-group" style="justify-content:flex-start;">
+          <a href="/booking.html" class="btn-gold">Book a Ride</a>
+          <a href="tel:+18337400700" class="btn-secondary">📞 (833) 740-0700</a>
         </div>
       </div>
-    </section>
-
-    <!-- Our Story -->
-    <section class="section">
-      <div class="container">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
-          <div>
-            <span class="section-label">Who We Are</span>
-            <h2 style="color:var(--text);margin-bottom:1.25rem;">Built on Service,<br>Driven by Excellence</h2>
-            <p style="color:var(--text-muted);margin-bottom:1.25rem;">
-              Purple Heart Limo was founded by a United States military veteran with a simple mission: to bring the same discipline, reliability, and commitment to service that defines military life to the luxury transportation industry across Texas.
-            </p>
-            <p style="color:var(--text-muted);margin-bottom:1.25rem;">
-              The name "Purple Heart" is a tribute to the valor and sacrifice of America's service members. Every ride we provide is delivered with that same sense of honor — because you deserve nothing less than the best.
-            </p>
-            <p style="color:var(--text-muted);margin-bottom:2rem;">
-              From a single vehicle to a growing fleet serving the Austin Metroplex, Dallas-Fort Worth, and Houston, we've built our reputation one exceptional ride at a time. Our clients return because they trust us — with their time, their safety, and their most important moments.
-            </p>
-            <div class="btn-group">
-              <a href="booking.html" class="btn btn-gold">Book a Ride</a>
-              <a href="tel:+18337400700" class="btn btn-outline">&#128222; (833) 740-0700</a>
-            </div>
-          </div>
-          <div style="background:var(--dark-2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2.5rem;text-align:center;">
-            <div style="font-size:5rem;margin-bottom:1.5rem;">&#127942;</div>
-            <h3 style="color:var(--accent);margin-bottom:0.5rem;font-size:1.5rem;">Veteran-Owned Business</h3>
-            <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.8;">
-              We are proud to be a verified veteran-owned small business serving Texas — Austin, Dallas-Fort Worth, and Houston. Supporting us means supporting American veterans who continue to serve — now behind the wheel.
-            </p>
-            <div style="display:flex;gap:2rem;justify-content:center;margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border);">
-              <div>
-                <div style="font-size:1.8rem;font-weight:700;color:var(--accent);font-family:'Playfair Display',serif;">10+</div>
-                <div style="font-size:0.78rem;color:var(--text-muted);letter-spacing:1px;">Years of Service</div>
-              </div>
-              <div>
-                <div style="font-size:1.8rem;font-weight:700;color:var(--accent);font-family:'Playfair Display',serif;">500+</div>
-                <div style="font-size:0.78rem;color:var(--text-muted);letter-spacing:1px;">Happy Clients</div>
-              </div>
-              <div>
-                <div style="font-size:1.8rem;font-weight:700;color:var(--accent);font-family:'Playfair Display',serif;">24/7</div>
-                <div style="font-size:0.78rem;color:var(--text-muted);letter-spacing:1px;">Availability</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Our Values -->
-    <section class="section bg-dark-2">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label">Our Core Values</span>
-          <h2 class="section-title">What We Stand For</h2>
-          <p class="section-desc">Every decision we make is guided by these core principles — the same values instilled through military service.</p>
-        </div>
-        <div class="features-grid">
-          <div class="feature-item">
-            <div class="feature-icon">&#127981;</div>
-            <h3>Integrity</h3>
-            <p>We do what we say, every time. No hidden fees, no excuses, no surprises. Just honest, reliable service you can count on.</p>
-          </div>
-          <div class="feature-item">
-            <div class="feature-icon">&#127919;</div>
-            <h3>Punctuality</h3>
-            <p>Being late is never an option. We monitor traffic, track flights, and plan ahead so you're always where you need to be, on time.</p>
-          </div>
-          <div class="feature-item">
-            <div class="feature-icon">&#129332;</div>
-            <h3>Respect</h3>
-            <p>Every client is treated with the highest level of professionalism and respect — from the moment you book to when we drop you off.</p>
-          </div>
-          <div class="feature-item">
-            <div class="feature-icon">&#128293;</div>
-            <h3>Excellence</h3>
-            <p>We don't settle for good enough. Our vehicles, our chauffeurs, and our service are held to the highest possible standard.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Our Promise -->
-    <section class="section">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-label">Our Commitment</span>
-          <h2 class="section-title">The Purple Heart Promise</h2>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
-          <div style="background:var(--dark-2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;">
-            <div style="color:var(--accent);font-size:1.5rem;margin-bottom:1rem;">&#9989;</div>
-            <h4 style="color:var(--text);margin-bottom:0.5rem;">On-Time Guarantee</h4>
-            <p style="color:var(--text-muted);font-size:0.9rem;">If we're late due to our error, we'll make it right. Simple as that.</p>
-          </div>
-          <div style="background:var(--dark-2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;">
-            <div style="color:var(--accent);font-size:1.5rem;margin-bottom:1rem;">&#9989;</div>
-            <h4 style="color:var(--text);margin-bottom:0.5rem;">Professional Chauffeurs</h4>
-            <p style="color:var(--text-muted);font-size:0.9rem;">Background-checked, licensed, and trained to deliver a 5-star experience every time.</p>
-          </div>
-          <div style="background:var(--dark-2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;">
-            <div style="color:var(--accent);font-size:1.5rem;margin-bottom:1rem;">&#9989;</div>
-            <h4 style="color:var(--text);margin-bottom:0.5rem;">Clean, Inspected Vehicles</h4>
-            <p style="color:var(--text-muted);font-size:0.9rem;">Every vehicle is cleaned and mechanically inspected before each and every trip.</p>
-          </div>
-          <div style="background:var(--dark-2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;">
-            <div style="color:var(--accent);font-size:1.5rem;margin-bottom:1rem;">&#9989;</div>
-            <h4 style="color:var(--text);margin-bottom:0.5rem;">Transparent Pricing</h4>
-            <p style="color:var(--text-muted);font-size:0.9rem;">No hidden fees, no surprise charges. The price we quote is the price you pay.</p>
-          </div>
-          <div style="background:var(--dark-2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;">
-            <div style="color:var(--accent);font-size:1.5rem;margin-bottom:1rem;">&#9989;</div>
-            <h4 style="color:var(--text);margin-bottom:0.5rem;">24/7 Support</h4>
-            <p style="color:var(--text-muted);font-size:0.9rem;">Our team is reachable around the clock for reservations, changes, and questions.</p>
-          </div>
-          <div style="background:var(--dark-2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:2rem;">
-            <div style="color:var(--accent);font-size:1.5rem;margin-bottom:1rem;">&#9989;</div>
-            <h4 style="color:var(--text);margin-bottom:0.5rem;">Fully Licensed &amp; Insured</h4>
-            <p style="color:var(--text-muted);font-size:0.9rem;">We meet and exceed all state and federal requirements for limousine operators.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta-section">
-      <div class="container">
-        <span class="section-label">Let's Ride</span>
-        <h2>Experience the Purple Heart Difference</h2>
-        <p>Join hundreds of Austin clients who trust us with their most important moments.</p>
-        <div class="btn-group" style="justify-content:center;">
-          <a href="booking.html" class="btn btn-gold btn-lg">Book Your Ride</a>
-          <a href="tel:+18337400700" class="btn btn-outline btn-lg">&#128222; (833) 740-0700</a>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <h3>Purple <span>Heart</span> Limo</h3>
-          <p>Texas's premier luxury limousine service — Austin, Dallas-Fort Worth &amp; Houston. Veteran-owned, professionally operated, dedicated to excellence on every ride.</p>
-          <div class="footer-social">
-            <a href="https://www.facebook.com/profile.php?id=61578479742416" target="_blank" rel="noopener" aria-label="Facebook">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-            </a>
-            <a href="https://www.instagram.com/austinlimousine" target="_blank" rel="noopener" aria-label="Instagram">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-            </a>
-            <a href="https://tiktok.com/austin.limousine" target="_blank" rel="noopener" aria-label="TikTok">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.74a4.85 4.85 0 0 1-1.01-.05z"/></svg>
-            </a>
-          </div>
-        </div>
-        <div>
-          <h4 class="footer-heading">Services</h4>
-          <ul class="footer-links">
-            <li><a href="services.html#airport">Airport Transfers</a></li>
-            <li><a href="services.html#weddings">Wedding Limos</a></li>
-            <li><a href="services.html#corporate">Corporate Travel</a></li>
-            <li><a href="services.html#events">Prom &amp; Events</a></li>
-            <li><a href="services.html#nightout">Concert &amp; Night Out</a></li>
-            <li><a href="services.html#charter">Hourly Charter</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="footer-heading">Company</h4>
-          <ul class="footer-links">
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="fleet.html">Our Fleet</a></li>
-            <li><a href="booking.html">Book a Ride</a></li>
-            <li><a href="booking.html">Get a Quote</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="footer-heading">Contact</h4>
-          <div class="footer-contact-list">
-            <div class="footer-contact-item">&#128222; <a href="tel:+18337400700">(833) 740-0700</a></div>
-            <div class="footer-contact-item">&#9993;&#65039; <a href="mailto:info@purpleheartlimo.com">info@purpleheartlimo.com</a></div>
-            <div class="footer-contact-item">&#128205; Austin, TX &amp; Surrounding Areas</div>
-            <div class="footer-contact-item">&#128336; Available 24/7</div>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2025 Purple Heart Limo. All rights reserved. Veteran-Owned Business.</p>
-        <div class="footer-bottom-links">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
+      <div class="veteran-card">
+        <div style="font-size:4rem;margin-bottom:20px;">🎖️</div>
+        <h3 style="color:#C9A84C;margin-bottom:12px;font-size:1.5rem;">Veteran-Owned Business</h3>
+        <p style="color:#6a6a6a;font-size:0.92rem;line-height:1.8;margin-bottom:0;">
+          We are proud to be a verified veteran-owned small business serving Texas — Austin, Dallas-Fort Worth, and Houston. Supporting us means supporting American veterans who continue to serve — now behind the wheel.
+        </p>
+        <div class="stat-row">
+          <div class="stat-item"><div class="stat-num">10+</div><div class="stat-lbl">Years of Service</div></div>
+          <div class="stat-item"><div class="stat-num">500+</div><div class="stat-lbl">Happy Clients</div></div>
+          <div class="stat-item"><div class="stat-num">24/7</div><div class="stat-lbl">Availability</div></div>
         </div>
       </div>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <button class="scroll-top" id="scrollTop" aria-label="Back to top">&#8679;</button>
-  <script src="js/main.js"></script>
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-label">Our Core Values</span>
+      <h2>What We Stand For</h2>
+      <p>Every decision we make is guided by these core principles — the same values instilled through military service.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon">🏛️</div>
+        <h3>Integrity</h3>
+        <p>We do what we say, every time. No hidden fees, no excuses, no surprises. Just honest, reliable service you can count on.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🎯</div>
+        <h3>Punctuality</h3>
+        <p>Being late is never an option. We monitor traffic, track flights, and plan ahead so you're always where you need to be, on time.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🤝</div>
+        <h3>Respect</h3>
+        <p>Every client is treated with the highest level of professionalism and respect — from the moment you book to when we drop you off.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🔥</div>
+        <h3>Excellence</h3>
+        <p>We don't settle for good enough. Our vehicles, our chauffeurs, and our service are held to the highest possible standard.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-label">Our Commitment</span>
+      <h2>The Purple Heart Promise</h2>
+    </div>
+    <div class="promise-grid">
+      <div class="promise-card"><div style="color:#C9A84C;font-size:1.5rem;margin-bottom:12px;">✅</div><h4>On-Time Guarantee</h4><p>If we're late due to our error, we'll make it right. Simple as that.</p></div>
+      <div class="promise-card"><div style="color:#C9A84C;font-size:1.5rem;margin-bottom:12px;">✅</div><h4>Professional Chauffeurs</h4><p>Background-checked, licensed, and trained to deliver a 5-star experience every time.</p></div>
+      <div class="promise-card"><div style="color:#C9A84C;font-size:1.5rem;margin-bottom:12px;">✅</div><h4>Clean, Inspected Vehicles</h4><p>Every vehicle is cleaned and mechanically inspected before each and every trip.</p></div>
+      <div class="promise-card"><div style="color:#C9A84C;font-size:1.5rem;margin-bottom:12px;">✅</div><h4>Transparent Pricing</h4><p>No hidden fees, no surprise charges. The price we quote is the price you pay.</p></div>
+      <div class="promise-card"><div style="color:#C9A84C;font-size:1.5rem;margin-bottom:12px;">✅</div><h4>24/7 Support</h4><p>Our team is reachable around the clock for reservations, changes, and questions.</p></div>
+      <div class="promise-card"><div style="color:#C9A84C;font-size:1.5rem;margin-bottom:12px;">✅</div><h4>Fully Licensed &amp; Insured</h4><p>We meet and exceed all state and federal requirements for limousine operators.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="inner">
+    <span class="section-label">Let's Ride</span>
+    <h2>Experience the Purple Heart Difference</h2>
+    <p>Join hundreds of Texas clients who trust us with their most important moments.</p>
+    <div class="btn-group">
+      <a href="/booking.html" class="btn-gold">Book Your Ride</a>
+      <a href="tel:+18337400700" class="btn-call">📞 (833) 740-0700</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/" style="display:inline-flex;align-items:center;gap:10px;margin-bottom:14px;">
+        <img src="/logo.webp" alt="Purple Heart Limo" style="width:40px;height:40px;object-fit:contain;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#fff;font-weight:600;">Purple Heart Limo</div>
+      </a>
+      <p>Veteran-owned luxury limousine & black car service in Austin, Dallas-Fort Worth & Houston, Texas. No surge pricing. Flat rates. Professional chauffeurs.</p>
+      <p style="margin-top:14px;"><a href="tel:+18337400700" style="color:#C9A84C;font-size:0.85rem;font-weight:600;">📞 (833) 740-0700</a></p>
+      <p style="margin-top:4px;"><a href="mailto:info@purpleheartlimo.com" style="color:rgba(255,255,255,0.45);font-size:0.8rem;">info@purpleheartlimo.com</a></p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="/services.html#airport">Airport Transfer</a>
+      <a href="/services.html#weddings">Wedding Limo</a>
+      <a href="/services.html#corporate">Corporate Travel</a>
+      <a href="/services.html#events">Prom & Graduation</a>
+      <a href="/services.html#nightout">Night Out & Party</a>
+      <a href="/services.html#charter">Hourly Service</a>
+    </div>
+    <div class="footer-col">
+      <h4>Texas Areas</h4>
+      <p>Austin · Round Rock</p>
+      <p>Dallas · Fort Worth · Plano</p>
+      <p>Houston · Sugar Land</p>
+      <p>The Woodlands · Katy</p>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="/about.html">About Us</a>
+      <a href="/fleet.html">Our Fleet</a>
+      <a href="/rates.html">Pricing</a>
+      <a href="/blog/">Blog</a>
+      <h4 style="margin-top:16px;">Legal</h4>
+      <a href="/privacy-policy.html">Privacy Policy</a>
+      <a href="/terms-of-service.html">Terms of Service</a>
+      <a href="/cancellation-policy.html">Cancellation Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Purple Heart Limo. All rights reserved. Veteran-owned & operated in Texas. 🎖️</p>
+    <div class="footer-legal">
+      <a href="/privacy-policy.html">Privacy</a>
+      <a href="/terms-of-service.html">Terms</a>
+      <a href="/cancellation-policy.html">Cancellation</a>
+    </div>
+  </div>
+</footer>
+
+<div class="floating-widgets">
+  <a href="https://wa.me/18337400700" target="_blank" class="wa-widget" aria-label="Chat on WhatsApp">
+    <div class="wa-pulse"></div>
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+</div>
+<div class="mobile-bar">
+  <a href="tel:+18337400700" class="m-call">📞 Call</a>
+  <a href="https://wa.me/18337400700" target="_blank" class="m-wa">💬 WhatsApp</a>
+  <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="m-book">Book a Ride</a>
+</div>
+<script>function toggleMenu(){const m=document.getElementById('mobile-menu');m.style.display=m.style.display==='block'?'none':'block';}</script>
 </body>
 </html>
