@@ -62,11 +62,25 @@ body { background: var(--bg); color: var(--text-c); }
 .flight-wrap input:focus { border-color: var(--pk); }
 
 /* Autocomplete */
-.ac-list { position: absolute; top: 100%; left: 0; right: 0; background: #fff; border: 1.5px solid var(--border-c); border-radius: 0 0 10px 10px; z-index: 300; max-height: 180px; overflow-y: auto; display: none; box-shadow: 0 8px 24px rgba(45,0,69,0.1); }
+.ac-list { position: absolute; top: calc(100% + 2px); left: 0; right: 0; background: #fff; border: 1.5px solid var(--border-c); border-radius: 10px; z-index: 9999; max-height: 220px; overflow-y: auto; display: none; box-shadow: 0 8px 32px rgba(45,0,69,0.14); }
 .ac-list.open { display: block; }
-.ac-item { padding: 9px 14px; font-size: 0.82rem; color: var(--gray-c); cursor: pointer; border-bottom: 1px solid rgba(45,0,69,0.05); }
+.ac-item { padding: 10px 14px; font-size: 0.82rem; color: var(--gray-c); cursor: pointer; border-bottom: 1px solid rgba(45,0,69,0.05); }
 .ac-item:last-child { border-bottom: none; }
-.ac-item:hover { background: var(--pk-dim); color: var(--pk); }
+.ac-item:hover, .ac-item.active { background: var(--pk-dim); color: var(--pk); }
+
+/* Extra stops */
+.stops-wrap { margin-top: 10px; display: none; }
+.stops-wrap.show { display: block; }
+.stop-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; position: relative; }
+.stop-row input { flex: 1; background: var(--bg2); border: 1.5px solid var(--border-c); border-radius: 8px; color: var(--text-c); padding: 9px 14px; font-family: 'Inter', sans-serif; font-size: 0.84rem; outline: none; transition: border-color 0.2s; }
+.stop-row input:focus { border-color: var(--pk); }
+.stop-row input::placeholder { color: #aaa; }
+.stop-ac { position: absolute; top: calc(100% + 2px); left: 0; right: 36px; background: #fff; border: 1.5px solid var(--border-c); border-radius: 10px; z-index: 9999; max-height: 200px; overflow-y: auto; display: none; box-shadow: 0 8px 32px rgba(45,0,69,0.14); }
+.stop-ac.open { display: block; }
+.btn-remove-stop { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid rgba(201,168,76,0.35); background: none; cursor: pointer; color: var(--pk); font-size: 1rem; line-height: 1; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; }
+.btn-remove-stop:hover { background: var(--pk-dim); }
+.btn-add-stop { display: inline-flex; align-items: center; gap: 6px; background: none; border: 1.5px dashed rgba(201,168,76,0.5); border-radius: 8px; color: var(--pk); font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 600; padding: 7px 14px; cursor: pointer; transition: all 0.2s; margin-top: 4px; }
+.btn-add-stop:hover { background: var(--pk-dim); border-color: var(--pk); }
 
 @media(max-width:900px){ .search-row{grid-template-columns:1fr 1fr;border-radius:10px;} .sf:nth-child(2){border-right:none;} .sf:nth-child(3),.sf:nth-child(4){border-top:1px solid var(--border-c);} .search-btn{grid-column:1/-1;padding:12px;border-radius:0 0 10px 10px;} }
 @media(max-width:580px){ .search-row{grid-template-columns:1fr;} .sf{border-right:none;border-bottom:1px solid var(--border-c);} .search-btn{grid-column:1;} }
@@ -201,8 +215,8 @@ body { background: var(--bg); color: var(--text-c); }
           <input type="text" id="pickupInput" placeholder="Address, airport or hotel…" autocomplete="off">
           <div class="ac-list" id="pickupAc"></div>
         </div>
-        <div class="sf">
-          <label>Drop-off Location</label>
+        <div class="sf" id="dropoffSf">
+          <label id="dropoffLabel">Drop-off Location</label>
           <input type="text" id="dropoffInput" placeholder="Destination…" autocomplete="off">
           <div class="ac-list" id="dropoffAc"></div>
         </div>
@@ -247,6 +261,15 @@ body { background: var(--bg); color: var(--text-c); }
           <input type="text" id="flightInput" placeholder="AA1234" autocomplete="off">
         </div>
         <span style="font-size:0.72rem;color:#8a8a8a;">optional — for real-time flight tracking</span>
+      </div>
+
+      <!-- Extra stops (shown for Point-to-Point and Hourly) -->
+      <div class="stops-wrap" id="stopsWrap">
+        <div id="stopsList"></div>
+        <button class="btn-add-stop" id="addStopBtn" onclick="addStop()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Stop <span style="font-weight:400;opacity:0.7;">(optional)</span>
+        </button>
       </div>
     </div>
   </div>
@@ -423,6 +446,22 @@ document.getElementById('svcTabs').addEventListener('click',e=>{
   const labels={airport:'✈ Airport Pricing',oneway:'🗺 Point-to-Point',hourly:'⏱ Hourly Rate'};
   document.getElementById('priceModeLabel').textContent=labels[curSvc]||'Pricing';
   document.getElementById('flightRow').classList.toggle('show',curSvc==='airport');
+
+  // Stops panel: show for point-to-point and hourly; hide for airport
+  const stopsWrap=document.getElementById('stopsWrap');
+  const dropoffSf=document.getElementById('dropoffSf');
+  const dropoffLabel=document.getElementById('dropoffLabel');
+  if(curSvc==='hourly'){
+    stopsWrap.classList.add('show');
+    dropoffSf.style.display='none'; // hourly: no fixed drop-off, just stops
+  } else if(curSvc==='oneway'){
+    stopsWrap.classList.add('show');
+    dropoffSf.style.display=''; // point-to-point keeps drop-off + can add stops
+  } else {
+    stopsWrap.classList.remove('show');
+    dropoffSf.style.display='';
+    clearStops();
+  }
   renderVehicles();
 });
 
@@ -488,19 +527,60 @@ const TX_AIRPORTS=[
   'Katy TX',
   'Pearland TX',
 ];
-function setupAc(inputId,acId){
-  const inp=document.getElementById(inputId),ac=document.getElementById(acId);
-  inp.addEventListener('input',()=>{
-    const v=inp.value.toLowerCase();
-    const matches=v.length>1?TX_AIRPORTS.filter(a=>a.toLowerCase().includes(v)):[];
-    ac.innerHTML=matches.map(m=>`<div class="ac-item">${m}</div>`).join('');
-    ac.classList.toggle('open',matches.length>0);
+function setupAc(inp, ac) {
+  if(typeof inp === 'string') inp = document.getElementById(inp);
+  if(typeof ac === 'string')  ac  = document.getElementById(ac);
+  if(!inp || !ac) return;
+  inp.addEventListener('input', ()=>{
+    const v = inp.value.toLowerCase().trim();
+    const matches = v.length > 1 ? TX_AIRPORTS.filter(a=>a.toLowerCase().includes(v)).slice(0,10) : [];
+    ac.innerHTML = matches.map(m=>`<div class="ac-item">${m}</div>`).join('');
+    ac.classList.toggle('open', matches.length > 0);
   });
-  ac.addEventListener('click',e=>{if(e.target.classList.contains('ac-item')){inp.value=e.target.textContent;ac.classList.remove('open');}});
-  document.addEventListener('click',e=>{if(!inp.contains(e.target)&&!ac.contains(e.target))ac.classList.remove('open');});
+  ac.addEventListener('mousedown', e=>{
+    const item = e.target.closest('.ac-item');
+    if(item){ e.preventDefault(); inp.value = item.textContent; ac.classList.remove('open'); }
+  });
+  document.addEventListener('click', e=>{
+    if(!inp.contains(e.target) && !ac.contains(e.target)) ac.classList.remove('open');
+  });
 }
 setupAc('pickupInput','pickupAc');
 setupAc('dropoffInput','dropoffAc');
+
+// ── Extra stops ──────────────────────────────────────────────
+let stopCount = 0;
+function addStop() {
+  stopCount++;
+  const id  = 'stop_' + stopCount;
+  const acId = 'stopAc_' + stopCount;
+  const list = document.getElementById('stopsList');
+  const row  = document.createElement('div');
+  row.className = 'stop-row';
+  row.id = 'stopRow_' + stopCount;
+  const label = curSvc === 'hourly'
+    ? `Stop ${stopCount}`
+    : `Additional Stop ${stopCount}`;
+  row.innerHTML = `
+    <input type="text" id="${id}" placeholder="${label} (optional)" autocomplete="off">
+    <div class="stop-ac ac-list" id="${acId}"></div>
+    <button class="btn-remove-stop" onclick="removeStop(${stopCount})" title="Remove stop">×</button>`;
+  list.appendChild(row);
+  setupAc(id, acId);
+  document.getElementById(id).focus();
+}
+function removeStop(n) {
+  const row = document.getElementById('stopRow_' + n);
+  if(row) row.remove();
+}
+function clearStops() {
+  document.getElementById('stopsList').innerHTML = '';
+  stopCount = 0;
+}
+function getStops() {
+  return Array.from(document.querySelectorAll('#stopsList .stop-row input'))
+    .map(i=>i.value.trim()).filter(Boolean);
+}
 
 // Form submission
 async function submitBooking(){
@@ -513,7 +593,8 @@ async function submitBooking(){
   if(!name||!phone){err.textContent='Please provide your name and phone number.';err.classList.add('show');return;}
   sBtn.disabled=true;sBtn.textContent='Sending…';
   const pickup=document.getElementById('pickupInput').value;
-  const dropoff=document.getElementById('dropoffInput').value;
+  const dropoff=curSvc==='hourly'?'(Hourly — see stops)':document.getElementById('dropoffInput').value;
+  const stops=getStops();
   const date=document.getElementById('dateInput').value;
   const hour=document.getElementById('timeHour').value;
   const min=document.getElementById('timeMin').value;
@@ -523,7 +604,7 @@ async function submitBooking(){
   const msg=document.getElementById('fmessage').value;
   const email=document.getElementById('femail').value;
   const veh=selVeh?VEHICLES.find(v=>v.id===selVeh)?.name:'Not selected';
-  const body={name,phone,email,vehicle:veh,service:curSvc,pickup,dropoff,date,time:`${hour}:${min} ${ampm}`,flight,pax,message:msg};
+  const body={name,phone,email,vehicle:veh,service:curSvc,pickup,dropoff,stops:stops.join(' → '),date,time:`${hour}:${min} ${ampm}`,flight,pax,message:msg};
   try{
     const r=await fetch('https://formspree.io/f/purpleheartlimo',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(body)});
     if(r.ok){succ.textContent='Request received! We\'ll confirm your ride within 5 minutes. ✅';succ.classList.add('show');document.getElementById('moovsLink').style.display='block';}
