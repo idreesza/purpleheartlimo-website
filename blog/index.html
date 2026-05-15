@@ -35,10 +35,12 @@ h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;}a{text-decoration:none;color
 .hamburger{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-direction:column;gap:5px;}
 .hamburger span{display:block;width:24px;height:2px;background:var(--purple);border-radius:2px;}
 @media(max-width:768px){.nav-links{display:none;}.nav-cta .btn-primary{display:none;}.hamburger{display:flex;}}
-.blog-hero{background:linear-gradient(135deg,var(--purple) 0%,#3d0060 40%,#1a0028 100%);padding:80px 5% 60px;text-align:center;}
-.blog-hero h1{font-size:clamp(2.2rem,5vw,3.8rem);color:var(--white);font-weight:300;margin-bottom:16px;}
-.blog-hero h1 em{color:var(--gold);font-style:italic;}
-.blog-hero p{color:rgba(255,255,255,0.75);font-size:1rem;max-width:580px;margin:0 auto;}
+.blog-hero{background:linear-gradient(160deg,#f5f0ff 0%,#ede6ff 50%,#f8f4ff 100%);padding:110px 5% 64px;text-align:center;position:relative;overflow:hidden;}
+.blog-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 75% 35%,rgba(138,43,226,.07) 0%,transparent 65%),radial-gradient(ellipse 35% 45% at 10% 80%,rgba(138,43,226,.04) 0%,transparent 55%);pointer-events:none;}
+.blog-hero .inner{position:relative;z-index:1;}
+.blog-hero h1{font-size:clamp(2.2rem,5vw,3.4rem);color:#C9967A;font-weight:300;margin-bottom:16px;line-height:1.15;}
+.blog-hero h1 em{color:#C9A84C;font-style:italic;}
+.blog-hero p{color:#6a6a6a;font-size:0.95rem;max-width:580px;margin:0 auto;line-height:1.7;}
 .section-tag{font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:block;}
 .blog-section{padding:80px 5%;}
 .blog-section-inner{max-width:1200px;margin:0 auto;}
@@ -81,9 +83,10 @@ footer{background:var(--purple);color:rgba(255,255,255,0.7);padding:60px 5% 32px
       </div>
     </li>
     <li><a href="/fleet.html">Our Fleet</a></li>
+    <li><a href="/flight-tracker.html" style="color:#C9A84C;font-weight:600;">✈ Flight Tracker</a></li>
     <li><a href="/blog/" class="active">Blog</a></li>
     <li><a href="/about.html">About</a></li>
-    <li><a href="/contact.html">Contact</a></li>
+    <li><a href="/booking.html">Book</a></li>
   </ul>
   <div class="nav-cta">
     <a href="tel:+18337400700" class="nav-phone">📞 (833) 740-0700</a>
@@ -93,18 +96,21 @@ footer{background:var(--purple);color:rgba(255,255,255,0.7);padding:60px 5% 32px
 </nav>
 <div id="mobileNav" style="display:none;position:fixed;top:72px;left:0;right:0;background:white;z-index:999;padding:20px;box-shadow:0 12px 48px rgba(45,0,69,0.18);border-bottom:2px solid var(--gray-light);">
   <a href="/services.html" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">Services</a>
-  <a href="/fleet.html" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">Our Fleet</a>
+  <a href="/fleet.html" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">🚗 Our Fleet</a>
+  <a href="/flight-tracker.html" style="display:block;padding:12px;font-size:0.9rem;color:#C9A84C;font-weight:700;border-bottom:1px solid var(--gray-light);">✈ Flight Tracker</a>
   <a href="/blog/" style="display:block;padding:12px;font-size:0.9rem;color:var(--purple);font-weight:600;border-bottom:1px solid var(--gray-light);">Blog</a>
   <a href="/about.html" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">About</a>
-  <a href="/contact.html" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">Contact</a>
+  <a href="/booking.html" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">Book a Ride</a>
   <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" style="display:block;padding:14px;margin-top:8px;background:linear-gradient(135deg,#C9A84C,#E2C36A);color:#2D0045;text-align:center;border-radius:50px;font-weight:700;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.06em;">Book Now</a>
 </div>
 <script>document.getElementById('mobileToggle').onclick=function(){var m=document.getElementById('mobileNav');m.style.display=m.style.display==='block'?'none':'block';};</script>
 
 <div class="blog-hero">
-  <span class="section-tag">Purple Heart Limo</span>
-  <h1>The Limo Blog — <em>Straight from the Chauffeur's Seat</em></h1>
-  <p>Tips, guides, event round-ups, and the occasional rant about surge pricing. For Austin, Dallas-Fort Worth, and Houston. Written by humans who actually drive these roads.</p>
+  <div class="inner">
+    <span class="section-tag">Purple Heart Limo</span>
+    <h1>The Limo Blog — <em>Straight from the Chauffeur's Seat</em></h1>
+    <p>Tips, guides, event round-ups, and insider knowledge on Austin, Dallas-Fort Worth, and Houston. Written by the team that actually drives these roads.</p>
+  </div>
 </div>
 
 <div class="blog-section" style="background:var(--off-white,#F9F8FF);">

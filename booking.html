@@ -426,8 +426,68 @@ document.getElementById('svcTabs').addEventListener('click',e=>{
   renderVehicles();
 });
 
-// Texas airport autocomplete
-const TX_AIRPORTS=['Austin-Bergstrom Int\'l (AUS)','Dallas/Fort Worth Int\'l (DFW)','Dallas Love Field (DAL)','George Bush Intercontinental (IAH)','William P. Hobby (HOU)','San Antonio Int\'l (SAT)','El Paso Int\'l (ELP)'];
+// Texas locations autocomplete — airports, hotels, landmarks, venues
+const TX_AIRPORTS=[
+  // Airports
+  'Austin-Bergstrom Int\'l Airport (AUS)','Dallas/Fort Worth Int\'l Airport (DFW)','Dallas Love Field Airport (DAL)',
+  'George Bush Intercontinental Airport (IAH)','William P. Hobby Airport (HOU)','San Antonio Int\'l Airport (SAT)',
+  'El Paso Int\'l Airport (ELP)','Midland Int\'l Airport (MAF)',
+  // Austin hotels & venues
+  'JW Marriott Austin, 110 E 2nd St, Austin TX',
+  'The Driskill Hotel, 604 Brazos St, Austin TX',
+  'Four Seasons Hotel Austin, 98 San Jacinto Blvd, Austin TX',
+  'Austin Marriott Downtown, 304 E Cesar Chavez St, Austin TX',
+  'Hilton Austin, 500 E 4th St, Austin TX',
+  'Omni Austin Hotel Downtown, 700 San Jacinto Blvd, Austin TX',
+  'W Austin Hotel, 200 Lavaca St, Austin TX',
+  'Hyatt Regency Austin, 208 Barton Springs Rd, Austin TX',
+  'Renaissance Austin Hotel, 9721 Arboretum Blvd, Austin TX',
+  'Austin Convention Center, 500 E Cesar Chavez St, Austin TX',
+  'Moody Center Arena, 2001 Robert Dedman Dr, Austin TX',
+  'Circuit of the Americas (COTA), Austin TX',
+  'South Congress Ave, Austin TX',
+  'Sixth Street Entertainment District, Austin TX',
+  'The Domain, 11410 Century Oaks Terrace, Austin TX',
+  'University of Texas at Austin, Austin TX',
+  'Texas State Capitol, 1100 Congress Ave, Austin TX',
+  // DFW hotels & venues
+  'The Ritz-Carlton Dallas, 2121 McKinney Ave, Dallas TX',
+  'Omni Dallas Hotel, 555 S Lamar St, Dallas TX',
+  'Hilton Anatole Dallas, 2201 N Stemmons Fwy, Dallas TX',
+  'Marriott Dallas Uptown, 2493 Fairmont St, Dallas TX',
+  'Hyatt Regency Dallas, 300 Reunion Blvd, Dallas TX',
+  'Gaylord Texan Resort, 1501 Gaylord Trail, Grapevine TX',
+  'Four Seasons Resort & Club Dallas, 4150 N MacArthur Blvd, Irving TX',
+  'Embassy Suites Dallas Frisco, 7600 John Q Hammons Dr, Frisco TX',
+  'The Westin Dallas Stonebriar Golf Resort, 1549 Legacy Dr, Frisco TX',
+  'AT&T Stadium (Cowboys), 1 AT&T Way, Arlington TX',
+  'American Airlines Center, 2500 Victory Ave, Dallas TX',
+  'Toyota Music Factory, 300 W Las Colinas Blvd, Irving TX',
+  'Globe Life Field (Rangers), 734 Stadium Dr, Arlington TX',
+  'Uptown Dallas, Dallas TX',
+  'Deep Ellum, Dallas TX',
+  'Bishop Arts District, Dallas TX',
+  'Legacy West, Plano TX',
+  'Southlake Town Square, Southlake TX',
+  'Frisco TX',
+  'McKinney TX',
+  // Houston hotels & venues
+  'Marriott Marquis Houston, 1777 Walker St, Houston TX',
+  'Four Seasons Hotel Houston, 1300 Lamar St, Houston TX',
+  'The Post Oak Hotel, 1600 West Loop S, Houston TX',
+  'Hilton Americas Houston, 1600 Lamar St, Houston TX',
+  'Omni Houston Hotel, 4 Riverway, Houston TX',
+  'Hyatt Regency Houston, 1200 Louisiana St, Houston TX',
+  'JW Marriott Houston, 5150 Westheimer Rd, Houston TX',
+  'Toyota Center (Rockets), 1510 Polk St, Houston TX',
+  'Minute Maid Park (Astros), 501 Crawford St, Houston TX',
+  'NRG Stadium (Texans), 1 NRG Pkwy, Houston TX',
+  'Houston Galleria, 5085 Westheimer Rd, Houston TX',
+  'The Woodlands TX',
+  'Sugar Land TX',
+  'Katy TX',
+  'Pearland TX',
+];
 function setupAc(inputId,acId){
   const inp=document.getElementById(inputId),ac=document.getElementById(acId);
   inp.addEventListener('input',()=>{
