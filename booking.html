@@ -704,11 +704,24 @@ async function submitBooking(){
   const veh=selVeh?VEHICLES.find(v=>v.id===selVeh)?.name:'Not selected';
   const body={name,phone,email,vehicle:veh,service:curSvc,pickup,dropoff,stops:stops.join(' → '),date,time:`${hour}:${min} ${ampm}`,flight,pax,message:msg};
   try{
+    const stopsStr = stops.length ? stops.join(' → ') : '—';
+    const fullSummary =
+      `NAME: ${name}\nPHONE: ${phone}\nEMAIL: ${email||'—'}\n\n` +
+      `SERVICE: ${curSvc}\nVEHICLE: ${veh}\nPASSENGERS: ${pax||'—'}\n\n` +
+      `PICKUP: ${pickup||'—'}\nDROPOFF: ${dropoff||'—'}\nSTOPS: ${stopsStr}\n\n` +
+      `DATE: ${date||'—'}\nTIME: ${hour}:${min} ${ampm}\nFLIGHT: ${flight||'—'}\n\n` +
+      `MESSAGE: ${msg||'—'}`;
     await emailjs.send('service_53lh00r', 'template_xwek3ac', {
-      from_name: name, phone, service: curSvc, pickup, dropoff,
-      date: date||'—', time: `${hour}:${min} ${ampm}`, vehicle: veh,
-      flight: flight||'—', source: 'Booking Page',
-      dropoff: [dropoff, stops.length ? 'Stops: '+stops.join(' → ') : '', msg].filter(Boolean).join('\n')
+      from_name: name,
+      from_email: email || 'no-email@provided.com',
+      reply_to: email || '',
+      name, phone, email: email||'—',
+      service: curSvc, vehicle: veh, passengers: pax||'—',
+      pickup: pickup||'—', dropoff: dropoff||'—', stops: stopsStr,
+      date: date||'—', time: `${hour}:${min} ${ampm}`,
+      flight: flight||'—', message: msg||'—',
+      source: 'Booking Page',
+      full_summary: fullSummary
     });
     succ.textContent='Request received! We\'ll confirm your ride within 5 minutes. ✅';succ.classList.add('show');document.getElementById('moovsLink').style.display='block';
   }catch{

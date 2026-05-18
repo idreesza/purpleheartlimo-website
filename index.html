@@ -2868,13 +2868,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('input[type="date"]').forEach(el => el.min = today);
   // Init Nominatim autocomplete on all address fields
   ['pickup-input','dropoff-input','cf-pickup','cf-dropoff','es-pickup','es-dropoff'].forEach(initNominatimAutocomplete);
-  // Show discount cloud after 8 seconds (once per session)
-  setTimeout(() => {
-    if (!sessionStorage.getItem('discountShown')) {
-      sessionStorage.setItem('discountShown', '1');
-      openCloud();
-    }
-  }, 8000);
+  // Discount cloud does not auto-open — users can click the side tab if they want it.
 });
 </script>
 
