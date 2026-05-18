@@ -208,8 +208,9 @@ a { text-decoration:none; color:inherit; }
 .hero::before {
   content:'';
   position:absolute; inset:0;
-  background: radial-gradient(ellipse 55% 65% at 75% 35%, rgba(138,43,226,0.07) 0%, transparent 65%),
-              radial-gradient(ellipse 35% 45% at 10% 80%, rgba(138,43,226,0.04) 0%, transparent 55%);
+  background: radial-gradient(ellipse 60% 70% at 78% 45%, rgba(107,143,191,0.32) 0%, rgba(107,143,191,0.12) 45%, transparent 70%),
+              radial-gradient(ellipse 45% 55% at 18% 35%, rgba(107,143,191,0.18) 0%, transparent 60%),
+              radial-gradient(ellipse 35% 45% at 10% 85%, rgba(138,43,226,0.04) 0%, transparent 55%);
 }
 .hero-inner {
   max-width:1300px; margin:0 auto; width:100%;
@@ -244,7 +245,7 @@ a { text-decoration:none; color:inherit; }
   padding:32px;
   box-shadow: 0 20px 60px rgba(0,0,0,0.3);
 }
-.booking-card h3 { font-size:1.4rem; color:var(--purple); margin-bottom:6px; font-weight:400; }
+.booking-card h3 { font-size:1.95rem; color:var(--purple); margin-bottom:8px; font-weight:800; letter-spacing:-0.01em; font-family:'Urbanist','Inter',sans-serif; }
 .booking-card p { font-size:0.78rem; color:var(--gray); margin-bottom:22px; }
 .trip-tabs { display:flex; background:var(--gray-light); border-radius:10px; padding:4px; gap:4px; margin-bottom:20px; }
 .trip-tab {
@@ -798,7 +799,7 @@ footer {
   .hero-badge { align-self:center; }
   /* Quote card tighter on mobile */
   .booking-card { padding:20px 16px; }
-  .booking-card h3 { font-size:1.2rem; }
+  .booking-card h3 { font-size:1.55rem; }
   .trip-tabs { overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; gap:6px; scrollbar-width:none; }
   .trip-tabs::-webkit-scrollbar { display:none; }
   .trip-tab { flex:0 0 auto; padding:8px 14px; font-size:0.7rem; white-space:nowrap; }
@@ -852,6 +853,7 @@ footer {
     emailjs.init({ publicKey: EJS_PUB });
   })();
 </script>
+  <link rel="stylesheet" href="/css/global.css">
 </head>
 <body>
 
@@ -866,17 +868,17 @@ footer {
   </a>
 
   <ul class="nav-links">
+    <li><a href="/">Home</a></li>
     <li class="dropdown">
       <a href="/services.html">Services ▾</a>
       <div class="dropdown-menu">
+        <a href="/services.html#sports">🏈 Game Day & Sports</a>
         <a href="/services.html#airport">✈️ Airport Transfer</a>
-        <a href="/services.html#wedding">💍 Wedding Limo</a>
+        <a href="/services.html#weddings">💍 Wedding Limo</a>
         <a href="/services.html#corporate">💼 Corporate Travel</a>
-        <a href="/services.html#prom">🎓 Prom & Graduation</a>
+        <a href="/services.html#events">🎓 Prom & Graduation</a>
         <a href="/services.html#nightout">🥂 Night Out & Party</a>
-        <a href="/services.html#hourly">🕐 Hourly Service</a>
-        <a href="/services.html#quinceaneara">🌹 Quinceañera</a>
-        <a href="/services.html#worldcup">⚽ World Cup 2026</a>
+        <a href="/services.html#charter">🕐 Hourly Service</a>
       </div>
     </li>
     <li><a href="/fleet.html">Our Fleet</a></li>
@@ -898,9 +900,10 @@ footer {
 
 <!-- Mobile menu -->
 <div id="mobile-menu" style="display:none;position:fixed;top:72px;left:0;right:0;background:white;z-index:999;padding:20px;box-shadow:var(--shadow-lg);border-bottom:2px solid var(--gray-light);">
+  <a href="/" style="display:block;padding:12px;font-size:0.9rem;color:#0a0a0a;border-bottom:1px solid #F2EFE8;">🏠 Home</a>
   <a href="/services.html" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">Services</a>
   <a href="/services.html#airport" style="display:block;padding:12px 12px 12px 24px;font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--gray-light);">✈️ Airport Transfer</a>
-  <a href="/services.html#wedding" style="display:block;padding:12px 12px 12px 24px;font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--gray-light);">💍 Wedding Limo</a>
+  <a href="/services.html#weddings" style="display:block;padding:12px 12px 12px 24px;font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--gray-light);">💍 Wedding Limo</a>
   <a href="/services.html#corporate" style="display:block;padding:12px 12px 12px 24px;font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--gray-light);">💼 Corporate Travel</a>
   <a href="/fleet.html" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">🚗 Our Fleet</a>
   <a href="/flight-tracker.html" style="display:block;padding:12px;font-size:0.9rem;color:#C9A84C;font-weight:700;border-bottom:1px solid var(--gray-light);">✈ Flight Tracker</a>

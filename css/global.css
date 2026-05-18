@@ -1,0 +1,10 @@
+/* Global brand overrides - applied site-wide */
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&display=swap');
+
+.nav-logo-text {
+  font-family: 'Urbanist', 'Inter', sans-serif !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  font-weight: 800 !important;
+  font-size: 1.05rem !important;
+}
