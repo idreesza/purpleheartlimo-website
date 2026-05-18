@@ -449,12 +449,15 @@ function toggleMenu(){const m=document.getElementById('mobile-menu');m.style.dis
 
 // Vehicle data
 const VEHICLES=[
-  {id:'sedan',name:'Executive Sedan',desc:'Solo & business travel',pax:3,lug:2,imgairport:85,imgoneway:75,imghourly:75,img:'images/sedan.webp',note:''},
-  {id:'suv',name:'Luxury SUV',desc:'Small groups & families',pax:6,lug:4,imgairport:110,imgoneway:95,imghourly:95,img:'images/suv.webp',note:''},
-  {id:'stretch',name:'Stretch Limousine',desc:'Weddings & celebrations',pax:10,lug:4,imgairport:150,imgoneway:130,imghourly:120,img:'images/stretched limo.webp',note:'Most Popular'},
-  {id:'sprinter',name:'Executive Sprinter',desc:'Groups up to 14',pax:14,lug:10,imgairport:175,imgoneway:150,imghourly:140,img:'images/sprinter.webp',note:''},
-  {id:'partybus',name:'Luxury Party Bus',desc:'Large groups & events',pax:24,lug:8,imgairport:275,imgoneway:225,imghourly:195,img:'images/24 pax.webp',note:''},
-  {id:'jet',name:'Sprinter Jet',desc:'Premium group travel',pax:14,lug:10,imgairport:225,imgoneway:190,imghourly:165,img:'images/sprinter jet.webp',note:'Premium'}
+  {id:'sedan',name:'Executive Sedan',desc:'Cadillac CTS — solo & business travel',pax:3,lug:2,imgairport:129,imgoneway:129,imghourly:119,img:'images/sedan-cadillac.png',note:''},
+  {id:'luxsedan',name:'Luxury Sedan',desc:'Mercedes S-Class — premium business class',pax:2,lug:2,imgairport:269,imgoneway:229,imghourly:229,img:'images/sclass.png',note:'Premium'},
+  {id:'execsuv',name:'Executive SUV',desc:'GMC Yukon Denali — small groups & families',pax:6,lug:6,imgairport:159,imgoneway:149,imghourly:149,img:'images/suv-yukon.png',note:''},
+  {id:'suv',name:'Luxury SUV',desc:'Cadillac Escalade — luxury group travel',pax:6,lug:4,imgairport:189,imgoneway:179,imghourly:179,img:'images/luxsuv-escalade.png',note:''},
+  {id:'stretch',name:'Stretch Limousine',desc:'Lincoln Town Car stretch — weddings & celebrations',pax:10,lug:4,imgairport:179,imgoneway:169,imghourly:169,img:'images/stretch-towncar.png',note:'Most Popular',minHrs:true},
+  {id:'stretchsuv',name:'Stretched SUV',desc:'Lincoln Navigator stretch — large luxury groups',pax:10,lug:6,imgairport:279,imgoneway:279,imghourly:279,img:'images/stretch-navigator.png',note:'',minHrs:true},
+  {id:'sprinter',name:'Executive Sprinter',desc:'Mercedes Sprinter — groups up to 14',pax:14,lug:10,imgairport:179,imgoneway:159,imghourly:159,img:'images/sprinter-new.png',note:'',minHrs:true},
+  {id:'partybus',name:'Luxury Party Bus',desc:'Large groups & events',pax:24,lug:8,imgairport:275,imgoneway:225,imghourly:195,img:'images/24 pax.webp',note:'',minHrs:true},
+  {id:'jet',name:'Sprinter Jet',desc:'Premium group travel',pax:14,lug:10,imgairport:225,imgoneway:190,imghourly:165,img:'images/sprinter jet.webp',note:'Premium',minHrs:true}
 ];
 
 let curSvc='airport';
@@ -479,6 +482,7 @@ function renderVehicles(){
           <div><div class="veh-price">From $${getPrice(v)}</div><div class="veh-price-sub">flat rate</div></div>
           ${v.note?`<span style="background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);color:#C9A84C;padding:3px 8px;border-radius:50px;font-size:0.65rem;font-weight:700;">${v.note}</span>`:''}
         </div>
+        ${v.minHrs?`<div style="margin-top:8px;font-size:0.68rem;color:#8a8a8a;font-style:italic;display:flex;align-items:center;gap:4px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Minimum hours may apply</div>`:''}
       </div>
     </div>`).join('');
 }
