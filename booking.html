@@ -88,6 +88,31 @@ body { background: var(--bg); color: var(--text-c); }
 .search-row > .sf:first-child { border-top-left-radius: 11px; border-bottom-left-radius: 11px; }
 .search-row > .search-btn { border-top-right-radius: 11px; border-bottom-right-radius: 11px; }
 .sf select { width: 100%; background: none; border: none; outline: none; color: var(--text-c); font-family:'Inter',sans-serif; font-size: 0.86rem; padding: 3px 14px 10px; cursor: pointer; appearance:none; -webkit-appearance:none; -moz-appearance:none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none'><path d='M1 1l4 4 4-4' stroke='%23C9A84C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>"); background-repeat:no-repeat; background-position: right 10px center; padding-right: 24px; }
+
+/* Custom dropdown (works inside iframes / canvases) */
+.cdd { position: relative; cursor: pointer; padding: 3px 24px 10px 14px; font-size: 0.86rem; color: var(--text-c); user-select: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none'><path d='M1 1l4 4 4-4' stroke='%23C9A84C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>"); background-repeat:no-repeat; background-position: right 10px center; min-height: 22px; }
+.cdd-placeholder { color: #aaa; }
+.cdd-list { position: absolute; top: calc(100% + 2px); left: 0; right: 0; background: #fff; border: 1.5px solid var(--border-c); border-radius: 10px; z-index: 10000; max-height: 240px; overflow-y: auto; display: none; box-shadow: 0 8px 32px rgba(45,0,69,0.16); min-width: 80px; }
+.cdd.open .cdd-list { display: block; }
+.cdd-opt { padding: 9px 14px; font-size: 0.84rem; color: var(--text-c); transition: background 0.12s; }
+.cdd-opt:hover, .cdd-opt.sel { background: var(--pk-dim); color: var(--pk); font-weight: 600; }
+
+/* Custom date picker */
+.cdate { position: relative; cursor: pointer; padding: 3px 14px 10px; font-size: 0.86rem; color: var(--text-c); user-select: none; min-height: 22px; }
+.cdate-placeholder { color: #aaa; }
+.cdate-panel { position: absolute; top: calc(100% + 2px); left: 0; background: #fff; border: 1.5px solid var(--border-c); border-radius: 12px; z-index: 10000; padding: 14px; display: none; box-shadow: 0 12px 36px rgba(45,0,69,0.18); width: 280px; }
+.cdate.open .cdate-panel { display: block; }
+.cdate-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; font-weight: 600; color: var(--text-c); font-size: 0.9rem; }
+.cdate-nav { width: 28px; height: 28px; border-radius: 50%; border: none; background: var(--bg2); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--pk); transition: background 0.15s; }
+.cdate-nav:hover { background: var(--pk-dim); }
+.cdate-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; }
+.cdate-dow { font-size: 0.62rem; font-weight: 700; color: var(--gray-c); text-align: center; padding: 4px 0; letter-spacing: 0.05em; }
+.cdate-day { text-align: center; padding: 7px 0; font-size: 0.8rem; cursor: pointer; border-radius: 6px; color: var(--text-c); transition: all 0.12s; }
+.cdate-day.muted { color: #d4d4d4; cursor: default; }
+.cdate-day:not(.muted):hover { background: var(--pk-dim); color: var(--pk); }
+.cdate-day.today { font-weight: 700; color: var(--pk); }
+.cdate-day.sel { background: var(--pk); color: #0a0a0a; font-weight: 700; }
+.cdate-day.disabled { color: #d4d4d4; cursor: not-allowed; }
 .sf { position: relative; border-right: 1px solid var(--border-c); }
 .sf:last-child { border-right: none; }
 .sf label { display: block; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--pk); padding: 10px 14px 0; }
@@ -327,29 +352,35 @@ body { background: var(--bg); color: var(--text-c); }
         </div>
         <div class="sf">
           <label>Date</label>
-          <input type="date" id="dateInput">
+          <div class="cdate" id="dateCdd" data-value="">
+            <span class="cdate-placeholder" id="dateCddLabel">mm/dd/yyyy</span>
+            <input type="hidden" id="dateInput">
+            <div class="cdate-panel" id="dateCddPanel"></div>
+          </div>
         </div>
         <div class="sf">
           <label>Hour</label>
-          <select id="timeHour">
-            <option value="">--</option>
-            <option>1</option><option>2</option><option>3</option><option>4</option>
-            <option>5</option><option>6</option><option>7</option><option>8</option>
-            <option>9</option><option>10</option><option>11</option><option>12</option>
-          </select>
+          <div class="cdd" id="hourCdd" data-value="">
+            <span class="cdd-placeholder" id="hourCddLabel">--</span>
+            <input type="hidden" id="timeHour">
+            <div class="cdd-list"></div>
+          </div>
         </div>
         <div class="sf">
           <label>Min</label>
-          <select id="timeMin">
-            <option value="">--</option>
-            <option>00</option><option>15</option><option>30</option><option>45</option>
-          </select>
+          <div class="cdd" id="minCdd" data-value="">
+            <span class="cdd-placeholder" id="minCddLabel">--</span>
+            <input type="hidden" id="timeMin">
+            <div class="cdd-list"></div>
+          </div>
         </div>
         <div class="sf">
           <label>AM/PM</label>
-          <select id="timeAmpm">
-            <option>AM</option><option>PM</option>
-          </select>
+          <div class="cdd" id="ampmCdd" data-value="AM">
+            <span id="ampmCddLabel">AM</span>
+            <input type="hidden" id="timeAmpm" value="AM">
+            <div class="cdd-list"></div>
+          </div>
         </div>
         <button class="search-btn" id="searchBtn" onclick="scrollToVehicles()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -392,12 +423,11 @@ body { background: var(--bg); color: var(--text-c); }
       <div class="fg"><label>Phone <span style="color:var(--pk)">*</span></label><input type="tel" id="fphone" placeholder="(555) 000-0000" autocomplete="tel"></div>
       <div class="fg">
         <label>Passengers</label>
-        <select id="fpax">
-          <option value="">Select…</option>
-          <option>1</option><option>2</option><option>3</option><option>4</option>
-          <option>5</option><option>6</option><option>7–10</option>
-          <option>11–14</option><option>15–24</option><option>25+</option>
-        </select>
+        <div class="cdd" id="paxCdd" data-value="" style="background:var(--bg2);border:1.5px solid var(--border-c);border-radius:8px;padding:11px 32px 11px 14px;">
+          <span class="cdd-placeholder" id="paxCddLabel">Select…</span>
+          <input type="hidden" id="fpax">
+          <div class="cdd-list"></div>
+        </div>
       </div>
       <div class="fg"><label>Email <span class="opt-label">(optional)</span></label><input type="email" id="femail" placeholder="you@email.com" autocomplete="email"></div>
     </div>
@@ -776,7 +806,98 @@ async function submitBooking(){
 
 // Init
 renderVehicles();
-document.getElementById('dateInput').min=new Date().toISOString().split('T')[0];
+
+// Custom dropdown wiring
+function setupCdd(id, options, placeholder){
+  const root = document.getElementById(id);
+  const labelEl = root.querySelector('span');
+  const input = root.querySelector('input');
+  const list = root.querySelector('.cdd-list');
+  list.innerHTML = options.map(o=>`<div class="cdd-opt" data-v="${o}">${o}</div>`).join('');
+  root.addEventListener('click', e=>{
+    e.stopPropagation();
+    document.querySelectorAll('.cdd.open, .cdate.open').forEach(el=>{ if(el!==root) el.classList.remove('open'); });
+    root.classList.toggle('open');
+  });
+  list.addEventListener('click', e=>{
+    const o = e.target.closest('.cdd-opt'); if(!o) return;
+    e.stopPropagation();
+    const v = o.dataset.v;
+    input.value = v;
+    labelEl.textContent = v;
+    labelEl.classList.remove('cdd-placeholder');
+    root.dataset.value = v;
+    list.querySelectorAll('.cdd-opt').forEach(x=>x.classList.toggle('sel', x.dataset.v===v));
+    root.classList.remove('open');
+  });
+}
+setupCdd('hourCdd', ['1','2','3','4','5','6','7','8','9','10','11','12'], '--');
+setupCdd('minCdd', ['00','15','30','45'], '--');
+setupCdd('ampmCdd', ['AM','PM'], 'AM');
+setupCdd('paxCdd', ['1','2','3','4','5','6','7–10','11–14','15–24','25+'], 'Select…');
+
+// Custom date picker
+const dateCdd = document.getElementById('dateCdd');
+const dateLabel = document.getElementById('dateCddLabel');
+const dateInput = document.getElementById('dateInput');
+const datePanel = document.getElementById('dateCddPanel');
+const today = new Date(); today.setHours(0,0,0,0);
+let dateView = new Date(today.getFullYear(), today.getMonth(), 1);
+let dateSel = null;
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DOW = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+function renderDatePanel(){
+  const y = dateView.getFullYear(), m = dateView.getMonth();
+  const first = new Date(y,m,1).getDay();
+  const daysInMonth = new Date(y,m+1,0).getDate();
+  let html = `<div class="cdate-head">
+    <button class="cdate-nav" type="button" data-nav="-1">‹</button>
+    <span>${MONTHS[m]} ${y}</span>
+    <button class="cdate-nav" type="button" data-nav="1">›</button>
+  </div><div class="cdate-grid">`;
+  DOW.forEach(d=> html += `<div class="cdate-dow">${d}</div>`);
+  for(let i=0;i<first;i++) html += `<div class="cdate-day muted"></div>`;
+  for(let d=1; d<=daysInMonth; d++){
+    const dt = new Date(y,m,d);
+    const isPast = dt < today;
+    const isToday = dt.getTime()===today.getTime();
+    const isSel = dateSel && dt.getTime()===dateSel.getTime();
+    const cls = ['cdate-day'];
+    if(isPast) cls.push('disabled');
+    if(isToday) cls.push('today');
+    if(isSel) cls.push('sel');
+    html += `<div class="${cls.join(' ')}" data-day="${d}">${d}</div>`;
+  }
+  html += `</div>`;
+  datePanel.innerHTML = html;
+}
+dateCdd.addEventListener('click', e=>{
+  e.stopPropagation();
+  document.querySelectorAll('.cdd.open, .cdate.open').forEach(el=>{ if(el!==dateCdd) el.classList.remove('open'); });
+  dateCdd.classList.toggle('open');
+  if(dateCdd.classList.contains('open')) renderDatePanel();
+});
+datePanel.addEventListener('click', e=>{
+  e.stopPropagation();
+  const nav = e.target.closest('[data-nav]');
+  if(nav){ dateView.setMonth(dateView.getMonth()+parseInt(nav.dataset.nav)); renderDatePanel(); return; }
+  const day = e.target.closest('.cdate-day');
+  if(!day || day.classList.contains('muted') || day.classList.contains('disabled')) return;
+  const d = parseInt(day.dataset.day);
+  dateSel = new Date(dateView.getFullYear(), dateView.getMonth(), d);
+  const yy = dateSel.getFullYear();
+  const mm = String(dateSel.getMonth()+1).padStart(2,'0');
+  const dd = String(dateSel.getDate()).padStart(2,'0');
+  dateInput.value = `${yy}-${mm}-${dd}`;
+  dateLabel.textContent = `${mm}/${dd}/${yy}`;
+  dateLabel.classList.remove('cdate-placeholder');
+  dateCdd.classList.remove('open');
+});
+
+// Close dropdowns on outside click
+document.addEventListener('click', ()=>{
+  document.querySelectorAll('.cdd.open, .cdate.open').forEach(el=>el.classList.remove('open'));
+});
 
 // Hero car carousel
 let carIdx=0;
