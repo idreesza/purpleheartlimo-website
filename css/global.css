@@ -1,10 +1,66 @@
 /* Global brand overrides - applied site-wide */
-@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&family=Cinzel:wght@500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
+/* === Company wordmark === */
 .nav-logo-text {
-  font-family: 'Urbanist', 'Inter', sans-serif !important;
+  font-family: 'Cinzel', 'Playfair Display', serif !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.06em !important;
-  font-weight: 800 !important;
+  letter-spacing: 0.14em !important;
+  font-weight: 600 !important;
   font-size: 1.05rem !important;
+  color: #0a0a0a !important;
+}
+
+/* === Top nav: pill-shaped buttons === */
+.nav-links { gap: 8px !important; }
+.nav-links > li > a {
+  background: #fff !important;
+  border: 1.5px solid rgba(201,168,76,0.35) !important;
+  border-radius: 50px !important;
+  padding: 8px 18px !important;
+  font-family: 'Poppins', 'Inter', sans-serif !important;
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  color: #0a0a0a !important;
+  letter-spacing: 0.02em !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 1px 4px rgba(45,0,69,0.04) !important;
+}
+.nav-links > li > a:hover {
+  background: linear-gradient(135deg, #C9A84C, #E2C36A) !important;
+  border-color: #C9A84C !important;
+  color: #0a0a0a !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 14px rgba(201,168,76,0.35) !important;
+}
+.nav-links > li > a::after { display: none !important; }
+
+/* === Header phone → "Call" button === */
+.nav-phone {
+  background: linear-gradient(135deg, #C9A84C, #E2C36A) !important;
+  color: #0a0a0a !important;
+  border-radius: 50px !important;
+  padding: 9px 22px !important;
+  font-family: 'Poppins','Inter',sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 0.82rem !important;
+  letter-spacing: 0.04em !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  box-shadow: 0 4px 14px rgba(201,168,76,0.35) !important;
+  transition: all 0.2s ease !important;
+  text-decoration: none !important;
+  font-size: 0 !important; /* hide the long phone number text */
+}
+.nav-phone::before {
+  content: '📞 Call' !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+}
+.nav-phone:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 20px rgba(201,168,76,0.5) !important;
+  filter: brightness(1.05) !important;
 }
