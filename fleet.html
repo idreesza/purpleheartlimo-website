@@ -45,8 +45,9 @@
     .btn-outline-gold:hover { background: #C9A84C; color: #0a0a0a; }
 
     .fleet-arrows { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: #fff; border-top: 1.5px solid rgba(45,0,69,0.06); }
-    .fleet-arrow { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid rgba(45,0,69,0.12); background: none; color: #0a0a0a; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
-    .fleet-arrow:hover { border-color: #C9A84C; color: #C9A84C; }
+    .fleet-arrow { min-width: 64px; height: 44px; padding: 0 22px; border-radius: 50px; border: none; background: linear-gradient(135deg, #C9A84C, #E2C36A); color: #0a0a0a; font-size: 1.5rem; font-weight: 900; line-height: 1; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; box-shadow: 0 4px 14px rgba(201,168,76,0.4); letter-spacing: 0; }
+    .fleet-arrow:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(201,168,76,0.55); filter: brightness(1.06); }
+    .fleet-arrow:active { transform: translateY(0); }
     .fleet-counter { color: #8a8a8a; font-size: 0.85rem; letter-spacing: 1px; }
     .fleet-dots { display: flex; gap: 8px; }
     .fleet-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(45,0,69,0.15); cursor: pointer; transition: all 0.25s; }
@@ -300,7 +301,7 @@
     <button class="fleet-arrow" id="fleetPrev">←</button>
     <div style="display:flex;align-items:center;gap:24px;">
       <div class="fleet-dots" id="fleetDots"></div>
-      <span class="fleet-counter" id="fleetCounter">1 / 6</span>
+      <span class="fleet-counter" id="fleetCounter">1 / 9</span>
     </div>
     <button class="fleet-arrow" id="fleetNext">→</button>
   </div>
