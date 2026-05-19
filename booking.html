@@ -46,7 +46,9 @@ body { background: var(--bg); color: var(--text-c); }
 .car-nav:hover { background:#fff; transform:translateY(-50%) scale(1.08); }
 .car-nav.prev { left:14px; }
 .car-nav.next { right:14px; }
-.car-nav { display:none !important; }
+.fg.field-warn input, .fg.field-warn textarea, .fg.field-warn .cdd, .fg.field-warn .cdate { border-color:#dc2626 !important; box-shadow:0 0 0 3px rgba(220,38,38,0.12) !important; }
+.fg.field-warn label { color:#dc2626; }
+.field-warn-msg { color:#dc2626; font-size:0.72rem; margin-top:4px; font-weight:600; }
 .car-dots { display:flex; justify-content:center; gap:7px; margin-top:14px; }
 .car-dot { width:8px; height:8px; border-radius:50%; background:rgba(45,70,120,0.25); border:none; cursor:pointer; padding:0; transition:all 0.2s; }
 .car-dot.active { background:var(--pk); width:22px; border-radius:5px; }
@@ -365,6 +367,12 @@ body { background: var(--bg); color: var(--text-c); }
    <div class="hero-right">
      <div class="car-carousel" id="carCarousel">
        <div class="car-track" id="carTrack"></div>
+       <button class="car-nav prev" onclick="carSlide(-1)" aria-label="Previous vehicle">
+         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+       </button>
+       <button class="car-nav next" onclick="carSlide(1)" aria-label="Next vehicle">
+         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+       </button>
        <div class="car-caption" id="carCaption">Executive Sedan</div>
      </div>
      <div class="car-dots" id="carDots"></div>
@@ -516,6 +524,7 @@ body { background: var(--bg); color: var(--text-c); }
       <p>Please review the details below. Final pricing is confirmed by our representative.</p>
     </div>
     <div class="modal-body">
+      <div id="mdlMissingWarn" style="display:none; background:#fef2f2; border:1.5px solid #dc2626; color:#991b1b; padding:10px 14px; border-radius:10px; font-size:0.82rem; margin-bottom:14px; line-height:1.45;"></div>
       <div class="modal-section">
         <div class="modal-est">
           <div class="est-num" id="mdlPrice">$—</div>
@@ -949,13 +958,30 @@ function openEstimateModal(){
   const err=document.getElementById('alertError');
   const succ=document.getElementById('alertSuccess');
   [succ,err].forEach(e=>{e.classList.remove('show');e.textContent='';});
-  if(!selVeh){err.textContent='Please select a vehicle first.';err.classList.add('show');return;}
-  if(!name||!phone){err.textContent='Please provide your name and phone number.';err.classList.add('show');return;}
+  // Clear previous warnings
+  document.querySelectorAll('.fg.field-warn').forEach(el=>el.classList.remove('field-warn'));
+  // Vehicle is the only hard requirement
+  if(!selVeh){err.textContent='Please select a vehicle first.';err.classList.add('show');document.getElementById('vehicleSection').scrollIntoView({behavior:'smooth',block:'start'});return;}
+  // Soft-warn missing fields (red highlight, still allow submit)
+  const warnIfEmpty=(elId,val)=>{ if(!val){ const el=document.getElementById(elId); if(el) el.closest('.fg')?.classList.add('field-warn'); return true; } return false; };
   const pickup=document.getElementById('pickupInput').value.trim();
-  if(!pickup){err.textContent='Please enter your pickup location.';err.classList.add('show');return;}
   const dropoffRaw = curSvc==='hourly' ? '' : document.getElementById('dropoffInput').value.trim();
-  if(curSvc!=='hourly' && !dropoffRaw){err.textContent='Please enter your drop-off location.';err.classList.add('show');return;}
+  const missing=[];
+  if(warnIfEmpty('fname',name)) missing.push('Name');
+  if(warnIfEmpty('fphone',phone)) missing.push('Phone');
+  if(warnIfEmpty('pickupInput',pickup)) missing.push('Pickup');
+  if(curSvc!=='hourly' && warnIfEmpty('dropoffInput',dropoffRaw)) missing.push('Drop-off');
   const dropoff = curSvc==='hourly' ? '(Hourly — see stops)' : dropoffRaw;
+  // Show banner warning in modal if any are missing (but proceed)
+  const warnBanner = document.getElementById('mdlMissingWarn');
+  if(warnBanner){
+    if(missing.length){
+      warnBanner.style.display='block';
+      warnBanner.innerHTML = `⚠ Missing: <strong>${missing.join(', ')}</strong>. You can still submit — our representative will reach out to gather these details.`;
+    } else {
+      warnBanner.style.display='none';
+    }
+  }
   const hour=document.getElementById('timeHour').value||'--';
   const min=document.getElementById('timeMin').value||'--';
   const ampm=document.getElementById('timeAmpm').value||'AM';
@@ -965,12 +991,12 @@ function openEstimateModal(){
   const svcLabels={airport:'✈ Airport Transfer', oneway:'📍 Point to Point', hourly:'⏱ Hourly'};
   document.getElementById('mdlSvc').textContent = svcLabels[curSvc]||curSvc;
   document.getElementById('mdlVeh').textContent = veh.name;
-  document.getElementById('mdlPickup').textContent = pickup;
+  document.getElementById('mdlPickup').textContent = pickup||'—';
   document.getElementById('mdlDropoff').textContent = dropoff||'—';
   document.getElementById('mdlWhen').textContent = `${date} · ${hour}:${min} ${ampm}`;
   document.getElementById('mdlPax').textContent = pax;
-  document.getElementById('mdlName').textContent = name;
-  document.getElementById('mdlPhone').textContent = phone;
+  document.getElementById('mdlName').textContent = name||'—';
+  document.getElementById('mdlPhone').textContent = phone||'—';
   if(_lastEstimate){
     document.getElementById('mdlPrice').textContent = `$${_lastEstimate.total}`;
     document.getElementById('mdlPriceSub').innerHTML = `${_lastEstimate.breakdown}<br><span style="opacity:0.75;">* Average estimate. Final price confirmed by our representative.</span>`;
