@@ -32,20 +32,47 @@ body { background: var(--bg); color: var(--text-c); }
 /* Booking hero */
 .booking-hero { padding: 110px 5% 40px; background: linear-gradient(135deg, #EEF2F7 0%, #F4F6F8 45%, #E8EEF5 100%); position:relative; overflow:hidden; }
 .booking-hero::before { content:''; position:absolute; top:-15%; right:-10%; width:55%; height:90%; background: radial-gradient(circle, rgba(107,143,191,0.28) 0%, rgba(107,143,191,0.10) 45%, transparent 75%); pointer-events:none; z-index:0; }
-.hero-inner { max-width: 1300px; margin: 0 auto; padding: 1rem 0 0; position: relative; z-index: 1; display:grid; grid-template-columns: 1.15fr 1fr; gap:48px; align-items:center; text-align:left; }
+.hero-inner { max-width: 1300px; margin: 0 auto; padding: 1rem 0 0; position: relative; z-index: 1; display:grid; grid-template-columns: 1fr 1.1fr; gap:48px; align-items:center; text-align:left; }
 .hero-left { min-width:0; }
-.hero-right { display:flex; flex-direction:column; gap:18px; align-items:center; }
-.hero-car-img { width:100%; max-width:520px; border-radius:18px; box-shadow: 0 24px 60px rgba(45,70,120,0.18); }
-.mini-stats { display:grid; grid-template-columns:1fr 1fr; gap:14px; width:100%; max-width:520px; }
-.mini-stat-card { background:#fff; border-radius:16px; padding:18px 20px; box-shadow:0 4px 18px rgba(45,70,120,0.08); display:flex; align-items:center; gap:14px; }
-.mini-stat-icon { width:44px; height:44px; border-radius:50%; background: linear-gradient(135deg, #E8EEF5, #DCE5F0); display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0; }
-.mini-stat-val { font-family:'Urbanist','Inter',sans-serif; font-weight:800; font-size:1.1rem; color:#0a0a0a; line-height:1.1; }
-.mini-stat-lbl { font-size:0.7rem; color:#6a6a6a; letter-spacing:0.04em; margin-top:2px; }
+.hero-right { display:flex; flex-direction:column; gap:18px; align-items:center; min-width:0; }
+
+/* Car carousel */
+.car-carousel { position:relative; width:100%; max-width:560px; border-radius:18px; overflow:hidden; box-shadow:0 24px 60px rgba(45,70,120,0.18); background:#fff; }
+.car-track { display:flex; transition:transform 0.5s cubic-bezier(0.4,0,0.2,1); }
+.car-slide { min-width:100%; aspect-ratio:16/10; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#EEF2F7,#F4F6F8); }
+.car-slide img { width:100%; height:100%; object-fit:cover; }
+.car-caption { position:absolute; bottom:14px; left:50%; transform:translateX(-50%); background:rgba(255,255,255,0.92); backdrop-filter:blur(6px); padding:6px 16px; border-radius:50px; font-size:0.78rem; font-weight:600; color:#0a0a0a; box-shadow:0 4px 14px rgba(45,70,120,0.15); white-space:nowrap; }
+.car-nav { position:absolute; top:50%; transform:translateY(-50%); width:42px; height:42px; border-radius:50%; background:rgba(255,255,255,0.95); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 16px rgba(45,70,120,0.2); color:#0a0a0a; transition:all 0.2s; z-index:5; }
+.car-nav:hover { background:#fff; transform:translateY(-50%) scale(1.08); }
+.car-nav.prev { left:14px; }
+.car-nav.next { right:14px; }
+.car-dots { display:flex; justify-content:center; gap:7px; margin-top:14px; }
+.car-dot { width:8px; height:8px; border-radius:50%; background:rgba(45,70,120,0.25); border:none; cursor:pointer; padding:0; transition:all 0.2s; }
+.car-dot.active { background:var(--pk); width:22px; border-radius:5px; }
+
+/* Mini stats — horizontal row of 4 */
+.mini-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; width:100%; margin-top:22px; }
+.mini-stat-card { background:#fff; border-radius:14px; padding:14px 10px; box-shadow:0 4px 18px rgba(45,70,120,0.08); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; text-align:center; }
+.mini-stat-icon { width:38px; height:38px; border-radius:50%; background: linear-gradient(135deg, #E8EEF5, #DCE5F0); display:flex; align-items:center; justify-content:center; font-size:1.15rem; flex-shrink:0; }
+.mini-stat-val { font-family:'Urbanist','Inter',sans-serif; font-weight:800; font-size:0.92rem; color:#0a0a0a; line-height:1.1; }
+.mini-stat-lbl { font-size:0.62rem; color:#6a6a6a; letter-spacing:0.03em; line-height:1.2; }
 @media (max-width: 980px) {
   .hero-inner { grid-template-columns: 1fr; text-align:center; gap:32px; }
   .hero-right { order:-1; }
-  .mini-stats { max-width:100%; }
+  .mini-stats { grid-template-columns:repeat(2,1fr); }
 }
+
+/* Below-hero form section */
+.below-hero { max-width:1300px; margin:0 auto; padding:1.5rem 5% 0; }
+.below-hero .search-widget { margin-bottom:18px; }
+.details-horizontal { max-width:1300px; margin:1rem auto 0; padding:0 5%; }
+.details-horizontal .details-card { padding:24px 28px; }
+.details-horizontal .form-row { grid-template-columns:1fr 1fr 1fr 1fr; }
+.details-horizontal .form-row.wide { grid-template-columns:2fr 1fr 1fr 1.4fr; }
+.details-horizontal .form-row.single { grid-template-columns:1fr; }
+.details-horizontal .btn-submit { max-width:560px; margin-left:auto; margin-right:auto; }
+@media(max-width:900px){ .details-horizontal .form-row, .details-horizontal .form-row.wide { grid-template-columns:1fr 1fr; } }
+@media(max-width:580px){ .details-horizontal .form-row, .details-horizontal .form-row.wide { grid-template-columns:1fr; } }
 .eyebrow { display:inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #6B8FBF; margin-bottom: 14px; padding: 6px 14px; background:#fff; border-radius:20px; box-shadow:0 2px 8px rgba(45,70,120,0.08); }
 .booking-hero h1 { font-family: 'Urbanist','Inter',sans-serif; font-size: clamp(2.2rem,5vw,3.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 14px; color: #0a0a0a; letter-spacing:-0.01em; }
 .booking-hero h1 .hl { color: var(--pk); font-style: italic; }
@@ -235,7 +262,48 @@ body { background: var(--bg); color: var(--text-c); }
     <div class="eyebrow">Flat Rates · No Surge · Texan-Owned</div>
     <h1>Book Your <span class="hl">Luxury Ride</span><br>Across Texas</h1>
     <p>Austin · Dallas-Fort Worth · Houston &nbsp;·&nbsp; 24/7 availability &nbsp;·&nbsp; Real-time flight tracking</p>
+    <div class="mini-stats">
+      <div class="mini-stat-card">
+        <div class="mini-stat-icon">⚡</div>
+        <div class="mini-stat-val">5 min</div>
+        <div class="mini-stat-lbl">Confirmation</div>
+      </div>
+      <div class="mini-stat-card">
+        <div class="mini-stat-icon">✈️</div>
+        <div class="mini-stat-val">Free</div>
+        <div class="mini-stat-lbl">Flight tracking</div>
+      </div>
+      <div class="mini-stat-card">
+        <div class="mini-stat-icon">💰</div>
+        <div class="mini-stat-val">Flat rate</div>
+        <div class="mini-stat-lbl">No surge ever</div>
+      </div>
+      <div class="mini-stat-card">
+        <div class="mini-stat-icon">🕐</div>
+        <div class="mini-stat-val">24 / 7</div>
+        <div class="mini-stat-lbl">365 days</div>
+      </div>
+    </div>
+   </div><!-- /.hero-left -->
 
+   <div class="hero-right">
+     <div class="car-carousel" id="carCarousel">
+       <div class="car-track" id="carTrack"></div>
+       <button class="car-nav prev" onclick="carSlide(-1)" aria-label="Previous vehicle">
+         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+       </button>
+       <button class="car-nav next" onclick="carSlide(1)" aria-label="Next vehicle">
+         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+       </button>
+       <div class="car-caption" id="carCaption">Executive Sedan</div>
+     </div>
+     <div class="car-dots" id="carDots"></div>
+   </div>
+  </div>
+</section>
+
+<!-- ===== TRIP SEARCH (full-width, below hero) ===== -->
+<section class="below-hero">
     <div class="search-widget">
       <div class="svc-tabs" id="svcTabs">
         <button class="svc-tab active" data-svc="airport">✈ Airport</button>
@@ -306,58 +374,21 @@ body { background: var(--bg); color: var(--text-c); }
         </button>
       </div>
     </div>
-   </div><!-- /.hero-left -->
-
-   <div class="hero-right">
-     <img src="/images/suv.webp" alt="Purple Heart Limo luxury SUV" class="hero-car-img" loading="eager">
-     <div class="mini-stats">
-       <div class="mini-stat-card">
-         <div class="mini-stat-icon">⚡</div>
-         <div><div class="mini-stat-val">5 min</div><div class="mini-stat-lbl">Confirmation</div></div>
-       </div>
-       <div class="mini-stat-card">
-         <div class="mini-stat-icon">✈️</div>
-         <div><div class="mini-stat-val">Free</div><div class="mini-stat-lbl">Flight tracking</div></div>
-       </div>
-       <div class="mini-stat-card">
-         <div class="mini-stat-icon">💰</div>
-         <div><div class="mini-stat-val">Flat rate</div><div class="mini-stat-lbl">No surge ever</div></div>
-       </div>
-       <div class="mini-stat-card">
-         <div class="mini-stat-icon">🕐</div>
-         <div><div class="mini-stat-val">24 / 7</div><div class="mini-stat-lbl">365 days</div></div>
-       </div>
-     </div>
-   </div>
-  </div>
 </section>
 
-<section class="choose-section" id="vehicleSection">
-  <div class="choose-header">
-    <div>
-      <h2>Choose Your Experience</h2>
-      <p>Select a vehicle — pricing updates automatically with your service type.</p>
-    </div>
-    <div class="price-mode-label" id="priceModeLabel">✈ Airport Pricing</div>
-  </div>
-  <div class="vehicles-grid" id="vehiclesGrid"></div>
-</section>
-
-<div class="details-wrap">
+<!-- ===== YOUR DETAILS (moved up, horizontal layout) ===== -->
+<div class="details-horizontal">
   <div class="details-card">
     <div class="details-head">
       <h2>Your Details</h2>
       <div class="sel-vehicle-display" id="selVehicleDisplay">
         <span class="sel-dot"></span>
-        <span id="selVehicleText">No vehicle selected yet — pick one above</span>
+        <span id="selVehicleText">No vehicle selected yet — pick one below</span>
       </div>
     </div>
-    <div class="form-row">
+    <div class="form-row wide">
       <div class="fg"><label>Full Name <span style="color:var(--pk)">*</span></label><input type="text" id="fname" placeholder="John Smith" autocomplete="name"></div>
       <div class="fg"><label>Phone <span style="color:var(--pk)">*</span></label><input type="tel" id="fphone" placeholder="(555) 000-0000" autocomplete="tel"></div>
-    </div>
-    <div class="form-row">
-      <div class="fg"><label>Email <span class="opt-label">(optional)</span></label><input type="email" id="femail" placeholder="you@email.com" autocomplete="email"></div>
       <div class="fg">
         <label>Passengers</label>
         <select id="fpax">
@@ -367,6 +398,7 @@ body { background: var(--bg); color: var(--text-c); }
           <option>11–14</option><option>15–24</option><option>25+</option>
         </select>
       </div>
+      <div class="fg"><label>Email <span class="opt-label">(optional)</span></label><input type="email" id="femail" placeholder="you@email.com" autocomplete="email"></div>
     </div>
     <div class="form-row single">
       <div class="fg"><label>Special Requests <span class="opt-label">(optional)</span></label><textarea id="fmessage" placeholder="Decorations, stops, accessibility needs, anything else…"></textarea></div>
@@ -379,6 +411,17 @@ body { background: var(--bg); color: var(--text-c); }
     </div>
   </div>
 </div>
+
+<section class="choose-section" id="vehicleSection">
+  <div class="choose-header">
+    <div>
+      <h2>Choose Your Experience</h2>
+      <p>Select a vehicle — pricing updates automatically with your service type.</p>
+    </div>
+    <div class="price-mode-label" id="priceModeLabel">✈ Airport Pricing</div>
+  </div>
+  <div class="vehicles-grid" id="vehiclesGrid"></div>
+</section>
 
 <div class="trust-bar">
   <div class="trust-inner">
@@ -452,10 +495,10 @@ const VEHICLES=[
   {id:'sedan',name:'Executive Sedan',desc:'Cadillac CTS — solo & business travel',pax:3,lug:2,imgairport:129,imgoneway:129,imghourly:119,img:'images/sedan-cadillac.png',note:''},
   {id:'luxsedan',name:'Luxury Sedan',desc:'Mercedes S-Class — premium business class',pax:2,lug:2,imgairport:269,imgoneway:229,imghourly:229,img:'images/sclass.png',note:'Premium'},
   {id:'execsuv',name:'Executive SUV',desc:'GMC Yukon Denali — small groups & families',pax:6,lug:6,imgairport:159,imgoneway:149,imghourly:149,img:'images/suv-yukon.png',note:''},
-  {id:'suv',name:'Luxury SUV',desc:'Cadillac Escalade — luxury group travel',pax:6,lug:4,imgairport:189,imgoneway:179,imghourly:179,img:'images/luxsuv-escalade.png',note:''},
-  {id:'stretch',name:'Stretch Limousine',desc:'Lincoln Town Car stretch — weddings & celebrations',pax:10,lug:4,imgairport:179,imgoneway:169,imghourly:169,img:'images/stretch-towncar.png',note:'Most Popular',minHrs:true},
+  {id:'suv',name:'Luxury SUV',desc:'Cadillac Escalade — luxury group travel',pax:6,lug:6,imgairport:189,imgoneway:179,imghourly:179,img:'images/luxsuv-escalade.png',note:''},
+  {id:'stretch',name:'Stretch Limousine',desc:'Lincoln Town Car stretch — weddings & celebrations',pax:8,lug:2,imgairport:179,imgoneway:169,imghourly:169,img:'images/stretch-towncar.png',note:'Most Popular',minHrs:true},
   {id:'stretchsuv',name:'Stretched SUV',desc:'Lincoln Navigator stretch — large luxury groups',pax:10,lug:6,imgairport:279,imgoneway:279,imghourly:279,img:'images/stretch-navigator.png',note:'',minHrs:true},
-  {id:'sprinter',name:'Executive Sprinter',desc:'Mercedes Sprinter — groups up to 14',pax:14,lug:10,imgairport:179,imgoneway:159,imghourly:159,img:'images/sprinter-new.png',note:'',minHrs:true},
+  {id:'sprinter',name:'Executive Sprinter',desc:'Mercedes Sprinter — groups up to 12',pax:12,lug:10,imgairport:179,imgoneway:159,imghourly:159,img:'images/sprinter-new.png',note:'',minHrs:true},
   {id:'partybus',name:'Luxury Party Bus',desc:'Ford Transit Party Bus — large groups & events',pax:24,lug:8,imgairport:275,imgoneway:225,imghourly:195,img:'images/partybus-ford.png',note:'',minHrs:true},
   {id:'jet',name:'Sprinter Jet',desc:'Mercedes Jet-Class — premium luxury travel',pax:14,lug:10,imgairport:225,imgoneway:190,imghourly:165,img:'images/jet-sprinter.png',note:'Premium',minHrs:true}
 ];
@@ -492,7 +535,7 @@ function selectVehicle(id){
   const v=VEHICLES.find(x=>x.id===id);
   document.getElementById('selVehicleText').textContent=v?`${v.name} selected — From $${getPrice(v)} flat rate`:'No vehicle selected';
   renderVehicles();
-  document.querySelector('.details-wrap').scrollIntoView({behavior:'smooth',block:'start'});
+  document.querySelector('.details-horizontal').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 function scrollToVehicles(){document.getElementById('vehicleSection').scrollIntoView({behavior:'smooth'});}
@@ -733,6 +776,33 @@ async function submitBooking(){
 // Init
 renderVehicles();
 document.getElementById('dateInput').min=new Date().toISOString().split('T')[0];
+
+// Hero car carousel
+let carIdx=0;
+const carTrack=document.getElementById('carTrack');
+const carDots=document.getElementById('carDots');
+const carCaption=document.getElementById('carCaption');
+VEHICLES.forEach((v,i)=>{
+  const slide=document.createElement('div');
+  slide.className='car-slide';
+  slide.innerHTML=`<img src="${v.img}" alt="${v.name}" loading="${i===0?'eager':'lazy'}">`;
+  carTrack.appendChild(slide);
+  const dot=document.createElement('button');
+  dot.className='car-dot'+(i===0?' active':'');
+  dot.setAttribute('aria-label',v.name);
+  dot.onclick=()=>carGoTo(i);
+  carDots.appendChild(dot);
+});
+function carGoTo(i){
+  carIdx=(i+VEHICLES.length)%VEHICLES.length;
+  carTrack.style.transform=`translateX(-${carIdx*100}%)`;
+  carCaption.textContent=VEHICLES[carIdx].name;
+  carDots.querySelectorAll('.car-dot').forEach((d,j)=>d.classList.toggle('active',j===carIdx));
+}
+function carSlide(dir){ carGoTo(carIdx+dir); }
+let _carAuto=setInterval(()=>carSlide(1),5000);
+document.getElementById('carCarousel').addEventListener('mouseenter',()=>clearInterval(_carAuto));
+document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAuto=setInterval(()=>carSlide(1),5000);});
 </script>
 </body>
 </html>
