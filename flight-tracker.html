@@ -16,14 +16,16 @@
   <meta property="og:url" content="https://purpleheartlimo.com/flight-tracker.html">
   <meta property="og:title" content="Live Flight Tracker | Purple Heart Limo | DFW · AUS · IAH · HOU">
   <meta property="og:description" content="Track flights in real time across DFW, Austin, IAH & Hobby. Purple Heart Limo monitors every airport pickup automatically.">
-  <meta property="og:image" content="https://purpleheartlimo.com/images/sedan-cadillac.png">
+  <meta property="og:image" content="https://purpleheartlimo.com/images/sedan-cadillac.webp">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Live Flight Tracker | Purple Heart Limo">
   <meta name="twitter:description" content="Real-time flight status at DFW, AUS, IAH & HOU.">
-  <meta name="twitter:image" content="https://purpleheartlimo.com/images/sedan-cadillac.png">
+  <meta name="twitter:image" content="https://purpleheartlimo.com/images/sedan-cadillac.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&family=Cinzel:wght@500;600;700&family=Poppins:wght@300;400;500;600;700;800&family=Mulish:wght@700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&family=Cinzel:wght@500;600;700&family=Poppins:wght@300;400;500;600;700;800&family=Mulish:wght@700;800;900&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="/css/page.css">
   <script src="/config.js"></script>
   <style>
@@ -311,7 +313,7 @@
     <a href="tel:+18337400700" class="nav-phone">📞 (833) 740-0700</a>
     <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="padding:10px 20px;font-size:0.78rem;">Book Now</a>
   </div>
-  <button class="hamburger" onclick="toggleMenu()" id="hamburger"><span></span><span></span><span></span></button>
+  <button class="hamburger" onclick="toggleMenu()" id="hamburger" aria-label="Open navigation menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 <div id="mobile-menu" style="display:none;position:fixed;top:72px;left:0;right:0;background:white;z-index:999;padding:20px;box-shadow:0 12px 48px rgba(45,0,69,0.18);border-bottom:2px solid #F2EFE8;">
   <a href="/" style="display:block;padding:12px;font-size:0.9rem;color:#0a0a0a;border-bottom:1px solid #F2EFE8;">🏠 Home</a>
@@ -671,7 +673,7 @@
 </div>
 
 <script>
-function toggleMenu(){const m=document.getElementById('mobile-menu');m.style.display=m.style.display==='block'?'none':'block';}
+function toggleMenu(){const m=document.getElementById('mobile-menu');const b=document.getElementById('hamburger');const open=m.style.display!=='block';m.style.display=open?'block':'none';if(b)b.setAttribute('aria-expanded',open?'true':'false');}
 
 // Airport tab switching
 function showAirport(code, btn) {

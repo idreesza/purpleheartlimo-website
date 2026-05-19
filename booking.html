@@ -16,11 +16,11 @@
   <meta property="og:url" content="https://purpleheartlimo.com/booking.html">
   <meta property="og:title" content="Book a Luxury Limo | Purple Heart Limo | Austin · DFW · Houston">
   <meta property="og:description" content="Instant flat-rate quote for airport, wedding, corporate, and hourly limo service across Austin, DFW, and Houston. No surge pricing.">
-  <meta property="og:image" content="https://purpleheartlimo.com/images/sedan-cadillac.png">
+  <meta property="og:image" content="https://purpleheartlimo.com/images/sedan-cadillac.webp">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Book a Luxury Limo | Purple Heart Limo">
   <meta name="twitter:description" content="Instant flat-rate quote across Austin, DFW & Houston. No surge pricing.">
-  <meta name="twitter:image" content="https://purpleheartlimo.com/images/sedan-cadillac.png">
+  <meta name="twitter:image" content="https://purpleheartlimo.com/images/sedan-cadillac.webp">
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -29,7 +29,7 @@
     "url":"https://purpleheartlimo.com/booking.html",
     "telephone":"+18337400700",
     "email":"info@purpleheartlimo.com",
-    "image":"https://purpleheartlimo.com/images/sedan-cadillac.png",
+    "image":"https://purpleheartlimo.com/images/sedan-cadillac.webp",
     "priceRange":"$$",
     "address":{"@type":"PostalAddress","addressRegion":"TX","addressCountry":"US"},
     "areaServed":[
@@ -49,7 +49,9 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&family=Cinzel:wght@500;600;700&family=Poppins:wght@300;400;500;600;700;800&family=Mulish:wght@700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&family=Cinzel:wght@500;600;700&family=Poppins:wght@300;400;500;600;700;800&family=Mulish:wght@700;800;900&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="/css/page.css">
 <style>
 /* Booking page — light theme */
@@ -362,7 +364,7 @@ body { background: var(--bg); color: var(--text-c); }
     <a href="tel:+18337400700" class="nav-phone">📞 (833) 740-0700</a>
     <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="padding:10px 20px;font-size:0.78rem;">Book Online</a>
   </div>
-  <button class="hamburger" onclick="toggleMenu()" id="hamburger"><span></span><span></span><span></span></button>
+  <button class="hamburger" onclick="toggleMenu()" id="hamburger" aria-label="Open navigation menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 <div id="mobile-menu" style="display:none;position:fixed;top:72px;left:0;right:0;background:white;z-index:999;padding:20px;box-shadow:0 12px 48px rgba(45,0,69,0.18);border-bottom:2px solid #F2EFE8;">
   <a href="/" style="display:block;padding:12px;font-size:0.9rem;color:#0a0a0a;border-bottom:1px solid #F2EFE8;">🏠 Home</a>
@@ -660,19 +662,19 @@ body { background: var(--bg); color: var(--text-c); }
 </div>
 
 <script>
-function toggleMenu(){const m=document.getElementById('mobile-menu');m.style.display=m.style.display==='block'?'none':'block';}
+function toggleMenu(){const m=document.getElementById('mobile-menu');const b=document.getElementById('hamburger');const open=m.style.display!=='block';m.style.display=open?'block':'none';if(b)b.setAttribute('aria-expanded',open?'true':'false');}
 
 // Vehicle data
 const VEHICLES=[
-  {id:'sedan',name:'Executive Sedan',desc:'Cadillac CTS — solo & business travel',pax:3,lug:2,imgairport:129,imgoneway:129,imghourly:119,img:'images/sedan-cadillac.png',note:'',features:['Leather interior · climate control','Complimentary bottled water','Professional chauffeur · suit & tie','Free WiFi · phone chargers']},
-  {id:'luxsedan',name:'Luxury Sedan',desc:'Mercedes S-Class — premium business class',pax:2,lug:2,imgairport:269,imgoneway:229,imghourly:229,img:'images/sclass.png',note:'Premium',features:['Top-tier Mercedes-Benz comfort','Privacy partition · rear climate','Premium leather · ambient lighting','VIP / executive transport ready']},
-  {id:'execsuv',name:'Executive SUV',desc:'GMC Yukon Denali — small groups & families',pax:6,lug:6,imgairport:159,imgoneway:149,imghourly:149,img:'images/suv-yukon.png',note:'',features:['Up to 6 passengers · 6 large bags','Spacious 3-row seating','Tinted windows · privacy','Great for families & airport runs']},
-  {id:'suv',name:'Luxury SUV',desc:'Cadillac Escalade — luxury group travel',pax:6,lug:6,imgairport:189,imgoneway:179,imghourly:179,img:'images/luxsuv-escalade.png',note:'',features:['Premium Escalade Platinum trim','Captain seats · rear entertainment','Up to 6 passengers in luxury','Ideal for VIP group transport']},
-  {id:'stretch',name:'Stretch Limousine',desc:'Lincoln Town Car stretch — weddings & celebrations',pax:8,lug:2,imgairport:179,imgoneway:169,imghourly:169,img:'images/stretch-towncar.png',note:'Most Popular',minHrs:true,features:['Up to 8 passengers · classic stretch','Wet bar · mood lighting · sound','Perfect for weddings & proms','Photos & celebrations welcome']},
-  {id:'stretchsuv',name:'Stretched SUV',desc:'Lincoln Navigator stretch — large luxury groups',pax:10,lug:6,imgairport:279,imgoneway:279,imghourly:279,img:'images/stretch-navigator.png',note:'',minHrs:true,features:['Up to 10 passengers in stretch luxury','Premium bar · LED lighting · audio','Bachelor / bachelorette ready','Statement arrival for any event']},
-  {id:'sprinter',name:'Executive Sprinter',desc:'Mercedes Sprinter — groups up to 12',pax:12,lug:10,imgairport:179,imgoneway:159,imghourly:159,img:'images/sprinter-new.png',note:'',minHrs:true,features:['Up to 12 passengers · 10 bags','Tall interior · easy boarding','USB charging · WiFi available','Corporate roadshows & group travel']},
-  {id:'partybus',name:'Luxury Party Bus',desc:'Ford Transit Party Bus — large groups & events',pax:24,lug:8,imgairport:275,imgoneway:225,imghourly:195,img:'images/partybus-ford.png',note:'',minHrs:true,features:['Up to 24 passengers · party-ready','Premium sound · LED lighting · bar','Concerts · birthdays · nights out','BYOB · cooler space included']},
-  {id:'jet',name:'Sprinter Jet',desc:'Mercedes Jet-Class — premium luxury travel',pax:14,lug:10,imgairport:225,imgoneway:190,imghourly:165,img:'images/jet-sprinter.png',note:'Premium',minHrs:true,features:['First-class jet interior · 14 pax','Reclining captain chairs · TVs','Conference table · WiFi · power','Top-tier corporate & VIP transit']}
+  {id:'sedan',name:'Executive Sedan',desc:'Cadillac CTS — solo & business travel',pax:3,lug:2,imgairport:129,imgoneway:129,imghourly:119,img:'images/sedan-cadillac.webp',note:'',features:['Leather interior · climate control','Complimentary bottled water','Professional chauffeur · suit & tie','Free WiFi · phone chargers']},
+  {id:'luxsedan',name:'Luxury Sedan',desc:'Mercedes S-Class — premium business class',pax:2,lug:2,imgairport:269,imgoneway:229,imghourly:229,img:'images/sclass.webp',note:'Premium',features:['Top-tier Mercedes-Benz comfort','Privacy partition · rear climate','Premium leather · ambient lighting','VIP / executive transport ready']},
+  {id:'execsuv',name:'Executive SUV',desc:'GMC Yukon Denali — small groups & families',pax:6,lug:6,imgairport:159,imgoneway:149,imghourly:149,img:'images/suv-yukon.webp',note:'',features:['Up to 6 passengers · 6 large bags','Spacious 3-row seating','Tinted windows · privacy','Great for families & airport runs']},
+  {id:'suv',name:'Luxury SUV',desc:'Cadillac Escalade — luxury group travel',pax:6,lug:6,imgairport:189,imgoneway:179,imghourly:179,img:'images/luxsuv-escalade.webp',note:'',features:['Premium Escalade Platinum trim','Captain seats · rear entertainment','Up to 6 passengers in luxury','Ideal for VIP group transport']},
+  {id:'stretch',name:'Stretch Limousine',desc:'Lincoln Town Car stretch — weddings & celebrations',pax:8,lug:2,imgairport:179,imgoneway:169,imghourly:169,img:'images/stretch-towncar.webp',note:'Most Popular',minHrs:true,features:['Up to 8 passengers · classic stretch','Wet bar · mood lighting · sound','Perfect for weddings & proms','Photos & celebrations welcome']},
+  {id:'stretchsuv',name:'Stretched SUV',desc:'Lincoln Navigator stretch — large luxury groups',pax:10,lug:6,imgairport:279,imgoneway:279,imghourly:279,img:'images/stretch-navigator.webp',note:'',minHrs:true,features:['Up to 10 passengers in stretch luxury','Premium bar · LED lighting · audio','Bachelor / bachelorette ready','Statement arrival for any event']},
+  {id:'sprinter',name:'Executive Sprinter',desc:'Mercedes Sprinter — groups up to 12',pax:12,lug:10,imgairport:179,imgoneway:159,imghourly:159,img:'images/sprinter-new.webp',note:'',minHrs:true,features:['Up to 12 passengers · 10 bags','Tall interior · easy boarding','USB charging · WiFi available','Corporate roadshows & group travel']},
+  {id:'partybus',name:'Luxury Party Bus',desc:'Ford Transit Party Bus — large groups & events',pax:24,lug:8,imgairport:275,imgoneway:225,imghourly:195,img:'images/partybus-ford.webp',note:'',minHrs:true,features:['Up to 24 passengers · party-ready','Premium sound · LED lighting · bar','Concerts · birthdays · nights out','BYOB · cooler space included']},
+  {id:'jet',name:'Sprinter Jet',desc:'Mercedes Jet-Class — premium luxury travel',pax:14,lug:10,imgairport:225,imgoneway:190,imghourly:165,img:'images/jet-sprinter.webp',note:'Premium',minHrs:true,features:['First-class jet interior · 14 pax','Reclining captain chairs · TVs','Conference table · WiFi · power','Top-tier corporate & VIP transit']}
 ];
 
 let curSvc='airport';
