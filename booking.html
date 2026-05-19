@@ -84,7 +84,10 @@ body { background: var(--bg); color: var(--text-c); }
 .svc-tab { padding: 7px 22px; border-radius: 7px; font-size: 0.8rem; font-weight: 600; cursor: pointer; border: none; background: none; color: var(--gray-c); transition: all 0.2s; white-space: nowrap; }
 .svc-tab.active { background: linear-gradient(135deg, var(--pk), #E2C36A); color: #0a0a0a; box-shadow: 0 2px 10px rgba(201,168,76,0.3); }
 
-.search-row { display: grid; grid-template-columns: 1fr 1fr 145px 195px auto; gap: 0; background: var(--bg2); border-radius: 12px; border: 1.5px solid var(--border-c); overflow: hidden; }
+.search-row { display: grid; grid-template-columns: 1.4fr 1.4fr 130px 80px 80px 80px auto; gap: 0; background: var(--bg2); border-radius: 12px; border: 1.5px solid var(--border-c); }
+.search-row > .sf:first-child { border-top-left-radius: 11px; border-bottom-left-radius: 11px; }
+.search-row > .search-btn { border-top-right-radius: 11px; border-bottom-right-radius: 11px; }
+.sf select { width: 100%; background: none; border: none; outline: none; color: var(--text-c); font-family:'Inter',sans-serif; font-size: 0.86rem; padding: 3px 14px 10px; cursor: pointer; appearance:none; -webkit-appearance:none; -moz-appearance:none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none'><path d='M1 1l4 4 4-4' stroke='%23C9A84C' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>"); background-repeat:no-repeat; background-position: right 10px center; padding-right: 24px; }
 .sf { position: relative; border-right: 1px solid var(--border-c); }
 .sf:last-child { border-right: none; }
 .sf label { display: block; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--pk); padding: 10px 14px 0; }
@@ -128,8 +131,8 @@ body { background: var(--bg); color: var(--text-c); }
 .btn-add-stop { display: inline-flex; align-items: center; gap: 6px; background: none; border: 1.5px dashed rgba(201,168,76,0.5); border-radius: 8px; color: var(--pk); font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 600; padding: 7px 14px; cursor: pointer; transition: all 0.2s; margin-top: 4px; }
 .btn-add-stop:hover { background: var(--pk-dim); border-color: var(--pk); }
 
-@media(max-width:900px){ .search-row{grid-template-columns:1fr 1fr;border-radius:10px;} .sf:nth-child(2){border-right:none;} .sf:nth-child(3),.sf:nth-child(4){border-top:1px solid var(--border-c);} .search-btn{grid-column:1/-1;padding:12px;border-radius:0 0 10px 10px;} }
-@media(max-width:580px){ .search-row{grid-template-columns:1fr;} .sf{border-right:none;border-bottom:1px solid var(--border-c);} .search-btn{grid-column:1;} }
+@media(max-width:900px){ .search-row{grid-template-columns:1fr 1fr 1fr;border-radius:10px;} .search-btn{grid-column:1/-1;padding:12px;border-radius:0 0 10px 10px;} }
+@media(max-width:580px){ .search-row{grid-template-columns:1fr 1fr;} .search-btn{grid-column:1/-1;} }
 
 /* Vehicle selection */
 .choose-section { max-width: 1440px; margin: 0 auto; padding: 3.5rem 5% 2rem; }
@@ -326,29 +329,27 @@ body { background: var(--bg); color: var(--text-c); }
           <label>Date</label>
           <input type="date" id="dateInput">
         </div>
-        <div class="sf" style="display:grid;grid-template-columns:1fr 1fr 1fr;">
-          <div style="border-right:1px solid rgba(45,0,69,0.08);">
-            <label style="padding:10px 10px 0;">Hour</label>
-            <select id="timeHour" style="width:100%;background:none;border:none;outline:none;color:#0a0a0a;font-family:'Inter',sans-serif;font-size:0.86rem;padding:3px 10px 10px;-webkit-appearance:none;">
-              <option value="">--</option>
-              <option>1</option><option>2</option><option>3</option><option>4</option>
-              <option>5</option><option>6</option><option>7</option><option>8</option>
-              <option>9</option><option>10</option><option>11</option><option>12</option>
-            </select>
-          </div>
-          <div style="border-right:1px solid rgba(45,0,69,0.08);">
-            <label style="padding:10px 10px 0;">Min</label>
-            <select id="timeMin" style="width:100%;background:none;border:none;outline:none;color:#0a0a0a;font-family:'Inter',sans-serif;font-size:0.86rem;padding:3px 10px 10px;-webkit-appearance:none;">
-              <option value="">--</option>
-              <option>00</option><option>15</option><option>30</option><option>45</option>
-            </select>
-          </div>
-          <div>
-            <label style="padding:10px 10px 0;">AM/PM</label>
-            <select id="timeAmpm" style="width:100%;background:none;border:none;outline:none;color:#0a0a0a;font-family:'Inter',sans-serif;font-size:0.86rem;padding:3px 10px 10px;-webkit-appearance:none;">
-              <option>AM</option><option>PM</option>
-            </select>
-          </div>
+        <div class="sf">
+          <label>Hour</label>
+          <select id="timeHour">
+            <option value="">--</option>
+            <option>1</option><option>2</option><option>3</option><option>4</option>
+            <option>5</option><option>6</option><option>7</option><option>8</option>
+            <option>9</option><option>10</option><option>11</option><option>12</option>
+          </select>
+        </div>
+        <div class="sf">
+          <label>Min</label>
+          <select id="timeMin">
+            <option value="">--</option>
+            <option>00</option><option>15</option><option>30</option><option>45</option>
+          </select>
+        </div>
+        <div class="sf">
+          <label>AM/PM</label>
+          <select id="timeAmpm">
+            <option>AM</option><option>PM</option>
+          </select>
         </div>
         <button class="search-btn" id="searchBtn" onclick="scrollToVehicles()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
