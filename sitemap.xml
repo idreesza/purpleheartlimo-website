@@ -24,6 +24,16 @@
 
   <!-- Blog -->
   <url><loc>https://purpleheartlimo.com/blog/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <!-- New Austin Metroplex Posts (May 2026) -->
+  <url><loc>https://purpleheartlimo.com/blog/how-much-does-limo-service-cost-austin-2026/</loc><lastmod>2026-05-18</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://purpleheartlimo.com/blog/austin-bergstrom-airport-limo-service-guide/</loc><lastmod>2026-05-17</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://purpleheartlimo.com/blog/sxsw-limo-service-austin-transportation-guide/</loc><lastmod>2026-05-16</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://purpleheartlimo.com/blog/f1-cota-limo-service-austin-grand-prix-transportation/</loc><lastmod>2026-05-15</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://purpleheartlimo.com/blog/round-rock-to-austin-airport-limo-transfers/</loc><lastmod>2026-05-14</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://purpleheartlimo.com/blog/luxury-limo-vs-rideshare-uber-lyft-austin/</loc><lastmod>2026-05-13</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://purpleheartlimo.com/blog/executive-business-travel-austin-corporate-limo-guide/</loc><lastmod>2026-05-12</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://purpleheartlimo.com/blog/austin-wedding-limo-hill-country-venue-guide/</loc><lastmod>2026-05-11</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
   <url><loc>https://purpleheartlimo.com/blog/the-ultimate-guide-to-booking-a-limo-service-in-austin/</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
   <url><loc>https://purpleheartlimo.com/blog/airport-transfers-made-easy-stress-free-travel-with-limo-services/</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
   <url><loc>https://purpleheartlimo.com/blog/how-to-choose-the-perfect-limousine-for-your-wedding/</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
