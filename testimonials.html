@@ -301,4 +301,5 @@
 function toggleMenu(){const m=document.getElementById('mobile-menu');m.style.display=m.style.display==='block'?'none':'block';}
 function filterReviews(cat,btn){document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.review-card').forEach(card=>{card.style.display=(cat==='all'||card.dataset.category===cat)?'':'none';});}
 </script>
+<script src="/js/nav-dropdown.js" defer></script>
 </body></html>

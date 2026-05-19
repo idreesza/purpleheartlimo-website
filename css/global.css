@@ -64,3 +64,59 @@
   box-shadow: 0 6px 20px rgba(201,168,76,0.5) !important;
   filter: brightness(1.05) !important;
 }
+
+/* === Dropdown menus: click-to-open + cursor bridge === */
+.nav-links .dropdown { position: relative !important; }
+.nav-links .dropdown > a { position: relative !important; }
+/* Hide on default hover - require .open class (set by nav-dropdown.js) */
+.nav-links .dropdown:hover .dropdown-menu { display: none !important; }
+.nav-links .dropdown.open .dropdown-menu,
+.nav-links .dropdown:focus-within .dropdown-menu { display: block !important; }
+/* Indicator that menu is open */
+.nav-links .dropdown.open > a {
+  background: linear-gradient(135deg, #C9A84C, #E2C36A) !important;
+  border-color: #C9A84C !important;
+  box-shadow: 0 4px 14px rgba(201,168,76,0.35) !important;
+}
+/* The dropdown menu itself: invisible bridge + roomier layout */
+.nav-links .dropdown-menu {
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  margin-top: 10px !important;
+  min-width: 240px !important;
+  background: #fff !important;
+  border: 1px solid rgba(45,0,69,0.08) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 16px 48px rgba(45,0,69,0.18) !important;
+  padding: 8px !important;
+  z-index: 1000 !important;
+}
+/* Invisible bridge so cursor doesn't lose hover crossing the gap */
+.nav-links .dropdown-menu::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -14px !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 14px !important;
+  background: transparent !important;
+}
+.nav-links .dropdown-menu a {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 11px 14px !important;
+  border-radius: 10px !important;
+  font-family: 'Poppins','Inter',sans-serif !important;
+  font-size: 0.86rem !important;
+  font-weight: 500 !important;
+  color: #0a0a0a !important;
+  transition: all 0.15s ease !important;
+  white-space: nowrap !important;
+}
+.nav-links .dropdown-menu a:hover {
+  background: rgba(201,168,76,0.12) !important;
+  color: #a88a3a !important;
+  transform: translateX(2px) !important;
+}
