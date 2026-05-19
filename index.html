@@ -811,8 +811,9 @@ footer {
   /* Prevent any overflow source */
   .booking-card, .hero-content, .hero-inner { max-width:100%; box-sizing:border-box; }
   html, body { overflow-x:hidden; max-width:100%; }
-  .hero { overflow-x:hidden; }
-  .booking-card { width:100%; }
+  .hero { overflow-x:hidden; padding-left: 5%; padding-right: 5%; }
+  .hero-inner { padding-left: 0; padding-right: 0; }
+  .booking-card { width:100%; max-width: calc(100vw - 32px); margin-left: auto; margin-right: auto; }
   .svc-hero { padding:100px 4% 50px; }
 }
 /* Flatpickr overrides — make it match widget style */
