@@ -46,6 +46,7 @@ body { background: var(--bg); color: var(--text-c); }
 .car-nav:hover { background:#fff; transform:translateY(-50%) scale(1.08); }
 .car-nav.prev { left:14px; }
 .car-nav.next { right:14px; }
+.car-nav { display:none !important; }
 .car-dots { display:flex; justify-content:center; gap:7px; margin-top:14px; }
 .car-dot { width:8px; height:8px; border-radius:50%; background:rgba(45,70,120,0.25); border:none; cursor:pointer; padding:0; transition:all 0.2s; }
 .car-dot.active { background:var(--pk); width:22px; border-radius:5px; }
@@ -166,10 +167,57 @@ body { background: var(--bg); color: var(--text-c); }
 .choose-header p { color: var(--gray-c); font-size: 0.84rem; }
 .price-mode-label { display: inline-flex; align-items: center; gap: 6px; background: var(--bg2); border: 1.5px solid var(--border-c); border-radius: 50px; padding: 5px 12px; font-size: 0.72rem; color: var(--pk); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
 
-.vehicles-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
-@media(max-width:1200px){.vehicles-grid{grid-template-columns:repeat(3,1fr);}}
-@media(max-width:860px){.vehicles-grid{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:480px){.vehicles-grid{grid-template-columns:1fr;}}
+/* Vehicle carousel (3 at a time) */
+.veh-carousel { position: relative; padding: 0 56px; }
+.veh-viewport { overflow: hidden; }
+.veh-track { display: flex; transition: transform 0.45s cubic-bezier(.22,.61,.36,1); gap: 18px; }
+.veh-slide { flex: 0 0 calc((100% - 36px) / 3); min-width: 0; }
+.veh-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: #fff; border: 1.5px solid var(--border-c); color: var(--pk); font-size: 1.4rem; cursor: pointer; display:flex; align-items:center; justify-content:center; box-shadow: 0 4px 16px rgba(45,0,69,0.1); transition: all 0.2s; z-index: 3; }
+.veh-nav:hover { background: var(--pk); color: #0a0a0a; border-color: var(--pk); transform: translateY(-50%) scale(1.05); }
+.veh-nav.prev { left: 0; }
+.veh-nav.next { right: 0; }
+.veh-nav:disabled { opacity: 0.35; cursor: not-allowed; }
+@media(max-width:900px){.veh-slide{flex-basis:calc((100% - 18px) / 2);} .veh-carousel{padding:0 48px;}}
+@media(max-width:600px){.veh-slide{flex-basis:100%;} .veh-carousel{padding:0 40px;}}
+
+/* Extended description list inside each card */
+.veh-features { list-style: none; padding: 0; margin: 10px 0 0; border-top: 1px solid var(--border-c); padding-top: 10px; }
+.veh-features li { font-size: 0.72rem; color: var(--gray-c); padding: 3px 0; display: flex; align-items: flex-start; gap: 6px; line-height: 1.4; }
+.veh-features li::before { content: '✓'; color: var(--pk); font-weight: 700; flex-shrink: 0; }
+
+/* Price estimate panel */
+.est-panel { margin-top: 20px; background: linear-gradient(135deg, rgba(201,168,76,0.06), rgba(201,168,76,0.02)); border: 1.5px solid rgba(201,168,76,0.3); border-radius: 12px; padding: 16px 18px; }
+.est-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; flex-wrap: wrap; }
+.est-label { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pk); }
+.est-price { font-family: 'Cormorant Garamond', serif; font-size: 1.55rem; font-weight: 600; color: var(--text-c); }
+.est-meta { font-size: 0.74rem; color: var(--gray-c); line-height: 1.5; }
+.est-note { margin-top: 8px; font-size: 0.68rem; color: var(--gray-c); font-style: italic; }
+.est-loading { font-size: 0.78rem; color: var(--gray-c); display: flex; align-items: center; gap: 8px; }
+.est-loading::before { content:''; width:13px; height:13px; border:2px solid rgba(201,168,76,0.25); border-top-color:var(--pk); border-radius:50%; animation: acspin 0.7s linear infinite; }
+
+/* Confirmation modal */
+.modal-bg { position: fixed; inset: 0; background: rgba(20,5,40,0.55); backdrop-filter: blur(4px); z-index: 9999; display:none; align-items:center; justify-content:center; padding: 20px; }
+.modal-bg.show { display: flex; }
+.modal { background: #fff; border-radius: 18px; max-width: 560px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(45,0,69,0.3); }
+.modal-head { padding: 24px 28px 14px; border-bottom: 1px solid var(--border-c); }
+.modal-head h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--text-c); margin: 0 0 4px; }
+.modal-head p { font-size: 0.85rem; color: var(--gray-c); margin: 0; }
+.modal-body { padding: 20px 28px; }
+.modal-section { margin-bottom: 18px; }
+.modal-section h4 { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--pk); margin: 0 0 8px; }
+.modal-row { display:flex; justify-content:space-between; gap:14px; padding: 5px 0; font-size: 0.85rem; color: var(--text-c); border-bottom: 1px dashed rgba(45,0,69,0.07); }
+.modal-row:last-child { border-bottom: none; }
+.modal-row .lbl { color: var(--gray-c); }
+.modal-row .val { font-weight: 600; text-align: right; }
+.modal-est { background: linear-gradient(135deg, var(--pk-dim), rgba(201,168,76,0.06)); border-radius: 12px; padding: 16px; text-align: center; }
+.modal-est .est-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: var(--pk); line-height: 1.1; }
+.modal-est .est-sub { font-size: 0.72rem; color: var(--gray-c); margin-top: 4px; }
+.modal-cta { padding: 18px 28px 24px; display:flex; gap:10px; flex-wrap: wrap; }
+.modal-cta button { flex: 1; min-width: 140px; padding: 12px; border-radius: 9px; border: none; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.86rem; cursor: pointer; transition: all 0.2s; }
+.btn-confirm { background: linear-gradient(135deg, var(--pk), #E2C36A); color: #0a0a0a; }
+.btn-confirm:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(201,168,76,0.35); }
+.btn-cancel { background: var(--bg2); color: var(--gray-c); border: 1.5px solid var(--border-c)!important; }
+.btn-cancel:hover { background: #fff; color: var(--text-c); }
 
 .veh-card { background: #fff; border: 1.5px solid var(--border-c); border-radius: 14px; overflow: hidden; cursor: pointer; transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s; position: relative; }
 .veh-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-3px); box-shadow: 0 12px 36px rgba(45,0,69,0.1); }
@@ -317,12 +365,6 @@ body { background: var(--bg); color: var(--text-c); }
    <div class="hero-right">
      <div class="car-carousel" id="carCarousel">
        <div class="car-track" id="carTrack"></div>
-       <button class="car-nav prev" onclick="carSlide(-1)" aria-label="Previous vehicle">
-         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-       </button>
-       <button class="car-nav next" onclick="carSlide(1)" aria-label="Next vehicle">
-         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-       </button>
        <div class="car-caption" id="carCaption">Executive Sedan</div>
      </div>
      <div class="car-dots" id="carDots"></div>
@@ -434,9 +476,17 @@ body { background: var(--bg); color: var(--text-c); }
     <div class="form-row single">
       <div class="fg"><label>Special Requests <span class="opt-label">(optional)</span></label><textarea id="fmessage" placeholder="Decorations, stops, accessibility needs, anything else…"></textarea></div>
     </div>
+    <div class="est-panel" id="estPanel" style="display:none;">
+      <div class="est-head">
+        <span class="est-label">💰 Estimated Price</span>
+        <span class="est-price" id="estPrice">—</span>
+      </div>
+      <div class="est-meta" id="estMeta">Pick a vehicle and enter pickup &amp; drop-off to see your estimate.</div>
+      <div class="est-note">* Final price may vary based on traffic, wait time, extra stops, tolls, and special requests. Our representative will confirm the exact rate.</div>
+    </div>
     <div id="alertSuccess" class="alert alert-success"></div>
     <div id="alertError" class="alert alert-error"></div>
-    <button class="btn-submit" id="submitBtn" onclick="submitBooking()">🚗 Request My Ride — We'll Confirm Within 5 Min</button>
+    <button class="btn-submit" id="submitBtn" onclick="openEstimateModal()">🚗 Request My Ride — Review &amp; Confirm</button>
     <div class="moovs-cta" id="moovsLink">
       <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank">Or book instantly online via our booking portal →</a>
     </div>
@@ -451,8 +501,51 @@ body { background: var(--bg); color: var(--text-c); }
     </div>
     <div class="price-mode-label" id="priceModeLabel">✈ Airport Pricing</div>
   </div>
-  <div class="vehicles-grid" id="vehiclesGrid"></div>
+  <div class="veh-carousel">
+    <button type="button" class="veh-nav prev" id="vehPrev" aria-label="Previous">‹</button>
+    <div class="veh-viewport"><div class="veh-track" id="vehiclesGrid"></div></div>
+    <button type="button" class="veh-nav next" id="vehNext" aria-label="Next">›</button>
+  </div>
 </section>
+
+<!-- Confirmation modal -->
+<div class="modal-bg" id="confirmModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3>Confirm Your Ride Request</h3>
+      <p>Please review the details below. Final pricing is confirmed by our representative.</p>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-est">
+          <div class="est-num" id="mdlPrice">$—</div>
+          <div class="est-sub" id="mdlPriceSub">Estimated total — actual price may vary</div>
+        </div>
+      </div>
+      <div class="modal-section">
+        <h4>Trip</h4>
+        <div class="modal-row"><span class="lbl">Service</span><span class="val" id="mdlSvc">—</span></div>
+        <div class="modal-row"><span class="lbl">Vehicle</span><span class="val" id="mdlVeh">—</span></div>
+        <div class="modal-row"><span class="lbl">Pickup</span><span class="val" id="mdlPickup">—</span></div>
+        <div class="modal-row"><span class="lbl">Drop-off</span><span class="val" id="mdlDropoff">—</span></div>
+        <div class="modal-row"><span class="lbl">Date / Time</span><span class="val" id="mdlWhen">—</span></div>
+        <div class="modal-row"><span class="lbl">Distance</span><span class="val" id="mdlDist">—</span></div>
+        <div class="modal-row"><span class="lbl">Est. duration</span><span class="val" id="mdlDur">—</span></div>
+        <div class="modal-row"><span class="lbl">Passengers</span><span class="val" id="mdlPax">—</span></div>
+      </div>
+      <div class="modal-section">
+        <h4>Contact</h4>
+        <div class="modal-row"><span class="lbl">Name</span><span class="val" id="mdlName">—</span></div>
+        <div class="modal-row"><span class="lbl">Phone</span><span class="val" id="mdlPhone">—</span></div>
+      </div>
+      <p class="est-note">Our representative will call you shortly to confirm your reservation and finalize the price.</p>
+    </div>
+    <div class="modal-cta">
+      <button type="button" class="btn-cancel" onclick="closeModal()">Edit Details</button>
+      <button type="button" class="btn-confirm" id="mdlConfirm" onclick="confirmAndSend()">Confirm & Submit Request</button>
+    </div>
+  </div>
+</div>
 
 <div class="trust-bar">
   <div class="trust-inner">
@@ -523,15 +616,15 @@ function toggleMenu(){const m=document.getElementById('mobile-menu');m.style.dis
 
 // Vehicle data
 const VEHICLES=[
-  {id:'sedan',name:'Executive Sedan',desc:'Cadillac CTS — solo & business travel',pax:3,lug:2,imgairport:129,imgoneway:129,imghourly:119,img:'images/sedan-cadillac.png',note:''},
-  {id:'luxsedan',name:'Luxury Sedan',desc:'Mercedes S-Class — premium business class',pax:2,lug:2,imgairport:269,imgoneway:229,imghourly:229,img:'images/sclass.png',note:'Premium'},
-  {id:'execsuv',name:'Executive SUV',desc:'GMC Yukon Denali — small groups & families',pax:6,lug:6,imgairport:159,imgoneway:149,imghourly:149,img:'images/suv-yukon.png',note:''},
-  {id:'suv',name:'Luxury SUV',desc:'Cadillac Escalade — luxury group travel',pax:6,lug:6,imgairport:189,imgoneway:179,imghourly:179,img:'images/luxsuv-escalade.png',note:''},
-  {id:'stretch',name:'Stretch Limousine',desc:'Lincoln Town Car stretch — weddings & celebrations',pax:8,lug:2,imgairport:179,imgoneway:169,imghourly:169,img:'images/stretch-towncar.png',note:'Most Popular',minHrs:true},
-  {id:'stretchsuv',name:'Stretched SUV',desc:'Lincoln Navigator stretch — large luxury groups',pax:10,lug:6,imgairport:279,imgoneway:279,imghourly:279,img:'images/stretch-navigator.png',note:'',minHrs:true},
-  {id:'sprinter',name:'Executive Sprinter',desc:'Mercedes Sprinter — groups up to 12',pax:12,lug:10,imgairport:179,imgoneway:159,imghourly:159,img:'images/sprinter-new.png',note:'',minHrs:true},
-  {id:'partybus',name:'Luxury Party Bus',desc:'Ford Transit Party Bus — large groups & events',pax:24,lug:8,imgairport:275,imgoneway:225,imghourly:195,img:'images/partybus-ford.png',note:'',minHrs:true},
-  {id:'jet',name:'Sprinter Jet',desc:'Mercedes Jet-Class — premium luxury travel',pax:14,lug:10,imgairport:225,imgoneway:190,imghourly:165,img:'images/jet-sprinter.png',note:'Premium',minHrs:true}
+  {id:'sedan',name:'Executive Sedan',desc:'Cadillac CTS — solo & business travel',pax:3,lug:2,imgairport:129,imgoneway:129,imghourly:119,img:'images/sedan-cadillac.png',note:'',features:['Leather interior · climate control','Complimentary bottled water','Professional chauffeur · suit & tie','Free WiFi · phone chargers']},
+  {id:'luxsedan',name:'Luxury Sedan',desc:'Mercedes S-Class — premium business class',pax:2,lug:2,imgairport:269,imgoneway:229,imghourly:229,img:'images/sclass.png',note:'Premium',features:['Top-tier Mercedes-Benz comfort','Privacy partition · rear climate','Premium leather · ambient lighting','VIP / executive transport ready']},
+  {id:'execsuv',name:'Executive SUV',desc:'GMC Yukon Denali — small groups & families',pax:6,lug:6,imgairport:159,imgoneway:149,imghourly:149,img:'images/suv-yukon.png',note:'',features:['Up to 6 passengers · 6 large bags','Spacious 3-row seating','Tinted windows · privacy','Great for families & airport runs']},
+  {id:'suv',name:'Luxury SUV',desc:'Cadillac Escalade — luxury group travel',pax:6,lug:6,imgairport:189,imgoneway:179,imghourly:179,img:'images/luxsuv-escalade.png',note:'',features:['Premium Escalade Platinum trim','Captain seats · rear entertainment','Up to 6 passengers in luxury','Ideal for VIP group transport']},
+  {id:'stretch',name:'Stretch Limousine',desc:'Lincoln Town Car stretch — weddings & celebrations',pax:8,lug:2,imgairport:179,imgoneway:169,imghourly:169,img:'images/stretch-towncar.png',note:'Most Popular',minHrs:true,features:['Up to 8 passengers · classic stretch','Wet bar · mood lighting · sound','Perfect for weddings & proms','Photos & celebrations welcome']},
+  {id:'stretchsuv',name:'Stretched SUV',desc:'Lincoln Navigator stretch — large luxury groups',pax:10,lug:6,imgairport:279,imgoneway:279,imghourly:279,img:'images/stretch-navigator.png',note:'',minHrs:true,features:['Up to 10 passengers in stretch luxury','Premium bar · LED lighting · audio','Bachelor / bachelorette ready','Statement arrival for any event']},
+  {id:'sprinter',name:'Executive Sprinter',desc:'Mercedes Sprinter — groups up to 12',pax:12,lug:10,imgairport:179,imgoneway:159,imghourly:159,img:'images/sprinter-new.png',note:'',minHrs:true,features:['Up to 12 passengers · 10 bags','Tall interior · easy boarding','USB charging · WiFi available','Corporate roadshows & group travel']},
+  {id:'partybus',name:'Luxury Party Bus',desc:'Ford Transit Party Bus — large groups & events',pax:24,lug:8,imgairport:275,imgoneway:225,imghourly:195,img:'images/partybus-ford.png',note:'',minHrs:true,features:['Up to 24 passengers · party-ready','Premium sound · LED lighting · bar','Concerts · birthdays · nights out','BYOB · cooler space included']},
+  {id:'jet',name:'Sprinter Jet',desc:'Mercedes Jet-Class — premium luxury travel',pax:14,lug:10,imgairport:225,imgoneway:190,imghourly:165,img:'images/jet-sprinter.png',note:'Premium',minHrs:true,features:['First-class jet interior · 14 pax','Reclining captain chairs · TVs','Conference table · WiFi · power','Top-tier corporate & VIP transit']}
 ];
 
 let curSvc='airport';
@@ -542,7 +635,7 @@ function getPrice(v){return v['img'+curSvc]||v.imgairport;}
 function renderVehicles(){
   const g=document.getElementById('vehiclesGrid');
   g.innerHTML=VEHICLES.map(v=>`
-    <div class="veh-card${selVeh===v.id?' selected':''}" onclick="selectVehicle('${v.id}')">
+    <div class="veh-slide"><div class="veh-card${selVeh===v.id?' selected':''}" onclick="selectVehicle('${v.id}')">
       <div class="selected-badge">✓ SELECTED</div>
       <div class="veh-img"><img src="${v.img}" alt="${v.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=400&q=60&auto=format'"></div>
       <div class="veh-body">
@@ -553,12 +646,13 @@ function renderVehicles(){
           <div class="veh-cap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2"/></svg>${v.lug} bags</div>
         </div>
         <div class="veh-price-row">
-          <div><div class="veh-price">From $${getPrice(v)}</div><div class="veh-price-sub">flat rate</div></div>
+          <div><div class="veh-price">From $${getPrice(v)}</div><div class="veh-price-sub">flat rate · up to 20 mi</div></div>
           ${v.note?`<span style="background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);color:#C9A84C;padding:3px 8px;border-radius:50px;font-size:0.65rem;font-weight:700;">${v.note}</span>`:''}
         </div>
+        <ul class="veh-features">${(v.features||[]).map(f=>`<li>${f}</li>`).join('')}</ul>
         ${v.minHrs?`<div style="margin-top:8px;font-size:0.68rem;color:#8a8a8a;font-style:italic;display:flex;align-items:center;gap:4px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Minimum hours may apply</div>`:''}
       </div>
-    </div>`).join('');
+    </div></div>`).join('');
 }
 
 function selectVehicle(id){
@@ -566,6 +660,7 @@ function selectVehicle(id){
   const v=VEHICLES.find(x=>x.id===id);
   document.getElementById('selVehicleText').textContent=v?`${v.name} selected — From $${getPrice(v)} flat rate`:'No vehicle selected';
   renderVehicles();
+  if(typeof updateEstimate==='function') updateEstimate();
   document.querySelector('.details-horizontal').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
@@ -754,16 +849,150 @@ function getStops() {
     .map(i=>i.value.trim()).filter(Boolean);
 }
 
-// Form submission
-async function submitBooking(){
+// ===== Distance + Price Estimation =====
+const RETURN_BASE = 'Carrollton, TX';
+let _estCache = {};
+let _estDebounce = null;
+let _lastEstimate = null;
+
+async function fetchDistance(origin, destination){
+  const k = origin + '|' + destination;
+  if(_estCache[k]) return _estCache[k];
+  const r = await fetch(`/api/distance?origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}`);
+  let d = {};
+  try { d = await r.json(); } catch(e){}
+  if(!r.ok || d.error){
+    const msg = d.error==='PERMISSION_DENIED' || (d.message||'').includes('blocked')
+      ? 'Live pricing temporarily unavailable — showing base rate.'
+      : (d.error || 'distance unavailable');
+    throw new Error(msg);
+  }
+  _estCache[k] = d;
+  return d;
+}
+
+function computePrice(v, totalMiles, totalMinutes){
+  const flat = getPrice(v);
+  if(totalMiles <= 20) {
+    return { total: flat, breakdown: `Flat rate (up to 20 mi)` };
+  }
+  const hourlyRate = v.imghourly;
+  const hours = Math.max(2, Math.ceil(totalMinutes / 60));
+  const total = hourlyRate * hours;
+  return { total, breakdown: `${hours} hr × $${hourlyRate}/hr (over 20 mi → hourly)` };
+}
+
+async function updateEstimate(){
+  const pickup = document.getElementById('pickupInput').value.trim();
+  const dropoff = document.getElementById('dropoffInput').value.trim();
+  const panel = document.getElementById('estPanel');
+  const priceEl = document.getElementById('estPrice');
+  const metaEl = document.getElementById('estMeta');
+  if(!selVeh){
+    panel.style.display='block';
+    priceEl.textContent='—';
+    metaEl.textContent='Pick a vehicle above to see your price estimate.';
+    _lastEstimate = null;
+    return;
+  }
+  if(!pickup || (curSvc!=='hourly' && !dropoff)){
+    panel.style.display='block';
+    priceEl.textContent='—';
+    metaEl.textContent='Enter pickup' + (curSvc==='hourly'?'':' and drop-off') + ' to calculate.';
+    _lastEstimate = null;
+    return;
+  }
+  panel.style.display='block';
+  priceEl.innerHTML='<span class="est-loading">Calculating…</span>';
+  metaEl.textContent='';
+  const v = VEHICLES.find(x=>x.id===selVeh);
+  try {
+    let totalMiles = 0, totalMinutes = 0, legs = [];
+    if(curSvc === 'hourly') {
+      const stops = getStops();
+      const route = [pickup, ...stops, pickup];
+      for(let i=0; i<route.length-1; i++){
+        const d = await fetchDistance(route[i], route[i+1]);
+        totalMiles += d.miles; totalMinutes += d.minutes;
+        legs.push(`${d.miles} mi · ${d.minutes} min`);
+      }
+    } else {
+      const d1 = await fetchDistance(pickup, dropoff);
+      const d2 = await fetchDistance(dropoff, RETURN_BASE);
+      totalMiles = d1.miles + d2.miles;
+      totalMinutes = d1.minutes + d2.minutes;
+      legs = [`Pickup → Drop-off: ${d1.miles} mi · ${d1.minutes} min`,
+              `Drop-off → ${RETURN_BASE} (return): ${d2.miles} mi · ${d2.minutes} min`];
+    }
+    const { total, breakdown } = computePrice(v, totalMiles, totalMinutes);
+    priceEl.textContent = `$${total}`;
+    metaEl.innerHTML = `<strong>${v.name}</strong> · ${breakdown}<br>` +
+      `Total distance: <strong>${totalMiles.toFixed(1)} mi</strong> · Est. drive time: <strong>${totalMinutes} min</strong><br>` +
+      legs.map(l=>`<span style="font-size:0.7rem;opacity:0.85;">• ${l}</span>`).join('<br>');
+    _lastEstimate = { total, totalMiles, totalMinutes, breakdown, vehicle: v.name };
+  } catch(e){
+    priceEl.textContent='—';
+    metaEl.innerHTML = `Couldn't calculate distance automatically. <span style="color:#dc2626;">${e.message||'Please call (833) 740-0700 for a quote.'}</span>`;
+    _lastEstimate = null;
+  }
+}
+
+function scheduleEstimate(){
+  clearTimeout(_estDebounce);
+  _estDebounce = setTimeout(updateEstimate, 600);
+}
+
+// ===== Estimate / Confirmation Modal =====
+function openEstimateModal(){
   const name=document.getElementById('fname').value.trim();
   const phone=document.getElementById('fphone').value.trim();
-  const sBtn=document.getElementById('submitBtn');
-  const succ=document.getElementById('alertSuccess');
   const err=document.getElementById('alertError');
+  const succ=document.getElementById('alertSuccess');
   [succ,err].forEach(e=>{e.classList.remove('show');e.textContent='';});
+  if(!selVeh){err.textContent='Please select a vehicle first.';err.classList.add('show');return;}
   if(!name||!phone){err.textContent='Please provide your name and phone number.';err.classList.add('show');return;}
-  sBtn.disabled=true;sBtn.textContent='Sending…';
+  const pickup=document.getElementById('pickupInput').value.trim();
+  if(!pickup){err.textContent='Please enter your pickup location.';err.classList.add('show');return;}
+  const dropoffRaw = curSvc==='hourly' ? '' : document.getElementById('dropoffInput').value.trim();
+  if(curSvc!=='hourly' && !dropoffRaw){err.textContent='Please enter your drop-off location.';err.classList.add('show');return;}
+  const dropoff = curSvc==='hourly' ? '(Hourly — see stops)' : dropoffRaw;
+  const hour=document.getElementById('timeHour').value||'--';
+  const min=document.getElementById('timeMin').value||'--';
+  const ampm=document.getElementById('timeAmpm').value||'AM';
+  const date=document.getElementById('dateInput').value||'—';
+  const pax=document.getElementById('fpax').value||'—';
+  const veh=VEHICLES.find(v=>v.id===selVeh);
+  const svcLabels={airport:'✈ Airport Transfer', oneway:'📍 Point to Point', hourly:'⏱ Hourly'};
+  document.getElementById('mdlSvc').textContent = svcLabels[curSvc]||curSvc;
+  document.getElementById('mdlVeh').textContent = veh.name;
+  document.getElementById('mdlPickup').textContent = pickup;
+  document.getElementById('mdlDropoff').textContent = dropoff||'—';
+  document.getElementById('mdlWhen').textContent = `${date} · ${hour}:${min} ${ampm}`;
+  document.getElementById('mdlPax').textContent = pax;
+  document.getElementById('mdlName').textContent = name;
+  document.getElementById('mdlPhone').textContent = phone;
+  if(_lastEstimate){
+    document.getElementById('mdlPrice').textContent = `$${_lastEstimate.total}`;
+    document.getElementById('mdlPriceSub').innerHTML = `${_lastEstimate.breakdown}<br><span style="opacity:0.75;">* Average estimate. Final price confirmed by our representative.</span>`;
+    document.getElementById('mdlDist').textContent = `${_lastEstimate.totalMiles.toFixed(1)} mi (round trip)`;
+    document.getElementById('mdlDur').textContent = `${_lastEstimate.totalMinutes} min`;
+  } else {
+    document.getElementById('mdlPrice').textContent = `From $${getPrice(veh)}`;
+    document.getElementById('mdlPriceSub').textContent = 'Base flat rate · representative will confirm exact price';
+    document.getElementById('mdlDist').textContent = '—';
+    document.getElementById('mdlDur').textContent = '—';
+  }
+  document.getElementById('confirmModal').classList.add('show');
+}
+function closeModal(){ document.getElementById('confirmModal').classList.remove('show'); }
+document.getElementById('confirmModal').addEventListener('click', e=>{ if(e.target.id==='confirmModal') closeModal(); });
+
+async function confirmAndSend(){
+  const btn=document.getElementById('mdlConfirm');
+  btn.disabled=true; btn.textContent='Sending…';
+  const name=document.getElementById('fname').value.trim();
+  const phone=document.getElementById('fphone').value.trim();
+  const email=document.getElementById('femail').value.trim();
   const pickup=document.getElementById('pickupInput').value;
   const dropoff=curSvc==='hourly'?'(Hourly — see stops)':document.getElementById('dropoffInput').value;
   const stops=getStops();
@@ -774,38 +1003,83 @@ async function submitBooking(){
   const flight=document.getElementById('flightInput').value;
   const pax=document.getElementById('fpax').value;
   const msg=document.getElementById('fmessage').value;
-  const email=document.getElementById('femail').value;
-  const veh=selVeh?VEHICLES.find(v=>v.id===selVeh)?.name:'Not selected';
-  const body={name,phone,email,vehicle:veh,service:curSvc,pickup,dropoff,stops:stops.join(' → '),date,time:`${hour}:${min} ${ampm}`,flight,pax,message:msg};
+  const veh=VEHICLES.find(v=>v.id===selVeh)?.name||'—';
+  const stopsStr = stops.length ? stops.join(' → ') : '—';
+  const estStr = _lastEstimate
+    ? `$${_lastEstimate.total} (${_lastEstimate.totalMiles.toFixed(1)} mi · ${_lastEstimate.totalMinutes} min · ${_lastEstimate.breakdown})`
+    : `From base rate — needs confirmation`;
+  const fullSummary =
+    `=== BOOKING REQUEST ===\nNAME: ${name}\nPHONE: ${phone}\nEMAIL: ${email||'—'}\n\n` +
+    `SERVICE: ${curSvc}\nVEHICLE: ${veh}\nPASSENGERS: ${pax||'—'}\n\n` +
+    `PICKUP: ${pickup||'—'}\nDROPOFF: ${dropoff||'—'}\nSTOPS: ${stopsStr}\n\n` +
+    `DATE: ${date||'—'}\nTIME: ${hour}:${min} ${ampm}\nFLIGHT: ${flight||'—'}\n\n` +
+    `ESTIMATED PRICE: ${estStr}\n\n` +
+    `MESSAGE: ${msg||'—'}`;
   try{
-    const stopsStr = stops.length ? stops.join(' → ') : '—';
-    const fullSummary =
-      `NAME: ${name}\nPHONE: ${phone}\nEMAIL: ${email||'—'}\n\n` +
-      `SERVICE: ${curSvc}\nVEHICLE: ${veh}\nPASSENGERS: ${pax||'—'}\n\n` +
-      `PICKUP: ${pickup||'—'}\nDROPOFF: ${dropoff||'—'}\nSTOPS: ${stopsStr}\n\n` +
-      `DATE: ${date||'—'}\nTIME: ${hour}:${min} ${ampm}\nFLIGHT: ${flight||'—'}\n\n` +
-      `MESSAGE: ${msg||'—'}`;
     await emailjs.send('service_53lh00r', 'template_xwek3ac', {
-      from_name: name,
-      from_email: email || 'no-email@provided.com',
-      reply_to: email || '',
+      from_name: name, from_email: email || 'no-email@provided.com', reply_to: email || '',
       name, phone, email: email||'—',
       service: curSvc, vehicle: veh, passengers: pax||'—',
       pickup: pickup||'—', dropoff: dropoff||'—', stops: stopsStr,
       date: date||'—', time: `${hour}:${min} ${ampm}`,
       flight: flight||'—', message: msg||'—',
-      source: 'Booking Page',
-      full_summary: fullSummary
+      estimate: estStr,
+      source: 'Booking Page', full_summary: fullSummary
     });
-    succ.textContent='Request received! We\'ll confirm your ride within 5 minutes. ✅';succ.classList.add('show');document.getElementById('moovsLink').style.display='block';
-  }catch{
-    succ.textContent='Request sent! We\'ll confirm your ride within 5 minutes. ✅';succ.classList.add('show');document.getElementById('moovsLink').style.display='block';
-  }
-  sBtn.disabled=false;sBtn.innerHTML='🚗 Request My Ride — We\'ll Confirm Within 5 Min';
+  }catch(e){ /* still show success */ }
+  closeModal();
+  const succ=document.getElementById('alertSuccess');
+  succ.innerHTML='✅ <strong>Request received!</strong> Our representative will call you shortly to confirm your reservation and finalize the price.';
+  succ.classList.add('show');
+  document.getElementById('moovsLink').style.display='block';
+  btn.disabled=false; btn.textContent='Confirm & Submit Request';
+  document.getElementById('submitBtn').scrollIntoView({behavior:'smooth',block:'center'});
 }
 
 // Init
 renderVehicles();
+
+// Wrap renderVehicles so carousel state stays in sync
+const _origRenderVehicles = renderVehicles;
+renderVehicles = function(){ _origRenderVehicles(); if(typeof updateVehCarousel==='function') setTimeout(updateVehCarousel, 0); };
+
+// Vehicle carousel nav
+let vehIdx = 0;
+const vehTrack = document.getElementById('vehiclesGrid');
+const vehPrev = document.getElementById('vehPrev');
+const vehNext = document.getElementById('vehNext');
+function visibleCount(){ const w = window.innerWidth; if(w<=600) return 1; if(w<=900) return 2; return 3; }
+function updateVehCarousel(){
+  const vc = visibleCount();
+  const maxIdx = Math.max(0, VEHICLES.length - vc);
+  if(vehIdx > maxIdx) vehIdx = maxIdx;
+  const slide = vehTrack.querySelector('.veh-slide');
+  if(!slide) return;
+  const slideW = slide.getBoundingClientRect().width + 18;
+  vehTrack.style.transform = `translateX(${-vehIdx * slideW}px)`;
+  vehPrev.disabled = vehIdx <= 0;
+  vehNext.disabled = vehIdx >= maxIdx;
+}
+vehPrev.addEventListener('click', ()=>{ vehIdx = Math.max(0, vehIdx-1); updateVehCarousel(); });
+vehNext.addEventListener('click', ()=>{ vehIdx = Math.min(VEHICLES.length-visibleCount(), vehIdx+1); updateVehCarousel(); });
+window.addEventListener('resize', updateVehCarousel);
+setTimeout(updateVehCarousel, 50);
+
+// Estimate triggers
+['pickupInput','dropoffInput'].forEach(id=>{
+  const el = document.getElementById(id);
+  el.addEventListener('input', scheduleEstimate);
+  el.addEventListener('change', scheduleEstimate);
+  el.addEventListener('blur', scheduleEstimate);
+});
+// Re-estimate on stops changes (hourly mode)
+const stopsList = document.getElementById('stopsList');
+if(stopsList){
+  stopsList.addEventListener('input', scheduleEstimate);
+  new MutationObserver(scheduleEstimate).observe(stopsList, {childList:true, subtree:true});
+}
+// Re-estimate on service tab switch
+document.querySelectorAll('.svc-tab').forEach(t=>t.addEventListener('click', ()=>setTimeout(scheduleEstimate, 30)));
 
 // Custom dropdown wiring
 function setupCdd(id, options, placeholder){
