@@ -26,10 +26,10 @@
     .fleet-panel { display: none; min-height: 520px; }
     .fleet-panel.active { display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
 
-    .fleet-panel .car-side { position: relative; overflow: hidden; min-height: 520px; display: flex; align-items: center; justify-content: center; }
-    .fleet-panel .car-side img { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.35s ease; }
+    .fleet-panel .car-side { position: relative; overflow: hidden; min-height: 520px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #eef3f1 0%, #f7f5f0 60%, #ece8df 100%); }
+    .fleet-panel .car-side img { width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity 0.35s ease; padding: 24px; }
     .fleet-panel.active .car-side img { opacity: 1; }
-    .fleet-panel .car-side::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, #faf8ff 0%, transparent 40%); }
+    .fleet-panel .car-side::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, transparent 70%, rgba(250,248,255,0.6) 100%); pointer-events: none; }
 
     .fleet-panel .info-side { padding: 3.5rem 4rem 3.5rem 3rem; }
     .vehicle-badge { font-size: 0.7rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #C9A84C; margin-bottom: 14px; display: block; }
@@ -129,23 +129,60 @@
 <section class="fleet-showcase">
   <div class="fleet-tabs" id="fleetTabs">
     <button class="fleet-tab active" data-panel="sedan">Executive Sedan</button>
+    <button class="fleet-tab" data-panel="luxsedan">Luxury Sedan</button>
+    <button class="fleet-tab" data-panel="execsuv">Executive SUV</button>
     <button class="fleet-tab" data-panel="suv">Luxury SUV</button>
-    <button class="fleet-tab" data-panel="stretch">Stretch Limo</button>
-    <button class="fleet-tab" data-panel="sprinter">Sprinter Van</button>
+    <button class="fleet-tab" data-panel="stretch">Stretch Limousine</button>
+    <button class="fleet-tab" data-panel="stretchsuv">Stretched SUV</button>
+    <button class="fleet-tab" data-panel="sprinter">Executive Sprinter</button>
     <button class="fleet-tab" data-panel="partybus">Party Bus</button>
     <button class="fleet-tab" data-panel="jet">Sprinter Jet</button>
   </div>
 
   <div class="fleet-stage">
     <div class="fleet-panel active" id="panel-sedan">
-      <div class="car-side"><img src="images/sedan.webp" alt="Executive Sedan — Purple Heart Limo" loading="eager" fetchpriority="high" onerror="this.src='https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=900&q=75&auto=format'"></div>
+      <div class="car-side"><img src="images/v-sedan-cadillac.png" alt="Cadillac CTS Executive Sedan — Purple Heart Limo" loading="eager" fetchpriority="high"></div>
       <div class="info-side">
-        <span class="vehicle-badge">Vehicle 01 of 06</span>
+        <span class="vehicle-badge">Vehicle 01 of 09</span>
         <h2>Executive <em>Sedan</em></h2>
-        <div class="capacity-badge">👤 1–3 Passengers</div>
-        <p>The definitive choice for solo business travel, executive airport transfers, and point-to-point rides where a professional first impression matters. Sleek, silent, and impeccably clean every time.</p>
+        <div class="capacity-badge">👤 Up to 3 Passengers · 2 Bags</div>
+        <p>Cadillac CTS — the definitive choice for solo business travel, executive airport transfers, and point-to-point rides where a professional first impression matters. Sleek, silent, and impeccably clean every time. <strong>From $119.</strong></p>
         <div class="feature-chips">
-          <span class="chip">Premium Leather</span><span class="chip">Climate Control</span><span class="chip">Wi-Fi Available</span><span class="chip">USB Charging</span><span class="chip">Bottled Water</span><span class="chip">Privacy Shades</span>
+          <span class="chip">Leather Interior</span><span class="chip">Climate Control</span><span class="chip">Bottled Water</span><span class="chip">Suit &amp; Tie Chauffeur</span><span class="chip">Wi-Fi</span><span class="chip">Phone Chargers</span>
+        </div>
+        <div class="fleet-actions">
+          <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-gold">Book This Vehicle</a>
+          <a href="tel:+18337400700" class="btn-outline-gold">📞 Call Us</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="fleet-panel" id="panel-luxsedan">
+      <div class="car-side"><img src="images/v-sclass.png" alt="Mercedes-Benz S-Class Luxury Sedan — Purple Heart Limo" loading="lazy"></div>
+      <div class="info-side">
+        <span class="vehicle-badge">Vehicle 02 of 09 · Premium</span>
+        <h2>Luxury <em>Sedan</em></h2>
+        <div class="capacity-badge">👤 Up to 2 Passengers · 2 Bags</div>
+        <p>Mercedes-Benz S-Class — iconic elegance, Burmester sound, massaging seats, ambient lighting and a privacy partition. The definition of effortless premium business class. <strong>From $229.</strong></p>
+        <div class="feature-chips">
+          <span class="chip">Top-Tier Mercedes Comfort</span><span class="chip">Privacy Partition</span><span class="chip">Rear Climate</span><span class="chip">Premium Leather</span><span class="chip">Ambient Lighting</span><span class="chip">VIP / Executive Ready</span>
+        </div>
+        <div class="fleet-actions">
+          <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-gold">Book This Vehicle</a>
+          <a href="tel:+18337400700" class="btn-outline-gold">📞 Call Us</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="fleet-panel" id="panel-execsuv">
+      <div class="car-side"><img src="images/v-yukon.png" alt="GMC Yukon Denali Executive SUV — Purple Heart Limo" loading="lazy"></div>
+      <div class="info-side">
+        <span class="vehicle-badge">Vehicle 03 of 09</span>
+        <h2>Executive <em>SUV</em></h2>
+        <div class="capacity-badge">👤 Up to 6 Passengers · 6 Bags</div>
+        <p>GMC Yukon Denali — commanding presence, spacious 3-row seating, panoramic views, and premium sound. Ideal for small groups, family airport runs, and corporate transfers with luggage. <strong>From $149.</strong></p>
+        <div class="feature-chips">
+          <span class="chip">6 Passengers · 6 Bags</span><span class="chip">3-Row Seating</span><span class="chip">Tinted Windows</span><span class="chip">Privacy</span><span class="chip">Family-Friendly</span><span class="chip">Airport-Ready</span>
         </div>
         <div class="fleet-actions">
           <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-gold">Book This Vehicle</a>
@@ -155,14 +192,14 @@
     </div>
 
     <div class="fleet-panel" id="panel-suv">
-      <div class="car-side"><img src="images/suv.webp" alt="Luxury SUV — Purple Heart Limo" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1558981408-db0ecd8a1ee4?w=900&q=75&auto=format'"></div>
+      <div class="car-side"><img src="images/v-escalade.png" alt="Cadillac Escalade Luxury SUV — Purple Heart Limo" loading="lazy"></div>
       <div class="info-side">
-        <span class="vehicle-badge">Vehicle 02 of 06</span>
+        <span class="vehicle-badge">Vehicle 04 of 09</span>
         <h2>Luxury <em>SUV</em></h2>
-        <div class="capacity-badge">👤 Up to 6 Passengers</div>
-        <p>The perfect blend of elegance and spaciousness for small executive groups, family airport runs, and VIP client transportation. Command any arrival in a commanding vehicle.</p>
+        <div class="capacity-badge">👤 Up to 6 Passengers · 6 Bags</div>
+        <p>Cadillac Escalade Platinum — premium captain seats, rear entertainment, ambient lighting and a commanding profile. The pinnacle of full-size luxury SUV travel for VIP groups. <strong>From $179.</strong></p>
         <div class="feature-chips">
-          <span class="chip">Leather Seating</span><span class="chip">LED Lighting</span><span class="chip">Surround Sound</span><span class="chip">Bar Area</span><span class="chip">Tinted Windows</span><span class="chip">Climate Control</span>
+          <span class="chip">Escalade Platinum Trim</span><span class="chip">Captain Seats</span><span class="chip">Rear Entertainment</span><span class="chip">VIP Group Transport</span><span class="chip">Premium Sound</span><span class="chip">Climate Control</span>
         </div>
         <div class="fleet-actions">
           <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-gold">Book This Vehicle</a>
@@ -172,14 +209,31 @@
     </div>
 
     <div class="fleet-panel" id="panel-stretch">
-      <div class="car-side"><img src="images/stretched limo.webp" alt="Stretch Limousine — Purple Heart Limo" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1519741347686-c1e0aadf4611?w=900&q=75&auto=format'"></div>
+      <div class="car-side"><img src="images/v-towncar-stretch.png" alt="Lincoln Town Car Stretch Limousine — Purple Heart Limo" loading="lazy"></div>
       <div class="info-side">
-        <span class="vehicle-badge">Vehicle 03 of 06</span>
+        <span class="vehicle-badge">Vehicle 05 of 09 · Most Popular</span>
         <h2>Stretch <em>Limousine</em></h2>
-        <div class="capacity-badge">👤 Up to 10 Passengers</div>
-        <p>The classic stretch — an icon of luxury transportation. Perfect for weddings, proms, milestone birthdays, and any occasion that calls for an unforgettable grand arrival. This is the one for the photos.</p>
+        <div class="capacity-badge">👤 Up to 8 Passengers</div>
+        <p>Lincoln Town Car Stretch — the classic icon of luxury transportation. Perfect for weddings, proms, milestone birthdays and any occasion that calls for an unforgettable grand arrival. <strong>From $169.</strong></p>
         <div class="feature-chips">
-          <span class="chip">Full Bar Setup</span><span class="chip">LED Lighting</span><span class="chip">Premium Sound</span><span class="chip">Privacy Divider</span><span class="chip">Mirrored Ceiling</span><span class="chip">Champagne Service</span>
+          <span class="chip">Up to 8 Passengers</span><span class="chip">Wet Bar</span><span class="chip">Mood Lighting</span><span class="chip">Premium Sound</span><span class="chip">Weddings &amp; Proms</span><span class="chip">Photos Welcome</span>
+        </div>
+        <div class="fleet-actions">
+          <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-gold">Book This Vehicle</a>
+          <a href="tel:+18337400700" class="btn-outline-gold">📞 Call Us</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="fleet-panel" id="panel-stretchsuv">
+      <div class="car-side"><img src="images/v-navigator-stretch.png" alt="Lincoln Navigator Stretched SUV — Purple Heart Limo" loading="lazy"></div>
+      <div class="info-side">
+        <span class="vehicle-badge">Vehicle 06 of 09</span>
+        <h2>Stretched <em>SUV</em></h2>
+        <div class="capacity-badge">👤 Up to 10 Passengers · 6 Bags</div>
+        <p>Lincoln Navigator Stretch — large luxury groups in stretched luxury. Premium bar, LED lighting, full audio system. Bachelor / bachelorette ready and a statement arrival for any event. <strong>From $279.</strong></p>
+        <div class="feature-chips">
+          <span class="chip">Up to 10 Passengers</span><span class="chip">Premium Bar</span><span class="chip">LED Lighting</span><span class="chip">Full Audio</span><span class="chip">Bachelor / Bachelorette</span><span class="chip">Statement Arrival</span>
         </div>
         <div class="fleet-actions">
           <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-gold">Book This Vehicle</a>
@@ -189,14 +243,14 @@
     </div>
 
     <div class="fleet-panel" id="panel-sprinter">
-      <div class="car-side"><img src="images/sprinter.webp" alt="Executive Sprinter Van — Purple Heart Limo" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=900&q=75&auto=format'"></div>
+      <div class="car-side"><img src="images/v-sprinter.png" alt="Mercedes Executive Sprinter Van — Purple Heart Limo" loading="lazy"></div>
       <div class="info-side">
-        <span class="vehicle-badge">Vehicle 04 of 06</span>
+        <span class="vehicle-badge">Vehicle 07 of 09</span>
         <h2>Executive <em>Sprinter</em></h2>
-        <div class="capacity-badge">👤 Up to 14 Passengers</div>
-        <p>The workhorse of group luxury travel. Corporate team transport, airport group pickups, Hill Country wine tours, ACL Festival — the Sprinter handles any group itinerary with comfort and style.</p>
+        <div class="capacity-badge">👤 Up to 12 Passengers · 10 Bags</div>
+        <p>Mercedes Sprinter — the workhorse of group luxury travel. Tall interior, easy boarding, USB charging and Wi-Fi available. Ideal for corporate roadshows, airport groups, and Hill Country tours. <strong>From $159.</strong></p>
         <div class="feature-chips">
-          <span class="chip">Captain's Chairs</span><span class="chip">Entertainment Screen</span><span class="chip">Wi-Fi Hotspot</span><span class="chip">USB Ports</span><span class="chip">Ample Luggage</span><span class="chip">Privacy Windows</span>
+          <span class="chip">12 Passengers · 10 Bags</span><span class="chip">Tall Interior</span><span class="chip">Easy Boarding</span><span class="chip">USB Charging</span><span class="chip">Wi-Fi Available</span><span class="chip">Corporate Roadshows</span>
         </div>
         <div class="fleet-actions">
           <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-gold">Book This Vehicle</a>
@@ -206,14 +260,14 @@
     </div>
 
     <div class="fleet-panel" id="panel-partybus">
-      <div class="car-side"><img src="images/24 pax.webp" alt="Luxury Party Bus 24 Passenger — Purple Heart Limo" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=900&q=75&auto=format'"></div>
+      <div class="car-side"><img src="images/v-partybus.png" alt="Ford Transit Luxury Party Bus — Purple Heart Limo" loading="lazy"></div>
       <div class="info-side">
-        <span class="vehicle-badge">Vehicle 05 of 06</span>
+        <span class="vehicle-badge">Vehicle 08 of 09</span>
         <h2>Luxury <em>Party Bus</em></h2>
-        <div class="capacity-badge">👤 Up to 24 Passengers</div>
-        <p>The ultimate group experience on wheels. Our party bus turns the ride into the event itself — full dance floor, VIP bar, premium sound, and LED mood lighting. For the occasions where the journey is the celebration.</p>
+        <div class="capacity-badge">👤 Up to 24 Passengers · 8 Bags</div>
+        <p>Ford Transit Party Bus — the ultimate group experience on wheels. Premium sound, LED lighting, and a full bar setup. Concerts, birthdays, nights out — BYOB welcome and cooler space included. <strong>From $225.</strong></p>
         <div class="feature-chips">
-          <span class="chip">Full Dance Floor</span><span class="chip">Premium Sound</span><span class="chip">LED Mood Lighting</span><span class="chip">VIP Bar Area</span><span class="chip">Flat Screen TVs</span><span class="chip">Bluetooth Hookup</span>
+          <span class="chip">Up to 24 Passengers</span><span class="chip">Premium Sound</span><span class="chip">LED Lighting</span><span class="chip">Bar Setup</span><span class="chip">BYOB · Cooler Space</span><span class="chip">Party-Ready</span>
         </div>
         <div class="fleet-actions">
           <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-gold">Book This Vehicle</a>
@@ -223,14 +277,14 @@
     </div>
 
     <div class="fleet-panel" id="panel-jet">
-      <div class="car-side"><img src="images/sprinter jet.webp" alt="Sprinter Jet Interior — Purple Heart Limo" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=900&q=75&auto=format'"></div>
+      <div class="car-side"><img src="images/v-sprinter-jet.png" alt="Mercedes Sprinter Jet-Class — Purple Heart Limo" loading="lazy"></div>
       <div class="info-side">
-        <span class="vehicle-badge">Vehicle 06 of 06</span>
+        <span class="vehicle-badge">Vehicle 09 of 09 · Premium</span>
         <h2>Sprinter <em>Jet</em></h2>
-        <div class="capacity-badge">👤 Up to 14 Passengers</div>
-        <p>Our Sprinter Jet interior delivers an aircraft-cabin experience on the road — premium captain's seats, ambient lighting, entertainment system, and a sophisticated finish reserved for those who accept no compromise on comfort.</p>
+        <div class="capacity-badge">👤 Up to 14 Passengers · 10 Bags</div>
+        <p>Mercedes Jet-Class — first-class jet interior on the road. Reclining captain chairs, TVs, conference table, Wi-Fi and power. The top-tier solution for corporate &amp; VIP transit. <strong>From $190.</strong></p>
         <div class="feature-chips">
-          <span class="chip">Aircraft Seats</span><span class="chip">Ambient Lighting</span><span class="chip">Entertainment System</span><span class="chip">Executive Finish</span><span class="chip">Wi-Fi Hotspot</span><span class="chip">Climate Zones</span>
+          <span class="chip">First-Class Jet Interior</span><span class="chip">14 Passengers</span><span class="chip">Reclining Captain Chairs</span><span class="chip">TVs · Conference Table</span><span class="chip">Wi-Fi &amp; Power</span><span class="chip">Top-Tier VIP</span>
         </div>
         <div class="fleet-actions">
           <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-gold">Book This Vehicle</a>
@@ -293,8 +347,11 @@
     <div class="footer-col">
       <h4>Our Fleet</h4>
       <a href="/fleet.html">Executive Sedan</a>
+      <a href="/fleet.html">Luxury Sedan</a>
+      <a href="/fleet.html">Executive SUV</a>
       <a href="/fleet.html">Luxury SUV</a>
-      <a href="/fleet.html">Stretch Limo</a>
+      <a href="/fleet.html">Stretch Limousine</a>
+      <a href="/fleet.html">Stretched SUV</a>
       <a href="/fleet.html">Executive Sprinter</a>
       <a href="/fleet.html">Party Bus</a>
       <a href="/fleet.html">Sprinter Jet</a>
@@ -343,7 +400,7 @@
 function toggleMenu(){const m=document.getElementById('mobile-menu');m.style.display=m.style.display==='block'?'none':'block';}
 
 // Fleet tab switching
-const panels=['sedan','suv','stretch','sprinter','partybus','jet'];
+const panels=['sedan','luxsedan','execsuv','suv','stretch','stretchsuv','sprinter','partybus','jet'];
 let cur=0;
 const dotsEl=document.getElementById('fleetDots');
 const counterEl=document.getElementById('fleetCounter');
