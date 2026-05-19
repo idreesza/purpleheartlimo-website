@@ -1,12 +1,12 @@
 /* Global brand overrides - applied site-wide */
-@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&family=Cinzel:wght@500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&family=Cinzel:wght@500;600;700&family=Poppins:wght@300;400;500;600;700;800&family=Mulish:wght@700;800;900&display=swap');
 
-/* === Company wordmark === */
+/* === Company wordmark (humanist sans, proprietary feel) === */
 .nav-logo-text {
-  font-family: 'Cinzel', 'Playfair Display', serif !important;
+  font-family: 'Mulish', 'Optima', 'Albertus', 'Trebuchet MS', sans-serif !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.14em !important;
-  font-weight: 600 !important;
+  letter-spacing: 0.18em !important;
+  font-weight: 800 !important;
   font-size: 1.05rem !important;
   color: #0a0a0a !important;
 }
