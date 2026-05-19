@@ -51,6 +51,42 @@
 }
 </script>
 
+<!-- Schema.org WebPage with Speakable (voice assistants & AI answer engines) -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebPage",
+  "@id":"https://purpleheartlimo.com/#webpage",
+  "url":"https://purpleheartlimo.com/",
+  "name":"Purple Heart Limo — Texan-Owned Luxury Limousine Service in Austin, Dallas & Houston",
+  "description":"Texan-owned luxury limousine and black car service across Austin, Dallas-Fort Worth, and Houston. Flat-rate pricing, no surge fees, 24/7 service, 4.9/5 rating from 214+ reviews.",
+  "inLanguage":"en-US",
+  "isPartOf":{"@id":"https://purpleheartlimo.com/#business"},
+  "about":{"@id":"https://purpleheartlimo.com/#business"},
+  "speakable":{
+    "@type":"SpeakableSpecification",
+    "cssSelector":[".hero h1",".hero-sub",".speakable"],
+    "xpath":["/html/head/title","/html/head/meta[@name='description']/@content"]
+  }
+}
+</script>
+
+<!-- Schema.org FAQPage for AI answer engines (ChatGPT, Perplexity, Gemini, Google AI Overviews) -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"How much does limo service cost in Texas with Purple Heart Limo?","acceptedAnswer":{"@type":"Answer","text":"Purple Heart Limo uses flat-rate pricing with no surge fees. Executive sedans start at $119, executive SUVs at $149, luxury Escalade SUVs at $179, stretch limousines at $169, executive Sprinters at $159, and 24-passenger party buses at $225. Hourly charters require a 2-3 hour minimum depending on vehicle. All prices include the chauffeur, fuel, tolls, parking, bottled water, and flight tracking on airport pickups."}},
+    {"@type":"Question","name":"Which Texas cities does Purple Heart Limo serve?","acceptedAnswer":{"@type":"Answer","text":"Purple Heart Limo serves three Texas metros: Austin metro (Austin, Round Rock, Cedar Park, Georgetown, Pflugerville, Leander, Lakeway, Westlake, Bee Cave, Buda, Kyle, Dripping Springs), Dallas-Fort Worth metro (Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Las Colinas, Grapevine, Southlake, McKinney, Allen, Richardson, Addison, Highland Park), and Houston metro (Houston, Sugar Land, The Woodlands, Katy, Pearland, Conroe, Spring, Cypress, League City). Airports served: AUS, DFW, DAL, IAH, and HOU."}},
+    {"@type":"Question","name":"Is Purple Heart Limo available 24/7?","acceptedAnswer":{"@type":"Answer","text":"Yes. Purple Heart Limo operates 24 hours a day, 365 days a year including all holidays. There is no after-hours surcharge. Dispatch is staffed by real human dispatchers, not bots or apps. Book online at purpleheartlimo.com or call (833) 740-0700."}},
+    {"@type":"Question","name":"What types of vehicles are in the Purple Heart Limo fleet?","acceptedAnswer":{"@type":"Answer","text":"Purple Heart Limo operates a 9-vehicle luxury fleet: Cadillac CTS executive sedan, Mercedes-Benz S-Class luxury sedan, GMC Yukon Denali executive SUV, Cadillac Escalade luxury SUV, Lincoln Town Car stretch limousine, Lincoln Navigator stretched SUV, Mercedes-Benz executive Sprinter, Ford Transit luxury party bus (24 passengers), and a Mercedes-Benz Jet-Class Sprinter (14 passengers). All vehicles are commercially licensed, insured, and chauffeur-driven."}},
+    {"@type":"Question","name":"What makes Purple Heart Limo different from Uber Black or other Texas limo services?","acceptedAnswer":{"@type":"Answer","text":"Purple Heart Limo is 100% Texan-owned and operated since 2020 — not a national chain or rideshare app. We use true flat-rate pricing with no surge fees, even during major events like SXSW, ACL, F1, or the Dallas Cowboys season. Every chauffeur is background-checked, professionally uniformed, and W-2 employed. Bookings are handled by real human dispatchers 24/7 with confirmed reservations, not algorithmic matching."}},
+    {"@type":"Question","name":"Does Purple Heart Limo offer airport transfers in Texas?","acceptedAnswer":{"@type":"Answer","text":"Yes. Purple Heart Limo provides flat-rate airport transfer service to and from all major Texas airports: Austin-Bergstrom International (AUS), Dallas-Fort Worth International (DFW), Dallas Love Field (DAL), Houston George Bush Intercontinental (IAH), and Houston William P. Hobby (HOU). Every airport booking includes free flight tracking, 60 minutes of free wait time, complimentary curbside pickup, and meet-and-greet available for $25."}}
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&family=Cinzel:wght@500;600;700&family=Poppins:wght@300;400;500;600;700;800&family=Mulish:wght@700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -895,6 +931,7 @@ footer {
         <a href="/fleet.html">🚗 Our Fleet</a>
         <a href="/flight-tracker.html" style="color:#C9A84C;font-weight:600;">✈ Flight Tracker</a>
         <a href="/blog/">📝 Blog</a>
+        <a href="/locations/">📍 Locations</a>
         <a href="/about.html">ℹ️ About Us</a>
         <a href="/contact.html">📞 Contact</a>
       </div>
