@@ -280,7 +280,14 @@ a { text-decoration:none; color:inherit; }
   color:#FFFFFF; line-height:1.08; margin-bottom:8px;
   letter-spacing:-0.015em;
 }
-.hero h1 .ln-white { color:#FFFFFF; display:block; }
+.hero h1 .ln-white {
+  display:block;
+  background: linear-gradient(180deg, #F4DC95 0%, #D4AF37 50%, #AA7C11 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter: drop-shadow(0 2px 10px rgba(212,175,55,0.22));
+}
 .hero h1 .ln-gold {
   display:block; font-style:italic;
   background: linear-gradient(180deg, #F4DC95 0%, #D4AF37 50%, #AA7C11 100%);
@@ -425,46 +432,49 @@ a { text-decoration:none; color:inherit; }
 .booking-card .form-group input,
 .booking-card .form-group select {
   padding:14px 16px;
-  border:1px solid rgba(255,255,255,0.08);
+  border:1.5px solid rgba(212,175,55,0.35);
   font-size:0.88rem;
   font-family:'Plus Jakarta Sans','Inter',sans-serif;
   color:#FFFFFF;
   background:#252525;
-  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s, border-width 0.2s;
 }
 .booking-card .form-group input:hover,
-.booking-card .form-group select:hover { border-color:rgba(255,255,255,0.18); }
+.booking-card .form-group select:hover { border-color:rgba(212,175,55,0.55); }
 .booking-card .form-group input:focus,
 .booking-card .form-group select:focus {
-  border-color: rgba(212,175,55,0.65);
+  border: 2.5px solid #D4AF37;
   background:#2A2A2A;
-  box-shadow: 0 0 0 3px rgba(212,175,55,0.12);
+  box-shadow: 0 0 0 3px rgba(212,175,55,0.18);
+  padding:13.5px 15.5px;
 }
 .booking-card .form-group input::placeholder { color:rgba(255,255,255,0.32); font-weight:400; }
 .booking-card .form-group input[type="date"],
 .booking-card .form-group input[type="time"] { color-scheme: dark; }
 .booking-card .form-group input[type="date"]::-webkit-calendar-picker-indicator,
 .booking-card .form-group input[type="time"]::-webkit-calendar-picker-indicator {
-  opacity:0.85;
-  filter: invert(0.85) sepia(1) saturate(3) hue-rotate(5deg) brightness(0.95);
+  opacity:1;
+  filter: invert(72%) sepia(60%) saturate(580%) hue-rotate(2deg) brightness(95%) contrast(88%);
+  cursor:pointer;
 }
 .booking-card .optional-badge { color:rgba(255,255,255,0.4); }
 
 .booking-card .csel-btn {
   padding:14px 32px 14px 16px;
-  border:1px solid rgba(255,255,255,0.08);
+  border:1.5px solid rgba(212,175,55,0.35);
   font-size:0.88rem;
   font-family:'Plus Jakarta Sans','Inter',sans-serif;
   color:#FFFFFF;
   background:#252525;
-  transition:border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  transition:border-color 0.2s, background 0.2s, box-shadow 0.2s, border-width 0.2s;
 }
-.booking-card .csel-btn:hover { border-color:rgba(255,255,255,0.18); }
-.booking-card .csel-btn::after { border-top-color:rgba(255,255,255,0.55); }
+.booking-card .csel-btn:hover { border-color:rgba(212,175,55,0.55); }
+.booking-card .csel-btn::after { border-top-color:#D4AF37; }
 .booking-card .csel-btn.open::after { border-top-color:transparent; border-bottom-color:#D4AF37; }
 .booking-card .csel-btn:focus, .booking-card .csel-btn.open {
-  border-color:rgba(212,175,55,0.65); background:#2A2A2A;
-  box-shadow: 0 0 0 3px rgba(212,175,55,0.12);
+  border: 2.5px solid #D4AF37; background:#2A2A2A;
+  box-shadow: 0 0 0 3px rgba(212,175,55,0.18);
+  padding:13.5px 31.5px 13.5px 15.5px;
 }
 .booking-card .csel-list {
   background:#1E1E1E;
@@ -484,15 +494,38 @@ a { text-decoration:none; color:inherit; }
 }
 .booking-card .csel.compact .csel-btn { padding:14px 24px 14px 10px; font-size:0.85rem; }
 
+/* ===== Fleet marquee (sliding car strip inside booking card) ===== */
+.fleet-marquee {
+  overflow:hidden; margin-top:16px;
+  border-top:1px solid rgba(212,175,55,0.18);
+  padding-top:14px;
+  mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+}
+.fleet-marquee-track {
+  display:flex; gap:10px;
+  width:max-content;
+  animation: fleet-slide 38s linear infinite;
+}
+.fleet-marquee:hover .fleet-marquee-track { animation-play-state: paused; }
+.fleet-marquee-track img {
+  height:56px; width:auto; flex:0 0 auto;
+  object-fit:cover; border-radius:6px;
+  background:#1A1A1A;
+  border:1px solid rgba(212,175,55,0.15);
+}
+@keyframes fleet-slide {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
 .btn-book-full {
   width:100%; padding:16px;
   background: linear-gradient(135deg, #D4AF37 0%, #E2C36A 45%, #AA7C11 100%);
-  background-size: 200% auto;
   color:#0a0a0a; border:none; cursor:pointer;
   border-radius:10px; font-size:0.85rem; font-weight:800;
   letter-spacing:0.1em; text-transform:uppercase;
   font-family:'Plus Jakarta Sans','Inter',sans-serif;
-  animation: shimmer 3s linear infinite;
   transition: transform 0.25s, box-shadow 0.25s, filter 0.25s;
   box-shadow:
     0 4px 18px rgba(212,175,55,0.4),
@@ -717,30 +750,71 @@ footer {
 }
 .wa-widget:hover .wa-tooltip { opacity:1; }
 
-/* SMS widget */
-.sms-widget {
+/* Floating Call widget (bronze + ringing shake) */
+@keyframes ring-shake {
+  0%,40%,100% { transform:rotate(0deg); }
+  42%  { transform:rotate(-12deg); }
+  46%  { transform:rotate(12deg); }
+  50%  { transform:rotate(-10deg); }
+  54%  { transform:rotate(10deg); }
+  58%  { transform:rotate(-6deg); }
+  62%  { transform:rotate(6deg); }
+  66%  { transform:rotate(0deg); }
+}
+.call-widget {
   position:relative; width:56px; height:56px;
-  background:var(--purple); border-radius:50%;
+  background: linear-gradient(135deg, #CD7F32 0%, #8C5A1F 100%);
+  border-radius:50%;
   display:flex; align-items:center; justify-content:center;
-  cursor:pointer; box-shadow:0 4px 16px rgba(45,0,69,0.4);
-  transition:transform 0.2s;
+  cursor:pointer;
+  box-shadow:
+    0 4px 18px rgba(205,127,50,0.45),
+    0 0 0 1px rgba(255,200,140,0.25) inset;
+  transition:transform 0.25s, box-shadow 0.25s, filter 0.25s;
   text-decoration:none;
 }
-.sms-widget:hover { transform:scale(1.1); }
-.sms-widget svg { width:26px; height:26px; fill:white; }
-.sms-pulse {
+.call-widget:hover {
+  transform:scale(1.08);
+  box-shadow:
+    0 6px 26px rgba(205,127,50,0.6),
+    0 0 20px rgba(205,127,50,0.35),
+    0 0 0 1px rgba(255,200,140,0.4) inset;
+  filter: brightness(1.06);
+}
+.call-widget svg {
+  width:28px; height:28px; fill:#0a0a0a;
+  animation: ring-shake 1.8s ease-in-out infinite;
+  transform-origin: 50% 50%;
+}
+.call-pulse {
   position:absolute; inset:-4px;
-  border-radius:50%; border:3px solid var(--purple-light);
+  border-radius:50%; border:2px solid rgba(205,127,50,0.65);
   animation: pulse-ring 2s ease-out infinite 0.5s;
 }
-.sms-tooltip {
+.call-tooltip {
   position:absolute; right:68px; top:50%; transform:translateY(-50%);
   background:var(--text); color:var(--white);
   font-size:0.75rem; font-weight:500; padding:6px 12px;
   border-radius:8px; white-space:nowrap;
   opacity:0; transition:opacity 0.2s; pointer-events:none;
 }
-.sms-widget:hover .sms-tooltip { opacity:1; }
+.call-widget:hover .call-tooltip { opacity:1; }
+
+/* Nav phone (header Call button) — black icon + ringing shake */
+.nav-phone .phone-ico {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:18px; height:18px;
+  animation: ring-shake 1.8s ease-in-out infinite;
+  transform-origin: 50% 50%;
+}
+.nav-phone .phone-ico svg { width:100%; height:100%; fill:#0a0a0a; }
+.m-call .phone-ico {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:16px; height:16px; vertical-align:middle; margin-right:4px;
+  animation: ring-shake 1.8s ease-in-out infinite;
+  transform-origin: 50% 50%;
+}
+.m-call .phone-ico svg { width:100%; height:100%; fill:#0a0a0a; }
 
 /* ===== MOBILE BOTTOM BAR ===== */
 .mobile-bar {
@@ -754,17 +828,7 @@ footer {
   border-radius:10px; font-size:0.76rem; font-weight:700;
   letter-spacing:0.06em; text-transform:uppercase;
 }
-.m-call { background:#C0C0C0; color:#1A3A6B; animation:ring-shake 1.8s ease-in-out infinite; }
-@keyframes ring-shake {
-  0%,40%,100% { transform:rotate(0deg); }
-  42%  { transform:rotate(-8deg); }
-  46%  { transform:rotate(8deg); }
-  50%  { transform:rotate(-7deg); }
-  54%  { transform:rotate(7deg); }
-  58%  { transform:rotate(-4deg); }
-  62%  { transform:rotate(4deg); }
-  66%  { transform:rotate(0deg); }
-}
+.m-call { background:#C0C0C0; color:#1A3A6B; }
 .m-wa { background: linear-gradient(135deg, #D4AF37, #AA7C11); color:#0a0a0a; box-shadow:0 2px 12px rgba(212,175,55,0.35); }
 .m-book {
   background: linear-gradient(135deg, var(--gold), var(--gold-light));
@@ -969,7 +1033,8 @@ footer {
   .hero-trust { gap:10px; }
   .trust-item { font-size:0.72rem; }
   .hero-btns { flex-direction:column; gap:10px; }
-  .hero-btns .btn-primary, .hero-btns .btn-secondary { width:100%; justify-content:center; text-align:center; }
+  .hero-btns .btn-primary { display:none; }
+  .hero-btns .btn-secondary { width:100%; justify-content:center; text-align:center; }
   /* Center hero content on mobile */
   .hero-content { text-align:center; display:flex; flex-direction:column; align-items:center; }
   .hero-divider { margin:16px auto; }
@@ -1073,7 +1138,7 @@ footer {
 </ul>
 <div class="nav-cta">
 <button aria-label="Switch language" id="lang-toggle" onclick="toggleLang()" style="background:none;border:1.5px solid rgba(0,0,0,0.15);border-radius:20px;padding:5px 12px;font-family:inherit;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;cursor:pointer;color:var(--purple);display:flex;align-items:center;gap:5px;transition:all 0.2s;" title="Switch language">🌐 <span id="lang-label">EN</span></button>
-<a class="nav-phone" href="tel:+18337400700">📞 (833) 740-0700</a>
+<a class="nav-phone" href="tel:+18337400700"><span class="phone-ico"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.05 15.05 0 0 1-6.59-6.59l2.2-2.21a1 1 0 0 0 .25-1.02A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"></path></svg></span> (833) 740-0700</a>
 <a class="btn-primary" data-en="Book Now" data-es="Reservar" href="https://customer.moovs.app/purple-heart-limo/request/new" id="btn-booknow" style="padding:10px 20px;font-size:0.78rem;" target="_blank">Book Now</a>
 </div>
 <button aria-expanded="false" aria-label="Open navigation menu" class="hamburger" id="hamburger" onclick="toggleMenu()">
@@ -1102,15 +1167,15 @@ footer {
 <svg viewbox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
 <span class="wa-tooltip">WhatsApp Us</span>
 </a>
-<a aria-label="Send us a text" class="sms-widget" href="sms:+18337400700&amp;body=Hi%21%20I%27d%20like%20to%20book%20a%20ride%20with%20Purple%20Heart%20Limo">
-<div class="sms-pulse"></div>
-<svg viewbox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"></path></svg>
-<span class="sms-tooltip">Text Us</span>
+<a aria-label="Call us" class="call-widget" href="tel:+18337400700">
+<div class="call-pulse"></div>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.05 15.05 0 0 1-6.59-6.59l2.2-2.21a1 1 0 0 0 .25-1.02A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"></path></svg>
+<span class="call-tooltip">Call Us</span>
 </a>
 </div>
 <!-- ===== MOBILE BOTTOM BAR ===== -->
 <div class="mobile-bar">
-<a class="m-call" href="tel:+18337400700">📞 Call</a>
+<a class="m-call" href="tel:+18337400700"><span class="phone-ico"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.05 15.05 0 0 1-6.59-6.59l2.2-2.21a1 1 0 0 0 .25-1.02A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"></path></svg></span>Call</a>
 <a class="m-wa" href="https://wa.me/18337400700" target="_blank">💬 WhatsApp</a>
 <a class="m-book" href="/booking.html">Book a Ride</a>
 </div>
@@ -1180,8 +1245,8 @@ footer {
 <div class="flight-field show" id="flight-field">
 <div class="form-group">
 <label style="display:flex;align-items:center;gap:6px;">
-<span style="font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);font-weight:700;">✈ Flight No.</span>
-<span class="optional-badge">optional</span>
+<span style="font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);font-weight:700;font-family:'Plus Jakarta Sans','Inter',sans-serif;">✈ Flight No.</span>
+<span class="optional-badge">(optional)</span>
 </label>
 <div style="position:relative;">
 <span style="position:absolute;left:11px;top:50%;transform:translateY(-50%);font-family:'Courier New',monospace;font-size:0.78rem;color:rgba(45,0,69,0.35);pointer-events:none;letter-spacing:0.08em;">FLT#</span>
@@ -1327,18 +1392,35 @@ footer {
 <div style="font-size:0.65rem;color:var(--gray);margin-top:2px;">Flat rate · No surge · All-inclusive</div>
 <div id="price-note" style="font-size:0.68rem;color:#b45309;font-weight:600;margin-top:4px;"></div>
 </div>
-<button class="btn-book-full" id="quote-btn" onclick="submitQuote()">🚗 See My Price &amp; Book</button>
+<button class="btn-book-full" id="quote-btn" onclick="submitQuote()">See My Price &amp; Book</button>
 <div id="quote-success" style="display:none;background:#f0fdf4;border:1.5px solid #22c55e;border-radius:10px;padding:12px 14px;text-align:center;margin-top:8px;">
 <div style="color:#16a34a;font-weight:700;font-size:0.88rem;">✅ Request received!</div>
 <div style="color:#166534;font-size:0.78rem;margin-top:4px;">We'll call or text you within 5 minutes with your exact flat rate.</div>
 <a href="https://customer.moovs.app/purple-heart-limo/request/new" style="display:inline-block;margin-top:8px;padding:7px 18px;background:var(--purple);color:#fff;border-radius:8px;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;" target="_blank">Book Online Now →</a>
 </div>
-<!-- Real vehicle photo strip -->
-<div style="display:flex;gap:5px;margin-top:14px;border-top:1px solid rgba(45,0,69,0.08);padding-top:12px;">
-<img alt="Sedan" loading="lazy" src="images/sedan-cadillac.webp" style="width:25%;height:48px;object-fit:contain;border-radius:5px;background:#f3f0e8;"/>
-<img alt="SUV" loading="lazy" src="images/suv.webp" style="width:25%;height:48px;object-fit:cover;border-radius:5px;"/>
-<img alt="Stretch Limo" loading="lazy" src="images/stretched limo.webp" style="width:25%;height:48px;object-fit:cover;border-radius:5px;"/>
-<img alt="Sprinter" loading="lazy" src="images/sprinter.webp" style="width:25%;height:48px;object-fit:cover;border-radius:5px;"/>
+<!-- Real vehicle photo strip — sliding marquee -->
+<div class="fleet-marquee">
+<div class="fleet-marquee-track">
+<img alt="Executive Sedan" loading="lazy" src="images/sedan-cadillac.webp"/>
+<img alt="Luxury Sedan" loading="lazy" src="images/sclass.webp"/>
+<img alt="Executive SUV" loading="lazy" src="images/suv.webp"/>
+<img alt="Luxury SUV" loading="lazy" src="images/luxsuv-escalade.webp"/>
+<img alt="Stretch Limo" loading="lazy" src="images/stretch-towncar.webp"/>
+<img alt="Stretched SUV" loading="lazy" src="images/stretch-navigator.webp"/>
+<img alt="Executive Sprinter" loading="lazy" src="images/sprinter-new.webp"/>
+<img alt="Party Bus" loading="lazy" src="images/partybus-ford.webp"/>
+<img alt="Sprinter Jet" loading="lazy" src="images/jet-sprinter.webp"/>
+<!-- duplicate for seamless loop -->
+<img alt="" aria-hidden="true" loading="lazy" src="images/sedan-cadillac.webp"/>
+<img alt="" aria-hidden="true" loading="lazy" src="images/sclass.webp"/>
+<img alt="" aria-hidden="true" loading="lazy" src="images/suv.webp"/>
+<img alt="" aria-hidden="true" loading="lazy" src="images/luxsuv-escalade.webp"/>
+<img alt="" aria-hidden="true" loading="lazy" src="images/stretch-towncar.webp"/>
+<img alt="" aria-hidden="true" loading="lazy" src="images/stretch-navigator.webp"/>
+<img alt="" aria-hidden="true" loading="lazy" src="images/sprinter-new.webp"/>
+<img alt="" aria-hidden="true" loading="lazy" src="images/partybus-ford.webp"/>
+<img alt="" aria-hidden="true" loading="lazy" src="images/jet-sprinter.webp"/>
+</div>
 </div>
 </div>
 </div>
