@@ -460,21 +460,22 @@ a { text-decoration:none; color:inherit; }
 }
 .booking-card .form-group input::placeholder { color:rgba(255,255,255,0.32); font-weight:400; }
 .booking-card .form-group input[type="date"],
-.booking-card .form-group input[type="time"] { color-scheme: dark; }
+.booking-card .form-group input[type="time"] { color-scheme: dark !important; }
 .booking-card .form-group input[type="date"]::-webkit-calendar-picker-indicator,
 .booking-card .form-group input[type="time"]::-webkit-calendar-picker-indicator {
-  opacity: 1;
-  cursor: pointer;
-  /* Hide the native (purple-tinted) glyph entirely */
-  color: transparent;
-  background: transparent;
-  /* Overlay a gold calendar SVG (encoded fill = #D4AF37) */
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23D4AF37'><path d='M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5z'/></svg>");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 18px 18px;
-  width: 22px; height: 22px;
-  filter: none;
+  opacity: 1 !important;
+  cursor: pointer !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  color: transparent !important;
+  background-color: transparent !important;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFD700'><path d='M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V10h14v10zM5 8V6h14v2H5z'/></svg>") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: 20px 20px !important;
+  width: 24px !important; height: 24px !important;
+  filter: none !important;
+  margin-right: 4px;
 }
 .booking-card .optional-badge { color:rgba(255,255,255,0.4); }
 
