@@ -1,0 +1,22 @@
+Please redesign the landing page UI to match an ultra-premium, dark-mode luxury aesthetic. Update the CSS styles, colors, typography, and form components based on the following professional design specification:
+
+1. COLOR PALETTE & CONTRAST
+- Main Background: Change the muted blue to a deep matte charcoal/near-black (#121212).
+- Booking Card Container: Use a sleek, dark-mode container with a subtle border or glassmorphism effect (#1E1E1E) to make it separate from the main background.
+- Input Fields: Dark backgrounds (#252525) with a clean 1px border and subtle placeholder text.
+- Primary CTA Buttons ("Book Your Ride", "See My Price & Book"): Change the mustard yellow to a vibrant, metallic luxury gold gradient (#D4AF37 to #AA7C11) with a soft outer glow effect.
+- Secondary Buttons/Elements: Use crisp white or subtle chrome outlines.
+- Chat/WhatsApp Widgets: Desaturate the bright green icon to a matching metallic gold/monochrome style so it blends seamlessly into the premium theme.
+
+2. TYPOGRAPHY & TEXT CONTRAST
+- Hero Heading Font: Use a premium, bold geometric sans-serif (like 'Montserrat' or 'Syne') or a sophisticated luxury serif (like 'Playfair Display').
+- Hero Heading Text Colors: Do not use solid gold for all text. Break it up for maximum readability:
+  * "Luxury Rides." -> Crisp Platinum White (#FFFFFF)
+  * "Premier Limo Service." -> High-contrast Metallic Gold (#D4AF37)
+  * "Prime Limo Fleet." -> Crisp Platinum White (#FFFFFF)
+- Body and Form Font: Clean, highly legible sans-serif ('Inter' or 'Plus Jakarta Sans'). Ensure all form labels stand out sharply against the dark backgrounds.
+
+3. LAYOUT & UI REFINEMENTS
+- Increase vertical padding inside the form input fields slightly to give the UI a more premium, spacious feel.
+- Ensure smooth hover transitions on all buttons (e.g., slight scaling or glow amplification).
+- Maintain the exact same functional structure, input fields, and layout placement, but completely overhaul the styling to match this high-end look.

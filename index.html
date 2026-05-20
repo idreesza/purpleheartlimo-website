@@ -82,8 +82,8 @@
 </script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" media="print" onload="this.media='all'" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&amp;family=Cinzel:wght@500;600;700&amp;family=Poppins:wght@300;400;500;600;700;800&amp;family=Mulish:wght@700;800;900&amp;display=swap" media="print" onload="this.media='all'" rel="stylesheet"/>
-<noscript><link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&amp;family=Cinzel:wght@500;600;700&amp;family=Poppins:wght@300;400;500;600;700;800&amp;family=Mulish:wght@700;800;900&amp;display=swap" rel="stylesheet"/></noscript>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&amp;family=Cinzel:wght@500;600;700&amp;family=Poppins:wght@300;400;500;600;700;800&amp;family=Mulish:wght@700;800;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Playfair+Display:wght@500;600;700;800;900&amp;display=swap" media="print" onload="this.media='all'" rel="stylesheet"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&amp;family=Cinzel:wght@500;600;700&amp;family=Poppins:wght@300;400;500;600;700;800&amp;family=Mulish:wght@700;800;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Playfair+Display:wght@500;600;700;800;900&amp;display=swap" rel="stylesheet"/></noscript>
 <style>
 /* ===== CSS VARIABLES ===== */
 :root {
@@ -137,22 +137,32 @@ a { text-decoration:none; color:inherit; }
 /* ===== BUTTONS ===== */
 .btn-primary {
   display:inline-flex; align-items:center; gap:8px;
-  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+  background: linear-gradient(135deg, #D4AF37 0%, #E2C36A 45%, #AA7C11 100%);
   background-size: 200% auto;
-  color: var(--purple);
-  padding: 14px 28px;
+  color: #0a0a0a;
+  padding: 15px 30px;
   border-radius: 50px;
   font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-weight: 800;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   border: none;
   cursor: pointer;
   animation: shimmer 3s linear infinite;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 20px rgba(201,168,76,0.4);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  box-shadow:
+    0 4px 20px rgba(212,175,55,0.4),
+    0 0 0 1px rgba(255,235,180,0.25) inset;
+  font-family:'Plus Jakarta Sans','Inter',sans-serif;
 }
-.btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(201,168,76,0.5); }
+.btn-primary:hover {
+  transform:translateY(-2px) scale(1.02);
+  box-shadow:
+    0 10px 36px rgba(212,175,55,0.55),
+    0 0 28px rgba(212,175,55,0.35),
+    0 0 0 1px rgba(255,235,180,0.4) inset;
+  filter: brightness(1.05);
+}
 
 .btn-secondary {
   display:inline-flex; align-items:center; gap:8px;
@@ -232,10 +242,10 @@ a { text-decoration:none; color:inherit; }
 .hamburger { display:none; background:none; border:none; cursor:pointer; padding:8px; flex-direction:column; gap:5px; }
 .hamburger span { display:block; width:24px; height:2px; background:var(--purple); border-radius:2px; transition:all 0.3s; }
 
-/* ===== HERO ===== */
+/* ===== HERO (Dark Luxury) ===== */
 .hero {
   min-height: 88vh;
-  background: linear-gradient(165deg, #A8BFD9 0%, #8FA8C9 45%, #7E9DC5 100%);
+  background: #121212;
   display: flex; align-items:center;
   padding: 80px 5% 48px;
   position: relative; overflow:hidden;
@@ -243,8 +253,11 @@ a { text-decoration:none; color:inherit; }
 .hero::before {
   content:'';
   position:absolute; inset:0;
-  background: radial-gradient(ellipse 65% 75% at 80% 30%, rgba(255,255,255,0.22) 0%, transparent 65%),
-              radial-gradient(ellipse 50% 60% at 15% 85%, rgba(45,70,120,0.18) 0%, transparent 60%);
+  background:
+    radial-gradient(ellipse 70% 75% at 78% 25%, rgba(212,175,55,0.10) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 60% at 12% 85%, rgba(170,124,17,0.08) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,0.015) 0%, transparent 40%);
+  pointer-events:none;
 }
 .hero-inner {
   max-width:1300px; margin:0 auto; width:100%;
@@ -254,33 +267,55 @@ a { text-decoration:none; color:inherit; }
 }
 .hero-badge {
   display:inline-flex; align-items:center; gap:8px;
-  background:rgba(45,0,69,0.08);
-  border:1px solid rgba(201,168,76,0.5);
-  color:var(--purple); font-size:0.72rem; font-weight:700;
+  background: rgba(255,255,255,0.04);
+  border:1px solid rgba(212,175,55,0.45);
+  color:#F5F1E6; font-size:0.72rem; font-weight:700;
   letter-spacing:0.15em; text-transform:uppercase;
-  padding:6px 16px; border-radius:30px; margin-bottom:20px;
+  padding:7px 16px; border-radius:30px; margin-bottom:22px;
+  backdrop-filter: blur(8px);
 }
 .hero h1 {
-  font-size:clamp(2.2rem,5vw,3.8rem); font-weight:300;
-  color:var(--purple); line-height:1.1; margin-bottom:8px;
+  font-family:'Playfair Display','Cormorant Garamond',serif;
+  font-size:clamp(2.4rem,5.2vw,4rem); font-weight:700;
+  color:#FFFFFF; line-height:1.08; margin-bottom:8px;
+  letter-spacing:-0.015em;
 }
-.hero h1 em { font-style:italic; color:var(--gold); }
-.hero-divider { width:60px; height:2px; background:linear-gradient(90deg,var(--gold),var(--gold-light)); margin:16px 0; }
-.hero-sub { color:var(--gray); font-size:1rem; line-height:1.7; margin-bottom:28px; font-weight:300; }
+.hero h1 .ln-white { color:#FFFFFF; display:block; }
+.hero h1 .ln-gold {
+  display:block; font-style:italic;
+  background: linear-gradient(180deg, #F4DC95 0%, #D4AF37 50%, #AA7C11 100%);
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter: drop-shadow(0 2px 12px rgba(212,175,55,0.25));
+}
+.hero h1 em { font-style:italic; color:#D4AF37; }
+.hero-divider { width:60px; height:2px; background:linear-gradient(90deg,#D4AF37,#AA7C11); margin:18px 0; }
+.hero-sub { color:rgba(255,255,255,0.72); font-size:1rem; line-height:1.7; margin-bottom:28px; font-weight:400; font-family:'Plus Jakarta Sans','Inter',sans-serif; }
 .hero-trust { display:flex; flex-wrap:wrap; gap:16px; margin-bottom:32px; }
-.trust-item { display:flex; align-items:center; gap:8px; color:var(--purple); font-size:0.78rem; font-weight:500; opacity:0.8; }
-.trust-icon { color:var(--gold); font-size:1rem; }
+.trust-item { display:flex; align-items:center; gap:8px; color:rgba(255,255,255,0.75); font-size:0.78rem; font-weight:500; }
+.trust-icon { color:#D4AF37; font-size:1rem; }
 .hero-btns { display:flex; gap:14px; flex-wrap:wrap; }
 
-/* ===== BOOKING WIDGET ===== */
+/* ===== BOOKING WIDGET (Dark Luxury Glass) ===== */
 .booking-card {
-  background:var(--white);
+  background: linear-gradient(180deg, rgba(30,30,30,0.92) 0%, rgba(24,24,24,0.92) 100%);
   border-radius:var(--radius-lg);
-  padding:32px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  padding:34px;
+  border:1px solid rgba(212,175,55,0.18);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.55),
+    0 1px 0 rgba(255,255,255,0.05) inset,
+    0 0 0 1px rgba(255,255,255,0.02) inset;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
-.booking-card h3 { font-size:1.95rem; color:var(--purple); margin-bottom:8px; font-weight:800; letter-spacing:-0.01em; font-family:'Urbanist','Inter',sans-serif; }
-.booking-card p { font-size:0.78rem; color:var(--gray); margin-bottom:22px; }
+.booking-card h3 {
+  font-size:1.95rem; color:#FFFFFF; margin-bottom:8px;
+  font-weight:700; letter-spacing:-0.01em;
+  font-family:'Playfair Display','Urbanist',serif;
+}
+.booking-card p { font-size:0.82rem; color:rgba(255,255,255,0.55); margin-bottom:24px; font-family:'Plus Jakarta Sans','Inter',sans-serif; }
+/* ===== TRIP TABS (light default for shared use) ===== */
 .trip-tabs { display:flex; background:var(--gray-light); border-radius:10px; padding:4px; gap:4px; margin-bottom:20px; }
 .trip-tab {
   flex:1; padding:9px; background:transparent; border:none; cursor:pointer;
@@ -290,6 +325,7 @@ a { text-decoration:none; color:inherit; }
 }
 .trip-tab.active { background:#EDD49A; color:#3D2300; }
 
+/* ===== FORM GROUPS (light default — used by Contact form & other forms) ===== */
 .form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 .form-group { margin-bottom:14px; }
 .form-group label { display:block; font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray); margin-bottom:6px; }
@@ -306,7 +342,7 @@ a { text-decoration:none; color:inherit; }
 .form-group .input-icon input { padding-left:36px; }
 .form-group .input-icon::before { content:attr(data-icon); position:absolute; left:12px; top:50%; transform:translateY(-50%); font-size:1rem; pointer-events:none; z-index:1; }
 
-/* Time picker with bright calendar */
+/* Time picker light calendar */
 .form-group input[type="date"],
 .form-group input[type="time"] {
   cursor:pointer;
@@ -324,7 +360,7 @@ a { text-decoration:none; color:inherit; }
 .flight-field.show { display:block; }
 .optional-badge { font-size:0.62rem; color:var(--gray); font-weight:400; margin-left:6px; text-transform:none; letter-spacing:0; }
 
-/* ===== CUSTOM SELECT (replaces native <select> to avoid OS popup misposition) ===== */
+/* ===== CUSTOM SELECT (light default for shared use) ===== */
 .csel { position:relative; }
 .csel-btn {
   width:100%; padding:10px 32px 10px 12px;
@@ -362,20 +398,115 @@ a { text-decoration:none; color:inherit; }
 .csel.compact .csel-btn { padding:10px 24px 10px 8px; font-size:0.84rem; }
 .csel.compact .csel-btn::after { right:7px; }
 
-.btn-book-full {
-  width:100%; padding:14px;
-  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
-  background-size: 200% auto;
-  color:var(--purple); border:none; cursor:pointer;
-  border-radius:10px; font-size:0.85rem; font-weight:700;
-  letter-spacing:0.08em; text-transform:uppercase;
-  font-family:'Inter',sans-serif;
-  animation: shimmer 3s linear infinite;
-  transition:transform 0.2s, box-shadow 0.2s;
-  box-shadow:0 4px 16px rgba(201,168,76,0.4);
-  margin-top:8px;
+/* ===== DARK LUXURY OVERRIDES — scoped to .booking-card only ===== */
+.booking-card .trip-tabs {
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.06);
+  padding:4px; margin-bottom:22px;
 }
-.btn-book-full:hover { transform:translateY(-1px); box-shadow:0 8px 24px rgba(201,168,76,0.5); }
+.booking-card .trip-tab {
+  color:rgba(255,255,255,0.55);
+  font-family:'Plus Jakarta Sans','Inter',sans-serif;
+  padding:10px; font-size:0.74rem;
+}
+.booking-card .trip-tab:hover { color:rgba(255,255,255,0.85); }
+.booking-card .trip-tab.active {
+  background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%);
+  color:#0a0a0a;
+  box-shadow: 0 2px 12px rgba(212,175,55,0.35);
+}
+.booking-card .form-group { margin-bottom:16px; }
+.booking-card .form-group label {
+  color:rgba(255,255,255,0.6);
+  letter-spacing:0.12em;
+  font-family:'Plus Jakarta Sans','Inter',sans-serif;
+  margin-bottom:8px;
+}
+.booking-card .form-group input,
+.booking-card .form-group select {
+  padding:14px 16px;
+  border:1px solid rgba(255,255,255,0.08);
+  font-size:0.88rem;
+  font-family:'Plus Jakarta Sans','Inter',sans-serif;
+  color:#FFFFFF;
+  background:#252525;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.booking-card .form-group input:hover,
+.booking-card .form-group select:hover { border-color:rgba(255,255,255,0.18); }
+.booking-card .form-group input:focus,
+.booking-card .form-group select:focus {
+  border-color: rgba(212,175,55,0.65);
+  background:#2A2A2A;
+  box-shadow: 0 0 0 3px rgba(212,175,55,0.12);
+}
+.booking-card .form-group input::placeholder { color:rgba(255,255,255,0.32); font-weight:400; }
+.booking-card .form-group input[type="date"],
+.booking-card .form-group input[type="time"] { color-scheme: dark; }
+.booking-card .form-group input[type="date"]::-webkit-calendar-picker-indicator,
+.booking-card .form-group input[type="time"]::-webkit-calendar-picker-indicator {
+  opacity:0.85;
+  filter: invert(0.85) sepia(1) saturate(3) hue-rotate(5deg) brightness(0.95);
+}
+.booking-card .optional-badge { color:rgba(255,255,255,0.4); }
+
+.booking-card .csel-btn {
+  padding:14px 32px 14px 16px;
+  border:1px solid rgba(255,255,255,0.08);
+  font-size:0.88rem;
+  font-family:'Plus Jakarta Sans','Inter',sans-serif;
+  color:#FFFFFF;
+  background:#252525;
+  transition:border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.booking-card .csel-btn:hover { border-color:rgba(255,255,255,0.18); }
+.booking-card .csel-btn::after { border-top-color:rgba(255,255,255,0.55); }
+.booking-card .csel-btn.open::after { border-top-color:transparent; border-bottom-color:#D4AF37; }
+.booking-card .csel-btn:focus, .booking-card .csel-btn.open {
+  border-color:rgba(212,175,55,0.65); background:#2A2A2A;
+  box-shadow: 0 0 0 3px rgba(212,175,55,0.12);
+}
+.booking-card .csel-list {
+  background:#1E1E1E;
+  border:1px solid rgba(212,175,55,0.2);
+  box-shadow:0 12px 40px rgba(0,0,0,0.6);
+}
+.booking-card .csel-opt {
+  color:rgba(255,255,255,0.82);
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  font-family:'Plus Jakarta Sans','Inter',sans-serif;
+  padding:11px 16px; font-size:0.86rem;
+}
+.booking-card .csel-opt:hover,
+.booking-card .csel-opt.selected {
+  background: linear-gradient(90deg, rgba(212,175,55,0.12), rgba(170,124,17,0.06));
+  color:#F4DC95;
+}
+.booking-card .csel.compact .csel-btn { padding:14px 24px 14px 10px; font-size:0.85rem; }
+
+.btn-book-full {
+  width:100%; padding:16px;
+  background: linear-gradient(135deg, #D4AF37 0%, #E2C36A 45%, #AA7C11 100%);
+  background-size: 200% auto;
+  color:#0a0a0a; border:none; cursor:pointer;
+  border-radius:10px; font-size:0.85rem; font-weight:800;
+  letter-spacing:0.1em; text-transform:uppercase;
+  font-family:'Plus Jakarta Sans','Inter',sans-serif;
+  animation: shimmer 3s linear infinite;
+  transition: transform 0.25s, box-shadow 0.25s, filter 0.25s;
+  box-shadow:
+    0 4px 18px rgba(212,175,55,0.4),
+    0 0 0 1px rgba(255,235,180,0.25) inset;
+  margin-top:10px;
+}
+.btn-book-full:hover {
+  transform:translateY(-2px) scale(1.01);
+  box-shadow:
+    0 10px 32px rgba(212,175,55,0.55),
+    0 0 24px rgba(212,175,55,0.35),
+    0 0 0 1px rgba(255,235,180,0.4) inset;
+  filter: brightness(1.05);
+}
 
 /* ===== VETERAN STRIP ===== */
 .vet-strip {
@@ -550,20 +681,31 @@ footer {
 /* ===== FLOATING WIDGETS ===== */
 .floating-widgets { position:fixed; bottom:90px; right:24px; z-index:999; display:flex; flex-direction:column; gap:14px; align-items:flex-end; }
 
-/* WhatsApp */
+/* WhatsApp (desaturated metallic gold to match luxury theme) */
 .wa-widget {
   position:relative; width:56px; height:56px;
-  background:#25D366; border-radius:50%;
+  background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%);
+  border-radius:50%;
   display:flex; align-items:center; justify-content:center;
-  cursor:pointer; box-shadow:0 4px 16px rgba(37,211,102,0.4);
-  transition:transform 0.2s;
+  cursor:pointer;
+  box-shadow:
+    0 4px 18px rgba(212,175,55,0.45),
+    0 0 0 1px rgba(255,235,180,0.25) inset;
+  transition:transform 0.25s, box-shadow 0.25s, filter 0.25s;
   text-decoration:none;
 }
-.wa-widget:hover { transform:scale(1.1); }
-.wa-widget svg { width:28px; height:28px; fill:white; }
+.wa-widget:hover {
+  transform:scale(1.08);
+  box-shadow:
+    0 6px 26px rgba(212,175,55,0.6),
+    0 0 20px rgba(212,175,55,0.35),
+    0 0 0 1px rgba(255,235,180,0.4) inset;
+  filter: brightness(1.06);
+}
+.wa-widget svg { width:28px; height:28px; fill:#0a0a0a; }
 .wa-pulse {
   position:absolute; inset:-4px;
-  border-radius:50%; border:3px solid #25D366;
+  border-radius:50%; border:2px solid rgba(212,175,55,0.65);
   animation: pulse-ring 2s ease-out infinite;
 }
 .wa-tooltip {
@@ -623,7 +765,7 @@ footer {
   62%  { transform:rotate(4deg); }
   66%  { transform:rotate(0deg); }
 }
-.m-wa { background:#25D366; color:var(--white); }
+.m-wa { background: linear-gradient(135deg, #D4AF37, #AA7C11); color:#0a0a0a; box-shadow:0 2px 12px rgba(212,175,55,0.35); }
 .m-book {
   background: linear-gradient(135deg, var(--gold), var(--gold-light));
   color:var(--purple);
@@ -1003,7 +1145,7 @@ footer {
 <svg fill="var(--gold)" height="12" viewbox="0 0 24 24" width="12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
           Texan Owned · Est. 2020
         </div>
-<h1 style="font-family:'Poppins','Inter',sans-serif;font-weight:700;background:linear-gradient(180deg,#FFF4D6 0%,#F1D58A 35%,#D4AF5A 70%,#A07A2E 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 2px 16px rgba(0,0,0,0.28),0 1px 0 rgba(255,235,180,0.18);letter-spacing:-0.01em;filter:drop-shadow(0 3px 10px rgba(201,168,76,0.25));">Luxury Rides.<br/><em style="font-style:normal;background:linear-gradient(180deg,#FFF7DD 0%,#F4DC95 35%,#DBB969 70%,#A8812F 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">Premier Limo Service.</em><br/>Prime Limo Fleet.</h1>
+<h1><span class="ln-white">Luxury Rides.</span><span class="ln-gold">Premier Limo Service.</span><span class="ln-white">Prime Limo Fleet.</span></h1>
 <div class="hero-divider" style="background:var(--gold);"></div>
 <div class="hero-btns" style="margin-top:0;">
 <a class="btn-primary" href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank">Book Your Ride</a>
