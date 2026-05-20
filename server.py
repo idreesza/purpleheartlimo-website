@@ -70,6 +70,12 @@ class Handler(SimpleHTTPRequestHandler):
 
         return super().do_GET()
 
+    def end_headers(self):
+        self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+        self.send_header('Pragma', 'no-cache')
+        self.send_header('Expires', '0')
+        SimpleHTTPRequestHandler.end_headers(self)
+
     def _json(self, obj, status=200):
         body = json.dumps(obj).encode()
         self.send_response(status)
