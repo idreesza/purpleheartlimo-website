@@ -813,7 +813,8 @@ footer {
 }
 @media(max-width:768px){
   .nav-links,.nav-cta .btn-primary { display:none; }
-  .nav-logo-sub { display:none; }
+  .nav-logo-sub { display:none !important; }
+  #lang-toggle { display:none !important; }
   .hamburger { display:flex; }
   .services-grid,.fleet-grid { grid-template-columns:1fr; }
   .stats-grid { grid-template-columns:repeat(2,1fr); }
@@ -952,6 +953,7 @@ footer {
 
 <!-- Mobile menu -->
 <div id="mobile-menu" style="display:none;position:fixed;top:72px;left:0;right:0;background:white;z-index:999;padding:20px;box-shadow:var(--shadow-lg);border-bottom:2px solid var(--gray-light);">
+  <button id="lang-toggle-mobile" onclick="toggleLang()" aria-label="Switch language" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;margin-bottom:12px;background:var(--purple);color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:0.9rem;font-weight:700;letter-spacing:0.08em;cursor:pointer;">🌐 <span id="lang-label-mobile">English / Español</span></button>
   <a href="/" style="display:block;padding:12px;font-size:0.9rem;color:#0a0a0a;border-bottom:1px solid #F2EFE8;">🏠 Home</a>
   <a href="/services.html" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">Services</a>
   <a href="/services.html#airport" style="display:block;padding:12px 12px 12px 24px;font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--gray-light);">✈️ Airport Transfer</a>
@@ -2568,6 +2570,9 @@ function toggleLang() {
   html.setAttribute('data-lang', next);
   const lbl = document.getElementById('lang-label');
   if (lbl) lbl.textContent = next.toUpperCase();
+  const lblMobile = document.getElementById('lang-label-mobile');
+  if (lblMobile) lblMobile.textContent = next === 'es' ? 'English' : 'Español';
+  try { localStorage.setItem('phl_lang', next); } catch(e){}
 
   // Swap data-en / data-es on all marked elements
   document.querySelectorAll('[data-en][data-es]').forEach(el => {
