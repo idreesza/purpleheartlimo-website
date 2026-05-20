@@ -68,4 +68,13 @@
   <url><loc>https://purpleheartlimo.com/blog/prom-season-limo-booking-tips-for-austin-teens-and-parents/</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
   <url><loc>https://purpleheartlimo.com/blog/success-stories--memorable-events-with-purple-heart-limousine-services-in-austin/</loc><changefreq>yearly</changefreq><priority>0.6</priority></url>
 
+
+  <!-- Spanish (es) pages -->
+  <url><loc>https://purpleheartlimo.com/es/fleet.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://purpleheartlimo.com/es/booking.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://purpleheartlimo.com/es/contact.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://purpleheartlimo.com/es/limo-service-austin-tx/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://purpleheartlimo.com/es/limo-service-dallas-tx/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://purpleheartlimo.com/es/limo-service-houston-tx/</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+
 </urlset>
