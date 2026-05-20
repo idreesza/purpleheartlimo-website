@@ -1264,7 +1264,7 @@ footer {
 </div>
 <div id="extra-stops-container"></div>
 <div id="add-stop-row" style="display:none;margin-bottom:12px;">
-<button onclick="addQuoteStop()" onmouseout="this.style.borderColor='rgba(45,0,69,0.25)';this.style.color='var(--purple)';" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)';" style="background:transparent;border:1.5px dashed rgba(45,0,69,0.25);border-radius:8px;padding:9px 16px;width:100%;font-family:inherit;font-size:0.8rem;font-weight:600;color:var(--purple);cursor:pointer;transition:all 0.2s;letter-spacing:0.05em;" type="button">+ Add Extra Stop</button>
+<button onclick="addQuoteStop()" onmouseout="this.style.borderColor='rgba(212,175,55,0.35)';this.style.color='rgba(212,175,55,0.85)';this.style.background='transparent';" onmouseover="this.style.borderColor='#D4AF37';this.style.color='#D4AF37';this.style.background='rgba(212,175,55,0.06)';" style="background:transparent;border:1.5px dashed rgba(212,175,55,0.35);border-radius:8px;padding:11px 16px;width:100%;font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:0.82rem;font-weight:600;color:rgba(212,175,55,0.85);cursor:pointer;transition:all 0.2s;letter-spacing:0.05em;" type="button">+ Add Extra Stop</button>
 </div>
 <!-- Flight field — only visible for Airport tab -->
 <div class="flight-field show" id="flight-field">
@@ -1346,7 +1346,7 @@ footer {
 <div class="form-group">
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
 <div>
-<label data-en="Type" data-es="Tipo" id="label-type" style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Type</label>
+<label data-en="Ride Type" data-es="Tipo" id="label-type" style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Ride Type</label>
 <div class="csel" id="csel-vehicle">
 <button class="csel-btn" onclick="cselToggle('csel-vehicle')" type="button">Sedan</button>
 <div class="csel-list">
@@ -1365,7 +1365,7 @@ footer {
 </div>
 </div>
 <div>
-<label data-en="Pax" data-es="Pasaj." id="label-pax" style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Pax</label>
+<label data-en="Passengers" data-es="Pasajeros" id="label-pax" style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Passengers</label>
 <div class="csel" id="csel-pax">
 <button class="csel-btn" onclick="cselToggle('csel-pax')" type="button">1</button>
 <div class="csel-list">
@@ -2679,14 +2679,14 @@ function checkCapacity() {
 // ===== LANGUAGE TOGGLE =====
 const I18N = {
   en: {
-    'label-type':    'Type',
-    'label-pax':     'Pax',
+    'label-type':    'Ride Type',
+    'label-pax':     'Passengers',
     'label-luggage': '🧳 Luggage',
     'btn-booknow':   'Book Now',
   },
   es: {
     'label-type':    'Tipo',
-    'label-pax':     'Pasaj.',
+    'label-pax':     'Pasajeros',
     'label-luggage': '🧳 Equipaje',
     'btn-booknow':   'Reservar',
   }
@@ -2694,8 +2694,8 @@ const I18N = {
 
 const I18N_ATTRS = [
   // [selector, attribute (null = textContent), en-text, es-text]
-  ['#label-type',    null, 'Type',       'Tipo'],
-  ['#label-pax',     null, 'Pax',        'Pasaj.'],
+  ['#label-type',    null, 'Ride Type',  'Tipo'],
+  ['#label-pax',     null, 'Passengers', 'Pasajeros'],
   ['#label-luggage', null, '🧳 Luggage', '🧳 Equipaje'],
   ['#btn-booknow',   null, 'Book Now',   'Reservar'],
   // Booking card
