@@ -238,7 +238,17 @@ a { text-decoration:none; color:inherit; }
 .dropdown-menu a:hover { background:var(--gray-light); color:var(--purple); }
 
 .nav-cta { display:flex; align-items:center; gap:12px; }
-.nav-phone { color:#1A3A6B; font-weight:700; font-size:0.88rem; display:flex; align-items:center; gap:6px; }
+.nav-phone {
+  color:#0a0a0a !important; font-weight:700; font-size:0.82rem;
+  display:flex; align-items:center; gap:7px;
+  padding:8px 14px; border-radius:8px;
+  background:transparent !important; border:none !important; box-shadow:none !important;
+  letter-spacing:0.06em; text-transform:uppercase;
+  font-family:'Plus Jakarta Sans','Inter',sans-serif;
+  transition: color 0.2s, background 0.2s;
+  text-decoration:none;
+}
+.nav-phone:hover { color:#AA7C11 !important; background:rgba(212,175,55,0.08) !important; }
 .hamburger { display:none; background:none; border:none; cursor:pointer; padding:8px; flex-direction:column; gap:5px; }
 .hamburger span { display:block; width:24px; height:2px; background:var(--purple); border-radius:2px; transition:all 0.3s; }
 
@@ -800,6 +810,17 @@ footer {
 }
 .call-widget:hover .call-tooltip { opacity:1; }
 
+/* Sonar / pulse-glow ripple (used on the hero phone button) */
+@keyframes sonar-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(212,175,55,0.55), 0 0 0 0 rgba(212,175,55,0.35); }
+  60%  { box-shadow: 0 0 0 14px rgba(212,175,55,0),   0 0 0 24px rgba(212,175,55,0); }
+  100% { box-shadow: 0 0 0 0 rgba(212,175,55,0),     0 0 0 0 rgba(212,175,55,0); }
+}
+.sonar-pulse {
+  position: relative;
+  animation: sonar-pulse 1.9s ease-out infinite;
+}
+
 /* Nav phone (header Call button) — black icon + ringing shake */
 .nav-phone .phone-ico {
   display:inline-flex; align-items:center; justify-content:center;
@@ -1138,7 +1159,7 @@ footer {
 </ul>
 <div class="nav-cta">
 <button aria-label="Switch language" id="lang-toggle" onclick="toggleLang()" style="background:none;border:1.5px solid rgba(0,0,0,0.15);border-radius:20px;padding:5px 12px;font-family:inherit;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;cursor:pointer;color:var(--purple);display:flex;align-items:center;gap:5px;transition:all 0.2s;" title="Switch language">🌐 <span id="lang-label">EN</span></button>
-<a class="nav-phone" href="tel:+18337400700"><span class="phone-ico"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.05 15.05 0 0 1-6.59-6.59l2.2-2.21a1 1 0 0 0 .25-1.02A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"></path></svg></span> (833) 740-0700</a>
+<a class="nav-phone" href="tel:+18337400700"><span class="phone-ico"><svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.05 15.05 0 0 1-6.59-6.59l2.2-2.21a1 1 0 0 0 .25-1.02A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"></path></svg></span>Call</a>
 <a class="btn-primary" data-en="Book Now" data-es="Reservar" href="https://customer.moovs.app/purple-heart-limo/request/new" id="btn-booknow" style="padding:10px 20px;font-size:0.78rem;" target="_blank">Book Now</a>
 </div>
 <button aria-expanded="false" aria-label="Open navigation menu" class="hamburger" id="hamburger" onclick="toggleMenu()">
@@ -1214,7 +1235,7 @@ footer {
 <div class="hero-divider" style="background:var(--gold);"></div>
 <div class="hero-btns" style="margin-top:0;">
 <a class="btn-primary" href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank">Book Your Ride</a>
-<a class="btn-secondary" href="tel:+18337400700" style="color:#fff;border-color:rgba(255,255,255,0.65);background:rgba(255,255,255,0.10);">(833) 740-0700</a>
+<a class="btn-secondary sonar-pulse" href="tel:+18337400700" style="color:#fff;border-color:rgba(255,255,255,0.65);background:rgba(255,255,255,0.10);">(833) 740-0700</a>
 </div>
 </div>
 <!-- Booking Widget -->
