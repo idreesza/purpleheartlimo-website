@@ -271,10 +271,12 @@ a { text-decoration:none; color:inherit; }
 }
 .hero-inner {
   max-width:1300px; margin:0 auto; width:100%;
-  display:grid; grid-template-columns:45fr 55fr;
+  display:grid; grid-template-columns:minmax(0,45fr) minmax(0,55fr);
   gap:60px; align-items:center;
   position:relative; z-index:1;
 }
+.hero-inner > .hero-content,
+.hero-inner > .booking-card { min-width:0; }
 .hero-badge {
   display:inline-flex; align-items:center; gap:8px;
   background: rgba(255,255,255,0.04);
