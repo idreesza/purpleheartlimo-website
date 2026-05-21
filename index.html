@@ -215,7 +215,15 @@ a { text-decoration:none; color:inherit; }
   display:flex; align-items:center; justify-content:center;
   font-size:1.2rem; flex-shrink:0;
 }
-.nav-logo-text { font-family:'Cormorant Garamond',serif; font-size:1.25rem; font-weight:600; color:var(--purple); line-height:1.1; }
+.nav-logo-text {
+  font-family:'Playfair Display','Cormorant Garamond',serif;
+  font-size:1.35rem; font-weight:700; font-style:italic;
+  line-height:1.1; letter-spacing:-0.005em;
+  background: linear-gradient(180deg, #F4DC95 0%, #D4AF37 50%, #AA7C11 100%);
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent; color:transparent;
+  filter: drop-shadow(0 1px 4px rgba(212,175,55,0.20));
+}
 .nav-logo-sub { font-size:0.6rem; font-family:'Inter',sans-serif; font-weight:500; color:var(--gold); letter-spacing:0.12em; text-transform:uppercase; display:block; }
 
 .nav-links { display:flex; align-items:center; gap:4px; list-style:none; }
@@ -2444,7 +2452,7 @@ footer {
 <div class="footer-brand">
 <a href="#" onclick="return showPage('home')" style="display:inline-flex;align-items:center;gap:10px;margin-bottom:14px;">
 <img alt="Purple Heart Limo" src="/logo.webp" style="width:40px;height:40px;object-fit:contain;border-radius:50%;background:rgba(255,255,255,0.1);"/>
-<div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--white);font-weight:600;">Purple Heart Limo</div>
+<div style="font-family:'Playfair Display','Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;font-style:italic;line-height:1.1;background:linear-gradient(180deg,#F4DC95 0%,#D4AF37 50%,#AA7C11 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;filter:drop-shadow(0 1px 4px rgba(212,175,55,0.20));">Purple Heart Limo</div>
 </a>
 <p>Texan-owned luxury limousine &amp; black car service in Austin, Dallas-Fort Worth &amp; Houston, Texas. No surge pricing. Flat rates. Professional chauffeurs. The ride you deserve. 🎖️</p>
 <p style="margin-top:14px;"><a href="tel:+18337400700" style="color:var(--gold);font-size:0.85rem;font-weight:600;">📞 (833) 740-0700</a></p>
