@@ -5,13 +5,278 @@
 [build.environment]
   NODE_VERSION = "18"
 
-# Redirect /thank-you to the HTML file
+# ─────────────────────────────────────────────────────────────
+# 1. Force HTTPS + non-www (canonical domain)
+# Netlify handles HTTP→HTTPS automatically when "Force HTTPS" is ON
+# in the dashboard. www→apex is handled by the "Primary domain"
+# setting. These rules are belt-and-suspenders for crawlers.
+# ─────────────────────────────────────────────────────────────
+[[redirects]]
+  from   = "https://www.purpleheartlimo.com/*"
+  to     = "https://purpleheartlimo.com/:splat"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "http://www.purpleheartlimo.com/*"
+  to     = "https://purpleheartlimo.com/:splat"
+  status = 301
+  force  = true
+
+[[redirects]]
+  from   = "http://purpleheartlimo.com/*"
+  to     = "https://purpleheartlimo.com/:splat"
+  status = 301
+  force  = true
+
+# ─────────────────────────────────────────────────────────────
+# 2. Redirect /thank-you to the HTML file
+# ─────────────────────────────────────────────────────────────
 [[redirects]]
   from   = "/thank-you"
   to     = "/thank-you.html"
   status = 200
 
-# Custom 404 page
+# ─────────────────────────────────────────────────────────────
+# 3. 301 redirects for deleted legacy blog URLs (GSC 404s,
+#    "crawled-not-indexed", and stale robots-blocked entries).
+#    All point to /blog/ so we recover link equity instead of
+#    serving 404s to Google.
+# ─────────────────────────────────────────────────────────────
+
+# --- /es/ root (404'd, no Spanish home page exists) ---
+[[redirects]]
+  from = "/es"
+  to = "/es/booking.html"
+  status = 301
+[[redirects]]
+  from = "/es/"
+  to = "/es/booking.html"
+  status = 301
+
+# --- 404s where the actual page exists with a trailing slash ---
+[[redirects]]
+  from = "/blog/best-day-trips-from-dallas-by-limo"
+  to = "/blog/best-day-trips-from-dallas-by-limo/"
+  status = 301
+[[redirects]]
+  from = "/blog/frisco-tx-luxury-limo-transportation-guide"
+  to = "/blog/frisco-tx-luxury-limo-transportation-guide/"
+  status = 301
+
+# --- Confirmed 404s (GSC "Not found") ---
+[[redirects]]
+  from = "/blog/the-ultimate-guide-to-event-based-limousine-rental-in-austin"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/choosing-the-right-limo-for-your-event--a-comprehensive-guide-to-destination-time-selection"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/alternatives-to-austin-prestige-limos--what-makes-us-different"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/local-insights--how-austin-s-traffic-patterns-affect-your-limo-experience"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/insider-tips--maximizing-comfort-and-safety-in-luxury-transportation"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/the-benefits-of-using-dynamic-maps-for-limousine-services"
+  to = "/blog/"
+  status = 301
+
+# --- GSC "Blocked by robots.txt" (stale, redirect away) ---
+[[redirects]]
+  from = "/blog/misconceptions-about-limousine-services--what-you-need-to-know"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/how-to-create-a-lead-capture-system-for-limousine-services"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/why-choose-purple-heart-limousine-for-your-next-austin-event-"
+  to = "/blog/"
+  status = 301
+
+# --- GSC "Crawled - currently not indexed" (old AI posts) ---
+[[redirects]]
+  from = "/blog/why-purple-heart-limousine-stands-out-among-austin-s-limo-services"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/how-to-book-the-perfect-limousine-in-austin--a-step-by-step-guide"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/why-austin-locals-love-purple-heart-limousine-services"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/event-based-limousine-rental-in-austin--tailoring-your-ride-for-every-occasion"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/integrating-dynamic-maps-in-a-limo-service-website--a-step-by-step-guide"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/how-to-secure-the-best-limo-deals-in-austin--a-comprehensive-guide"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/case-study--success-stories-from-austin-s-prom-season-limo-bookings"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/top-benefits-of-using-dynamic-maps-for-limousine-services-in-austin"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/how-purple-heart-limousine-uses-ai-for-seamless-booking-experiences"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/comparing-limousine-services--how-to-get-the-most-value-in-austin"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/how-to-choose-the-perfect-limousine-for-your-wedding-day"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/comparing-limousine-services-in-austin--what-sets-purple-heart-apart-"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/revolutionizing-travel--innovations-in-multi-step-online-bookings-for-limousine-services"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/expert-tips-for-choosing-the-best-limousine-service-in-austin"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/planning-a-perfect-night-out-in-austin-with-prestige-limo-alternatives"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/5-common-misconceptions-about-limousine-services-debunked"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/a-comprehensive-guide-to-booking-limo-services-in-austin"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/myths-about-limo-services--what-you-need-to-know-before-booking"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/common-misconceptions-about-limousine-services-in-austin-debunked"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/debunking-common-myths-about-limousine-services"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/how-to-use-transportation-booking-systems-for-stress-free-travel"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/exploring-advanced-limousine-booking-systems--a-look-at-purple-heart-limo-s-technology"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/choosing-the-right-limo-service--austin-prestige-limo-vs-alternatives"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/expert-tips-for-maximizing-your-limousine-experience-in-austin"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/seasonal-limo-service-planning-in-austin--what-you-need-to-know"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/expert-tips--ensuring-a-seamless-limousine-experience-in-austin"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/top-5-reasons-to-choose-a-limo-service-for-your-austin-event"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/your-ultimate-guide-to-choosing-the-best-limo-service-in-austin"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/a-comprehensive-guide-to-transportation-services-in-austin--texas"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/the-future-of-transportation-booking-systems--how-innovations-are-changing-the-game"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/how-to-simplify-your-multi-step-limo-booking-experience"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/austin-event-transportation--how-a-limo-service-can-enhance-your-experience"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/prom-perfection--how-to-book-the-best-prom-limo-in-austin"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/case-study--how-purple-heart-limousine-services-transformed-an-austin-wedding"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/a-comprehensive-guide-to-limousine-booking-in-austin--what-you-need-to-know"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/common-myths-about-limo-services-debunked"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/understanding-the-benefits-of-real-time-maps-in-transportation-booking-systems"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/how-dynamic-map-integration-enhances-limo-services-in-austin"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/the-ultimate-guide-to-multi-step-limo-booking-in-austin"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/what-to-expect-from-a-luxury-limo-service-in-austin"
+  to = "/blog/"
+  status = 301
+
+# --- Old paginated blog query URLs → blog index ---
+[[redirects]]
+  from = "/blog"
+  query = {q = ":q", p = ":p"}
+  to = "/blog/"
+  status = 301
+  force = true
+
+# ─────────────────────────────────────────────────────────────
+# 4. Custom 404 page — MUST stay last
+# ─────────────────────────────────────────────────────────────
 [[redirects]]
   from   = "/*"
   to     = "/404.html"
