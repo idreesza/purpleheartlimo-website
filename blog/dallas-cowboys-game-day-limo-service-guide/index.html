@@ -23,7 +23,7 @@ body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);ov
 h1,h2,h3{font-family:'Cormorant Garamond',serif;}a{text-decoration:none;color:inherit;}
 .navbar{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(45,0,69,0.08);box-shadow:0 2px 20px rgba(45,0,69,0.06);padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;}
 .nav-logo{display:flex;align-items:center;gap:10px;}.nav-logo img{width:44px;height:44px;object-fit:contain;border-radius:50%;}
-.nav-logo-text{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--purple);}
+.nav-logo-text{font-family:'Cormorant Garamond',serif !important;font-size:1.45rem;font-weight:700;line-height:1.1;letter-spacing:-0.005em;color:#0a0a0a !important;text-transform:none !important;font-variant:normal !important;}
 .nav-logo-sub{font-size:0.6rem;font-family:'Inter',sans-serif;font-weight:500;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;display:block;}
 .nav-links{display:flex;align-items:center;gap:4px;list-style:none;}
 .nav-links>li>a{padding:8px 12px;border-radius:8px;font-size:0.82rem;font-weight:500;color:var(--text);transition:all 0.2s;display:block;}
@@ -72,27 +72,34 @@ footer{background:var(--purple);color:rgba(255,255,255,0.7);padding:60px 5% 32px
     <div><div class="nav-logo-text">Purple Heart Limo</div><span class="nav-logo-sub">Texan Owned · TX</span></div>
   </a>
   <ul class="nav-links">
-    <li class="dropdown"><a href="/services.html">Services ▾</a>
-      <div class="dropdown-menu">
-        <a href="/services.html#airport">✈️ Airport Transfer</a>
-        <a href="/services.html#wedding">💍 Wedding Limo</a>
-        <a href="/services.html#corporate">💼 Corporate Travel</a>
-        <a href="/services.html#prom">🎓 Prom & Graduation</a>
-        <a href="/services.html#nightout">🥂 Night Out & Party</a>
-      </div>
-    </li>
-      <li class="dropdown">
-      <a href="/about.html">More ▾</a>
-      <div class="dropdown-menu">
-        <a href="/fleet.html">🚗 Our Fleet</a>
-        <a href="/flight-tracker.html" style="color:#C9A84C;font-weight:600;">✈ Flight Tracker</a>
-        <a href="/blog/">📝 Blog</a>
-        <a href="/locations/">📍 Locations</a>
-        <a href="/about.html">ℹ️ About Us</a>
-        <a href="/contact.html">📞 Contact</a>
-      </div>
-    </li>
-  </ul>
+<li><a href="/">Home</a></li>
+<li class="dropdown">
+<a href="/about.html">More ▾</a>
+<div class="dropdown-menu" style="min-width:240px;">
+<div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:8px 12px 4px;">Services</div>
+<a href="/services.html#sports">🏈 Game Day &amp; Sports</a>
+<a href="/services.html#airport">✈️ Airport Transfer</a>
+<a href="/services.html#weddings">💍 Wedding Limo</a>
+<a href="/services.html#corporate">💼 Corporate Travel</a>
+<a href="/services.html#events">🎓 Prom &amp; Graduation</a>
+<a href="/services.html#nightout">🥂 Night Out &amp; Party</a>
+<a href="/services.html#charter">🕐 Hourly Service</a>
+<a href="/services.html" style="font-weight:600;">→ All Services</a>
+<div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:10px 12px 4px;border-top:1px solid var(--gray-light);margin-top:6px;">Locations</div>
+<a href="/limo-service-austin-tx/">📍 Austin Limo Service</a>
+<a href="/limo-service-dallas-tx/">📍 Dallas-Fort Worth</a>
+<a href="/limo-service-houston-tx/">📍 Houston Limo Service</a>
+<a href="/locations/" style="font-weight:600;">→ All Service Areas</a>
+<div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:10px 12px 4px;border-top:1px solid var(--gray-light);margin-top:6px;">Company</div>
+<a href="/fleet.html">🚗 Our Fleet</a>
+<a href="/flight-tracker.html" style="color:#C9A84C;font-weight:600;">✈ Flight Tracker</a>
+<a href="/blog/">📝 Blog</a>
+<a href="/about.html">ℹ️ About Us</a>
+<a href="/contact.html">📞 Contact</a>
+</div>
+</li>
+<li><a href="/booking.html">Book</a></li>
+</ul>
   <div class="nav-cta">
     <a href="tel:+18337400700" class="nav-phone">📞 (833) 740-0700</a>
     <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="padding:10px 20px;font-size:0.78rem;">Book Now</a>

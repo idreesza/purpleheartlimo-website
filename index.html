@@ -221,13 +221,12 @@ a { text-decoration:none; color:inherit; }
   font-size:1.2rem; flex-shrink:0;
 }
 .nav-logo-text {
-  font-family:'Playfair Display','Cormorant Garamond',serif;
-  font-size:1.35rem; font-weight:700; font-style:italic;
+  font-family:'Cormorant Garamond',serif !important;
+  font-size:1.45rem; font-weight:700;
   line-height:1.1; letter-spacing:-0.005em;
-  background: linear-gradient(180deg, #F4DC95 0%, #D4AF37 50%, #AA7C11 100%);
-  -webkit-background-clip:text; background-clip:text;
-  -webkit-text-fill-color:transparent; color:transparent;
-  filter: drop-shadow(0 1px 4px rgba(212,175,55,0.20));
+  color:#0a0a0a !important;
+  text-transform:none !important;
+  font-variant:normal !important;
 }
 .nav-logo-sub { font-size:0.6rem; font-family:'Inter',sans-serif; font-weight:500; color:var(--gold); letter-spacing:0.12em; text-transform:uppercase; display:block; }
 
@@ -1180,8 +1179,9 @@ footer {
 <ul class="nav-links">
 <li><a href="/">Home</a></li>
 <li class="dropdown">
-<a href="/services.html">Services ▾</a>
-<div class="dropdown-menu">
+<a href="/about.html">More ▾</a>
+<div class="dropdown-menu" style="min-width:240px;">
+<div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:8px 12px 4px;">Services</div>
 <a href="/services.html#sports">🏈 Game Day &amp; Sports</a>
 <a href="/services.html#airport">✈️ Airport Transfer</a>
 <a href="/services.html#weddings">💍 Wedding Limo</a>
@@ -1189,21 +1189,14 @@ footer {
 <a href="/services.html#events">🎓 Prom &amp; Graduation</a>
 <a href="/services.html#nightout">🥂 Night Out &amp; Party</a>
 <a href="/services.html#charter">🕐 Hourly Service</a>
-</div>
-</li>
-<li class="dropdown">
-<a href="/locations/">Locations ▾</a>
-<div class="dropdown-menu">
+<a href="/services.html" style="font-weight:600;">→ All Services</a>
+<div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:10px 12px 4px;border-top:1px solid var(--gray-light);margin-top:6px;">Locations</div>
 <a href="/limo-service-austin-tx/">📍 Austin Limo Service</a>
 <a href="/limo-service-dallas-tx/">📍 Dallas-Fort Worth</a>
 <a href="/limo-service-houston-tx/">📍 Houston Limo Service</a>
-<a href="/locations/">🗺️ All Service Areas</a>
-</div>
-</li>
-<li><a href="/fleet.html">Fleet</a></li>
-<li class="dropdown">
-<a href="/about.html">More ▾</a>
-<div class="dropdown-menu">
+<a href="/locations/" style="font-weight:600;">→ All Service Areas</a>
+<div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:10px 12px 4px;border-top:1px solid var(--gray-light);margin-top:6px;">Company</div>
+<a href="/fleet.html">🚗 Our Fleet</a>
 <a href="/flight-tracker.html" style="color:#C9A84C;font-weight:600;">✈ Flight Tracker</a>
 <a href="/blog/">📝 Blog</a>
 <a href="/about.html">ℹ️ About Us</a>
