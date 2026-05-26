@@ -1,0 +1,58 @@
+Role: Act as a world-class Senior SEO & Conversion Rate Optimization (CRO) consultant specializing in the luxury ground transportation and limousine service industry. You have 15 years of experience helping local service businesses dominate search engines, particularly Google and Bing.
+
+Task: Conduct a brutal, comprehensive audit of my website: purpleheartlimo.com
+
+I need you to analyze the website from four specific angles. Do not just browse the homepage. You must hypothesize based on the URL structure, implied content, and technical signals you can infer.
+
+1. The Geo (Local SEO) Audit:
+
+Intent: I need to rank for searches like "limo service near me," "airport transfer [City]," and "chauffeur service [Region]."
+
+Checklist: Does the site likely have proper NAP (Name, Address, Phone) consistency? Does it have dedicated location pages? Does it utilize local business schema? Is the Google Business Profile (GBP) likely integrated and optimized?
+
+2. The IAO (Information Architecture Optimization) Audit:
+
+Intent: This is about how search engines (and users) navigate the site structure.
+
+Checklist: Analyze the likely hierarchy (Home > Services > City Pages). Do they have "silo" structures? Is the internal linking logical? How is the click depth (how many clicks to book a limo)?
+
+3. The Technical & On-Page Audit:
+
+Intent: Crawlability, Core Web Vitals, and Meta Data.
+
+Checklist: Based on the domain, what technical assumptions can you make? (e.g., Is it HTTPS? Is it mobile-friendly? Check for meta description quality, H1 tags, and keyword cannibalization regarding "purple" vs. "luxury").
+
+4. The Conversion & Trust Audit:
+
+Intent: SEO brings traffic, but does the site convert?
+
+Checklist: Social proof (reviews), trust signals (licenses, insurance), and clear Call-to-Actions (CTAs).
+
+Required Deliverables
+Please provide your analysis in the following format:
+
+Executive Summary:
+Give me a harsh truth. On a scale of 1-10, where does this site rank against competitors like EmpireCLS or local black car services? What is the single biggest leak in their bucket?
+
+Part 1: Geo & Local Ranking Fixes (The "Near Me" Strategy)
+
+Diagnosis: What is missing for local search?
+
+Best Practices: Cite how top limo companies target airports.
+
+Actionable Fixes: Write 3 specific code or content changes I need to make (e.g., "Add inline JSON-LD schema for LocalBusiness," or "Create a specific landing page for [City Name]").
+
+Part 2: IAO & Structural Fixes (Internal Linking)
+
+Diagnosis: Is "link equity" likely flowing to my money pages?
+
+Actionable Fixes: Tell me exactly how to restructure my main navigation menu and footer links to boost "Airport Transfer" pages.
+
+Part 3: Best Practices for Luxury Limo SEO
+
+List the top 5 industry-specific ranking factors (e.g., "Online booking embed," "Review velocity," "LGBTQ+ friendly tags") and rate my site against them.
+
+Part 4: The "Easy Win" Checklist
+
+List 3 things I can fix in the next 1 hour that will immediately help my rankings or click-through rate.
+
