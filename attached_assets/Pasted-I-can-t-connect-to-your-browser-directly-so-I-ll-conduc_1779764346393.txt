@@ -1,0 +1,238 @@
+I can't connect to your browser directly, so I'll conduct this audit using live web data instead.Now let me check the location pages and schema.Now I have everything I need for a thorough, real audit. Let me compile the full report.I have everything I need. Now let me write the full audit report with a visual scorecard.---
+
+## Executive Summary: The Harsh Truth
+
+**Score: 6.1 / 10 — solid foundation, gaping local SEO holes.**
+
+Purple Heart Limo is noticeably better-built than most regional operators: the homepage is content-rich, conversion signals are strong, the blog is prolific, and the USP (veteran-owned, flat rates, no surge) is differentiated and repeated consistently. That's a better start than 70% of competitors at this stage.
+
+But against a national player like EmpireCLS or a well-funded regional like Texas Black Car, you'd lose on one dimension alone: **local search authority**. You have location pages that are essentially booking forms with no schema, no supporting content, no FAQ, and no review markup. Google has no reason to rank `/limo-service-austin-tx/` for "limo service Austin" when it's a thin page with four bullet points. That is the single biggest leak in the bucket.
+
+---
+
+## Part 1: Geo & Local Ranking Fixes — The "Near Me" Strategy
+
+### Diagnosis
+
+**What's present:**
+- Geo meta tags (ICBM, geo.region, geo.placename) — good signal, rarely used by competitors
+- Dedicated `/locations/` hub page with city lists for all three metros
+- Three city landing pages: `/limo-service-austin-tx/`, `/limo-service-dallas-tx/`, and (implied) Houston
+
+**What's critically missing:**
+- No `LocalBusiness` JSON-LD schema anywhere on the homepage or city pages
+- No `AggregateRating` schema — you have 214 reviews at 4.9★ and Google can't read any of them for rich results
+- No `Service` schema on service-specific pages
+- City landing pages are dangerously thin (confirmed by crawling): no H2 structure for sub-services, no FAQ blocks, no pricing table, no embedded map, no review quotes — just a booking form
+- No evidence of separate Google Business Profile listings per city (Austin GBP vs. DFW GBP vs. Houston GBP)
+- NAP (Name, Address, Phone) uses only a phone number — no street address anywhere on the site, which kills local pack eligibility
+
+### How Top Limo Companies Target Airports
+
+EmpireCLS, Carey International, and top local operators build dedicated airport pages like `/dfw-airport-limo-service/` and `/aus-airport-transfer/` — not just anchor tags on a services page. Each page targets the specific airport code (DFW, AUS, IAH), includes terminal-specific copy ("all 7 DFW terminals"), a fare estimator or pricing table, flight tracking language, and local schema. That's why they rank for "DFW airport limo" while a generic city page doesn't.
+
+### Actionable Fix 1 — Add LocalBusiness JSON-LD to the homepage
+
+Add this inside `<head>` on `purpleheartlimo.com`. The physical address is the single most important fix — even a DBA-registered address or a registered agent address enables Local Pack consideration.
+
+```json
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LimousineService",
+  "name": "Purple Heart Limo",
+  "url": "https://purpleheartlimo.com",
+  "telephone": "+18337400700",
+  "email": "info@purpleheartlimo.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Austin",
+    "addressRegion": "TX",
+    "addressCountry": "US"
+  },
+  "areaServed": [
+    {"@type": "City", "name": "Austin"},
+    {"@type": "City", "name": "Dallas"},
+    {"@type": "City", "name": "Fort Worth"},
+    {"@type": "City", "name": "Houston"}
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "214",
+    "bestRating": "5"
+  },
+  "priceRange": "$$",
+  "openingHours": "Mo-Su 00:00-23:59",
+  "sameAs": [
+    "https://www.facebook.com/profile.php?id=61578479742416",
+    "https://www.instagram.com/austinlimousine"
+  ]
+}
+</script>
+```
+
+### Actionable Fix 2 — Rebuild the Austin city page with proper depth
+
+The current `/limo-service-austin-tx/` page is a booking form. Rebuild it with this content structure:
+
+```
+H1: Limo Service Austin, TX
+H2: Airport Transfers from Austin-Bergstrom (AUS)
+  → Pricing table: Sedan $119 | SUV $159 | Sprinter $209
+  → [Book AUS Airport Transfer] CTA
+H2: Austin Wedding Limo
+  → 3 bullet proof points + [Get Wedding Quote] CTA
+H2: Corporate Car Service Austin
+  → Monthly invoicing pitch + [Open Account] CTA
+H2: SXSW, ACL & Formula 1 Transport
+H2: Why Austin Chooses Purple Heart Limo
+  → 3 verified Google review quotes with reviewer name + suburb
+H2: Frequently Asked Questions — Austin
+  → 5 FAQs with LocalBusiness FAQ schema
+H2: Cities We Serve in the Austin Metro
+  → Round Rock, Cedar Park, Georgetown [internal links]
+```
+
+Add this JSON-LD to that page specifically:
+
+```json
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LimousineService",
+  "name": "Purple Heart Limo — Austin TX",
+  "telephone": "+18337400700",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Austin",
+    "addressRegion": "TX"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Austin Limo Services",
+    "itemListElement": [
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AUS Airport Transfer", "url": "https://purpleheartlimo.com/limo-service-austin-tx/#airport"}},
+      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Austin Wedding Limo", "url": "https://purpleheartlimo.com/limo-service-austin-tx/#weddings"}}
+    ]
+  }
+}
+</script>
+```
+
+### Actionable Fix 3 — Create dedicated airport pages (your biggest ranking gap)
+
+Create these four pages immediately — they target the highest-intent, highest-conversion searches in your entire market:
+
+- `/dfw-airport-limo-service/` — target: "DFW airport limo", "DFW airport car service", "DFW airport transfer"
+- `/aus-airport-limo-service/` — target: "Austin airport limo", "AUS airport car service"
+- `/iah-airport-limo-service/` — target: "Houston airport limo", "IAH limo service"
+- `/hobby-airport-limo-service/` — target: "Hobby airport car service"
+
+Each page needs: airport-specific H1, terminal names, fare from airport to major city hubs, flight tracking language, 60-min wait policy, and LocalBusiness schema with `serviceLocation` pointing to that airport's address.
+
+---
+
+## Part 2: IAO & Structural Fixes — Internal Linking
+
+### Diagnosis
+
+The site has a solid content hierarchy in concept, but link equity is not flowing correctly to the money pages. Key problems:
+
+**Navigation issues:**
+- "More ▾" mega-menu groups Fleet, Flight Tracker, Blog, Locations, About, and Contact together — this buries Locations (your most important local SEO asset) inside a miscellaneous dropdown
+- Houston has no city landing page linked in the main nav, only Dallas and Austin appear in footer
+- Services dropdown uses emoji labels (✈️ Airport Transfer) — emoji in nav links is unconventional and may confuse crawlers on anchor text signals
+- The three city landing pages (`/limo-service-austin-tx/`, `/limo-service-dallas-tx/`) are not linked prominently from the homepage body — only from the footer, which is lower-equity
+
+**Internal linking gaps:**
+- The 100+ blog posts link back to `moovs.app` for booking, not to internal service/city pages — this bleeds link equity to an external domain on every single post
+- No blog posts link to `/limo-service-dallas-tx/` or `/limo-service-austin-tx/` with keyword-rich anchor text
+- The `/locations/` page links to city pages but those pages have no links back to `/locations/` or to each other (no cross-city internal linking)
+
+### Actionable Fix — Restructure main navigation and footer
+
+**Navigation (current → recommended):**
+
+```
+Current:
+[Home] [Services ▾] [More ▾ → Fleet, Flight Tracker, Blog, Locations...] [Book]
+
+Recommended:
+[Home] [Services ▾] [Locations ▾] [Fleet] [Blog] [Book Now]
+
+Locations dropdown:
+  Austin Limo Service → /limo-service-austin-tx/
+  Dallas-Fort Worth → /limo-service-dallas-tx/
+  Houston → /limo-service-houston-tx/
+  All Locations → /locations/
+```
+
+**Footer (add explicit airport section):**
+
+```
+AIRPORTS
+DFW Airport Limo → /dfw-airport-limo-service/
+Austin-Bergstrom Limo → /aus-airport-limo-service/
+IAH Airport Limo → /iah-airport-limo-service/
+Hobby Airport Limo → /hobby-airport-limo-service/
+```
+
+**Blog post linking rule:** Every blog post should contain at minimum one internal link to the relevant city page using the anchor text pattern `"[city] limo service"`. The 70+ DFW blog posts should all link to `/limo-service-dallas-tx/`. Right now they link only to Moovs — every one of those is a lost internal linking opportunity.
+
+---
+
+## Part 3: Best Practices for Luxury Limo SEO — Top 5 Ranking Factors
+
+| Factor | What it means | Your status | Score |
+|---|---|---|---|
+| 1. Google Business Profile velocity | Multiple city GBPs, regular posts, Q&A, 10+ new reviews/month | Unconfirmed — no GBP link visible on site | ⚠️ Unknown |
+| 2. Location page depth | 600+ words, FAQ schema, pricing, reviews, embedded map per city | Thin — basically a booking form | ❌ Fail |
+| 3. Schema markup | LocalBusiness, AggregateRating, Service, FAQPage | None found on any page | ❌ Fail |
+| 4. Review velocity & schema | Reviews embedded with markup, Google reviews widget, 10+/month | 214 reviews but no schema, no widget | ⚠️ Partial |
+| 5. Internal link equity to money pages | Blog posts, homepage, footer all pointing to city/airport pages | Blog points to Moovs instead | ⚠️ Partial |
+
+**Bonus: You're doing well on things others fail at** — the veteran/Texan-owned narrative, the flat-rate differentiation, the bilingual (English/Spanish) content, the World Cup 2026 timely content strategy, and the WhatsApp contact option are all genuine differentiators that support conversion even if schema is weak.
+
+---
+
+## Part 4: The "Easy Win" Checklist — Fix These in 1 Hour
+
+**Win 1 — Add AggregateRating schema to the homepage (20 minutes)**
+
+You have 214 verified 5-star reviews. Google can't see them for rich results because there's no `AggregateRating` markup. Add the JSON-LD block from Fix 1 above. When Google validates it, your homepage listing in search results gets gold stars — improving click-through rate immediately without ranking changes. This is the highest ROI action on the list.
+
+**Win 2 — Update your homepage title tag (5 minutes)**
+
+Current title: `Purple Heart Limo | Luxury Limo Service Austin·Dallas·Houston`
+
+Problem: "Austin·Dallas·Houston" uses the middle dot separator which may render strangely in some SERPs, and the title front-loads your brand name rather than the service keyword.
+
+Change to:
+```
+Limo Service Austin, Dallas & Houston TX | Purple Heart Limo
+```
+
+This puts the money keyword first, uses a natural separator, and is exactly 57 characters — safe for most SERP displays.
+
+**Win 3 — Fix your meta description to include a click hook (10 minutes)**
+
+Current: `Purple Heart Limo — Texan-owned luxury limousine & black car service in Austin, Dallas-Fort Worth & Houston TX.`
+
+This is purely descriptive. It doesn't give a reason to click. Replace with:
+
+```
+Flat-rate limo & black car service in Austin, Dallas & Houston — no surge pricing, 60-min free wait, veteran-owned. Book in 60 seconds. ☎ (833) 740-0700
+```
+
+This adds urgency, the core USP (flat rate, no surge), social proof hook (veteran), and a direct phone CTA — all of which improve click-through rate from existing rankings before any new content is live.
+
+---
+
+## Summary: Your Priority Order
+
+1. **This week:** Add LocalBusiness + AggregateRating JSON-LD schema to homepage and city pages. Fix title tag and meta description. These are free and take under 2 hours.
+2. **This month:** Rebuild the Austin and Dallas city landing pages with proper depth (600+ words, FAQ schema, pricing tables, review quotes). Create the Houston city page. Create the four airport-specific pages.
+3. **Ongoing:** Claim or optimize separate Google Business Profile listings for Austin, DFW, and Houston. Add internal links from all blog posts to the corresponding city page. Start a review velocity campaign — 10+ new Google reviews per month per city.
+
+The bones of this site are good. The vet story is powerful. The flat-rate USP is differentiated. What's missing is the technical scaffolding Google needs to send you traffic — and most of it is fixable in days, not months.
