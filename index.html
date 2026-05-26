@@ -228,6 +228,16 @@ a { text-decoration:none; color:inherit; }
   text-transform:none !important;
   font-variant:normal !important;
 }
+.dd-section{border-top:1px solid var(--gray-light);margin-top:6px;padding-top:2px;}
+.dd-section:first-of-type{border-top:none;margin-top:0;padding-top:0;}
+.dd-section>summary{font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:8px 12px 6px;cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;border-radius:6px;}
+.dd-section>summary:hover{background:var(--gray-light);}
+.dd-section>summary:focus-visible{outline:2px solid var(--purple);outline-offset:2px;}
+.dd-section>summary::-webkit-details-marker{display:none;}
+.dd-section>summary::after{content:"▾";font-size:0.7rem;transition:transform 0.2s;color:var(--gold);}
+.dd-section[open]>summary::after{transform:rotate(180deg);}
+.dd-section-static-title{font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:10px 12px 4px;border-top:1px solid var(--gray-light);margin-top:6px;}
+
 .nav-logo-sub { font-size:0.6rem; font-family:'Inter',sans-serif; font-weight:500; color:var(--gold); letter-spacing:0.12em; text-transform:uppercase; display:block; }
 
 .nav-links { display:flex; align-items:center; gap:4px; list-style:none; }
@@ -1181,7 +1191,8 @@ footer {
 <li class="dropdown">
 <a href="/about.html">More ▾</a>
 <div class="dropdown-menu" style="min-width:240px;">
-<div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:8px 12px 4px;">Services</div>
+<details class="dd-section">
+<summary>Services</summary>
 <a href="/services.html#sports">🏈 Game Day &amp; Sports</a>
 <a href="/services.html#airport">✈️ Airport Transfer</a>
 <a href="/services.html#weddings">💍 Wedding Limo</a>
@@ -1190,12 +1201,15 @@ footer {
 <a href="/services.html#nightout">🥂 Night Out &amp; Party</a>
 <a href="/services.html#charter">🕐 Hourly Service</a>
 <a href="/services.html" style="font-weight:600;">→ All Services</a>
-<div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:10px 12px 4px;border-top:1px solid var(--gray-light);margin-top:6px;">Locations</div>
+</details>
+<details class="dd-section">
+<summary>Locations</summary>
 <a href="/limo-service-austin-tx/">📍 Austin Limo Service</a>
 <a href="/limo-service-dallas-tx/">📍 Dallas-Fort Worth</a>
 <a href="/limo-service-houston-tx/">📍 Houston Limo Service</a>
 <a href="/locations/" style="font-weight:600;">→ All Service Areas</a>
-<div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);padding:10px 12px 4px;border-top:1px solid var(--gray-light);margin-top:6px;">Company</div>
+</details>
+<div class="dd-section-static-title">Company</div>
 <a href="/fleet.html">🚗 Our Fleet</a>
 <a href="/flight-tracker.html" style="color:#C9A84C;font-weight:600;">✈ Flight Tracker</a>
 <a href="/blog/">📝 Blog</a>
