@@ -4,6 +4,8 @@ Allow: /llms.txt
 
 Disallow: /thank-you.html
 Disallow: /netlify/
+Disallow: /cdn-cgi/
+Disallow: /html/
 
 # Explicitly allow major AI crawlers (AIO)
 User-agent: GPTBot

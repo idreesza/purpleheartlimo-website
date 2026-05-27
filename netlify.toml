@@ -38,6 +38,33 @@
   status = 200
 
 # ─────────────────────────────────────────────────────────────
+# 2b. Pretty-URL → real HTML files (GSC 404s)
+# ─────────────────────────────────────────────────────────────
+[[redirects]]
+  from   = "/about-us"
+  to     = "/about.html"
+  status = 301
+[[redirects]]
+  from   = "/about-us/"
+  to     = "/about.html"
+  status = 301
+[[redirects]]
+  from   = "/contact-us"
+  to     = "/contact.html"
+  status = 301
+[[redirects]]
+  from   = "/contact-us/"
+  to     = "/contact.html"
+  status = 301
+
+# Google-parser artifact: it occasionally tries to crawl xpath
+# fragments from speakable schema as URLs. Send to homepage.
+[[redirects]]
+  from   = "/html/*"
+  to     = "/"
+  status = 301
+
+# ─────────────────────────────────────────────────────────────
 # 3. 301 redirects for deleted legacy blog URLs (GSC 404s,
 #    "crawled-not-indexed", and stale robots-blocked entries).
 #    All point to /blog/ so we recover link equity instead of
@@ -65,6 +92,14 @@
   status = 301
 
 # --- Confirmed 404s (GSC "Not found") ---
+[[redirects]]
+  from = "/blog/the-ultimate-guide-to-dynamic-map-integration-for-limousine-services"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/expert-tips-for-booking-a-limousine-in-austin-during-festival-season"
+  to = "/blog/"
+  status = 301
 [[redirects]]
   from = "/blog/the-ultimate-guide-to-event-based-limousine-rental-in-austin"
   to = "/blog/"
@@ -105,6 +140,17 @@
   status = 301
 
 # --- GSC "Crawled - currently not indexed" (old AI posts) ---
+# These two files STILL EXIST on disk → must use force=true to win over the file
+[[redirects]]
+  from = "/blog/prom-night-perfection--tips-for-booking-a-limo-in-austin"
+  to = "/blog/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/prom-season-limo-booking-tips-for-austin-teens-and-parents"
+  to = "/blog/"
+  status = 301
+  force = true
 [[redirects]]
   from = "/blog/why-purple-heart-limousine-stands-out-among-austin-s-limo-services"
   to = "/blog/"
