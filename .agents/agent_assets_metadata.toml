@@ -6,3 +6,9 @@ id = "JkUNDP8kjejZhYioyYljN"
 uri = "file://backlink-action-plan.md"
 type = "text"
 title = "Purple Heart Limo — Backlink & Authority Action Plan"
+
+[[outputs]]
+id = "XarRONcli1WvCrHIA5Z-7"
+uri = "file://attached_assets/purpleheart-office-sign.png"
+type = "image"
+title = "Purple Heart Limo — Office with Roof Sign"
