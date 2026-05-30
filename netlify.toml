@@ -312,26 +312,26 @@
   to = "/blog/"
   status = 301
 
-# --- GSC "Not found (404)" batch 2026-05-29 (old AI posts, never existed as files) ---
+# --- GSC "Not found (404)" batch 2026-05-29 (old AI posts → closest live article) ---
 [[redirects]]
   from = "/blog/comparing-limo-services-in-austin--what-sets-purple-heart-apart"
-  to = "/blog/"
+  to = "/blog/comparing-purple-heart-limo-with-other-austin-limo-services/"
   status = 301
 [[redirects]]
   from = "/blog/case-study--how-dynamic-maps-improved-our-limo-service-efficiency"
-  to = "/blog/"
+  to = "/blog/how-dynamic-maps-enhance-limousine-services-in-austin/"
   status = 301
 [[redirects]]
   from = "/blog/myths-about-limo-services--what-you-need-to-know-2"
-  to = "/blog/"
+  to = "/blog/5-myths-about-limousine-services-in-austin-debunked/"
   status = 301
 [[redirects]]
   from = "/blog/top-5-tips-for-choosing-the-best-limo-service-in-austin"
-  to = "/blog/"
+  to = "/blog/5-tips-for-booking-a-limo-in-austin-for-your-special-event/"
   status = 301
 [[redirects]]
   from = "/blog/a-step-by-step-guide-to-multi-step-limo-booking-in-austin"
-  to = "/blog/"
+  to = "/blog/the-ultimate-guide-to-booking-a-limo-service-in-austin/"
   status = 301
 
 # --- Old paginated blog query URLs → blog index ---
