@@ -32,6 +32,9 @@ def build_pages(STD_WHY, AUSTIN_AREAS, DALLAS_AREAS):
         ("/car-service-arlington-tx/", "Arlington Car Service"),
         ("/car-service-plano-tx/", "Plano Car Service"),
         ("/car-service-frisco-tx/", "Frisco Car Service"),
+        ("/car-service-irving-tx/", "Irving Car Service"),
+        ("/car-service-mckinney-tx/", "McKinney Car Service"),
+        ("/limo-service-fort-worth-tx/", "Fort Worth Limo Service"),
         ("/limo-service-university-park-tx/", "University Park Limo Service"),
         ("/limo-service-highland-park-tx/", "Highland Park Limo Service"),
         ("/limo-service-dallas-tx/", "Dallas Limo Service"),
@@ -914,6 +917,161 @@ def build_pages(STD_WHY, AUSTIN_AREAS, DALLAS_AREAS):
             ("Do you serve both Dallas airports from Highland Park?", "Yes \u2014 flight-monitored, flat-rate transfers to both DFW International and Dallas Love Field, available 24/7."),
         ],
         "related": rel(dallas_cities, "/limo-service-highland-park-tx/") + [("/dallas-wedding-transportation/", "Dallas Wedding Transportation")],
+    })
+
+    # 18. Car Service Irving TX
+    pages.append({
+        "slug": "car-service-irving-tx",
+        "title": "Car Service Irving TX | Las Colinas Corporate Black Car & DFW | Purple Heart Limo",
+        "meta": "Car service in Irving & Las Colinas, TX \u2014 executive black car for corporate travel, DFW airport transfers, Toyota Music Factory & events. Flat rates, no surge, 24/7. Texan-owned.",
+        "schema_name": "Purple Heart Limo \u2014 Car Service Irving TX",
+        "image": "sedan-cadillac.webp",
+        "areas": ["Irving", "Las Colinas", "Coppell", "Grapevine", "Dallas", "Fort Worth"],
+        "locality": "Irving", "reviews": 88,
+        "hub_slug": DAL_HUB[0], "hub_name": DAL_HUB[1], "crumb": "Irving Car Service",
+        "badge": "\U0001F4BC Las Colinas \u00b7 Irving, TX",
+        "h1_main": "Car Service", "h1_em": "Irving, TX",
+        "hero_p": "Executive car service in Irving and Las Colinas, TX \u2014 flat-rate black car and SUV travel for corporate trips, DFW airport transfers, the Irving Convention Center and Toyota Music Factory events. Professional chauffeurs, account billing available, zero surge pricing, 24/7.",
+        "stats": [("4.9\u2605", "Average Rating"), ("DFW", "Airport Served"), ("24/7", "Available"), ("$0", "Surge Fees")],
+        "svc_label": "Irving Car Service", "svc_title": "Executive Transportation for Irving & Las Colinas",
+        "svc_desc": "From Las Colinas boardrooms to DFW departures, our Irving car service keeps business travelers on schedule.",
+        "cards": [
+            ("\U0001F4BC", "Corporate Travel", "Executive sedans for Las Colinas HQs, meetings and roadshows."),
+            ("\u2708\uFE0F", "DFW Airport Transfers", "Minutes from DFW \u2014 flight-monitored, flat-rate airport rides."),
+            ("\U0001F3B5", "Toyota Music Factory", "Group transport to concerts, dining and nightlife."),
+            ("\U0001F3E2", "Convention Center", "Reliable rides for Irving Convention Center events and guests."),
+            ("\U0001F465", "Group & Team Travel", "Executive Sprinters for teams, conferences and offsites."),
+            ("\U0001F698", "Luxury SUV", "Escalade and Suburban for executives, families and luggage."),
+        ],
+        "body": [
+            ("Irving & Las Colinas Car Service", [
+                "Irving \u2014 and especially the Las Colinas business district \u2014 is one of the densest corporate hubs in Texas, packed with headquarters, hotels and the Irving Convention Center. Add the Toyota Music Factory's concerts and restaurants and you have a city that never stops needing dependable transportation. Purple Heart Limo's Irving car service delivers flat-rate, chauffeur-driven black cars and SUVs that arrive early, look immaculate and get you where you need to be.",
+                "As a veteran-owned company, we treat punctuality and presentation as a standard, not an upsell \u2014 exactly what Las Colinas executives, event guests and visiting teams expect.",
+            ]),
+            ("Minutes From DFW Airport", [
+                "Irving borders Dallas Fort Worth International, making it one of the easiest cities for flight-monitored airport transfers. Your chauffeur tracks the flight, adjusts for delays automatically and never adds surge pricing. See our <a href=\"/dfw-airport-car-service/\">DFW airport car service</a>, or fly Southwest from <a href=\"/car-service-dallas-love-field/\">Dallas Love Field</a> instead.",
+            ]),
+            ("Corporate Accounts & Group Travel", [
+                "For companies that book regularly, we offer account billing and priority scheduling through our <a href=\"/dallas-corporate-car-service/\">Dallas corporate car service</a>. Moving a team? Our executive Sprinters seat up to 12 with luggage space \u2014 ideal for conferences at the Irving Convention Center and offsites across the Metroplex.",
+            ]),
+        ],
+        "form_title": "Book Irving Car Service", "form_btn": "Request Irving Car Service",
+        "service_opts": ["Corporate / Executive", "DFW Airport Transfer", "Convention / Event", "Toyota Music Factory", "Group / Team Travel", "Hourly Charter", "Other"],
+        "vehicle_opts": ["Executive Sedan", "Luxury SUV", "Executive Sprinter", "Stretch Limousine", "Party Bus"],
+        "pickup_ph": "Las Colinas or 123 Main St, Irving TX", "city_val": "Irving TX",
+        "why_title": "Irving's Texan-Owned Choice", "why": STD_WHY,
+        "faq_title": "Irving Car Service FAQ",
+        "faqs": [
+            ("How much is car service in Irving, TX?", "Irving and Las Colinas rides are flat-rate and quoted up front based on your pickup, destination and vehicle, with no surge pricing. Call (833) 740-0700 for a quote."),
+            ("Do you serve DFW Airport from Irving?", "Yes \u2014 Irving borders DFW International, so we offer fast, flight-monitored, flat-rate transfers 24/7 in sedans, SUVs and Sprinters."),
+            ("Do you offer corporate accounts in Las Colinas?", "Absolutely \u2014 billing accounts, priority scheduling and reporting are available for Las Colinas companies through our Dallas corporate car service."),
+            ("Can you handle convention and event groups?", "Yes \u2014 our executive Sprinter vans seat up to 12 with luggage room, ideal for Irving Convention Center events, conferences and Toyota Music Factory outings."),
+        ],
+        "related": rel(dallas_cities, "/car-service-irving-tx/") + [("/dallas-corporate-car-service/", "Dallas Corporate Car Service")],
+    })
+
+    # 19. Car Service McKinney TX
+    pages.append({
+        "slug": "car-service-mckinney-tx",
+        "title": "Car Service McKinney TX | Black Car, Airport & Events | Purple Heart Limo",
+        "meta": "Car service in McKinney, TX \u2014 black car for DFW airport transfers, corporate travel, weddings, wine tours & Historic Downtown nights out. Flat rates, no surge, 24/7. Texan-owned.",
+        "schema_name": "Purple Heart Limo \u2014 Car Service McKinney TX",
+        "image": "luxsuv-escalade.webp",
+        "areas": ["McKinney", "Frisco", "Allen", "Plano", "Prosper", "Dallas"],
+        "locality": "McKinney", "reviews": 88,
+        "hub_slug": DAL_HUB[0], "hub_name": DAL_HUB[1], "crumb": "McKinney Car Service",
+        "badge": "\U0001F3DB\uFE0F Collin County \u00b7 McKinney, TX",
+        "h1_main": "Car Service", "h1_em": "McKinney, TX",
+        "hero_p": "Professional car service in McKinney, TX \u2014 flat-rate black car and SUV travel for DFW airport transfers, corporate trips, weddings, wine tours and Historic Downtown McKinney nights out. Veteran-owned, zero surge pricing, available 24/7 across Collin County.",
+        "stats": [("4.9\u2605", "Average Rating"), ("DFW", "Airport Served"), ("24/7", "Available"), ("$0", "Surge Fees")],
+        "svc_label": "McKinney Car Service", "svc_title": "Rides for Every McKinney Occasion",
+        "svc_desc": "From an early flight to a night on the Square, our McKinney car service gets you there on time and in comfort.",
+        "cards": [
+            ("\u2708\uFE0F", "DFW Airport Transfers", "Flight-monitored, flat-rate rides to DFW and Love Field."),
+            ("\U0001F4BC", "Corporate Travel", "Executive sedans for Collin County business trips and meetings."),
+            ("\U0001F48D", "Weddings", "Stretch limos and luxury SUVs for McKinney-area weddings."),
+            ("\U0001F377", "Wine & Brewery Tours", "Safe, chauffeured tours of local wineries and breweries."),
+            ("\U0001F37E", "Historic Downtown", "Nights out on McKinney's Square without driving or parking."),
+            ("\U0001F465", "Group Travel", "Executive Sprinters for families, teams and celebrations."),
+        ],
+        "body": [
+            ("McKinney's Texan-Owned Car Service", [
+                "McKinney blends fast-growing Collin County business with one of the most charming historic downtowns in Texas \u2014 a Square full of restaurants, shops and venues. That mix means residents and visitors need everything from early-morning airport runs to elegant wedding transportation to safe nights out. Purple Heart Limo's McKinney car service covers all of it with flat-rate, chauffeur-driven black cars, SUVs and limousines.",
+                "We're veteran-owned, so reliability and presentation come standard. Your chauffeur arrives early, knows the area, and handles the details \u2014 whether it's a business trip, a celebration or a flight to catch.",
+            ]),
+            ("Airport Transfers From McKinney", [
+                "McKinney is an easy run to both Dallas airports. We provide flight-monitored, flat-rate transfers to <a href=\"/dfw-airport-car-service/\">DFW International</a> and <a href=\"/car-service-dallas-love-field/\">Dallas Love Field</a>, tracking your flight and adjusting for delays automatically \u2014 with no surge pricing, ever.",
+            ]),
+            ("Weddings, Tours & Nights Out", [
+                "Collin County is full of wedding venues, wineries and breweries, and Historic Downtown McKinney is a destination in its own right. Book by the hour for a chauffeured wine tour, a multi-stop celebration or a night on the Square. Planning a wedding? See our <a href=\"/dallas-wedding-transportation/\">Dallas-Fort Worth wedding transportation</a>.",
+            ]),
+        ],
+        "form_title": "Book McKinney Car Service", "form_btn": "Request McKinney Car Service",
+        "service_opts": ["DFW Airport Transfer", "Love Field Transfer", "Corporate / Executive", "Wedding", "Wine / Brewery Tour", "Night Out / Event", "Other"],
+        "vehicle_opts": ["Executive Sedan", "Luxury SUV", "Executive Sprinter", "Stretch Limousine", "Party Bus"],
+        "pickup_ph": "Historic Downtown or 123 Main St, McKinney TX", "city_val": "McKinney TX",
+        "why_title": "McKinney's Texan-Owned Choice", "why": STD_WHY,
+        "faq_title": "McKinney Car Service FAQ",
+        "faqs": [
+            ("How much is car service in McKinney, TX?", "McKinney rides are flat-rate and quoted up front based on your pickup, destination and vehicle, with no surge pricing. Call (833) 740-0700 for a quote."),
+            ("Do you provide airport transfers from McKinney?", "Yes \u2014 flight-monitored, flat-rate transfers to both DFW International and Dallas Love Field, available 24/7 in sedans, SUVs and Sprinters."),
+            ("Can you do wine tours or brewery tours?", "Absolutely \u2014 book by the hour and your chauffeur will take your group safely to Collin County wineries, breweries and Historic Downtown McKinney."),
+            ("Do you offer wedding transportation in McKinney?", "Yes \u2014 stretch limousines, luxury SUVs and Sprinter shuttles for weddings and celebrations at McKinney-area venues across Collin County."),
+        ],
+        "related": rel(dallas_cities, "/car-service-mckinney-tx/") + [("/dallas-wedding-transportation/", "Dallas Wedding Transportation")],
+    })
+
+    # 20. Limo Service Fort Worth TX
+    pages.append({
+        "slug": "limo-service-fort-worth-tx",
+        "title": "Limo Service Fort Worth TX | Stockyards, Weddings & Airport | Purple Heart Limo",
+        "meta": "Limo & car service in Fort Worth, TX \u2014 stretch limos, black car & party buses for the Stockyards, Sundance Square, weddings, nights out & DFW airport. Flat rates, 24/7. Texan-owned.",
+        "schema_name": "Purple Heart Limo \u2014 Limo Service Fort Worth TX",
+        "image": "stretch-limo.webp",
+        "areas": ["Fort Worth", "Arlington", "Grapevine", "Southlake", "Dallas", "Irving"],
+        "locality": "Fort Worth", "reviews": 124,
+        "hub_slug": DAL_HUB[0], "hub_name": DAL_HUB[1], "crumb": "Fort Worth Limo Service",
+        "badge": "\U0001F920 Cowtown \u00b7 Fort Worth, TX",
+        "h1_main": "Limo Service", "h1_em": "Fort Worth, TX",
+        "hero_p": "Limo and car service across Fort Worth, TX \u2014 stretch limousines, executive black cars and party buses for the Stockyards, Sundance Square, weddings, nights out, Dickies Arena events and DFW airport transfers. Flat rates, zero surge, professional chauffeurs, 24/7.",
+        "stats": [("4.9\u2605", "Average Rating"), ("124+", "Fort Worth Reviews"), ("24/7", "Available"), ("$0", "Surge Fees")],
+        "svc_label": "Fort Worth Limo Service", "svc_title": "Limos & Black Cars for All of Cowtown",
+        "svc_desc": "From the Stockyards to Sundance Square to a flight out of DFW, our Fort Worth limo service does it in style.",
+        "cards": [
+            ("\U0001F920", "Stockyards Nights", "Limos and party buses for the Stockyards and Cowtown bars."),
+            ("\U0001F3D9\uFE0F", "Sundance Square", "Elegant rides to dining, Bass Hall and downtown events."),
+            ("\U0001F48D", "Weddings", "Stretch limousines and SUVs for Fort Worth-area weddings."),
+            ("\u2708\uFE0F", "DFW Airport Transfers", "Flight-monitored, flat-rate airport car service."),
+            ("\U0001F3DF\uFE0F", "Dickies Arena & Events", "Group transport to concerts, rodeos and big shows."),
+            ("\U0001F4BC", "Corporate Travel", "Executive sedans for downtown Fort Worth business."),
+        ],
+        "body": [
+            ("Fort Worth Limo & Car Service", [
+                "Fort Worth is where Texas keeps its cowboy soul \u2014 the Stockyards, the rodeo, Billy Bob's \u2014 right alongside a polished downtown of Sundance Square, Bass Performance Hall and Dickies Arena. Whatever the occasion, Purple Heart Limo's Fort Worth limo service shows up ready: stretch limousines for a night out or a wedding, executive black cars for business, and party buses to keep a whole group together. Flat-rate pricing, professional chauffeurs and zero surge, every time.",
+                "We're veteran-owned and built on punctuality. Your chauffeur arrives early, dresses for the occasion and knows Cowtown \u2014 from the Stockyards to TCU to the Cultural District.",
+            ]),
+            ("Nights Out, Weddings & Events", [
+                "Fort Worth knows how to celebrate, and we keep the group together for all of it:",
+                '<ul><li>Stockyards and Sundance Square nights out</li><li>Weddings, anniversaries and quincea\u00f1eras</li><li>Concerts, rodeos and shows at Dickies Arena</li><li>Bachelorette and bachelor parties by limo or party bus</li></ul>',
+                "Need transportation for the whole wedding? See our <a href=\"/dallas-wedding-transportation/\">DFW wedding transportation</a> and <a href=\"/dallas-party-bus/\">party bus rentals</a>.",
+            ]),
+            ("Airport & Corporate Travel in Fort Worth", [
+                "We provide flight-monitored, flat-rate transfers from Fort Worth to <a href=\"/dfw-airport-car-service/\">DFW International</a>, plus discreet executive travel for downtown business through our <a href=\"/dallas-corporate-car-service/\">corporate car service</a>. Explore all our <a href=\"/limo-service-dallas-tx/\">Dallas-Fort Worth limo services</a>.",
+            ]),
+        ],
+        "form_title": "Book Fort Worth Limo Service", "form_btn": "Request Fort Worth Service",
+        "service_opts": ["Night Out / Stockyards", "Wedding", "DFW Airport Transfer", "Concert / Event", "Corporate / Executive", "Party Bus / Group", "Other"],
+        "vehicle_opts": ["Stretch Limousine", "Executive Sedan", "Luxury SUV", "Executive Sprinter", "Party Bus"],
+        "pickup_ph": "Sundance Square or 123 Main St, Fort Worth TX", "city_val": "Fort Worth TX",
+        "why_title": "Fort Worth's Texan-Owned Choice", "why": STD_WHY,
+        "faq_title": "Fort Worth Limo Service FAQ",
+        "faqs": [
+            ("How much is limo service in Fort Worth, TX?", "Fort Worth rides are flat-rate and quoted up front based on your pickup, destination, vehicle and hours, with no surge pricing. Call (833) 740-0700 for a quote."),
+            ("Do you serve the Stockyards and Sundance Square?", "Yes \u2014 nights out in the Stockyards and Sundance Square are among our most popular Fort Worth services, by stretch limo or party bus."),
+            ("Do you provide DFW airport transfers from Fort Worth?", "Absolutely \u2014 flight-monitored, flat-rate transfers to DFW International, available 24/7 in sedans, SUVs and Sprinters."),
+            ("Can you handle Fort Worth weddings and large groups?", "Yes \u2014 stretch limousines, luxury SUVs, Sprinters and party buses for weddings, quincea\u00f1eras and group celebrations across Fort Worth and the Metroplex."),
+        ],
+        "related": rel(dallas_cities, "/limo-service-fort-worth-tx/") + [("/dallas-wedding-transportation/", "Dallas Wedding Transportation")],
     })
 
     return pages
