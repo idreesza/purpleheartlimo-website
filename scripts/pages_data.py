@@ -28,6 +28,15 @@ def build_pages(STD_WHY, AUSTIN_AREAS, DALLAS_AREAS):
         ("/dallas-party-bus/", "Dallas Party Bus"),
         ("/limo-service-dallas-tx/", "Dallas Limo Service"),
     ]
+    dallas_cities = [
+        ("/car-service-arlington-tx/", "Arlington Car Service"),
+        ("/car-service-plano-tx/", "Plano Car Service"),
+        ("/car-service-frisco-tx/", "Frisco Car Service"),
+        ("/limo-service-university-park-tx/", "University Park Limo Service"),
+        ("/limo-service-highland-park-tx/", "Highland Park Limo Service"),
+        ("/limo-service-dallas-tx/", "Dallas Limo Service"),
+        ("/dfw-airport-car-service/", "DFW Airport Car Service"),
+    ]
 
     def rel(items, exclude):
         return [x for x in items if x[0] != exclude]
@@ -472,7 +481,7 @@ def build_pages(STD_WHY, AUSTIN_AREAS, DALLAS_AREAS):
                 "For arrivals, we offer meet-and-greet service \u2014 your chauffeur greets you, helps with luggage and walks you to the vehicle. For departures, we arrive early and beat the traffic so you reach your gate relaxed. It's the stress-free way to fly out of Love Field.",
             ]),
             ("Love Field Transfers Across DFW", [
-                "We provide flat-rate DAL transfers from anywhere in the Metroplex \u2014 Uptown, Downtown, Las Colinas, Plano, Frisco and beyond. Flying out of the other airport instead? See our <a href=\"/dfw-airport-car-service/\">DFW Airport car service</a>. Traveling for work? Pair it with our <a href=\"/dallas-corporate-car-service/\">Dallas corporate car service</a>.",
+                "We provide flat-rate DAL transfers from anywhere in the Metroplex \u2014 Uptown, Downtown, Las Colinas, Plano, Frisco and beyond. Whether you search for DAL car service or Dallas Love Field car service, you get the same thing: a flight-tracked, flat-rate ride that's on time. Flying out of the other airport instead? See our <a href=\"/dfw-airport-car-service/\">DFW Airport car service</a>. Traveling for work? Pair it with our <a href=\"/dallas-corporate-car-service/\">Dallas corporate car service</a>.",
             ]),
             ("Perfect for Southwest Travelers", [
                 "Because Love Field is Southwest's hub, many of our DAL clients are frequent flyers who value speed and consistency. We track your inbound flight, adjust for delays automatically, and never add surge pricing \u2014 so your airport ride is one less thing to think about.",
@@ -522,7 +531,7 @@ def build_pages(STD_WHY, AUSTIN_AREAS, DALLAS_AREAS):
                 "Arriving travelers get meet-and-greet service and luggage help; departing travelers get early, traffic-aware pickups that keep them ahead of schedule. Whether you need a single executive sedan or a Sprinter for a whole team, we make DFW simple.",
             ]),
             ("DFW Transfers Across the Metroplex", [
-                "We serve the entire Dallas-Fort Worth area \u2014 Downtown, Uptown, Las Colinas, Plano, Frisco, Arlington and Fort Worth. Flying Southwest out of the close-in airport instead? See our <a href=\"/car-service-dallas-love-field/\">Dallas Love Field car service</a>. Need it for business? Our <a href=\"/dallas-corporate-car-service/\">corporate car service</a> adds accounts and billing.",
+                "We serve the entire Dallas-Fort Worth area \u2014 Downtown, Uptown, Las Colinas, Plano, Frisco, Arlington and Fort Worth. Think of us as a private airport shuttle service in Dallas, TX: door-to-door, on your schedule, with no shared stops or waiting. Flying Southwest out of the close-in airport instead? See our <a href=\"/car-service-dallas-love-field/\">Dallas Love Field car service</a>. Need it for business? Our <a href=\"/dallas-corporate-car-service/\">corporate car service</a> adds accounts and billing.",
             ]),
             ("Choose the Right Vehicle for DFW", [
                 "Solo travelers and couples ride comfortably in an executive sedan; small groups and luggage-heavy trips suit a luxury SUV; teams, families and tour groups fit our executive Sprinter for up to 12. Every option is flat-rate and flight-monitored.",
@@ -554,7 +563,7 @@ def build_pages(STD_WHY, AUSTIN_AREAS, DALLAS_AREAS):
         "hub_slug": DAL_HUB[0], "hub_name": DAL_HUB[1], "crumb": "Dallas Wedding Transportation",
         "badge": "\U0001F48D Weddings \u00b7 Dallas-Fort Worth",
         "h1_main": "Dallas Wedding", "h1_em": "Transportation",
-        "hero_p": "Elegant wedding transportation across Dallas-Fort Worth \u2014 stretch limousines for the couple, SUVs for the bridal party, and Sprinter shuttles for your guests. Flat rates and a chauffeur who keeps your timeline flawless.",
+        "hero_p": "Elegant wedding transportation in Dallas, TX and across Dallas-Fort Worth \u2014 stretch limousines for the couple, SUVs for the bridal party, and Sprinter shuttles for your guests. Flat rates and a chauffeur who keeps your timeline flawless.",
         "stats": [("4.9\u2605", "Average Rating"), ("188+", "Dallas Reviews"), ("100%", "On-Time"), ("$0", "Surge Fees")],
         "svc_label": "Wedding Transportation", "svc_title": "Transportation That Makes the Day Effortless",
         "svc_desc": "From the ceremony to the reception to the send-off, we coordinate every transfer so you and your guests arrive on time.",
@@ -643,6 +652,268 @@ def build_pages(STD_WHY, AUSTIN_AREAS, DALLAS_AREAS):
             ("Can we make multiple stops during the night?", "Absolutely \u2014 book by the hour and your chauffeur will take your group to as many venues or light displays as your itinerary allows."),
         ],
         "related": rel(dallas_related, "/dallas-party-bus/"),
+    })
+
+    # ---------------- DALLAS-AREA CITIES ----------------
+
+    # 13. Car Service Arlington TX
+    pages.append({
+        "slug": "car-service-arlington-tx",
+        "title": "Car Service Arlington TX | Cowboys & Rangers Game Day, Airport | Purple Heart Limo",
+        "meta": "Car service in Arlington, TX \u2014 black car & limo for AT&T Stadium, Globe Life Field, Six Flags, DFW airport & corporate travel. Flat rates, no surge, 24/7. Texan-owned.",
+        "schema_name": "Purple Heart Limo \u2014 Car Service Arlington TX",
+        "image": "luxsuv-escalade.webp",
+        "areas": ["Arlington", "Grand Prairie", "Mansfield", "Dallas", "Fort Worth", "Irving"],
+        "locality": "Arlington", "reviews": 96,
+        "hub_slug": DAL_HUB[0], "hub_name": DAL_HUB[1], "crumb": "Arlington Car Service",
+        "badge": "\U0001F3C8 Entertainment District \u00b7 Arlington, TX",
+        "h1_main": "Car Service", "h1_em": "Arlington, TX",
+        "hero_p": "Professional car service in Arlington, TX \u2014 flat-rate black car, SUV and limo rides for AT&T Stadium game days, Globe Life Field, Six Flags, concerts at Texas Live!, DFW airport transfers and corporate travel. A chauffeur who knows the Entertainment District, with zero surge pricing, 24/7.",
+        "stats": [("4.9\u2605", "Average Rating"), ("DFW", "Airport Served"), ("24/7", "Available"), ("$0", "Surge Fees")],
+        "svc_label": "Arlington Car Service", "svc_title": "Rides for Every Arlington Occasion",
+        "svc_desc": "From a Cowboys kickoff to a 6 a.m. flight, our Arlington car service gets your group there on time and stress-free.",
+        "cards": [
+            ("\U0001F3C8", "Cowboys Game Day", "Drop-off and pickup at AT&T Stadium \u2014 no parking, no tailgate hassle."),
+            ("\u26BE", "Rangers at Globe Life", "Flat-rate rides to Globe Life Field and Texas Live! after the game."),
+            ("\U0001F3A2", "Six Flags & Family", "Roomy SUVs and Sprinters for Six Flags and Hurricane Harbor trips."),
+            ("\u2708\uFE0F", "DFW Airport Transfers", "Flight-monitored airport car service from anywhere in Arlington."),
+            ("\U0001F4BC", "Corporate Travel", "Executive sedans for meetings across the Mid-Cities and Metroplex."),
+            ("\U0001F37E", "Concerts & Nights Out", "Group transport to big shows and Arlington's bars and venues."),
+        ],
+        "body": [
+            ("Arlington's Texan-Owned Car Service", [
+                "Arlington sits right in the middle of the Metroplex, halfway between Dallas and Fort Worth, and it's the beating heart of Texas sports and entertainment \u2014 AT&T Stadium, Globe Life Field, Texas Live!, Six Flags Over Texas and Hurricane Harbor. On game days and concert nights, parking is brutal and rideshare surges hard. Purple Heart Limo's Arlington car service skips all of that with a flat-rate, chauffeur-driven ride that drops you at the gate and picks you up when it's over.",
+                "We're a veteran-owned team that treats your schedule like a mission. Whether it's a Cowboys home game, a Rangers playoff push, a family day at Six Flags or an early flight out of DFW, your chauffeur arrives early, tracks traffic and gets your whole group there together.",
+            ]),
+            ("Game Day & Event Transportation", [
+                "Tailgating and driving don't mix \u2014 let us handle the wheel. We provide door-to-gate transportation to AT&T Stadium and Globe Life Field, then pick you up at a set meeting point so you never wait in the post-game crush. Book by the hour and we'll add stops at Texas Live!, dinner or a hotel.",
+                "Need a bigger ride? Our luxury SUVs, executive Sprinters and party buses keep groups of friends, families or corporate suites together for the whole event.",
+            ]),
+            ("DFW Airport & Corporate Trips From Arlington", [
+                "Because Arlington is minutes from DFW International, we're a popular choice for flight-monitored <a href=\"/dfw-airport-car-service/\">DFW airport car service</a> and executive travel. Pair it with our <a href=\"/dallas-corporate-car-service/\">Dallas corporate car service</a> for account billing, or explore all our <a href=\"/limo-service-dallas-tx/\">Dallas-Fort Worth limo services</a>.",
+            ]),
+        ],
+        "form_title": "Book Arlington Car Service", "form_btn": "Request Arlington Car Service",
+        "service_opts": ["Cowboys / AT&T Stadium", "Rangers / Globe Life Field", "Concert / Event", "DFW Airport Transfer", "Corporate / Executive", "Six Flags / Family", "Other"],
+        "vehicle_opts": ["Executive Sedan", "Luxury SUV", "Executive Sprinter", "Stretch Limousine", "Party Bus"],
+        "pickup_ph": "123 Main St, Arlington TX or AT&T Stadium", "city_val": "Arlington TX",
+        "why_title": "Arlington's Texan-Owned Choice", "why": STD_WHY,
+        "faq_title": "Arlington Car Service FAQ",
+        "faqs": [
+            ("How much is car service in Arlington, TX?", "We quote a flat rate up front based on your pickup, destination and vehicle \u2014 no surge pricing, even on game days. Call (833) 740-0700 for an exact fare."),
+            ("Do you provide rides to AT&T Stadium and Globe Life Field?", "Yes \u2014 game-day and concert transportation to AT&T Stadium and Globe Life Field is one of our most popular Arlington services, with door-to-gate drop-off and a set pickup point afterward."),
+            ("Can you take us to DFW Airport from Arlington?", "Absolutely. Arlington is minutes from DFW, and we offer flight-monitored, flat-rate airport transfers 24/7 in sedans, SUVs and Sprinters."),
+            ("Do you handle large groups for events?", "Yes \u2014 our luxury SUVs, executive Sprinters and party buses keep groups together for games, concerts and family outings across Arlington and the Metroplex."),
+        ],
+        "related": rel(dallas_cities, "/car-service-arlington-tx/") + [("/dallas-corporate-car-service/", "Dallas Corporate Car Service")],
+    })
+
+    # 14. Car Service Plano TX
+    pages.append({
+        "slug": "car-service-plano-tx",
+        "title": "Car Service Plano TX | Corporate Black Car & DFW Airport | Purple Heart Limo",
+        "meta": "Car service in Plano, TX \u2014 executive black car for corporate travel, Legacy West, DFW & Love Field airport transfers and events. Flat rates, no surge, 24/7. Texan-owned.",
+        "schema_name": "Purple Heart Limo \u2014 Car Service Plano TX",
+        "image": "sedan-cadillac.webp",
+        "areas": ["Plano", "Frisco", "Allen", "Richardson", "McKinney", "Dallas"],
+        "locality": "Plano", "reviews": 96,
+        "hub_slug": DAL_HUB[0], "hub_name": DAL_HUB[1], "crumb": "Plano Car Service",
+        "badge": "\U0001F4BC Corporate Corridor \u00b7 Plano, TX",
+        "h1_main": "Car Service", "h1_em": "Plano, TX",
+        "hero_p": "Executive car service in Plano, TX \u2014 flat-rate black car and SUV travel for corporate trips, Legacy West and The Shops at Legacy, client roadshows, and DFW or Love Field airport transfers. Professional chauffeurs, account billing available, zero surge pricing, 24/7.",
+        "stats": [("4.9\u2605", "Average Rating"), ("DFW", "Airport Served"), ("24/7", "Available"), ("$0", "Surge Fees")],
+        "svc_label": "Plano Car Service", "svc_title": "Executive Transportation for Plano",
+        "svc_desc": "Plano runs on business \u2014 our car service keeps executives, teams and visitors moving on schedule.",
+        "cards": [
+            ("\U0001F4BC", "Corporate Travel", "Executive sedans for HQ visits, meetings and client roadshows."),
+            ("\u2708\uFE0F", "DFW & Love Field", "Flight-monitored airport transfers to both Dallas airports."),
+            ("\U0001F3E2", "Legacy West", "Polished rides to Legacy West offices, dining and hotels."),
+            ("\U0001F465", "Group & Team Travel", "Executive Sprinters for teams, conferences and offsites."),
+            ("\U0001F37D\uFE0F", "Dinner & Events", "Evening car service to The Shops at Legacy and beyond."),
+            ("\U0001F698", "Luxury SUV", "Escalade and Suburban for executives, families and luggage."),
+        ],
+        "body": [
+            ("Plano's Corporate Car Service", [
+                "Plano is one of the country's great corporate addresses \u2014 home to major headquarters and the Legacy West and Shops at Legacy business district. That means a steady stream of executives, clients and teams who need transportation that's as professional as they are. Purple Heart Limo's Plano car service delivers flat-rate, chauffeur-driven black cars and SUVs that show up early, look immaculate and get you to the meeting on time.",
+                "We're veteran-owned, which means punctuality and presentation aren't optional. Whether you're hosting a client roadshow, moving a team between offices, or sending a visitor back to the airport, we make your company look good.",
+            ]),
+            ("Airport Transfers From Plano", [
+                "Plano sits between DFW International and Dallas Love Field, so we handle flight-monitored transfers to both. Your chauffeur tracks the flight, adjusts for delays automatically and never adds surge pricing. See our <a href=\"/dfw-airport-car-service/\">DFW airport car service</a> and <a href=\"/car-service-dallas-love-field/\">Love Field car service</a> for details.",
+            ]),
+            ("Business Accounts & Group Travel", [
+                "For companies that book regularly, we offer account billing and priority scheduling through our <a href=\"/dallas-corporate-car-service/\">Dallas corporate car service</a>. Need to move a whole team? Our executive Sprinters seat up to 12 with room for luggage \u2014 ideal for conferences and offsites across the Metroplex.",
+            ]),
+        ],
+        "form_title": "Book Plano Car Service", "form_btn": "Request Plano Car Service",
+        "service_opts": ["Corporate / Executive", "DFW Airport Transfer", "Love Field Transfer", "Group / Team Travel", "Dinner / Event", "Hourly Charter", "Other"],
+        "vehicle_opts": ["Executive Sedan", "Luxury SUV", "Executive Sprinter", "Stretch Limousine"],
+        "pickup_ph": "Legacy West or 123 Main St, Plano TX", "city_val": "Plano TX",
+        "why_title": "Plano's Texan-Owned Choice", "why": STD_WHY,
+        "faq_title": "Plano Car Service FAQ",
+        "faqs": [
+            ("How much does car service in Plano cost?", "Plano rides are flat-rate and quoted up front based on your pickup, destination and vehicle, with no surge pricing. Call (833) 740-0700 for a quote."),
+            ("Do you offer corporate accounts in Plano?", "Yes \u2014 we offer billing accounts, priority scheduling and reporting for Plano companies through our Dallas corporate car service. Frequent travel is easy to manage."),
+            ("Which airports do you serve from Plano?", "We provide flight-monitored, flat-rate transfers to both DFW International and Dallas Love Field, 24/7, in sedans, SUVs and Sprinters."),
+            ("Can you move a team or conference group?", "Absolutely \u2014 our executive Sprinter vans seat up to 12 with luggage space, perfect for team travel, conferences and offsites around Legacy West and the Metroplex."),
+        ],
+        "related": rel(dallas_cities, "/car-service-plano-tx/") + [("/dallas-corporate-car-service/", "Dallas Corporate Car Service")],
+    })
+
+    # 15. Car Service Frisco TX
+    pages.append({
+        "slug": "car-service-frisco-tx",
+        "title": "Car Service Frisco TX | The Star, Corporate & DFW Airport | Purple Heart Limo",
+        "meta": "Car service in Frisco, TX \u2014 executive black car for The Star, corporate travel, Stonebriar, sporting events and DFW airport transfers. Flat rates, no surge, 24/7. Texan-owned.",
+        "schema_name": "Purple Heart Limo \u2014 Car Service Frisco TX",
+        "image": "luxsuv-escalade.webp",
+        "areas": ["Frisco", "Plano", "The Colony", "Little Elm", "McKinney", "Dallas"],
+        "locality": "Frisco", "reviews": 96,
+        "hub_slug": DAL_HUB[0], "hub_name": DAL_HUB[1], "crumb": "Frisco Car Service",
+        "badge": "\U0001F3DF\uFE0F Sports City USA \u00b7 Frisco, TX",
+        "h1_main": "Car Service", "h1_em": "Frisco, TX",
+        "hero_p": "Professional car service in Frisco, TX \u2014 flat-rate black car and SUV travel for The Star, corporate trips, Toyota Stadium and PGA events, Stonebriar shopping, and DFW or Love Field airport transfers. Veteran-owned, zero surge pricing, available 24/7.",
+        "stats": [("4.9\u2605", "Average Rating"), ("DFW", "Airport Served"), ("24/7", "Available"), ("$0", "Surge Fees")],
+        "svc_label": "Frisco Car Service", "svc_title": "Rides Built for Frisco",
+        "svc_desc": "From corporate campuses to The Star to the airport, our Frisco car service keeps you on schedule in style.",
+        "cards": [
+            ("\U0001F4BC", "Corporate Travel", "Executive sedans for Frisco's corporate campuses and HQs."),
+            ("\U0001F3C8", "The Star & Events", "Rides to The Star, Toyota Stadium and PGA Frisco events."),
+            ("\u2708\uFE0F", "DFW Airport Transfers", "Flight-monitored, flat-rate transfers to DFW and Love Field."),
+            ("\U0001F6CD\uFE0F", "Stonebriar & Dining", "Evening car service to Stonebriar Centre and The Star District."),
+            ("\U0001F465", "Group & Team Travel", "Executive Sprinters for teams, conferences and offsites."),
+            ("\U0001F698", "Luxury SUV", "Escalade and Suburban for executives, families and luggage."),
+        ],
+        "body": [
+            ("Frisco's Texan-Owned Car Service", [
+                "Frisco has exploded into one of Texas's most dynamic cities \u2014 corporate headquarters, The Star (the Dallas Cowboys' world headquarters), Toyota Stadium, PGA of America's home, and the upscale Stonebriar Centre. All that growth means a constant need for dependable, professional transportation. Purple Heart Limo's Frisco car service answers it with flat-rate, chauffeur-driven black cars and SUVs that arrive early and look the part.",
+                "As a veteran-owned company, we hold ourselves to a military standard of punctuality and presentation \u2014 ideal for executives, event guests and families who expect their ride to be the easy part of the day.",
+            ]),
+            ("Events at The Star & Beyond", [
+                "Frisco is built for events, and parking near The Star, Toyota Stadium or a PGA Frisco tournament can be a headache. We drop you at the entrance and pick you up after, so you skip the lots and the crowds. Book by the hour for multi-stop nights that include dinner at The Star District or drinks afterward.",
+            ]),
+            ("Airport & Corporate Travel From Frisco", [
+                "We provide flight-monitored, flat-rate transfers from Frisco to both <a href=\"/dfw-airport-car-service/\">DFW International</a> and <a href=\"/car-service-dallas-love-field/\">Dallas Love Field</a>. For regular business travel, our <a href=\"/dallas-corporate-car-service/\">Dallas corporate car service</a> adds account billing and priority scheduling.",
+            ]),
+        ],
+        "form_title": "Book Frisco Car Service", "form_btn": "Request Frisco Car Service",
+        "service_opts": ["Corporate / Executive", "The Star / Event", "DFW Airport Transfer", "Love Field Transfer", "Group / Team Travel", "Dinner / Shopping", "Other"],
+        "vehicle_opts": ["Executive Sedan", "Luxury SUV", "Executive Sprinter", "Stretch Limousine", "Party Bus"],
+        "pickup_ph": "The Star or 123 Main St, Frisco TX", "city_val": "Frisco TX",
+        "why_title": "Frisco's Texan-Owned Choice", "why": STD_WHY,
+        "faq_title": "Frisco Car Service FAQ",
+        "faqs": [
+            ("How much is car service in Frisco, TX?", "Frisco rides are flat-rate and quoted up front based on your pickup, destination and vehicle, with no surge pricing. Call (833) 740-0700 for a quote."),
+            ("Do you provide transportation to The Star and Frisco events?", "Yes \u2014 we offer door-to-entrance rides to The Star, Toyota Stadium and PGA Frisco events, with a set pickup point afterward so you skip the parking lots."),
+            ("Which airports do you serve from Frisco?", "We provide flight-monitored, flat-rate transfers to both DFW International and Dallas Love Field, available 24/7 in sedans, SUVs and Sprinters."),
+            ("Do you offer corporate car service in Frisco?", "Absolutely \u2014 executive travel for Frisco's corporate campuses is a core service, with account billing and group Sprinter options available."),
+        ],
+        "related": rel(dallas_cities, "/car-service-frisco-tx/") + [("/dallas-corporate-car-service/", "Dallas Corporate Car Service")],
+    })
+
+    # 16. Limo Service University Park TX
+    pages.append({
+        "slug": "limo-service-university-park-tx",
+        "title": "Limo Service University Park TX | Park Cities Black Car & Chauffeur | Purple Heart Limo",
+        "meta": "Limo & car service in University Park, TX (Park Cities) \u2014 black car, airport transfers, weddings, galas & SMU events with a professional chauffeur. Flat rates, 24/7. Texan-owned.",
+        "schema_name": "Purple Heart Limo \u2014 Limo Service University Park TX",
+        "image": "sedan-cadillac.webp",
+        "areas": ["University Park", "Highland Park", "Dallas", "Preston Hollow", "Plano", "Irving"],
+        "locality": "University Park", "reviews": 96,
+        "hub_slug": DAL_HUB[0], "hub_name": DAL_HUB[1], "crumb": "University Park Limo Service",
+        "badge": "\U0001F396\uFE0F Park Cities \u00b7 University Park, TX",
+        "h1_main": "Limo Service", "h1_em": "University Park, TX",
+        "hero_p": "Premium limo and car service for University Park and the Park Cities \u2014 black car airport transfers, wedding and gala transportation, SMU family weekends and nights out, all with a professional chauffeur. Flat rates, zero surge, and the discretion University Park families expect, 24/7.",
+        "stats": [("4.9\u2605", "Average Rating"), ("Park Cities", "Specialists"), ("24/7", "Available"), ("$0", "Surge Fees")],
+        "svc_label": "University Park Limo Service", "svc_title": "Refined Transportation for the Park Cities",
+        "svc_desc": "Discreet, polished and always on time \u2014 the limo service University Park trusts for airports, events and celebrations.",
+        "cards": [
+            ("\u2708\uFE0F", "Airport Transfers", "Flat-rate black car to DFW and Love Field, flight-monitored."),
+            ("\U0001F37E", "Galas & Charity Events", "Arrive in style at Dallas galas, benefits and society events."),
+            ("\U0001F393", "SMU & Family Weekends", "Reliable rides for SMU parents, graduations and reunions."),
+            ("\U0001F48D", "Weddings", "Stretch limos and luxury SUVs for Park Cities weddings."),
+            ("\U0001F4BC", "Executive Car Service", "Discreet corporate travel for executives and professionals."),
+            ("\U0001F377", "Nights Out", "Safe, elegant transportation to dinner, the arts and downtown."),
+        ],
+        "body": [
+            ("Limo & Black Car Service for University Park", [
+                "University Park is the heart of the Park Cities \u2014 tree-lined streets, stately homes, Snider Plaza, SMU and a community that expects a certain standard. Purple Heart Limo provides limo and black car service tailored to that standard: a professionally dressed chauffeur, an immaculate vehicle, flat-rate pricing and the quiet discretion you'd want at your front door. Whether it's a charity gala, a wedding, an SMU family weekend or a 5 a.m. flight, we make the transportation effortless.",
+                "We're veteran-owned, and we treat punctuality and presentation as a point of honor. Your chauffeur arrives early, knows the neighborhood, and handles the details so you never think twice about the ride.",
+            ]),
+            ("Where We Drive in the Park Cities", [
+                "We serve University Park, Highland Park and the surrounding Dallas neighborhoods \u2014 Preston Hollow, Uptown, Downtown and beyond \u2014 with seamless connections to both airports and every major venue:",
+                '<ul><li>DFW &amp; Dallas Love Field airport transfers</li><li>Galas, benefits and society events</li><li>SMU graduations, family weekends and reunions</li><li>Weddings, anniversaries and milestone celebrations</li></ul>',
+                "Looking for more? Explore our <a href=\"/limo-service-highland-park-tx/\">Highland Park limo service</a> and our full range of <a href=\"/limo-service-dallas-tx/\">Dallas-Fort Worth limo services</a>.",
+            ]),
+            ("Discretion University Park Families Expect", [
+                "From standing weekly chauffeur arrangements to one-off black-tie events, our University Park clients value reliability and privacy above all. Flat rates mean no surge surprises, professional chauffeurs mean no awkward rideshare moments, and our <a href=\"/dfw-airport-car-service/\">airport car service</a> means you're never scrambling before a flight.",
+            ]),
+        ],
+        "form_title": "Book University Park Limo Service", "form_btn": "Request University Park Service",
+        "service_opts": ["Airport Transfer (DFW/DAL)", "Gala / Charity Event", "Wedding", "SMU / Family Weekend", "Corporate / Executive", "Night Out", "Other"],
+        "vehicle_opts": ["Executive Sedan", "Luxury SUV", "Stretch Limousine", "Executive Sprinter", "Party Bus"],
+        "pickup_ph": "Snider Plaza or 123 Main St, University Park TX", "city_val": "University Park TX",
+        "why_title": "The Park Cities' Texan-Owned Choice", "why": STD_WHY,
+        "faq_title": "University Park Limo Service FAQ",
+        "faqs": [
+            ("How much is limo service in University Park, TX?", "Our University Park rides are flat-rate and quoted up front based on your pickup, destination and vehicle, with no surge pricing. Call (833) 740-0700 for a quote."),
+            ("Do you provide airport transfers from University Park?", "Yes \u2014 we offer flight-monitored, flat-rate black car and SUV transfers to both DFW International and Dallas Love Field, 24/7."),
+            ("Can you handle weddings and galas in the Park Cities?", "Absolutely \u2014 stretch limousines, luxury SUVs and Sprinters for weddings, charity galas and society events across University Park and Highland Park."),
+            ("Do you offer standing or recurring chauffeur service?", "Yes \u2014 many Park Cities families book recurring chauffeur arrangements for school runs, standing appointments and regular airport travel. Call us to set one up."),
+        ],
+        "related": rel(dallas_cities, "/limo-service-university-park-tx/") + [("/dallas-wedding-transportation/", "Dallas Wedding Transportation")],
+    })
+
+    # 17. Limo Service Highland Park TX
+    pages.append({
+        "slug": "limo-service-highland-park-tx",
+        "title": "Limo Service Highland Park TX | Luxury Black Car & Chauffeur | Purple Heart Limo",
+        "meta": "Limo & car service in Highland Park, TX \u2014 luxury black car, airport transfers, weddings, galas & executive travel with a professional chauffeur. Flat rates, 24/7. Texan-owned.",
+        "schema_name": "Purple Heart Limo \u2014 Limo Service Highland Park TX",
+        "image": "stretch-limo.webp",
+        "areas": ["Highland Park", "University Park", "Dallas", "Preston Hollow", "Uptown", "Irving"],
+        "locality": "Highland Park", "reviews": 96,
+        "hub_slug": DAL_HUB[0], "hub_name": DAL_HUB[1], "crumb": "Highland Park Limo Service",
+        "badge": "\U0001F48E Park Cities \u00b7 Highland Park, TX",
+        "h1_main": "Limo Service", "h1_em": "Highland Park, TX",
+        "hero_p": "Luxury limo and car service for Highland Park \u2014 discreet black car airport transfers, wedding and gala transportation, executive travel and elegant nights out, all with a professional chauffeur. Flat rates, zero surge, and white-glove service, available 24/7.",
+        "stats": [("4.9\u2605", "Average Rating"), ("Park Cities", "Specialists"), ("24/7", "Available"), ("$0", "Surge Fees")],
+        "svc_label": "Highland Park Limo Service", "svc_title": "White-Glove Transportation for Highland Park",
+        "svc_desc": "The discreet, dependable limo service Highland Park relies on for airports, galas, weddings and executive travel.",
+        "cards": [
+            ("\u2708\uFE0F", "Airport Transfers", "Flat-rate black car to DFW and Love Field, flight-monitored."),
+            ("\U0001F377", "Galas & Society Events", "Arrive in style at Dallas galas, benefits and openings."),
+            ("\U0001F48D", "Weddings", "Stretch limousines and luxury SUVs for elegant celebrations."),
+            ("\U0001F4BC", "Executive Car Service", "Discreet, professional travel for executives and VIPs."),
+            ("\U0001F6CD\uFE0F", "Highland Park Village", "Polished rides to luxury shopping and fine dining."),
+            ("\U0001F3AD", "Arts & Dining", "Evening transportation to the Arts District and beyond."),
+        ],
+        "body": [
+            ("Luxury Limo & Black Car Service for Highland Park", [
+                "Highland Park sets the standard for elegance in Dallas \u2014 from Highland Park Village's luxury boutiques to the galas, weddings and society events that fill the calendar. Purple Heart Limo provides white-glove limo and black car service to match: an impeccably presented chauffeur, a spotless vehicle, flat-rate pricing and total discretion. Whether you're attending a charity benefit, hosting out-of-town guests or catching a flight, we make the journey as refined as the destination.",
+                "Veteran-owned and detail-driven, we treat reliability and privacy as non-negotiable. Your chauffeur arrives early, dresses for the occasion and anticipates the details \u2014 the way Highland Park expects.",
+            ]),
+            ("Service Across Highland Park & the Park Cities", [
+                "We cover Highland Park, neighboring University Park, and the surrounding Dallas neighborhoods, with seamless connections to airports, venues and downtown:",
+                '<ul><li>DFW &amp; Dallas Love Field airport transfers</li><li>Charity galas, benefits and gallery openings</li><li>Weddings, anniversaries and milestone events</li><li>Executive and VIP corporate travel</li></ul>',
+                "See also our <a href=\"/limo-service-university-park-tx/\">University Park limo service</a> and our complete <a href=\"/limo-service-dallas-tx/\">Dallas-Fort Worth limo services</a>.",
+            ]),
+            ("Discretion & Reliability, Every Time", [
+                "Our Highland Park clients value a ride that's private, punctual and effortless. Flat rates remove any surge surprises, professional chauffeurs replace unpredictable rideshares, and our <a href=\"/dallas-wedding-transportation/\">wedding transportation</a> and <a href=\"/dfw-airport-car-service/\">airport car service</a> are tailored to the occasion.",
+            ]),
+        ],
+        "form_title": "Book Highland Park Limo Service", "form_btn": "Request Highland Park Service",
+        "service_opts": ["Airport Transfer (DFW/DAL)", "Gala / Society Event", "Wedding", "Corporate / Executive", "Shopping / Dining", "Night Out", "Other"],
+        "vehicle_opts": ["Executive Sedan", "Luxury SUV", "Stretch Limousine", "Executive Sprinter", "Party Bus"],
+        "pickup_ph": "Highland Park Village or 123 Main St, Highland Park TX", "city_val": "Highland Park TX",
+        "why_title": "The Park Cities' Texan-Owned Choice", "why": STD_WHY,
+        "faq_title": "Highland Park Limo Service FAQ",
+        "faqs": [
+            ("How much is limo service in Highland Park, TX?", "Highland Park rides are flat-rate and quoted up front based on your pickup, destination and vehicle, with no surge pricing. Call (833) 740-0700 for a quote."),
+            ("Do you offer discreet executive and VIP service?", "Yes \u2014 discretion is central to our Highland Park service. Professional, background-checked chauffeurs and immaculate vehicles for executives, VIPs and private clients."),
+            ("Can you provide wedding and gala transportation?", "Absolutely \u2014 stretch limousines, luxury SUVs and Sprinter shuttles for weddings, charity galas and society events throughout the Park Cities."),
+            ("Do you serve both Dallas airports from Highland Park?", "Yes \u2014 flight-monitored, flat-rate transfers to both DFW International and Dallas Love Field, available 24/7."),
+        ],
+        "related": rel(dallas_cities, "/limo-service-highland-park-tx/") + [("/dallas-wedding-transportation/", "Dallas Wedding Transportation")],
     })
 
     return pages
