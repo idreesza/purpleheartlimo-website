@@ -1,0 +1,1 @@
+- [Netlify blog trailing-slash 404s](netlify-trailing-slash-blog-404.md) — /blog/<slug> no-slash hits catch-all 404; fix with /blog/:slug -> /blog/:slug/ 301; also collapses GSC "alternate canonical" dupes.

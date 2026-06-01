@@ -343,6 +343,26 @@
   force = true
 
 # ─────────────────────────────────────────────────────────────
+# 3b. Canonicalize blog URLs to a trailing slash.
+# Directory posts (blog/<slug>/index.html) only serve at the
+# trailing-slash URL; without this, /blog/<slug> falls through to
+# the catch-all 404 below. This must stay AFTER the specific
+# dead-post rules above (first match wins, so those still go to
+# /blog/), and it collapses the no-slash duplicates GSC reports as
+# "Alternate page with proper canonical tag". Legacy /blog/*.html
+# files are unaffected — static files take precedence over
+# non-forced redirects, so they keep serving directly.
+# ─────────────────────────────────────────────────────────────
+[[redirects]]
+  from = "/blog"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/:slug"
+  to = "/blog/:slug/"
+  status = 301
+
+# ─────────────────────────────────────────────────────────────
 # 4. Custom 404 page — MUST stay last
 # ─────────────────────────────────────────────────────────────
 [[redirects]]
