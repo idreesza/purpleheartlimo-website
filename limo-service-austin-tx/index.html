@@ -5,8 +5,8 @@
 <meta charset="utf-8"/>
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta content="index, follow" name="robots"/>
-<title>Limo Service Austin TX | Texan-Owned | Purple Heart Limo</title>
-<meta content="Purple Heart Limo — Austin TX's premier Texan-owned luxury limo &amp; black car service. Airport transfers, weddings, corporate travel, prom. Flat rates." name="description"/>
+<title>Limo &amp; Car Service Austin TX | Chauffeur &amp; Black Car | Purple Heart Limo</title>
+<meta content="Austin TX's Texan-owned limo &amp; car service — black car, airport limo, private chauffeur, wedding &amp; corporate transportation. Flat rates, no surge, 24/7." name="description"/>
 <link href="https://purpleheartlimo.com/limo-service-austin-tx/" rel="canonical"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":["LimousineService","LocalBusiness"],"name":"Purple Heart Limo — Austin TX","description":"Texan-owned luxury limo and black car service in Austin TX. Airport transfers, weddings, corporate travel, SXSW, ACL, F1 COTA.","url":"https://purpleheartlimo.com/limo-service-austin-tx/","telephone":"+18337400700","email":"info@purpleheartlimo.com","image":"https://purpleheartlimo.com/images/sedan-cadillac.webp","address":{"@type":"PostalAddress","addressLocality":"Austin","addressRegion":"TX","addressCountry":"US"},"areaServed":[{"@type":"City","name":"Austin"},{"@type":"City","name":"Round Rock"},{"@type":"City","name":"Cedar Park"},{"@type":"City","name":"Georgetown"},{"@type":"City","name":"Pflugerville"},{"@type":"City","name":"Lakeway"}],"openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"},"priceRange":"$$","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"214","bestRating":"5"},"sameAs":["https://www.facebook.com/profile.php?id=61578479742416","https://www.instagram.com/austinlimousine"]}</script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -227,6 +227,21 @@ footer{background:var(--dark2);border-top:1px solid rgba(255,255,255,0.07);paddi
 </div>
 </div>
 </section>
+<section style="background:var(--dark);padding:4rem 5%;">
+<div style="max-width:1100px;margin:0 auto;text-align:center;">
+<span class="section-label">Austin Services</span>
+<h2 class="section-title">Explore Our Austin Services</h2>
+<div style="display:flex;flex-wrap:wrap;gap:0.8rem;justify-content:center;margin-top:1.5rem;">
+<a href="/car-service-austin-tx/" style="background:var(--dark3);border:1px solid rgba(201,168,76,0.25);color:var(--gold);padding:0.7rem 1.2rem;border-radius:50px;font-size:0.85rem;font-weight:600;">Austin Car Service</a>
+<a href="/austin-airport-limo/" style="background:var(--dark3);border:1px solid rgba(201,168,76,0.25);color:var(--gold);padding:0.7rem 1.2rem;border-radius:50px;font-size:0.85rem;font-weight:600;">Austin Airport Limo</a>
+<a href="/austin-chauffeur-service/" style="background:var(--dark3);border:1px solid rgba(201,168,76,0.25);color:var(--gold);padding:0.7rem 1.2rem;border-radius:50px;font-size:0.85rem;font-weight:600;">Austin Chauffeur Service</a>
+<a href="/austin-limo-rental/" style="background:var(--dark3);border:1px solid rgba(201,168,76,0.25);color:var(--gold);padding:0.7rem 1.2rem;border-radius:50px;font-size:0.85rem;font-weight:600;">Austin Limo Rental</a>
+<a href="/austin-wedding-limo/" style="background:var(--dark3);border:1px solid rgba(201,168,76,0.25);color:var(--gold);padding:0.7rem 1.2rem;border-radius:50px;font-size:0.85rem;font-weight:600;">Austin Wedding Limo</a>
+<a href="/austin-sprinter-van-rental/" style="background:var(--dark3);border:1px solid rgba(201,168,76,0.25);color:var(--gold);padding:0.7rem 1.2rem;border-radius:50px;font-size:0.85rem;font-weight:600;">Austin Sprinter Van Rental</a>
+<a href="/austin-corporate-car-service/" style="background:var(--dark3);border:1px solid rgba(201,168,76,0.25);color:var(--gold);padding:0.7rem 1.2rem;border-radius:50px;font-size:0.85rem;font-weight:600;">Austin Corporate Car Service</a>
+</div>
+</div>
+</section>
 <footer>
 <div class="footer-bottom">
 <p>© 2026 Purple Heart Limo. All rights reserved. Texan-Owned · Austin, TX</p>
@@ -251,7 +266,7 @@ document.getElementById('bookingForm').addEventListener('submit', async function
   const err = document.getElementById('alertError');
   btn.textContent = 'Sending...'; btn.disabled = true;
   ok.classList.remove('show'); err.classList.remove('show');
-  const data = Object.fromEntries(new FormData(this));
+  const f=Object.fromEntries(new FormData(this));const data={name:[f.first_name,f.last_name].filter(Boolean).join(' ').trim(),email:f.email,phone:f.phone,service:f.service,vehicle:f.vehicle,passengers:f.passengers||'',date:f.pickup_date,time:f.pickup_time,pickup:f.pickup_address,dropoff:f.dropoff_address,message:f.notes||'',city:f.city||''};
   try {
     const res = await fetch('/.netlify/functions/contact', {
       method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data)

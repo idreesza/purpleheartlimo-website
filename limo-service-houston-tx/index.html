@@ -246,7 +246,7 @@ document.getElementById('bookingForm').addEventListener('submit', async function
   const err=document.getElementById('alertError');
   btn.textContent='Sending...';btn.disabled=true;
   ok.classList.remove('show');err.classList.remove('show');
-  const data=Object.fromEntries(new FormData(this));
+  const f=Object.fromEntries(new FormData(this));const data={name:[f.first_name,f.last_name].filter(Boolean).join(' ').trim(),email:f.email,phone:f.phone,service:f.service,vehicle:f.vehicle,passengers:f.passengers||'',date:f.pickup_date,time:f.pickup_time,pickup:f.pickup_address,dropoff:f.dropoff_address,message:f.notes||'',city:f.city||''};
   try {
     const res=await fetch('/.netlify/functions/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
     const json=await res.json();
