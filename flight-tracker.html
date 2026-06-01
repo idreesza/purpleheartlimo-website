@@ -27,7 +27,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&family=Cinzel:wght@500;600;700&family=Poppins:wght@300;400;500;600;700;800&family=Mulish:wght@700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&family=Cinzel:wght@500;600;700&family=Poppins:wght@300;400;500;600;700;800&family=Mulish:wght@700;800;900&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="/css/page.css">
-  <script src="/config.js"></script>
   <style>
     /* ── FLIGHT TRACKER SPECIFIC ────────────────────────────── */
     :root {
@@ -847,16 +846,13 @@ async function trackFlight() {
 
   let flight = null;
   try {
-    const key = window.AVIATION_KEY || '';
-    if(key) {
-      const resp = await fetch(
-        `https://api.aviationstack.com/v1/flights?access_key=${key}&flight_iata=${encodeURIComponent(raw)}&limit=1`,
-        { signal: AbortSignal.timeout(10000) }
-      );
-      if(resp.ok) {
-        const data = await resp.json();
-        if(data.data && data.data.length > 0) flight = data.data[0];
-      }
+    const resp = await fetch(
+      `/.netlify/functions/flights?flight=${encodeURIComponent(raw)}`,
+      { signal: AbortSignal.timeout(12000) }
+    );
+    if(resp.ok) {
+      const data = await resp.json();
+      if(data.data && data.data.length > 0) flight = data.data[0];
     }
   } catch(e) { /* fall through — show deep links only */ }
 

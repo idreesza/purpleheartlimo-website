@@ -280,11 +280,8 @@
 <a class="m-wa" href="https://wa.me/18337400700" target="_blank">💬 WhatsApp</a>
 <a class="m-book" href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank">Book a Ride</a>
 </div>
-<script src="/config.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" type="text/javascript"></script>
 <script>
 function toggleMenu(){const m=document.getElementById('mobile-menu');const b=document.getElementById('hamburger');const open=m.style.display!=='block';m.style.display=open?'block':'none';if(b)b.setAttribute('aria-expanded',open?'true':'false');}
-(function(){ try { if (window.EJS_PUBLIC_KEY && window.emailjs) emailjs.init({ publicKey: window.EJS_PUBLIC_KEY }); } catch(e){} })();
 function showFieldError(id,msg){var el=document.getElementById(id+'-error');if(el){el.textContent=msg;el.style.display='block';}}
 function clearFieldError(id){var el=document.getElementById(id+'-error');if(el){el.style.display='none';el.textContent='';}}
 function submitContactForm(e){
@@ -305,11 +302,11 @@ function submitContactForm(e){
     document.getElementById(success?'cf-success':'cf-fail').style.display='block';
     if(success) e.target.reset();
   };
-  if(window.emailjs && window.EJS_SERVICE_ID && window.EJS_TEMPLATE_ID){
-    emailjs.send(window.EJS_SERVICE_ID, window.EJS_TEMPLATE_ID, {
-      from_name:name, from_email:email, phone:phone, subject:subject, message:message, source:'Contact Page'
-    }).then(function(){done(true);},function(){done(false);});
-  } else { done(false); }
+  fetch('/.netlify/functions/contact', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ name:name, email:email, phone:phone, service:subject, message:message })
+  }).then(function(r){ done(r.ok); }).catch(function(){ done(false); });
   return false;
 }
 </script>
