@@ -12,3 +12,9 @@ id = "XarRONcli1WvCrHIA5Z-7"
 uri = "file://attached_assets/purpleheart-office-sign.png"
 type = "image"
 title = "Purple Heart Limo — Office with Roof Sign"
+
+[[outputs]]
+id = "9_l8rcOLZwEJaexxb6u_7"
+uri = "file://exports/titanium-garage-door-seo-prompts.md"
+type = "text"
+title = "Titanium Garage Door — Reusable SEO Prompt Pack"
