@@ -1,3 +1,4 @@
 - [Booking form contract](booking-form-contract.md) — on-page forms use first_name/pickup_address but contact fn needs name/pickup; must map before POST or bookings 400 silently.
 - [Dallas geo / map-pack strategy](dallas-geo-map-pack-strategy.md) — only physical presence is Richardson TX: can rank Dallas/DFW map pack, NOT Austin map pack; Austin is organic-only.
 - [hreflang reciprocity](hreflang-reciprocity.md) — homepage has no Spanish twin; never add an `es` hreflang to it until a real /es/ homepage exists.
+- [Semrush "only one internal link"](internal-link-audit.md) — it means INBOUND links; fix blog posts with scripts/add_related_links.py related blocks.
