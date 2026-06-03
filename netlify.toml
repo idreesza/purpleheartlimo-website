@@ -71,14 +71,14 @@
 #    serving 404s to Google.
 # ─────────────────────────────────────────────────────────────
 
-# --- /es/ root (404'd, no Spanish home page exists) ---
+# --- /es/ root (no Spanish home page exists) → primary Spanish landing ---
 [[redirects]]
   from = "/es"
-  to = "/es/booking.html"
+  to = "/es/limo-service-austin-tx/"
   status = 301
 [[redirects]]
   from = "/es/"
-  to = "/es/booking.html"
+  to = "/es/limo-service-austin-tx/"
   status = 301
 
 # --- 404s where the actual page exists with a trailing slash ---
