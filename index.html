@@ -564,6 +564,7 @@ a { text-decoration:none; color:inherit; }
 /* ===== Fleet marquee (sliding car strip inside booking card) ===== */
 .fleet-marquee {
   overflow:hidden; margin-top:16px;
+  position:relative; z-index:1;
   border-top:1px solid rgba(212,175,55,0.18);
   padding-top:14px;
   mask-image: linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
@@ -714,7 +715,7 @@ a { text-decoration:none; color:inherit; }
 }
 
 /* ===== MULTI-STEP BOOKING FORM ===== */
-.booking-card .bk-step { display:none; }
+.booking-card .bk-step { display:none; position:relative; z-index:2; }
 .booking-card .bk-step.active { display:block; animation:bkStepIn .35s ease both; }
 @keyframes bkStepIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
 .booking-card .bk-progress {
