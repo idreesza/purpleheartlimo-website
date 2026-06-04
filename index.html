@@ -586,6 +586,45 @@ a { text-decoration:none; color:inherit; }
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
+/* ----- Focus mode: stop on the picked car & magnify it (echoes fleet card) ----- */
+.fleet-marquee.car-focus {
+  padding-top:30px; padding-bottom:22px;
+  transition: padding .5s ease;
+}
+.fleet-marquee.car-focus .fleet-marquee-track {
+  animation: none !important;
+  transition: transform .7s cubic-bezier(.22,1,.36,1);
+}
+.fleet-marquee.car-focus .fleet-marquee-track img {
+  opacity:0.22; filter:grayscale(0.35);
+  /* NOTE: margin is intentionally NOT transitioned — it affects layout, and an
+     animated margin would shift the car after the centering math is computed. */
+  transition: opacity .5s ease, filter .5s ease, transform .55s cubic-bezier(.22,1,.36,1), box-shadow .5s ease, border-color .5s ease;
+}
+.fleet-marquee.car-focus .fleet-marquee-track img.car-selected {
+  opacity:1; filter:none;
+  transform: scale(1.7);
+  margin:0 34px;
+  position:relative; z-index:3;
+  border-color:#D4AF37;
+  border-radius:8px;
+  box-shadow:0 12px 30px rgba(0,0,0,0.6), 0 0 0 2px #D4AF37, 0 0 24px rgba(212,175,55,0.5);
+}
+.fleet-caption {
+  display:none; text-align:center; margin-top:10px;
+  font-family:'Plus Jakarta Sans','Inter',sans-serif;
+}
+.fleet-caption.show { display:block; animation:bkStepIn .4s ease both; }
+.fleet-caption .fc-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:0.62rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase;
+  color:#0a0a0a; background:linear-gradient(135deg,#D4AF37,#E2C36A);
+  padding:3px 10px; border-radius:999px;
+}
+.fleet-caption .fc-name {
+  display:block; margin-top:6px;
+  font-size:0.95rem; font-weight:700; color:#F4DC95; letter-spacing:0.01em;
+}
 
 .btn-book-full {
   width:100%; padding:16px;
@@ -1816,6 +1855,7 @@ footer {
 <img alt="" aria-hidden="true" loading="lazy" src="images/jet-sprinter.webp"/>
 </div>
 </div>
+<div class="fleet-caption" id="fleet-caption"></div>
 </div>
 </div>
 <div class="hero-scroll" aria-hidden="true">
@@ -3077,6 +3117,71 @@ function onVehicleChange(vehicle) {
   paxWrap.querySelector('.csel-btn').textContent = firstOpt[0];
   document.getElementById('pax-input').value = firstOpt[1];
   checkCapacity();
+  focusFleetPhoto(vehicle);
+}
+
+// Maps each ride type to its photo in the sliding fleet strip
+const VEHICLE_PHOTO = {
+  'Sedan':        ['sedan-cadillac', 'Executive Sedan'],
+  'Luxury Sedan': ['sclass',         'Luxury Sedan'],
+  'SUV':          ['luxsuv-escalade','Executive SUV'],
+  'Luxury SUV':   ['luxsuv-escalade','Luxury SUV'],
+  'Sprinter Van': ['sprinter-new',   'Executive Sprinter'],
+  'Sprinter Jet': ['jet-sprinter',   'Sprinter Jet'],
+  'Stretch Sedan':['stretch-towncar','Stretch Limo'],
+  'Stretch SUV':  ['stretch-navigator','Stretched SUV'],
+  'Party Bus':    ['partybus-ford',  'Party Bus'],
+  'Coach Bus':    ['partybus-ford',  'Coach Bus']
+};
+
+function _trackTranslateX(el) {
+  const t = getComputedStyle(el).transform;
+  if (!t || t === 'none') return 0;
+  const m = t.match(/matrix.*\((.+)\)/);
+  if (!m) return 0;
+  const v = m[1].split(', ');
+  return parseFloat(v.length === 6 ? v[4] : v[12]) || 0;
+}
+
+// Stop the sliding strip on the picked car and magnify it
+function focusFleetPhoto(vehicle) {
+  const marquee = document.querySelector('#home-page .fleet-marquee') || document.querySelector('.fleet-marquee');
+  if (!marquee) return;
+  const track = marquee.querySelector('.fleet-marquee-track');
+  const caption = document.getElementById('fleet-caption');
+  const map = VEHICLE_PHOTO[vehicle];
+  if (!track || !map) return;
+  const [key, displayName] = map;
+  const imgs = Array.from(track.querySelectorAll('img'));
+  // first non-duplicate image (duplicates have empty alt)
+  const target = imgs.find(im => (im.getAttribute('src') || '').includes(key) && im.getAttribute('alt'));
+  if (!target) return;
+
+  // Freeze the strip exactly where it is right now (no jump when animation stops)
+  const frozen = _trackTranslateX(track);
+  track.style.transform = `translateX(${frozen}px)`;
+
+  marquee.classList.add('car-focus');
+  imgs.forEach(im => im.classList.remove('car-selected'));
+  target.classList.add('car-selected');
+
+  if (caption) {
+    caption.innerHTML = `<span class="fc-badge">✓ Selected</span><span class="fc-name">${displayName}</span>`;
+    caption.classList.add('show');
+  }
+
+  // Center the picked car. The spacing margin applies instantly (not transitioned),
+  // so this single measurement reflects the final layout. A delayed corrective pass
+  // guards against any late reflow (e.g. a lazy marquee image finishing load).
+  const recenter = () => {
+    const mRect = marquee.getBoundingClientRect();
+    const tRect = target.getBoundingClientRect();
+    const cur = _trackTranslateX(track);
+    const delta = (mRect.left + mRect.width / 2) - (tRect.left + tRect.width / 2);
+    track.style.transform = `translateX(${cur + delta}px)`;
+  };
+  requestAnimationFrame(recenter);
+  setTimeout(recenter, 760);
 }
 
 function checkCapacity() {

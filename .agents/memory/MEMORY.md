@@ -5,3 +5,4 @@
 - [hreflang reciprocity](hreflang-reciprocity.md) — homepage has no Spanish twin; never add an `es` hreflang to it until a real /es/ homepage exists.
 - [Homepage scoping rules](homepage-dual-hero.md) — scope home-only styling to `#home-page`; `.hero` is shared by Spanish home and button classes are global across service pages.
 - [Semrush "only one internal link"](internal-link-audit.md) — it means INBOUND links; fix blog posts with scripts/add_related_links.py related blocks.
+- [Fleet marquee focus](fleet-marquee-focus.md) — picked ride-type centers/magnifies a car; never animate layout-affecting margin or getBoundingClientRect centering drifts.
