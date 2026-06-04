@@ -1,0 +1,580 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="framer-html-plugin" content="disable">
+		
+		<script>Object.defineProperty(window, 'framerEnvironment', { value: Object.freeze("production") });;
+</script>
+<script>
+window.treeInitData = {"isMPSSocket":false,"mode":"crdt","socketURL":"wss://rt2-use1.framer.com/projects/qDLqOrLaDXikZAYjnd85/socket"};
+Object.defineProperty(window, 'recaptchaSiteKey', { value: Object.freeze("6LcRWAYqAAAAAO5gUOuCftzMzi6K1qwQJq5g3lxj") });
+Object.defineProperty(window, 'castlePublishableAPIKey', { value: Object.freeze("pk_xYqGbB61EcFiSh4LUshpT4DGoEQMKQMB") });
+Object.defineProperty(window, 'framerProjectFeatures', { value: Object.freeze({"codeModules":true,"crdt":true,"kit":false,"packages":false,"sites":true,"skipInterstitial":false}) });
+</script>
+<script>Object.defineProperty(window, 'framerRelease', { value: Object.freeze({"channel":"stable"}) });;</script>
+<script>Object.defineProperty(window, 'framerProject', { value: Object.freeze({"id":"qDLqOrLaDXikZAYjnd85","archived":false,"archivedAt":null,"archivedBy":null,"collection":null,"createdAt":"2026-06-04T18:18:48.014Z","duplicatedFromId":"1qaVFUbdzuHfOPomZctt","lastOpenedAt":"2026-06-04T18:22:02.501Z","owner":{"id":"829fdd06-4dab-40c1-86cf-e77c8f3f75d2","initials":"IA","isFramerEmployee":false,"isPartner":false,"isFramerExpert":false,"name":"idrees alzaatreh","email":""},"publicAccess":"view","shareLinks":[{"id":"704Q3zt4WlOm2l91Evlq","projectId":"qDLqOrLaDXikZAYjnd85","publicAccess":"view","createdAt":"2026-06-04T18:18:48.016Z","updatedAt":"2026-06-04T18:18:48.016Z"}],"space":{"id":"1ab9226f-128b-32a0-aa6e-6ce1f0848785","displayName":"idrees' Workspace","icon":null,"ownerId":"556b85f9-d2f2-47e3-8201-506abf580be7","scope":"organization"},"title":"portfolite (copy)","updatedAt":"2026-06-04T18:18:48.014Z","url":"https://framer.com/projects/qDLqOrLaDXikZAYjnd85","userRole":"owner","canvasFeatures":{"codeModules":true,"kit":false,"packages":false,"sites":true,"skipInterstitial":false},"type":"default","remixId":"pmcQ18iO9hZHgSBu6aTL","isMarketplaceTemplate":false,"accessToken":"9IGZw","settings":{"allowedDomains":["gmail.com"],"autoJoinDefaultRole":"editor","cannotInviteEditorsReason":null,"featureFlags":{"blockEditorBar":"off","canChangeProjectAccess":"on","canChangePrototypeAccess":"off","canExportToHtml":"upsell","canHidePreviewInterface":"upsell","canInviteAnyDomain":"on","canInviteAnyDomainToPrototype":"on","canInviteEditors":"on","canPublishTeamPackages":"upsell","canPublishToCustomDomain":"upsell","canUseAdvancedAnalytics":"on","canUseAdvancedHeaders":"off","canUseAdvancedHosting":"upsell","canUseAnalytics":"on","canUseAnalyticsExtendedDateRange":"off","canUseBatchAITranslation":"upsell","canUseBetaChannel":"off","canUseBranching":"upsell","canUseCustomCanonicalUrl":"off","canUseCustomHeaders":"off","canUseCustomLocaleRegions":"upsell","canUseCustomProxy":"off","canUseEditorPermissions":"off","canUseExternalRewrites":"off","canUseFunnels":"on","canUseInternalRewrites":"off","canUseLocalizationCustomAiInstructions":"on","canUseLocalizationVariables":"on","canUsePasswordProtection":"upsell","canUsePrivateLink":"upsell","canUsePrototypePassword":"upsell","canUseRedirects":"upsell","canUseRevampedDashboard":"off","canUseRewriteCanonicalUrl":"off","canUseSSO":"off","canUseSpamProtectionAdvanced":"off","canUseStagingEnvironment":"upsell","canUseTeamPlugins":"off","canUseTriggers":"off","canUseUTMTracking":"off","canUseVersioning":"upsell","canUseWellKnown":"upsell","showBannerOnPublishedSite":"on","showSitesUpsell":"on"},"resourceLimits":{"abTests":1,"aiCredits":0,"analyticsRangeInDays":30,"bandwidthInGB":1,"cmsCollections":10,"cmsItems":null,"fileUploadLimitInMB":50,"locales":1,"maxAbTests":1,"maxBandwidthInGB":1,"maxCmsCollections":10,"maxCmsItems":null,"maxEditors":3,"maxLocales":0,"maxPages":null,"maxRewrites":0,"maxStaticFiles":0,"maxTrackingEventsLimit":null,"pages":null,"redirects":0,"rewrites":0,"staticFiles":0,"storageInMB":500,"trackingEventsLimit":null,"translatableWords":5000,"versionHistoryInDays":3},"version":2},"releaseChannel":null,"license":{"id":"","expirationDate":null,"featureFlags":null,"ownerId":"","ownerType":"","type":"freeSite","unlimitedEditors":false,"isTrial":false,"trialExpirationDate":null}}) });;
+</script>
+<script>Object.defineProperty(window, 'framerUser', { value: Object.freeze({"id":"829fdd06-4dab-40c1-86cf-e77c8f3f75d2","initials":"IA","isFramerEmployee":false,"isPartner":false,"isFramerExpert":false,"name":"idrees alzaatreh","email":"idrees.csst@gmail.com","intercomUserHash":"ddd6e7e20784393beaf2e50cb2f582a65dc22f804bf08d000fd5d86af30d8d1b","spaces":[{"id":"d6cfe4f5-ecbc-37e6-93fb-29eae124fdf9","icon":null,"avatar":null,"isDefault":true,"ownerId":"829fdd06-4dab-40c1-86cf-e77c8f3f75d2","permissions":{"read":true,"write":true},"scope":"user","organization":null},{"id":"1ab9226f-128b-32a0-aa6e-6ce1f0848785","icon":null,"avatar":null,"isDefault":false,"ownerId":"556b85f9-d2f2-47e3-8201-506abf580be7","permissions":{"read":true,"write":true},"scope":"organization","displayName":"idrees' Workspace","license":{"id":"c25c70e5-fdf4-45aa-8dec-c6bfb2a694e8","expirationDate":null,"featureFlags":{"blockEditorBar":"off","canAddCustomDomain":"upsell","canChangeAutoJoinDefaultRole":"on","canChangeAutoJoinTeam":"on","canChangeCommentNotifPreferences":"upsell","canChangeDefaultProjectAccess":"upsell","canChangeDefaultPrototypeAccess":"upsell","canChangeMoveProjectPermissions":"upsell","canCreateCustomCollection":"upsell","canExportToHtml":"upsell","canHidePreviewInterface":"upsell","canInviteEditors":"on","canPublishTeamPackages":"upsell","canRestrictEmailDomain":"upsell","canRestrictPrivatePackages":"upsell","canRestrictPublicPackages":"upsell","canUseCustomTemplates":"upsell","canUseEditorPermissions":"off","canUseFramerX":"upsell","canUsePrivateLink":"upsell","canUsePrototypePassword":"upsell","canUseRevampedDashboard":"off","canUseTeamPlugins":"off","isAutoRenew":"on","showSitesUpsell":"on","showWatermarkOnPublishedSite":"on"},"ownerId":"556b85f9-d2f2-47e3-8201-506abf580be7","ownerType":"team","type":"free","unlimitedEditors":false,"isTrial":false,"trialExpirationDate":null},"configuration":{"disablePublicStore":false,"disablePrivateStore":false,"disableMoveProjects":false,"restrictEmailDomain":false,"projectsAccessLevel":"public","prototypesAccessLevel":"public","autoJoinTeam":false,"autoJoinDefaultRole":"editor","joinLinkEnabled":true,"experiments":null,"hidePackages":true,"allowSitesAccess":false},"role":"admin","joinedAt":"2026-06-04T18:17:47.575502Z","organization":null}],"defaultSpaceId":"d6cfe4f5-ecbc-37e6-93fb-29eae124fdf9","organizationPermissions":null,"isOnLatestTerms":true,"achievements":{},"isApiUser":false}) });</script>
+<script>
+			window["__app-start-time"] = Date.now()
+			const start = performance.now();
+			window["__perf-start-time"] = start
+
+			if (window.treeInitData) {
+
+				const isCrdt = window.treeInitData.mode === "crdt" || (window.treeInitData.mode === undefined && window.framerProjectFeatures?.crdt !== false)
+				const projectId = window.framerProject?.id
+
+				function shouldUseBytesParser(res) {
+					const hasBytes = new URLSearchParams(window.location.search).has('bytes');
+					const hasBytesCookie = document.cookie.includes('bytes-parser=true');
+					const isLargeFile = parseInt(res.headers.get("Uncompressed-Content-Length") ?? "0", 10) > 200000000
+
+					if (hasBytes) {
+						document.cookie = 'bytes-parser=true; path=/;'
+					}
+
+					return hasBytes || hasBytesCookie || isLargeFile;
+				}
+
+				function prefetchFile() {
+					if (!window.treeInitData.file) return
+
+					window.treeInitData.prefetchPromise = fetch(window.treeInitData.file).then(function (res) {
+						const result = {
+							status: res.status,
+							uncompressedContentLength: parseInt(res.headers.get("Uncompressed-Content-Length") ?? "0", 10) || 0,
+							duration: undefined,
+							text: undefined,
+							buffer: undefined,
+						}
+
+						if (isCrdt) {
+							result.buffer = res.arrayBuffer()
+							result.duration = result.buffer.then(function () { return performance.now() - start })
+						} else if (shouldUseBytesParser(res)) {
+							result.buffer = res.arrayBuffer()
+							result.duration = result.buffer.then(function () { return performance.now() - start })
+						} else {
+							result.text = res.text()
+							result.duration = result.text.then(function () { return performance.now() - start })
+						}
+
+						return result
+					});
+				}
+
+				function prefetchTreeSync() {
+					if (!isCrdt) return false
+					if (!projectId) return false
+
+					var cachedVersion = '0'
+					try {
+						cachedVersion = localStorage.getItem('crdt-tree-version:' + projectId) || '0'
+					} catch (e) {
+						return false
+					}
+
+					// TODO: Remove once we’ve fully migrated to FramerMultiplayerService / always inject the `syncURL`
+					var syncUrl = typeof window.treeInitData.syncURL === 'string'
+						? new URL(window.treeInitData.syncURL)
+						: new URL('/projects/' + projectId + '/tree/sync', window.location.href)
+					syncUrl.searchParams.set('version', cachedVersion)
+
+					window.treeInitData.prefetchSyncPromise = fetch(syncUrl, { credentials: 'include' }).then(function (res) {
+						const strategy = res.headers.get('Sync-Strategy')
+						const result = {
+							status: res.status,
+							headers: res.headers,
+							uncompressedContentLength: parseInt(res.headers.get("Uncompressed-Content-Length") ?? "0", 10) || 0,
+							syncStrategy: strategy ?? undefined,
+							duration: undefined,
+							updates: undefined,
+							snapshot: undefined,
+						}
+						if (strategy === 'incremental') {
+							result.updates = res.json()
+							result.duration = result.updates.then(function () { return performance.now() - start })
+						} else if (strategy === 'snapshot') {
+							result.snapshot = res.arrayBuffer()
+							result.duration = result.snapshot.then(function () { return performance.now() - start })
+						} else {
+							res.text().catch(function () {})
+							result.duration = Promise.resolve(performance.now() - start)
+						}
+
+						return result
+					})
+
+					return true
+				}
+
+				prefetchTreeSync() || prefetchFile()
+			}
+		</script>
+		<link rel="preload" as="script" href="/bootstrap.46bf165e928ee1d52a6359b7e13eb0ca608cbddf.js" />
+		<script src="/bootstrap.46bf165e928ee1d52a6359b7e13eb0ca608cbddf.js"></script>
+		
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<!-- Google Tag Manager -->
+<script>
+	(function() {
+		// Initialize dataLayer array if it doesn't exist
+		window.dataLayer = window.dataLayer || [];
+
+		// Push initial GTM data
+		window.dataLayer.push({
+			'gtm.start': new Date().getTime(),
+			event: 'gtm.js'
+		});
+
+		// Instead of checking for production build (framerEnvironment === 'production'), we check for all the other
+		// environments. This is done in case FramerWeb isn't on production and framerEnvironment isn't set.
+		// Currently, in all other environments except local we default to the production GTM URL anyhow.
+		// This can be changed after we successfully deploy the framerEnvironment change in FramerWeb.
+		const gtmUrl = window.framerEnvironment === 'development' ||
+		window.framerEnvironment === 'test' ||
+		window.framerEnvironment === 'local' ? "https://analytics.staging.framer.com/gtm.js?id=GTM-T4JTT8T2" : "https://analytics.framer.com/gtm.js?id=GTM-5VVBTMRW";
+
+		// Create and insert GTM script
+		if (gtmUrl) {
+			const gtmScript = document.createElement('script');
+			gtmScript.async = true;
+			gtmScript.src = gtmUrl;
+			const firstScript = document.getElementsByTagName('script')[0];
+			firstScript.parentNode.insertBefore(gtmScript, firstScript);
+		}
+	})();
+</script>
+<!-- End Google Tag Manager -->
+<title>portfolite (copy) – Framer</title>
+
+	<link rel="preconnect" href="https://app.framerstatic.com/" />
+
+<script async src="https://www.dubcdn.com/analytics/script.js" data-domains='{"refer":"framer.link"}'></script>
+<script async type="module" src="https://cdn.vantara.ai/vantara-browser-api.js"></script>
+<link rel="icon" media="(prefers-color-scheme: light)" sizes="16x16" href="https://app.framerstatic.com/favicon-Z4ADTXEQ.png" />
+<link rel="icon" media="(prefers-color-scheme: light)" sizes="32x32" href="https://app.framerstatic.com/favicon@2x-3BPMD6SJ.png" />
+<link rel="icon" media="(prefers-color-scheme: dark)" sizes="32x32" href="https://app.framerstatic.com/favicon-light@2x-HMWCNIXJ.png" />
+<link rel="mask-icon" color="#000" href="https://app.framerstatic.com/safari-pinned-tab-QRUY7OLH.svg" />
+<link rel="apple-touch-icon" sizes="192x192" href="/s/icon-192.png">
+<link rel="manifest" href="/s/manifest.json">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="portfolite (copy) – Framer">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#fff" media="(prefers-color-scheme: light)" data-color="#fff">
+<meta name="theme-color" content="#111" media="(prefers-color-scheme: dark)" data-color="#111">
+<meta name="robots" content="noindex">
+
+		
+		<link href="https://app.framerstatic.com/web.T25RSR7Q.css" rel="stylesheet" />
+		
+		<link href="https://app.framerstatic.com/chunk-WB25HYWZ.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-P4KRCS4B.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-OKRFRRDM.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-IDYYXZPU.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-R6LYWZ27.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-VJ5SK2YU.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-FUQZY6JN.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-JSV6DVEY.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-MPFKJKI6.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-QILTALNY.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-YS3B4HMG.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-DXEB74DT.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-WM5COFTN.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-SGLYIBC6.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-LEYNIZPU.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-SJONTHBI.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-XELMBOBL.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-QFU6OGL3.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-X6TYTL7R.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-7P35LPP6.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-4FEQCAHZ.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-GZI43NW3.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-ZBTWZC3B.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-UX3PZMSZ.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-6PNPO5DW.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-HMF7T2NG.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-6SPN22VC.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-EQBCTBZ3.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-DYNCKUFC.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-UZNETSBG.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-YNCW2456.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-EPZXUFEV.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-67IDBBKJ.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-AUNF3KWQ.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-3HKWE4OB.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-SFMNY5EB.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-D3SZBJZX.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-VZD2QQB2.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-CG76CXO4.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-Q652OIYH.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-KGLQFBEE.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-EKYV6PRY.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-A4TNDN6S.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-QNKC3NEE.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-XH6DODOZ.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-SEYZCGEY.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-2RW6NFTX.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-MRC6ADHW.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-44TE32RJ.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-W6CKVG3K.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-NUW6TUP5.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-XYJUEREA.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-224SPWXN.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-AYYBTPZU.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-TTOZTOMS.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-HDOMZ7VP.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-RHM52AG6.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-ULK533LM.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-NYGWFQ3Z.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-KTFXVBUW.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-OETKI2VS.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-REJ2XCEK.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-RNHTTH2C.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-NAAMV6PJ.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-BKL7Y3TP.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-MNOUN6WL.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-YBCXNKWH.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-LXYVECMI.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-JT2SWFBW.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-4OWZX6C6.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-5N7HA7LK.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-2ZMIC6S2.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-7DB5ZNV6.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-LZDNIQ2U.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-NIY6XWMY.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-BQGSUMCC.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-GTRJJQLY.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-OLLAKLQE.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-4QM7IDRH.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-UM5LURHD.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-YH5GJIH6.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-PVUNKHYJ.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-JKGDJKTA.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-G4KQWZGJ.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-J4BHWK6W.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-OO4DY3RI.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-UYF7TDY5.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-WBAMM4TK.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-KMDGGM7O.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-47VSOHEQ.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-WBMUH7EH.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-HLFUGSYU.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-MX3GIWTE.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-V3C5CSFI.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-OL4QL4PN.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-AJZYH3BG.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-62H4LNPB.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-GRLHZASN.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-2A2NJ5SU.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-CLOQ5L53.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-D42U7RS4.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-3W5YU5AS.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-3PTEGDLU.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-MK52JFL6.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-2AT7HCJ4.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-S7SLZ7CT.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-HLNSHRU6.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-EBXOFOTK.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-NWCRSPT7.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-3IZ3OH5J.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-MUSZDHCZ.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-SPWSWTND.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-H5TKDHUK.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-F7CNMPZX.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-GUFQCQV6.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-OYRCYHS3.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-E7KM2VUL.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-7P7BPK4J.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-KAS7H2RP.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-V43RSE7R.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-VOYUGC35.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-ADUFDH3L.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-4MV5F4ZG.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-Y5CX2PAH.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-QROJ6A67.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-Q4ASTIB6.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-M5U7TUPD.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-FIJLBKPU.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-TQOGZGSE.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-5UBXWMHU.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-KSQKDBUB.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-AA2FEOGI.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-IO6LEDQM.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-OWR4VJGU.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-YN45RIQ4.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-Z7CSKVCI.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-QMIMLF4V.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-VGVPRJE5.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-BWUX6ZFV.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-PQNZ4OTH.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-JHQQHLM2.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-SRJN3TSA.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-XH7JLP54.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-7EZGLDUW.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-HENLIFUU.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-HI6MU3BC.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-XEZRUXYA.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-RUZPONDS.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-IVZSPLJN.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-K6JWUHIJ.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-PNDRNNBG.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-JA5XXCL5.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-F3DH6TQG.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-FG6DIZP6.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-2RBF7LLL.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-ER6FNH5I.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-DSF2SI3L.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-A5AM6FQP.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-4Y2G7PIJ.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-PJJNVLSO.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-S52JQCJN.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-O4BUMGKN.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-YQ324W7Z.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-2F5FSM3K.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-YANBD7ZH.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-AY6U3QQY.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-ORTTOM6E.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-HAIXG4KJ.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-3DVQCY7Q.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-TSS7OCVM.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-D3BIVQHH.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-2PZ5MB6X.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-677K5EOD.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-AMLKP45U.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-7NGY7TL6.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-72GGR2CO.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-3PGGDJA6.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-GR6G4G3R.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-LUYAW5FU.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-MDAJ5Y6X.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-AYMWERR5.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-FIIYL66L.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-5X5AELAI.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-7FNSTNQQ.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-G4KITKRM.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-JDWUB2NC.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-IBH3Y3YP.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-BLBQIIPT.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-FUWRTL3K.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-5GIBXIJA.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-NY6NEYUG.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-55E4E7KO.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-PIA6B5PF.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-IGYI2SV6.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-DI6KJHGG.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-4SYF3P4H.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-4L5CLP2I.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-JHNSBEWP.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-NTRMAMBZ.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-7LOBOVPD.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-L4LEWTXX.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-T2RMKTP3.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-JJL4LUYW.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-FXAODJW6.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-SPHBX7R5.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-KOBWAJTO.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-NVY76NJT.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-675XN2KT.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-E6UJBF6N.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-7BH2SWSV.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-VG6Y52WV.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-AXQJWN77.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-RLTWE4BV.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-7QNBCAS3.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-2P2Z4SVN.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-KZZC77JW.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-IU5LLLMV.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-MZ3UWW5Q.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-Q2PJDNAB.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-7XT34ZRE.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-7LJXCV4J.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-L3SPMH5I.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-MCM7JSM5.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-WIG3OHNH.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-VQZTQ3Q3.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-5C7KKRCB.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-XFC6OVIX.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-2LM2JYPV.mjs" rel="modulepreload">
+<link href="https://app.framerstatic.com/chunk-SDISSWE6.mjs" rel="modulepreload">
+	</head>
+	<body class="notranslate">
+		<div id="root">
+			<!--
+
+-->
+
+<style>
+	body * {
+		box-sizing: border-box;
+	}
+	body {
+		min-height: 100%;
+		padding: 0;
+		margin: 0;
+		background: #fff;
+	}
+	.toolbar {
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		height: 61px;
+		border-bottom: 1px solid #eee;
+	}
+	.ui {
+		position: absolute;
+		top: 61px;
+		left: min(259px, calc(0.27 * 100vw));
+		right: min(259px, calc(0.27 * 100vw));
+		bottom: 0;
+		background: #eee;
+	}
+	.center {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		text-align: center;
+		transform: translate(-50%, -50%);
+	}
+	.logo {
+		display: inline-block;
+		width: 36px;
+		height: 36px;
+		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAEB0lEQVR4Ae2YAWccQRzFU20LLa0A9BuUAkWhpEhB+zVKKf0eLdBPUEALSMHd7u7t3SZ3cLmchAgbci457hpJKyglctuZk8ffszMIsjO3OzwzNzNk3+///ntxK/W42ahHPepRj3pkWbY+HA6/lKXd3d3PBwcHH/f39x+UAmA0Gq11u93zJEnyVquVs+I4zlvqLBHic6wXZ5jlXT1jLYSzdrt9OZlMXpaWgqOjo3UNQZrAGmbIoBYbN37mPZIGcHVycrJWkn2CQMYgVDqm6hUYtQBAYlwDQBBM1eU2YFmrLQBo4Y5TAACh1+ud0YOTMaokKaZzQ9vIO24AoCScGWPMhjHbq8+AILcAcDuwSZKoJCUEglnMRQniFnATAonM8osOYAChCKSjLUAQxuP1ra2t86Lep2oaTWqJ6GPfDwBIgoYg+laa5L6mfep5ghRFkeMACAIb42RwxUXvQ7p9sPYjAQwBhixJgLgV6BxgCIBHENggIr1QJIxGWvhMZx4BIAjXPQwjJgEM7gIY0sAt4F8SIJkEOxBAgADAr3F4ePhG/8doMhgZEiCFb4Hj4+NXt24gz/M76g+/GI/H7yx6azufTCYfhsPht36/v6H08yba29v7OpvNHt46APVHn6dp+ldVYA4lSTJvXQt7sThnJe32pQKwcXFxsepdhFX1XmsTon+5d617iLUGNBgMmqqPV70DELfiuehNGGLD/IIDANHzBMG3BERCAob9q43ueQaBAND3M5IQFZiFQqxx5ls7AAAqGBmMwiQMW++EoT8QAEDGHiYBhc1KSNosvz8EoPn29jYgeNACMAfjAgSfY4ZC2oOchgAA+iGLqshRD2FU3oUkjDD0BAIBgMkiIyE+wyzu0n3MIc1uQgAA1QIww4IJrOW+PIM4KZQG9yAgAaGssqGy/Ka3QQuCQELC2j0IAIAHh9i83Od4030IECD3IACAfiDDg+aBNsJnJhEEiKC4BQEAUE1uBd6zCHcswBxMAlqAqwRDAYOwV7cw9gGlipPQLxPCdDp9liTJP1lpRJ9NSANUyatut/ur1+tNbVJ3ZqazLMs+lQIgz/O7+tccZWQOo6iOsaqkzc3NP6qCT09PTx/dVOo57pXWBvqnqJ2dne86jjCNORAgTLMGMBqNnqx4OwgCqo40yM9oFbmfeg+AIOh2YOPNZnOxlmpen6Vp6jkAgqDeCT+UwXlRCrgtNJhOp0MAligJsvqYWZyApYMA44DA8/IBIAhBGMybAgDMLzkAghAEiyRAjUYjb6iZ3wFVggAQBKACEBbVh5Y+AQRhoCCoymsIVUoAQRgM0A7VAsDtgCS0qwaA26FyCeB26KTpbzUeY79yELIse5/n+f2VUkY96lGPetSjHv8BYRyjFm/HYJ0AAAAASUVORK5CYII=);
+		background-size: contain;
+		background-repeat: no-repeat;
+	}
+	.progress {
+		position: relative;
+		width: 160px;
+		height: 2px;
+		margin-top: 24px;
+		border-radius: 1px;
+		background-color: rgba(170, 170, 170, 0.5);
+		overflow: hidden;
+	}
+
+	body.agent .toolbar {
+		height: 51px;
+	}
+
+	body.agent .ui {
+		top: 51px;
+	}
+
+	body.phone .ui {
+		inset: 0;
+	}
+
+	body.framer-theme-dark {
+		background: #111;
+		color-scheme: dark;
+	}
+	body.framer-theme-dark .toolbar {
+		border-bottom: 1px solid #252525;
+	}
+	body.agent.framer-theme-dark .toolbar {
+		border-bottom: 1px solid #212121;
+	}
+	body.framer-theme-dark .ui {
+		background: #000;
+	}
+	body.framer-theme-dark .logo {
+		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAADK0lEQVR4Ae3YAWQbURgH8Jttg45NAQYAjIEOg3FDC4zCAUrBdAxDAVAAG8UAwEawVWGlmtOQREIgSZIkySF3d8klbKPZwBjVZF+vuyx699/5ZNvrc/fn77ZWUu/ne+/OKeKTJEmSJEnkjK7rq+Vy+TVqpVKBrdVqrDYajUBbrdYr+q4XmqbdEgJwdHSkWpY1dvr9aR90MBiE13W9uqDD4dCr610vdTSajn73NJvNPlJE5fDwcBUgAACAgCAAwBzCWalUUhWKcIQ+H4EBECwGEIGg6xCBFoohohePKwwARI9AQAB0RQCREGIBAIJt2yc8hIUmQTQAmATbHuPFB0sLxZUBAEzC+C8diNIAAASweAAAKhMAQGCcBaCyADAQAARdJQcACIyzwEeQGAAgRD0cuZxHZAAg/yS4HgSuVAAAgRa6yPOBRAAAwXGcExYCAMjlco8VAbm2v7//kP7400ALhYvSvwt0RT0+Pn5OLzvetdvtg/l2Oh1cwzgw5tpsNt9sb28vKf87qb29B5ZlfadRnszqOBMnpLTXUU9pUR93dnaWFdmSyWSe/Fr49HJp0aEF7wsm3W5XxwjSAuBKhoABaAuEAtg8AP92OOkaGEEqAB8hDCLiBSqeBGkAGNsAT4Jx9RHSAABtBcYUeAiGUAQGAHUaMQUQwZEZIZ1OzybAAgC822KgAhEYANSpV7z46MqIgAEwhPyTgAHmyzsQuQi7u8tXFwBPAA9BgoMRTwALgIFAAABBHICJt8C/mQKAIBDA5AEs/pQYQNgVdSakUqn7pmn+MIMAHIQz+o4v1E/npc+hfj6/0ucCLRaLLxVBuV6tVt+CO0E0BAHQ779tbW3dU1X1dlTX1taWVE2b/V/TtIufqeoNRVQ2NjaWCOE9RLDtPyF4AOvr63cVmUPv4zDCbPEYYHNzEwDEAIH2vYwTgBHoDe8HjCAzAAOhXq/7kxADAM52sK1QAPnPAHB3wJOAJyBWCBYCiAGCfwsUvQXEH4w9PAHxQOj1emACYrId8BkQEwSagBgB+Ahz2wEDxASBAL5qmnYndgD+wZjP55+trKzcVIQkSZIkSZIk+QmI2qZ8Pa2ZVgAAAABJRU5ErkJggg==);
+	}
+
+	@supports (-moz-appearance: none) {
+		body {
+			background: #f0f0f0;
+		}
+		body.framer-theme-dark {
+			background: #000;
+		}
+	}
+</style>
+
+<script>
+	if (/mobi/i.test(navigator.userAgent)) {
+		document.body.classList.add("phone")
+	}
+</script>
+
+<div class="toolbar"></div>
+<div class="ui">
+	<div class="center">
+		<div class="logo"></div>
+		<div class="progress"></div>
+	</div>
+</div>
+
+		</div>
+
+		
+		<!--
+
+
+-->
+
+
+	<script>
+		// Keep these keys in sync with DarkModeProvider.tsx
+		var userDarkMode = localStorage.getItem("dark-mode") === "true"
+		var overrideSystem = localStorage.getItem("dark-mode-override-system") === "true"
+		var systemDarkMode = matchMedia("(prefers-color-scheme: dark)").matches
+		var isDarkMode = overrideSystem ? userDarkMode : systemDarkMode
+		if (isDarkMode) {
+			document.body.classList.add("framer-theme-dark")
+		}
+
+		// Set release channel as class on body.
+		var framerReleaseChannel = window.framerRelease && window.framerRelease.channel
+		if (framerReleaseChannel) {
+			document.body.classList.add("framer-release-" + framerReleaseChannel)
+		}
+
+		// Add a class to the body to indicate that the agent experiment is on and apply the agent theme
+		// as the default theme.
+		// TODO: Remove once experiment is removed.
+		var storageKey = framerReleaseChannel ? "experiments-" + framerReleaseChannel : "experiments"
+		try {
+			var experiments = JSON.parse(localStorage.getItem(storageKey) || "{}")
+			if (experiments.agent === "on") {
+				document.body.classList.add("agent")
+			}
+		} catch (e) {
+			// Ignore errors.
+		}
+	</script>
+
+
+
+		
+			<script src="/s/app.46bf165e928ee1d52a6359b7e13eb0ca608cbddf/scripts/react/react.production.min.js"></script>
+<script src="/s/app.46bf165e928ee1d52a6359b7e13eb0ca608cbddf/scripts/react-dom/react-dom.production.min.js"></script>
+<script src="/s/app.46bf165e928ee1d52a6359b7e13eb0ca608cbddf/scripts/react-dom/react-dom-server-legacy.browser.production.min.js"></script>
+		
+
+		
+		
+		<script>
+			window.exportAssets = Object.freeze({
+				library: "https://app.framerstatic.com/framer.ORRFU74A.mjs",
+				framerMotion: "https://app.framerstatic.com/framer-motion.DAQPZOYN.mjs",
+			})
+		</script>
+
+		
+		<script src="https://app.framerstatic.com/web.2GPT5HYP.mjs" type="module"></script>
+	</body>
+</html>
