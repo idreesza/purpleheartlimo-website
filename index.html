@@ -711,6 +711,37 @@ a { text-decoration:none; color:inherit; }
   filter:none;
 }
 
+/* ===== MULTI-STEP BOOKING FORM ===== */
+.booking-card .bk-step { display:none; }
+.booking-card .bk-step.active { display:block; animation:bkStepIn .35s ease both; }
+@keyframes bkStepIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+.booking-card .bk-progress {
+  display:flex; align-items:center; justify-content:center; margin:2px 0 22px;
+}
+.booking-card .bk-prog-step {
+  width:26px; height:26px; border-radius:50%; flex:0 0 auto;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Plus Jakarta Sans','Inter',sans-serif; font-size:0.72rem; font-weight:700;
+  color:rgba(255,255,255,0.45); border:1.5px solid rgba(255,255,255,0.2); background:transparent;
+  transition:all .3s;
+}
+.booking-card .bk-prog-step.active { color:#0a0a0a; background:#D4AF37; border-color:#D4AF37; }
+.booking-card .bk-prog-step.done { color:#D4AF37; border-color:#D4AF37; }
+.booking-card .bk-prog-line { width:34px; height:1.5px; background:rgba(255,255,255,0.2); margin:0 6px; transition:background .3s; }
+.booking-card .bk-prog-line.done { background:#D4AF37; }
+.booking-card .bk-nav { display:flex; align-items:center; gap:10px; }
+.booking-card .bk-nav .btn-book-full { flex:1; margin-top:0; }
+.booking-card .bk-back {
+  background:transparent; border:1.5px solid rgba(255,255,255,0.25); color:rgba(255,255,255,0.75);
+  border-radius:10px; padding:0 18px;
+  font-family:'Plus Jakarta Sans','Inter',sans-serif; font-size:0.82rem; font-weight:600;
+  cursor:pointer; transition:all .2s; white-space:nowrap;
+}
+.booking-card .bk-back:hover { border-color:rgba(212,175,55,0.6); color:#fff; }
+@media (prefers-reduced-motion: reduce) {
+  .booking-card .bk-step.active { animation:none; }
+}
+
 /* ============================================================
    PORTFOLITE HERO MOTION + DARK HOME SECTIONS
 ============================================================ */
@@ -1516,6 +1547,15 @@ footer {
 <button class="trip-tab" onclick="setTab(this,'pointtopoint')">→ Point to Point</button>
 <button class="trip-tab" onclick="setTab(this,'hourly')">⏱ Hourly</button>
 </div>
+<div class="bk-progress" id="bk-progress">
+<span class="bk-prog-step active" id="bk-prog-1">1</span>
+<span class="bk-prog-line"></span>
+<span class="bk-prog-step" id="bk-prog-2">2</span>
+<span class="bk-prog-line"></span>
+<span class="bk-prog-step" id="bk-prog-3">3</span>
+</div>
+<!-- STEP 1 — Where to? -->
+<div class="bk-step active" id="bk-step-1">
 <div class="form-group">
 <label>Pickup Location</label>
 <input autocomplete="off" id="pickup-input" oninput="clearFieldError('pickup-input','err-pickup')" placeholder="Address, hotel or airport..." type="text"/>
@@ -1524,12 +1564,27 @@ footer {
 <div id="dropoff-section">
 <div class="form-group">
 <label>Drop-off Location</label>
-<input autocomplete="off" id="dropoff-input" placeholder="Destination..." type="text"/>
+<input autocomplete="off" id="dropoff-input" oninput="clearFieldError('dropoff-input','err-dropoff')" placeholder="Destination..." type="text"/>
+<span class="field-error" id="err-dropoff">⚠ Drop-off location is required</span>
 </div>
 </div>
 <div id="extra-stops-container"></div>
 <div id="add-stop-row" style="display:none;margin-bottom:12px;">
 <button onclick="addQuoteStop()" onmouseout="this.style.borderColor='rgba(255,255,255,0.3)';this.style.color='rgba(255,255,255,0.8)';this.style.background='transparent';" onmouseover="this.style.borderColor='rgba(255,255,255,0.6)';this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)';" style="background:transparent;border:1.5px dashed rgba(255,255,255,0.3);border-radius:8px;padding:11px 16px;width:100%;font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:0.82rem;font-weight:600;color:rgba(255,255,255,0.8);cursor:pointer;transition:all 0.2s;letter-spacing:0.05em;" type="button">+ Add Extra Stop</button>
+</div>
+<div class="form-group">
+<label>Phone</label>
+<input id="quote-phone" oninput="clearFieldError('quote-phone','err-phone')" placeholder="(555) 000-0000" type="tel"/>
+<span class="field-error" id="err-phone">⚠ Phone number is required</span>
+</div>
+<button type="button" class="btn-book-full bk-next" onclick="bkNextStep(1)">Continue →</button>
+</div>
+<!-- STEP 2 — When &amp; who -->
+<div class="bk-step" id="bk-step-2">
+<div class="form-group">
+<label>Your Name</label>
+<input id="quote-name" oninput="clearFieldError('quote-name','err-name')" placeholder="Full name" type="text"/>
+<span class="field-error" id="err-name">⚠ Name is required</span>
 </div>
 <!-- Flight field — only visible for Airport tab -->
 <div class="flight-field show" id="flight-field">
@@ -1542,18 +1597,6 @@ footer {
 <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-family:'Courier New',monospace;font-size:0.78rem;color:rgba(255,255,255,0.5);pointer-events:none;letter-spacing:0.08em;z-index:1;">FLT#</span>
 <input autocomplete="off" id="flight-input" placeholder="AA1234" style="font-family:'Courier New',monospace;letter-spacing:0.12em;text-transform:uppercase;padding-left:56px;" type="text"/>
 </div>
-</div>
-</div>
-<div class="form-row">
-<div class="form-group">
-<label>Your Name</label>
-<input id="quote-name" oninput="clearFieldError('quote-name','err-name')" placeholder="Full name" type="text"/>
-<span class="field-error" id="err-name">⚠ Name is required</span>
-</div>
-<div class="form-group">
-<label>Phone</label>
-<input id="quote-phone" oninput="clearFieldError('quote-phone','err-phone')" placeholder="(555) 000-0000" type="tel"/>
-<span class="field-error" id="err-phone">⚠ Phone number is required</span>
 </div>
 </div>
 <div class="form-row">
@@ -1608,6 +1651,13 @@ footer {
 </div>
 </div>
 </div>
+<div class="bk-nav">
+<button type="button" class="bk-back" onclick="bkPrevStep(2)">← Back</button>
+<button type="button" class="btn-book-full bk-next" onclick="bkNextStep(2)">Continue →</button>
+</div>
+</div>
+<!-- STEP 3 — Ride details -->
+<div class="bk-step" id="bk-step-3">
 <div class="form-group">
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
 <div>
@@ -1682,11 +1732,15 @@ footer {
 <div style="font-size:0.65rem;color:var(--gray);margin-top:2px;">Flat rate · No surge · All-inclusive</div>
 <div id="price-note" style="font-size:0.68rem;color:#b45309;font-weight:600;margin-top:4px;"></div>
 </div>
+<div class="bk-nav">
+<button type="button" class="bk-back" onclick="bkPrevStep(3)">← Back</button>
 <button class="btn-book-full" id="quote-btn" onclick="submitQuote()">See My Price &amp; Book</button>
+</div>
 <div id="quote-success" style="display:none;background:#f0fdf4;border:1.5px solid #22c55e;border-radius:10px;padding:12px 14px;text-align:center;margin-top:8px;">
 <div style="color:#16a34a;font-weight:700;font-size:0.88rem;">✅ Request received!</div>
 <div style="color:#166534;font-size:0.78rem;margin-top:4px;">We'll call or text you within 5 minutes with your exact flat rate.</div>
 <a href="https://customer.moovs.app/purple-heart-limo/request/new" style="display:inline-block;margin-top:8px;padding:7px 18px;background:var(--purple);color:#fff;border-radius:8px;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;" target="_blank">Book Online Now →</a>
+</div>
 </div>
 <!-- Real vehicle photo strip — sliding marquee -->
 <div class="fleet-marquee">
@@ -3284,6 +3338,55 @@ function clearFieldError(inputId, errId) {
   if (err) err.classList.remove('show');
 }
 
+// ===== MULTI-STEP BOOKING FORM =====
+function bkSetStep(n) {
+  for (let i = 1; i <= 3; i++) {
+    const step = document.getElementById('bk-step-' + i);
+    const prog = document.getElementById('bk-prog-' + i);
+    if (step) step.classList.toggle('active', i === n);
+    if (prog) {
+      prog.classList.toggle('active', i === n);
+      prog.classList.toggle('done', i < n);
+    }
+  }
+  document.querySelectorAll('.booking-card .bk-prog-line').forEach((ln, idx) => {
+    ln.classList.toggle('done', (idx + 1) < n);
+  });
+  window._bkStep = n;
+  document.getElementById('bk-step-' + n)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function bkNextStep(from) {
+  if (from === 1) {
+    let err = false;
+    const pickup = (document.getElementById('pickup-input')?.value || '').trim();
+    const dropoff = (document.getElementById('dropoff-input')?.value || '').trim();
+    const phone = (document.getElementById('quote-phone')?.value || '').trim();
+    const isHourly = (typeof getActiveTab === 'function' ? getActiveTab() : window._quoteTab) === 'hourly';
+    if (!pickup) { showFieldError('pickup-input', 'err-pickup'); err = true; }
+    if (!isHourly && !dropoff) { showFieldError('dropoff-input', 'err-dropoff'); err = true; }
+    if (!phone) { showFieldError('quote-phone', 'err-phone'); err = true; }
+    if (err) {
+      document.querySelector('#bk-step-1 .field-error.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    bkSetStep(2);
+  } else if (from === 2) {
+    let err = false;
+    const name = (document.getElementById('quote-name')?.value || '').trim();
+    if (!name) { showFieldError('quote-name', 'err-name'); err = true; }
+    if (err) {
+      document.querySelector('#bk-step-2 .field-error.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    bkSetStep(3);
+  }
+}
+
+function bkPrevStep(from) {
+  bkSetStep(from - 1);
+}
+
 async function submitQuote() {
   const name     = (document.getElementById('quote-name')?.value || '').trim();
   const phone    = (document.getElementById('quote-phone')?.value || '').trim();
@@ -3300,13 +3403,20 @@ async function submitQuote() {
                    getActiveTab() === 'hourly'  ? 'Hourly Charter'   : 'One Way Transfer';
 
   // Inline validation — show red errors under each missing field
+  const isHourly = getActiveTab() === 'hourly';
   let hasError = false;
   if (!name)  { showFieldError('quote-name',   'err-name');   hasError = true; }
   if (!phone) { showFieldError('quote-phone',  'err-phone');  hasError = true; }
   if (!pickup){ showFieldError('pickup-input', 'err-pickup'); hasError = true; }
+  if (!isHourly && !dropoff) { showFieldError('dropoff-input', 'err-dropoff'); hasError = true; }
   if (hasError) {
-    // Scroll the first error into view
-    document.querySelector('.field-error.show')?.scrollIntoView({ behavior:'smooth', block:'center' });
+    // Surface the first missing field — jump back to step 1 if that's where it lives
+    if ((!pickup || !dropoff || !phone) && typeof bkSetStep === 'function' && window._bkStep !== 1) {
+      bkSetStep(1);
+    } else if (!name && typeof bkSetStep === 'function' && window._bkStep === 3) {
+      bkSetStep(2);
+    }
+    setTimeout(() => document.querySelector('.field-error.show')?.scrollIntoView({ behavior:'smooth', block:'center' }), 50);
     return;
   }
 
