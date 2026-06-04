@@ -1,5 +1,10 @@
 uploads = []
-generated = []
+
+[[generated]]
+id = "9SnYcR7mUUyjFpyZp4QzU"
+uri = "file://images/hero-smoke.png"
+type = "image"
+title = "monochrome smoke texture"
 
 [[outputs]]
 id = "JkUNDP8kjejZhYioyYljN"
