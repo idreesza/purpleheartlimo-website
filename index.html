@@ -299,8 +299,8 @@ a { text-decoration:none; color:inherit; }
 .hero {
   min-height: 88vh;
   background: #080808;
-  display: flex; align-items:center;
-  padding: 80px 5% 48px;
+  display: flex; flex-direction:column; justify-content:center; gap:34px;
+  padding: 80px 5% 40px;
   position: relative; overflow:hidden;
 }
 .hero::before, .hero::after {
@@ -333,10 +333,10 @@ a { text-decoration:none; color:inherit; }
   backdrop-filter: blur(8px);
 }
 .hero h1 {
-  font-family:'Playfair Display','Cormorant Garamond',serif;
-  font-size:clamp(2.4rem,5.2vw,4rem); font-weight:700;
-  color:#FFFFFF; line-height:1.08; margin-bottom:8px;
-  letter-spacing:-0.015em;
+  font-family:'Plus Jakarta Sans','Inter',sans-serif;
+  font-size:clamp(2.6rem,5.6vw,4.4rem); font-weight:500;
+  color:#FFFFFF; line-height:1.05; margin-bottom:8px;
+  letter-spacing:-0.03em;
 }
 .hero h1 .ln-white {
   display:block;
@@ -344,7 +344,7 @@ a { text-decoration:none; color:inherit; }
   filter: drop-shadow(0 2px 14px rgba(0,0,0,0.5));
 }
 .hero h1 .ln-gold {
-  display:block; font-style:italic;
+  display:block; font-style:normal;
   background: linear-gradient(180deg, #FFFFFF 0%, #CFCFCF 55%, #9A9A9A 100%);
   -webkit-background-clip:text; background-clip:text;
   -webkit-text-fill-color:transparent;
@@ -626,35 +626,46 @@ a { text-decoration:none; color:inherit; }
     linear-gradient(180deg, rgba(6,6,6,0.45) 0%, transparent 28%);
 }
 .hero .trust-icon { color:rgba(255,255,255,0.92); }
-/* Gentle frosted-glass buttons (home hero only) */
-.hero .hero-btns .btn-primary {
-  background: rgba(255,255,255,0.09);
-  color:#fff;
-  border:1px solid rgba(255,255,255,0.28);
-  box-shadow: 0 6px 26px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05) inset;
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  animation:none;
-  text-shadow:0 1px 2px rgba(0,0,0,0.35);
+/* ===== Portfolite glowing pill buttons (home page) ===== */
+#home-page .btn-primary,
+#home-page .btn-secondary,
+#home-page .btn-white {
+  position:relative;
+  background:linear-gradient(180deg,#1c1c1c,#0c0c0c)!important;
+  color:#fff!important;
+  border:1px solid rgba(255,255,255,0.14)!important;
+  border-radius:14px!important;
+  padding:15px 30px!important;
+  text-transform:none!important;
+  letter-spacing:0.01em!important;
+  font-weight:500!important;
+  backdrop-filter:none!important; -webkit-backdrop-filter:none!important;
+  text-shadow:none!important;
+  transition:all 0.3s ease!important;
+  box-shadow:0 0 0 1px rgba(255,255,255,0.04) inset,
+             0 0 22px rgba(255,255,255,0.12),
+             0 8px 26px rgba(0,0,0,0.6)!important;
 }
-.hero .hero-btns .btn-primary:hover {
-  background: rgba(255,255,255,0.17);
-  border-color: rgba(255,255,255,0.5);
+#home-page .btn-primary:hover,
+#home-page .btn-secondary:hover,
+#home-page .btn-white:hover {
   transform:translateY(-2px);
-  box-shadow: 0 10px 34px rgba(0,0,0,0.5), 0 0 26px rgba(255,255,255,0.14), 0 0 0 1px rgba(255,255,255,0.12) inset;
-  filter:none;
+  background:linear-gradient(180deg,#262626,#121212)!important;
+  border-color:rgba(255,255,255,0.3)!important;
+  box-shadow:0 0 0 1px rgba(255,255,255,0.08) inset,
+             0 0 30px rgba(255,255,255,0.22),
+             0 0 64px rgba(255,255,255,0.10),
+             0 12px 32px rgba(0,0,0,0.7)!important;
 }
-.hero .hero-btns .btn-secondary {
-  background: rgba(255,255,255,0.05) !important;
-  color:#fff !important;
-  border:1px solid rgba(255,255,255,0.28) !important;
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  box-shadow:0 4px 18px rgba(0,0,0,0.3);
-  transition:all 0.25s ease;
-}
-.hero .hero-btns .btn-secondary:hover {
-  background: rgba(255,255,255,0.15) !important;
-  border-color: rgba(255,255,255,0.5) !important;
-  transform:translateY(-2px);
+/* Hero buttons softly pulse */
+#home-page .hero .hero-btns .btn-primary,
+#home-page .hero .hero-btns .btn-secondary { animation:btnGlowPulse 3.4s ease-in-out infinite; }
+#home-page .hero .hero-btns .btn-secondary { animation-delay:-1.7s; }
+#home-page .hero .hero-btns .btn-primary:hover,
+#home-page .hero .hero-btns .btn-secondary:hover { animation:none; }
+@keyframes btnGlowPulse {
+  0%,100% { box-shadow:0 0 0 1px rgba(255,255,255,0.04) inset, 0 0 14px rgba(255,255,255,0.07), 0 0 32px rgba(255,255,255,0.04), 0 8px 26px rgba(0,0,0,0.6); }
+  50%     { box-shadow:0 0 0 1px rgba(255,255,255,0.07) inset, 0 0 26px rgba(255,255,255,0.18), 0 0 56px rgba(255,255,255,0.10), 0 8px 26px rgba(0,0,0,0.6); }
 }
 /* Neutralize booking widget to monochrome glass (home hero only) */
 .hero .booking-card {
@@ -698,6 +709,104 @@ a { text-decoration:none; color:inherit; }
   background:#fff;
   box-shadow:0 10px 30px rgba(0,0,0,0.5), 0 0 18px rgba(255,255,255,0.18), 0 0 0 1px rgba(255,255,255,0.3) inset;
   filter:none;
+}
+
+/* ============================================================
+   PORTFOLITE HERO MOTION + DARK HOME SECTIONS
+============================================================ */
+/* Minimal badge with pulsing dot */
+#home-page .hero-badge {
+  background:rgba(255,255,255,0.05)!important;
+  border:1px solid rgba(255,255,255,0.16)!important;
+  color:rgba(255,255,255,0.9)!important;
+  letter-spacing:0.05em; text-transform:none; font-weight:500;
+  font-size:0.78rem; padding:8px 18px;
+  box-shadow:0 0 26px rgba(255,255,255,0.05);
+  backdrop-filter:blur(8px);
+}
+#home-page .hero-badge .badge-dot {
+  width:7px; height:7px; border-radius:50%; flex:none;
+  background:#fff; box-shadow:0 0 8px rgba(255,255,255,0.9);
+  animation:badgeDotPulse 2.4s ease-in-out infinite;
+}
+@keyframes badgeDotPulse {
+  0%,100% { opacity:0.45; transform:scale(0.82); }
+  50%     { opacity:1; transform:scale(1.18); }
+}
+
+/* Scroll-down indicator */
+.hero-scroll {
+  display:flex; align-items:center; gap:20px; width:100%;
+  max-width:1300px; margin:6px auto 0; 
+  color:rgba(255,255,255,0.5); font-size:0.8rem;
+  font-family:'Plus Jakarta Sans','Inter',sans-serif; letter-spacing:0.05em;
+  position:relative; z-index:2;
+}
+.hero-scroll .hs-line { flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent); }
+.hero-scroll .hs-text { white-space:nowrap; }
+.hero-scroll .hs-mouse {
+  width:24px; height:38px; flex:none; position:relative;
+  border:1.5px solid rgba(255,255,255,0.4); border-radius:14px;
+}
+.hero-scroll .hs-mouse::after {
+  content:''; position:absolute; left:50%; top:7px; width:3px; height:7px;
+  margin-left:-1.5px; border-radius:2px; background:rgba(255,255,255,0.85);
+  animation:mouseWheel 1.8s ease-in-out infinite;
+}
+@keyframes mouseWheel {
+  0%   { opacity:0; transform:translateY(0); }
+  30%  { opacity:1; }
+  100% { opacity:0; transform:translateY(12px); }
+}
+
+/* Services marquee — the services we provide */
+.svc-marquee {
+  width:100%; overflow:hidden; position:relative; z-index:2;
+  padding:20px 0; margin-top:4px;
+  border-top:1px solid rgba(255,255,255,0.08);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+}
+.svc-marquee-track {
+  display:flex; align-items:center; width:max-content;
+  animation:svcScroll 34s linear infinite;
+}
+.svc-marquee:hover .svc-marquee-track { animation-play-state:paused; }
+.svc-marquee-item {
+  display:inline-flex; align-items:center; gap:14px; padding:0 32px;
+  font-family:'Plus Jakarta Sans','Inter',sans-serif;
+  font-size:1.05rem; font-weight:500; letter-spacing:0.01em;
+  color:rgba(255,255,255,0.42); white-space:nowrap; transition:color 0.3s;
+}
+.svc-marquee-item:hover { color:#fff; }
+.svc-marquee-item::before { content:'✦'; color:rgba(255,255,255,0.28); font-size:0.7rem; }
+@keyframes svcScroll { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+/* Reviews + trust strip — dark minimal */
+#home-page .section-tag { color:rgba(255,255,255,0.5); }
+#home-page .section-title { color:#fff; font-weight:400; }
+#home-page .section-sub { color:rgba(255,255,255,0.55); }
+#home-page .review-card {
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.1);
+}
+#home-page .review-card:hover { box-shadow:0 14px 44px rgba(0,0,0,0.55); border-color:rgba(255,255,255,0.2); }
+#home-page .review-text { color:rgba(255,255,255,0.7); }
+#home-page .review-stars { color:#fff; }
+#home-page .reviewer-name { color:#fff; }
+#home-page .reviewer-info { color:rgba(255,255,255,0.5); }
+
+@media (prefers-reduced-motion: reduce) {
+  .svc-marquee-track { animation:none; }
+  .hero-scroll .hs-mouse::after { animation:none; }
+  #home-page .hero-badge .badge-dot { animation:none; }
+  #home-page .hero .hero-btns .btn-primary,
+  #home-page .hero .hero-btns .btn-secondary { animation:none; }
+}
+@media (max-width:768px) {
+  .hero-scroll .hs-text.hs-right { display:none; }
+  .svc-marquee-item { font-size:0.92rem; padding:0 22px; }
 }
 
 /* ===== VETERAN STRIP ===== */
@@ -1387,15 +1496,15 @@ footer {
 <div class="hero-overlay" aria-hidden="true"></div>
 <div class="hero-inner">
 <div class="hero-content">
-<div class="hero-badge" style="border-color:rgba(255,255,255,0.6);background:rgba(255,255,255,0.18);color:#fff;backdrop-filter:blur(6px);">
-<svg fill="#ffffff" height="12" viewbox="0 0 24 24" width="12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-          Texan Owned · Est. 2020
+<div class="hero-badge">
+<span class="badge-dot"></span>
+          Texan Owned · Luxury Limo Service
         </div>
 <h1><span class="ln-white">Luxury Rides.</span><span class="ln-gold">Premier Limo Service.</span><span class="ln-white">Prime Limo Fleet.</span></h1>
 <div class="hero-divider" style="background:linear-gradient(90deg,#fff,rgba(255,255,255,0.25));"></div>
 <div class="hero-btns" style="margin-top:0;">
 <a class="btn-primary" href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank">Book Your Ride</a>
-<a class="btn-secondary sonar-pulse" href="tel:+18337400700" style="color:#fff;border-color:rgba(255,255,255,0.65);background:rgba(255,255,255,0.10);">(833) 740-0700</a>
+<a class="btn-secondary" href="tel:+18337400700">📞 (833) 740-0700</a>
 </div>
 </div>
 <!-- Booking Widget -->
@@ -1603,9 +1712,40 @@ footer {
 </div>
 </div>
 </div>
+<div class="hero-scroll" aria-hidden="true">
+<span class="hs-text">Scroll down</span>
+<span class="hs-line"></span>
+<span class="hs-mouse"></span>
+<span class="hs-line"></span>
+<span class="hs-text hs-right">to explore our fleet</span>
+</div>
+<div class="svc-marquee" aria-label="The services we provide">
+<div class="svc-marquee-track">
+<span class="svc-marquee-item">Airport Transfers</span>
+<span class="svc-marquee-item">Wedding Limos</span>
+<span class="svc-marquee-item">Corporate Travel</span>
+<span class="svc-marquee-item">Prom &amp; Homecoming</span>
+<span class="svc-marquee-item">Nights Out</span>
+<span class="svc-marquee-item">Hourly Chauffeur</span>
+<span class="svc-marquee-item">Quinceañeras</span>
+<span class="svc-marquee-item">Sprinter Vans</span>
+<span class="svc-marquee-item">Party Bus Rentals</span>
+<span class="svc-marquee-item">Sporting Events</span>
+<span class="svc-marquee-item" aria-hidden="true">Airport Transfers</span>
+<span class="svc-marquee-item" aria-hidden="true">Wedding Limos</span>
+<span class="svc-marquee-item" aria-hidden="true">Corporate Travel</span>
+<span class="svc-marquee-item" aria-hidden="true">Prom &amp; Homecoming</span>
+<span class="svc-marquee-item" aria-hidden="true">Nights Out</span>
+<span class="svc-marquee-item" aria-hidden="true">Hourly Chauffeur</span>
+<span class="svc-marquee-item" aria-hidden="true">Quinceañeras</span>
+<span class="svc-marquee-item" aria-hidden="true">Sprinter Vans</span>
+<span class="svc-marquee-item" aria-hidden="true">Party Bus Rentals</span>
+<span class="svc-marquee-item" aria-hidden="true">Sporting Events</span>
+</div>
+</div>
 </section>
 <!-- Reviews -->
-<section style="background:var(--white); padding:80px 5%;">
+<section style="background:#0a0a0a; padding:80px 5%;">
 <div class="section-inner">
 <div class="text-center">
 <span class="section-tag">What Riders Say</span>
@@ -1638,26 +1778,26 @@ footer {
 </div>
 </section>
 <!-- Trust strip + CTA bar -->
-<div style="background:#0a0a0a;padding:60px 5% 40px;text-align:center;border-top:1px solid rgba(201,168,76,0.15);">
+<div style="background:#0a0a0a;padding:60px 5% 40px;text-align:center;border-top:1px solid rgba(255,255,255,0.1);">
 <div style="max-width:900px;margin:0 auto;">
-<div style="display:flex;justify-content:center;flex-wrap:wrap;gap:32px;margin-bottom:40px;padding-bottom:36px;border-bottom:1px solid rgba(201,168,76,0.12);">
+<div style="display:flex;justify-content:center;flex-wrap:wrap;gap:32px;margin-bottom:40px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,0.08);">
 <div style="text-align:center;">
-<div style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--gold);font-weight:300;line-height:1;">Texan-Owned</div>
+<div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:1.9rem;color:#fff;font-weight:600;line-height:1;letter-spacing:-0.02em;">Texan-Owned</div>
 <div style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:4px;">Texan Owned · Est. 2020</div>
 </div>
-<div style="width:1px;background:rgba(201,168,76,0.2);align-self:stretch;"></div>
+<div style="width:1px;background:rgba(255,255,255,0.12);align-self:stretch;"></div>
 <div style="text-align:center;">
-<div style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--gold);font-weight:300;line-height:1;">Licensed &amp; Insured</div>
+<div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:1.9rem;color:#fff;font-weight:600;line-height:1;letter-spacing:-0.02em;">Licensed &amp; Insured</div>
 <div style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:4px;">Fully Covered · Every Ride</div>
 </div>
-<div style="width:1px;background:rgba(201,168,76,0.2);align-self:stretch;"></div>
+<div style="width:1px;background:rgba(255,255,255,0.12);align-self:stretch;"></div>
 <div style="text-align:center;">
-<div style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--gold);font-weight:300;line-height:1;">No Surge Pricing</div>
+<div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:1.9rem;color:#fff;font-weight:600;line-height:1;letter-spacing:-0.02em;">No Surge Pricing</div>
 <div style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:4px;">Flat Rates · Always Guaranteed</div>
 </div>
-<div style="width:1px;background:rgba(201,168,76,0.2);align-self:stretch;"></div>
+<div style="width:1px;background:rgba(255,255,255,0.12);align-self:stretch;"></div>
 <div style="text-align:center;">
-<div style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;color:var(--gold);font-weight:300;line-height:1;">Confirmed in 5 Min</div>
+<div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:1.9rem;color:#fff;font-weight:600;line-height:1;letter-spacing:-0.02em;">Confirmed in 5 Min</div>
 <div style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:4px;">24 / 7 · Austin · DFW · Houston</div>
 </div>
 </div>
