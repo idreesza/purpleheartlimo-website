@@ -718,29 +718,78 @@ a { text-decoration:none; color:inherit; }
 .booking-card .bk-progress {
   display:flex; align-items:center; justify-content:center; margin:2px 0 22px;
 }
+/* Dark "pill" step indicators (reference button look) */
 .booking-card .bk-prog-step {
-  width:26px; height:26px; border-radius:50%; flex:0 0 auto;
+  width:30px; height:30px; border-radius:999px; flex:0 0 auto;
   display:flex; align-items:center; justify-content:center;
-  font-family:'Plus Jakarta Sans','Inter',sans-serif; font-size:0.72rem; font-weight:700;
-  color:rgba(255,255,255,0.45); border:1.5px solid rgba(255,255,255,0.2); background:transparent;
+  font-family:'Plus Jakarta Sans','Inter',sans-serif; font-size:0.74rem; font-weight:700;
+  color:rgba(255,255,255,0.5);
+  background:linear-gradient(180deg, #2b2b2d 0%, #161617 100%);
+  border:1px solid rgba(255,255,255,0.14);
+  box-shadow:0 1px 0 rgba(255,255,255,0.12) inset, 0 3px 10px rgba(0,0,0,0.5);
   transition:all .3s;
 }
-.booking-card .bk-prog-step.active { color:#0a0a0a; background:#D4AF37; border-color:#D4AF37; }
-.booking-card .bk-prog-step.done { color:#D4AF37; border-color:#D4AF37; }
-.booking-card .bk-prog-line { width:34px; height:1.5px; background:rgba(255,255,255,0.2); margin:0 6px; transition:background .3s; }
-.booking-card .bk-prog-line.done { background:#D4AF37; }
+.booking-card .bk-prog-step.active {
+  color:#fff; border-color:rgba(255,255,255,0.45);
+  background:linear-gradient(180deg, #3a3a3c 0%, #1d1d1f 100%);
+  box-shadow:0 1px 0 rgba(255,255,255,0.2) inset, 0 0 0 3px rgba(255,255,255,0.07), 0 4px 14px rgba(0,0,0,0.55);
+}
+.booking-card .bk-prog-step.done { color:#fff; border-color:rgba(255,255,255,0.3); }
+.booking-card .bk-prog-line { width:34px; height:1.5px; background:rgba(255,255,255,0.18); margin:0 6px; transition:background .3s; }
+.booking-card .bk-prog-line.done { background:rgba(255,255,255,0.45); }
 .booking-card .bk-nav { display:flex; align-items:center; gap:10px; }
 .booking-card .bk-nav .btn-book-full { flex:1; margin-top:0; }
+/* Dark "pill" Continue button (reference button look) */
+#home-page .booking-card .bk-next {
+  background:linear-gradient(180deg, #3a3a3c 0%, #1d1d1f 100%) !important;
+  color:#f5f5f7 !important;
+  border:1px solid rgba(255,255,255,0.16) !important;
+  border-radius:999px !important;
+  box-shadow:0 1px 0 rgba(255,255,255,0.18) inset, 0 6px 18px rgba(0,0,0,0.55) !important;
+  text-transform:none !important;
+  letter-spacing:0.01em !important;
+  font-weight:600 !important;
+  font-size:0.9rem !important;
+}
+#home-page .booking-card .bk-next:hover {
+  background:linear-gradient(180deg, #46464a 0%, #232325 100%) !important;
+  border-color:rgba(255,255,255,0.3) !important;
+  box-shadow:0 1px 0 rgba(255,255,255,0.22) inset, 0 9px 26px rgba(0,0,0,0.6) !important;
+  filter:none !important;
+  transform:translateY(-1px);
+}
 .booking-card .bk-back {
-  background:transparent; border:1.5px solid rgba(255,255,255,0.25); color:rgba(255,255,255,0.75);
-  border-radius:10px; padding:0 18px;
-  font-family:'Plus Jakarta Sans','Inter',sans-serif; font-size:0.82rem; font-weight:600;
+  background:transparent; border:1px solid rgba(255,255,255,0.22); color:rgba(255,255,255,0.75);
+  border-radius:999px; padding:0 20px;
+  font-family:'Plus Jakarta Sans','Inter',sans-serif; font-size:0.85rem; font-weight:600;
   cursor:pointer; transition:all .2s; white-space:nowrap;
 }
-.booking-card .bk-back:hover { border-color:rgba(212,175,55,0.6); color:#fff; }
+.booking-card .bk-back:hover { border-color:rgba(255,255,255,0.45); color:#fff; }
 @media (prefers-reduced-motion: reduce) {
   .booking-card .bk-step.active { animation:none; }
 }
+
+/* ===== CLEAR (TRANSPARENT) HEADER ON HOME ===== */
+body.home-active .navbar {
+  background:transparent;
+  border-bottom-color:transparent;
+  box-shadow:none !important;
+  transition:background .3s, border-color .3s, box-shadow .3s;
+}
+body.home-active .navbar.scrolled {
+  background:rgba(10,10,10,0.82);
+  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+body.home-active .navbar .nav-logo-text { color:#fff !important; }
+body.home-active .navbar .nav-logo-sub { color:rgba(255,255,255,0.6) !important; }
+body.home-active .navbar .nav-links > li > a { color:rgba(255,255,255,0.85); }
+body.home-active .navbar .nav-links > li > a:hover { color:#fff; }
+body.home-active .navbar .nav-phone { color:#fff; }
+body.home-active .navbar .nav-phone svg { fill:#fff; }
+body.home-active .navbar #lang-toggle { color:#fff !important; border-color:rgba(255,255,255,0.3) !important; }
+body.home-active .navbar .hamburger span { background:#fff; }
 
 /* ============================================================
    PORTFOLITE HERO MOTION + DARK HOME SECTIONS
@@ -2863,13 +2912,14 @@ function showPage(id) {
   }
   const menu = document.getElementById('mobile-menu');
   if (menu) menu.style.display = 'none';
+  updateNavbar(id);
   return false;
 }
 
 function updateNavbar(pageId) {
-  const darkPages = ['home','es-home','worldcup'];
-  const nav = document.getElementById('navbar');
-  // Navbar is always white/light in this design
+  // Home pages use a transparent "clear" header over the dark hero.
+  const clearPages = ['home','es-home'];
+  document.body.classList.toggle('home-active', clearPages.includes(pageId));
 }
 
 // ===== FAQ =====
@@ -3501,7 +3551,14 @@ function shareBlog(platform, title) {
 // ===== NAVBAR SCROLL EFFECT =====
 window.addEventListener('scroll', () => {
   const nav = document.getElementById('navbar');
-  if (nav) nav.style.boxShadow = window.scrollY > 60 ? '0 4px 24px rgba(45,0,69,0.1)' : '';
+  if (!nav) return;
+  const scrolled = window.scrollY > 60;
+  nav.classList.toggle('scrolled', scrolled);
+  if (!document.body.classList.contains('home-active')) {
+    nav.style.boxShadow = scrolled ? '0 4px 24px rgba(45,0,69,0.1)' : '';
+  } else {
+    nav.style.boxShadow = '';
+  }
 });
 
 // ===== INIT =====
@@ -3515,6 +3572,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   initCarousels();
+  // Home is the default page — start with the clear/transparent header.
+  document.body.classList.add('home-active');
   // Set minimum date to today for date pickers
   const today = new Date().toISOString().split('T')[0];
   document.querySelectorAll('input[type="date"]').forEach(el => el.min = today);

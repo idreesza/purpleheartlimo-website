@@ -1,4 +1,5 @@
 - [Booking form contract](booking-form-contract.md) — on-page forms use first_name/pickup_address but contact fn needs name/pickup; must map before POST or bookings 400 silently.
+- [Clear header is home-only](clear-header-home-only.md) — navbar is one global element; transparent treatment gated by body.home-active (home/es-home) or it breaks light pages.
 - [Dallas geo / map-pack strategy](dallas-geo-map-pack-strategy.md) — only physical presence is Richardson TX: can rank Dallas/DFW map pack, NOT Austin map pack; Austin is organic-only.
 - [hreflang reciprocity](hreflang-reciprocity.md) — homepage has no Spanish twin; never add an `es` hreflang to it until a real /es/ homepage exists.
 - [Homepage scoping rules](homepage-dual-hero.md) — scope home-only styling to `#home-page`; `.hero` is shared by Spanish home and button classes are global across service pages.
