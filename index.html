@@ -298,25 +298,28 @@ a { text-decoration:none; color:inherit; }
 /* ===== HERO (Dark Luxury) ===== */
 .hero {
   min-height: 88vh;
-  background: #121212;
+  background: #080808;
   display: flex; align-items:center;
   padding: 80px 5% 48px;
   position: relative; overflow:hidden;
 }
-.hero::before {
+.hero::before, .hero::after {
   content:'';
-  position:absolute; inset:0;
-  background:
-    radial-gradient(ellipse 70% 75% at 78% 25%, rgba(212,175,55,0.10) 0%, transparent 65%),
-    radial-gradient(ellipse 55% 60% at 12% 85%, rgba(170,124,17,0.08) 0%, transparent 60%),
-    linear-gradient(180deg, rgba(255,255,255,0.015) 0%, transparent 40%);
-  pointer-events:none;
+  position:absolute;
+  top:-25%; left:-25%; width:150%; height:150%;
+  background-image:url('images/hero-smoke.png');
+  background-size:cover; background-position:center; background-repeat:no-repeat;
+  mix-blend-mode:screen;
+  pointer-events:none; z-index:0;
+  will-change:transform,opacity;
 }
+.hero::before { opacity:0.55; animation:smokeDriftA 40s ease-in-out infinite alternate; }
+.hero::after  { opacity:0.30; animation:smokeDriftB 56s ease-in-out infinite alternate; }
 .hero-inner {
   max-width:1300px; margin:0 auto; width:100%;
   display:grid; grid-template-columns:minmax(0,45fr) minmax(0,55fr);
   gap:60px; align-items:center;
-  position:relative; z-index:1;
+  position:relative; z-index:2;
 }
 .hero-inner > .hero-content,
 .hero-inner > .booking-card { min-width:0; }
@@ -337,21 +340,18 @@ a { text-decoration:none; color:inherit; }
 }
 .hero h1 .ln-white {
   display:block;
-  background: linear-gradient(180deg, #F4DC95 0%, #D4AF37 50%, #AA7C11 100%);
-  -webkit-background-clip:text;
-  background-clip:text;
-  -webkit-text-fill-color:transparent;
-  filter: drop-shadow(0 2px 10px rgba(212,175,55,0.22));
+  color:#FFFFFF;
+  filter: drop-shadow(0 2px 14px rgba(0,0,0,0.5));
 }
 .hero h1 .ln-gold {
   display:block; font-style:italic;
-  background: linear-gradient(180deg, #F4DC95 0%, #D4AF37 50%, #AA7C11 100%);
+  background: linear-gradient(180deg, #FFFFFF 0%, #CFCFCF 55%, #9A9A9A 100%);
   -webkit-background-clip:text; background-clip:text;
   -webkit-text-fill-color:transparent;
-  filter: drop-shadow(0 2px 12px rgba(212,175,55,0.25));
+  filter: drop-shadow(0 2px 14px rgba(0,0,0,0.4));
 }
-.hero h1 em { font-style:italic; color:#D4AF37; }
-.hero-divider { width:60px; height:2px; background:linear-gradient(90deg,#D4AF37,#AA7C11); margin:18px 0; }
+.hero h1 em { font-style:italic; color:#EAEAEA; }
+.hero-divider { width:60px; height:2px; background:linear-gradient(90deg,#FFFFFF,rgba(255,255,255,0.2)); margin:18px 0; }
 .hero-sub { color:rgba(255,255,255,0.72); font-size:1rem; line-height:1.7; margin-bottom:28px; font-weight:400; font-family:'Plus Jakarta Sans','Inter',sans-serif; }
 .hero-trust { display:flex; flex-wrap:wrap; gap:16px; margin-bottom:32px; }
 .trust-item { display:flex; align-items:center; gap:8px; color:rgba(255,255,255,0.75); font-size:0.78rem; font-weight:500; }
@@ -604,6 +604,100 @@ a { text-decoration:none; color:inherit; }
     0 0 24px rgba(212,175,55,0.35),
     0 0 0 1px rgba(255,235,180,0.4) inset;
   filter: brightness(1.05);
+}
+
+/* ===== MONOCHROME SMOKE HERO (home hero only) ===== */
+@keyframes smokeDriftA {
+  0%   { transform: translate3d(-4%, -3%, 0) scale(1.06); }
+  100% { transform: translate3d(5%, 4%, 0) scale(1.2); }
+}
+@keyframes smokeDriftB {
+  0%   { transform: scaleX(-1) translate3d(3%, 3%, 0) scale(1.12); }
+  100% { transform: scaleX(-1) translate3d(-4%, -4%, 0) scale(1.28); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero::before, .hero::after { animation:none; }
+}
+.hero-overlay {
+  position:absolute; inset:0; pointer-events:none; z-index:1;
+  background:
+    linear-gradient(90deg, rgba(6,6,6,0.9) 0%, rgba(6,6,6,0.55) 46%, rgba(6,6,6,0.2) 100%),
+    radial-gradient(ellipse 95% 75% at 50% 118%, rgba(0,0,0,0.7), transparent 72%),
+    linear-gradient(180deg, rgba(6,6,6,0.45) 0%, transparent 28%);
+}
+.hero .trust-icon { color:rgba(255,255,255,0.92); }
+/* Gentle frosted-glass buttons (home hero only) */
+.hero .hero-btns .btn-primary {
+  background: rgba(255,255,255,0.09);
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.28);
+  box-shadow: 0 6px 26px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05) inset;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  animation:none;
+  text-shadow:0 1px 2px rgba(0,0,0,0.35);
+}
+.hero .hero-btns .btn-primary:hover {
+  background: rgba(255,255,255,0.17);
+  border-color: rgba(255,255,255,0.5);
+  transform:translateY(-2px);
+  box-shadow: 0 10px 34px rgba(0,0,0,0.5), 0 0 26px rgba(255,255,255,0.14), 0 0 0 1px rgba(255,255,255,0.12) inset;
+  filter:none;
+}
+.hero .hero-btns .btn-secondary {
+  background: rgba(255,255,255,0.05) !important;
+  color:#fff !important;
+  border:1px solid rgba(255,255,255,0.28) !important;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  box-shadow:0 4px 18px rgba(0,0,0,0.3);
+  transition:all 0.25s ease;
+}
+.hero .hero-btns .btn-secondary:hover {
+  background: rgba(255,255,255,0.15) !important;
+  border-color: rgba(255,255,255,0.5) !important;
+  transform:translateY(-2px);
+}
+/* Neutralize booking widget to monochrome glass (home hero only) */
+.hero .booking-card {
+  background: linear-gradient(180deg, rgba(22,22,22,0.72) 0%, rgba(14,14,14,0.8) 100%);
+  border:1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+}
+.hero .booking-card .trip-tab.active {
+  background: rgba(255,255,255,0.92);
+  color:#0a0a0a;
+  box-shadow:0 2px 12px rgba(0,0,0,0.35);
+}
+.hero .booking-card .form-group input,
+.hero .booking-card .form-group select { border-color:rgba(255,255,255,0.2); }
+.hero .booking-card .form-group input:hover,
+.hero .booking-card .form-group select:hover { border-color:rgba(255,255,255,0.4); }
+.hero .booking-card .form-group input:focus,
+.hero .booking-card .form-group select:focus {
+  border:2.5px solid rgba(255,255,255,0.55);
+  box-shadow:0 0 0 3px rgba(255,255,255,0.12);
+}
+.hero .booking-card .csel-btn { border-color:rgba(255,255,255,0.2); }
+.hero .booking-card .csel-btn:hover { border-color:rgba(255,255,255,0.4); }
+.hero .booking-card .csel-btn::after { border-top-color:rgba(255,255,255,0.7); }
+.hero .booking-card .csel-btn.open::after { border-top-color:transparent; border-bottom-color:rgba(255,255,255,0.7); }
+.hero .booking-card .csel-btn:focus, .hero .booking-card .csel-btn.open {
+  border:2.5px solid rgba(255,255,255,0.55);
+  box-shadow:0 0 0 3px rgba(255,255,255,0.12);
+}
+.hero .booking-card .csel-list { border-color:rgba(255,255,255,0.14); }
+.hero .booking-card .csel-opt:hover,
+.hero .booking-card .csel-opt.selected { background: rgba(255,255,255,0.1); color:#fff; }
+.hero .booking-card .fleet-marquee { border-top-color:rgba(255,255,255,0.12); }
+.hero .booking-card .fleet-marquee-track img { border-color:rgba(255,255,255,0.12); }
+.hero .booking-card .btn-book-full {
+  background: rgba(255,255,255,0.95);
+  color:#0a0a0a;
+  box-shadow:0 6px 22px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.2) inset;
+}
+.hero .booking-card .btn-book-full:hover {
+  background:#fff;
+  box-shadow:0 10px 30px rgba(0,0,0,0.5), 0 0 18px rgba(255,255,255,0.18), 0 0 0 1px rgba(255,255,255,0.3) inset;
+  filter:none;
 }
 
 /* ===== VETERAN STRIP ===== */
@@ -1290,14 +1384,15 @@ footer {
 <div class="page active" id="home-page">
 <!-- Hero -->
 <section class="hero">
+<div class="hero-overlay" aria-hidden="true"></div>
 <div class="hero-inner">
 <div class="hero-content">
 <div class="hero-badge" style="border-color:rgba(255,255,255,0.6);background:rgba(255,255,255,0.18);color:#fff;backdrop-filter:blur(6px);">
-<svg fill="var(--gold)" height="12" viewbox="0 0 24 24" width="12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+<svg fill="#ffffff" height="12" viewbox="0 0 24 24" width="12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
           Texan Owned · Est. 2020
         </div>
 <h1><span class="ln-white">Luxury Rides.</span><span class="ln-gold">Premier Limo Service.</span><span class="ln-white">Prime Limo Fleet.</span></h1>
-<div class="hero-divider" style="background:var(--gold);"></div>
+<div class="hero-divider" style="background:linear-gradient(90deg,#fff,rgba(255,255,255,0.25));"></div>
 <div class="hero-btns" style="margin-top:0;">
 <a class="btn-primary" href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank">Book Your Ride</a>
 <a class="btn-secondary sonar-pulse" href="tel:+18337400700" style="color:#fff;border-color:rgba(255,255,255,0.65);background:rgba(255,255,255,0.10);">(833) 740-0700</a>
@@ -1325,7 +1420,7 @@ footer {
 </div>
 <div id="extra-stops-container"></div>
 <div id="add-stop-row" style="display:none;margin-bottom:12px;">
-<button onclick="addQuoteStop()" onmouseout="this.style.borderColor='rgba(212,175,55,0.35)';this.style.color='rgba(212,175,55,0.85)';this.style.background='transparent';" onmouseover="this.style.borderColor='#D4AF37';this.style.color='#D4AF37';this.style.background='rgba(212,175,55,0.06)';" style="background:transparent;border:1.5px dashed rgba(212,175,55,0.35);border-radius:8px;padding:11px 16px;width:100%;font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:0.82rem;font-weight:600;color:rgba(212,175,55,0.85);cursor:pointer;transition:all 0.2s;letter-spacing:0.05em;" type="button">+ Add Extra Stop</button>
+<button onclick="addQuoteStop()" onmouseout="this.style.borderColor='rgba(255,255,255,0.3)';this.style.color='rgba(255,255,255,0.8)';this.style.background='transparent';" onmouseover="this.style.borderColor='rgba(255,255,255,0.6)';this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)';" style="background:transparent;border:1.5px dashed rgba(255,255,255,0.3);border-radius:8px;padding:11px 16px;width:100%;font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:0.82rem;font-weight:600;color:rgba(255,255,255,0.8);cursor:pointer;transition:all 0.2s;letter-spacing:0.05em;" type="button">+ Add Extra Stop</button>
 </div>
 <!-- Flight field — only visible for Airport tab -->
 <div class="flight-field show" id="flight-field">
@@ -1335,7 +1430,7 @@ footer {
 <span class="optional-badge">(optional)</span>
 </label>
 <div style="position:relative;">
-<span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-family:'Courier New',monospace;font-size:0.78rem;color:rgba(212,175,55,0.55);pointer-events:none;letter-spacing:0.08em;z-index:1;">FLT#</span>
+<span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-family:'Courier New',monospace;font-size:0.78rem;color:rgba(255,255,255,0.5);pointer-events:none;letter-spacing:0.08em;z-index:1;">FLT#</span>
 <input autocomplete="off" id="flight-input" placeholder="AA1234" style="font-family:'Courier New',monospace;letter-spacing:0.12em;text-transform:uppercase;padding-left:56px;" type="text"/>
 </div>
 </div>
@@ -1357,7 +1452,7 @@ footer {
 <label>Date</label>
 <div style="position:relative;">
 <input autocomplete="off" id="date-input" placeholder="mm/dd/yyyy" readonly="" style="cursor:pointer;padding-right:36px;" type="text"/>
-<svg fill="none" stroke="#D4AF37" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="position:absolute;right:11px;top:50%;transform:translateY(-50%);pointer-events:none;width:18px;height:18px;opacity:1;" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+<svg fill="none" stroke="rgba(255,255,255,0.7)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="position:absolute;right:11px;top:50%;transform:translateY(-50%);pointer-events:none;width:18px;height:18px;opacity:1;" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
 </div>
 </div>
 <div class="form-group">
@@ -1472,9 +1567,9 @@ footer {
 </div>
 </div>
 <!-- Price estimate display -->
-<div id="price-estimate" style="display:none;background:linear-gradient(135deg,rgba(45,0,69,0.05),rgba(201,168,76,0.08));border:1.5px solid rgba(201,168,76,0.3);border-radius:10px;padding:12px 16px;margin-bottom:10px;text-align:center;">
-<div style="font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">Estimated Rate</div>
-<div id="price-value" style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--purple);font-weight:400;"></div>
+<div id="price-estimate" style="display:none;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.18);border-radius:10px;padding:12px 16px;margin-bottom:10px;text-align:center;">
+<div style="font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:4px;">Estimated Rate</div>
+<div id="price-value" style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:#ffffff;font-weight:400;"></div>
 <div style="font-size:0.65rem;color:var(--gray);margin-top:2px;">Flat rate · No surge · All-inclusive</div>
 <div id="price-note" style="font-size:0.68rem;color:#b45309;font-weight:600;margin-top:4px;"></div>
 </div>
@@ -2378,6 +2473,7 @@ footer {
 ================================================================ -->
 <div class="page" id="es-home-page">
 <section class="hero">
+<div class="hero-overlay" aria-hidden="true"></div>
 <div class="hero-inner">
 <div class="hero-content">
 <div class="hero-badge">⭐ 4.9 Estrellas · 214+ Reseñas · Dueño Veterano</div>
