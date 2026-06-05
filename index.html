@@ -1844,6 +1844,7 @@ footer {
 <a href="https://customer.moovs.app/purple-heart-limo/request/new" style="display:inline-block;margin-top:8px;padding:7px 18px;background:var(--purple);color:#fff;border-radius:8px;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;" target="_blank">Book Online Now →</a>
 </div>
 </div>
+</div>
 <div class="bk-step active" id="bk-step-1"></div>
 <div class="bk-step" id="bk-step-2"></div>
 <div class="bk-step" id="bk-step-3"></div>
@@ -3607,7 +3608,6 @@ function bkApplyLayout(mode) {
   });
   bkRenderProgress(total);
   bkSetStep(1);
-  setTimeout(() => { try { const _d=document.querySelector('.booking-card p'); const _s=document.getElementById('bk-step-1'); const _p=document.getElementById('fb-pickup'); const _i=document.getElementById('pickup-input'); const hp=document.getElementById('home-page'); const fs=document.querySelector('.fleet-strip'); if(_d) _d.textContent='DBG3 s1parent='+_s.parentElement.id+'/'+_s.parentElement.className+' fsParent='+fs?.parentElement?.id+' poolDisp='+getComputedStyle(document.getElementById('bk-pool')).display; } catch(e){ const d=document.querySelector('.booking-card p'); if(d) d.textContent='DBG2ERR '+e.message; } }, 500);
 }
 
 function bkRenderProgress(total) {
