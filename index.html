@@ -525,6 +525,31 @@ a { text-decoration:none; color:inherit; }
   margin-right: 4px;
 }
 .booking-card .optional-badge { color:rgba(255,255,255,0.4); }
+.booking-card .form-group textarea {
+  width:100%; padding:14px 16px; border-radius:10px;
+  border:1.5px solid rgba(212,175,55,0.35);
+  font-size:0.88rem; font-family:'Plus Jakarta Sans','Inter',sans-serif;
+  color:#FFFFFF; background:#252525; resize:vertical; min-height:72px; line-height:1.5;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.booking-card .form-group textarea:hover { border-color:rgba(212,175,55,0.55); }
+.booking-card .form-group textarea:focus { border:2.5px solid #D4AF37; background:#2A2A2A; box-shadow:0 0 0 3px rgba(212,175,55,0.18); outline:none; }
+.booking-card .form-group textarea::placeholder { color:rgba(255,255,255,0.32); font-weight:400; }
+.fleet-strip { position:relative; }
+.fleet-arrow {
+  position:absolute; top:50%; transform:translateY(-50%); z-index:6;
+  width:30px; height:30px; border-radius:999px;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg,#D4AF37,#AA7C11); color:#0a0a0a;
+  border:1px solid rgba(0,0,0,0.2); cursor:pointer; font-size:1.15rem; font-weight:800; line-height:1;
+  box-shadow:0 3px 10px rgba(0,0,0,0.55); transition:transform .15s, filter .15s; padding:0;
+}
+.fleet-arrow:hover { filter:brightness(1.1); transform:translateY(-50%) scale(1.08); }
+.fleet-arrow:active { transform:translateY(-50%) scale(0.95); }
+.fleet-arrow-left { left:-4px; }
+.fleet-arrow-right { right:-4px; }
+.fleet-marquee-track img { cursor:pointer; }
+.bk-prog-step { cursor:pointer; }
 
 .booking-card .csel-btn {
   padding:14px 32px 14px 16px;
@@ -1638,16 +1663,10 @@ footer {
 <button class="trip-tab" onclick="setTab(this,'pointtopoint')">→ Point to Point</button>
 <button class="trip-tab" onclick="setTab(this,'hourly')">⏱ Hourly</button>
 </div>
-<div class="bk-progress" id="bk-progress">
-<span class="bk-prog-step active" id="bk-prog-1">1</span>
-<span class="bk-prog-line"></span>
-<span class="bk-prog-step" id="bk-prog-2">2</span>
-<span class="bk-prog-line"></span>
-<span class="bk-prog-step" id="bk-prog-3">3</span>
-</div>
-<!-- STEP 1 — Where to? -->
-<div class="bk-step active" id="bk-step-1">
-<div class="form-group">
+<div class="bk-progress" id="bk-progress"></div>
+<!-- Field pool — JS (bkApplyLayout) distributes these into steps per service type -->
+<div id="bk-pool" style="display:none;">
+<div class="form-group" id="fb-pickup">
 <label>Pickup Location</label>
 <input autocomplete="off" id="pickup-input" oninput="clearFieldError('pickup-input','err-pickup')" placeholder="Address, hotel or airport..." type="text"/>
 <span class="field-error" id="err-pickup">⚠ Pickup location is required</span>
@@ -1659,25 +1678,17 @@ footer {
 <span class="field-error" id="err-dropoff">⚠ Drop-off location is required</span>
 </div>
 </div>
+<div id="fb-stops">
 <div id="extra-stops-container"></div>
-<div id="add-stop-row" style="display:none;margin-bottom:12px;">
+<div id="add-stop-row" style="margin-bottom:12px;">
 <button onclick="addQuoteStop()" onmouseout="this.style.borderColor='rgba(255,255,255,0.3)';this.style.color='rgba(255,255,255,0.8)';this.style.background='transparent';" onmouseover="this.style.borderColor='rgba(255,255,255,0.6)';this.style.color='#fff';this.style.background='rgba(255,255,255,0.06)';" style="background:transparent;border:1.5px dashed rgba(255,255,255,0.3);border-radius:8px;padding:11px 16px;width:100%;font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:0.82rem;font-weight:600;color:rgba(255,255,255,0.8);cursor:pointer;transition:all 0.2s;letter-spacing:0.05em;" type="button">+ Add Extra Stop</button>
 </div>
-<div class="form-group">
+</div>
+<div class="form-group" id="fb-phone">
 <label>Phone</label>
 <input id="quote-phone" oninput="clearFieldError('quote-phone','err-phone')" placeholder="(555) 000-0000" type="tel"/>
 <span class="field-error" id="err-phone">⚠ Phone number is required</span>
 </div>
-<button type="button" class="btn-book-full bk-next" onclick="bkNextStep(1)">Continue →</button>
-</div>
-<!-- STEP 2 — When &amp; who -->
-<div class="bk-step" id="bk-step-2">
-<div class="form-group">
-<label>Your Name</label>
-<input id="quote-name" oninput="clearFieldError('quote-name','err-name')" placeholder="Full name" type="text"/>
-<span class="field-error" id="err-name">⚠ Name is required</span>
-</div>
-<!-- Flight field — only visible for Airport tab -->
 <div class="flight-field show" id="flight-field">
 <div class="form-group">
 <label style="display:flex;align-items:center;gap:6px;">
@@ -1690,7 +1701,16 @@ footer {
 </div>
 </div>
 </div>
-<div class="form-row">
+<div class="form-group" id="fb-name">
+<label>Your Name</label>
+<input id="quote-name" oninput="clearFieldError('quote-name','err-name')" placeholder="Full name" type="text"/>
+<span class="field-error" id="err-name">⚠ Name is required</span>
+</div>
+<div class="form-group" id="fb-email">
+<label>Email <span class="optional-badge">(optional)</span></label>
+<input autocomplete="off" id="quote-email" placeholder="you@email.com" type="email"/>
+</div>
+<div class="form-row" id="fb-datetime">
 <div class="form-group">
 <label>Date</label>
 <div style="position:relative;">
@@ -1742,13 +1762,7 @@ footer {
 </div>
 </div>
 </div>
-<div class="bk-nav">
-<button type="button" class="bk-back" onclick="bkPrevStep(2)">← Back</button>
-<button type="button" class="btn-book-full bk-next" onclick="bkNextStep(2)">Continue →</button>
-</div>
-</div>
-<!-- STEP 3 — Ride details -->
-<div class="bk-step" id="bk-step-3">
+<div id="fb-vehpax">
 <div class="form-group">
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
 <div>
@@ -1794,10 +1808,9 @@ footer {
 </div>
 </div>
 </div>
-<!-- Capacity warning -->
 <div id="capacity-warning" style="display:none;margin-top:8px;background:#fffbeb;border:1.5px solid #f59e0b;border-radius:8px;padding:9px 12px;font-size:0.78rem;color:#92400e;line-height:1.5;"></div>
-<!-- Luggage row — airport only -->
-<div id="luggage-row" style="display:none;margin-top:10px;">
+</div>
+<div id="luggage-row" style="margin-top:10px;">
 <label data-en="🧳 Luggage" data-es="🧳 Equipaje" id="label-luggage" style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">🧳 Luggage</label>
 <div class="csel" id="csel-luggage">
 <button class="csel-btn" onclick="cselToggle('csel-luggage')" type="button">0 bags</button>
@@ -1815,17 +1828,15 @@ footer {
 <input id="luggage-input" type="hidden" value="0"/>
 </div>
 </div>
+<div class="form-group" id="fb-notes">
+<label>Notes <span class="optional-badge">(optional)</span></label>
+<textarea id="quote-notes" placeholder="Flight info, child seats, special requests, preferred vehicle color..." rows="3"></textarea>
 </div>
-<!-- Price estimate display -->
 <div id="price-estimate" style="display:none;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.18);border-radius:10px;padding:12px 16px;margin-bottom:10px;text-align:center;">
 <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:4px;">Estimated Rate</div>
 <div id="price-value" style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:#ffffff;font-weight:400;"></div>
 <div style="font-size:0.65rem;color:var(--gray);margin-top:2px;">Flat rate · No surge · All-inclusive</div>
 <div id="price-note" style="font-size:0.68rem;color:#b45309;font-weight:600;margin-top:4px;"></div>
-</div>
-<div class="bk-nav">
-<button type="button" class="bk-back" onclick="bkPrevStep(3)">← Back</button>
-<button class="btn-book-full" id="quote-btn" onclick="submitQuote()">See My Price &amp; Book</button>
 </div>
 <div id="quote-success" style="display:none;background:#f0fdf4;border:1.5px solid #22c55e;border-radius:10px;padding:12px 14px;text-align:center;margin-top:8px;">
 <div style="color:#16a34a;font-weight:700;font-size:0.88rem;">✅ Request received!</div>
@@ -1833,18 +1844,23 @@ footer {
 <a href="https://customer.moovs.app/purple-heart-limo/request/new" style="display:inline-block;margin-top:8px;padding:7px 18px;background:var(--purple);color:#fff;border-radius:8px;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;" target="_blank">Book Online Now →</a>
 </div>
 </div>
-<!-- Real vehicle photo strip — sliding marquee -->
+<div class="bk-step active" id="bk-step-1"></div>
+<div class="bk-step" id="bk-step-2"></div>
+<div class="bk-step" id="bk-step-3"></div>
+<!-- Real vehicle photo strip — pickable + arrows -->
+<div class="fleet-strip">
+<button type="button" class="fleet-arrow fleet-arrow-left" onclick="fleetStep(-1)" aria-label="Previous vehicle">‹</button>
 <div class="fleet-marquee">
 <div class="fleet-marquee-track">
-<img alt="Executive Sedan" loading="lazy" src="images/sedan-cadillac.webp"/>
-<img alt="Luxury Sedan" loading="lazy" src="images/sclass.webp"/>
-<img alt="Executive SUV" loading="lazy" src="images/suv-yukon.webp"/>
-<img alt="Luxury SUV" loading="lazy" src="images/luxsuv-escalade.webp"/>
-<img alt="Stretch Limo" loading="lazy" src="images/stretch-towncar.webp"/>
-<img alt="Stretched SUV" loading="lazy" src="images/stretch-navigator.webp"/>
-<img alt="Executive Sprinter" loading="lazy" src="images/sprinter-new.webp"/>
-<img alt="Party Bus" loading="lazy" src="images/partybus-ford.webp"/>
-<img alt="Sprinter Jet" loading="lazy" src="images/jet-sprinter.webp"/>
+<img alt="Executive Sedan" loading="lazy" onclick="selectVehicleFromPhoto('sedan-cadillac')" src="images/sedan-cadillac.webp"/>
+<img alt="Luxury Sedan" loading="lazy" onclick="selectVehicleFromPhoto('sclass')" src="images/sclass.webp"/>
+<img alt="Executive SUV" loading="lazy" onclick="selectVehicleFromPhoto('suv-yukon')" src="images/suv-yukon.webp"/>
+<img alt="Luxury SUV" loading="lazy" onclick="selectVehicleFromPhoto('luxsuv-escalade')" src="images/luxsuv-escalade.webp"/>
+<img alt="Stretch Limo" loading="lazy" onclick="selectVehicleFromPhoto('stretch-towncar')" src="images/stretch-towncar.webp"/>
+<img alt="Stretched SUV" loading="lazy" onclick="selectVehicleFromPhoto('stretch-navigator')" src="images/stretch-navigator.webp"/>
+<img alt="Executive Sprinter" loading="lazy" onclick="selectVehicleFromPhoto('sprinter-new')" src="images/sprinter-new.webp"/>
+<img alt="Party Bus" loading="lazy" onclick="selectVehicleFromPhoto('partybus-ford')" src="images/partybus-ford.webp"/>
+<img alt="Sprinter Jet" loading="lazy" onclick="selectVehicleFromPhoto('jet-sprinter')" src="images/jet-sprinter.webp"/>
 <!-- duplicate for seamless loop -->
 <img alt="" aria-hidden="true" loading="lazy" src="images/sedan-cadillac.webp"/>
 <img alt="" aria-hidden="true" loading="lazy" src="images/sclass.webp"/>
@@ -1856,6 +1872,8 @@ footer {
 <img alt="" aria-hidden="true" loading="lazy" src="images/partybus-ford.webp"/>
 <img alt="" aria-hidden="true" loading="lazy" src="images/jet-sprinter.webp"/>
 </div>
+</div>
+<button type="button" class="fleet-arrow fleet-arrow-right" onclick="fleetStep(1)" aria-label="Next vehicle">›</button>
 </div>
 <div class="fleet-caption" id="fleet-caption"></div>
 </div>
@@ -2980,21 +2998,12 @@ function setTab(btn, mode) {
   btn.closest('.trip-tabs').querySelectorAll('.trip-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
   window._quoteTab = mode;
-
-  const flightField = document.getElementById('flight-field');
-  const dropoffSection = document.getElementById('dropoff-section');
-  const addStopRow = document.getElementById('add-stop-row');
+  // Clear any extra stops when leaving point-to-point
   const extraStops = document.getElementById('extra-stops-container');
-
-  if (flightField)    flightField.classList.toggle('show', mode === 'airport');
-  if (dropoffSection) dropoffSection.style.display = (mode === 'hourly') ? 'none' : '';
-  if (addStopRow)     addStopRow.style.display = (mode === 'airport') ? 'none' : 'block';
-  const luggageRow = document.getElementById('luggage-row');
-  if (luggageRow) luggageRow.style.display = (mode === 'airport') ? 'block' : 'none';
-  if (mode === 'hourly' && extraStops) {
-    extraStops.innerHTML = '';
-    window._stopCount = 0;
-  }
+  if (mode !== 'pointtopoint' && extraStops) { extraStops.innerHTML = ''; window._stopCount = 0; }
+  bkApplyLayout(mode);
+  // Refresh the price estimate for the new service type
+  if (typeof window._bkRefreshPrice === 'function') window._bkRefreshPrice();
 }
 
 let _stopCount = 0;
@@ -3135,6 +3144,43 @@ const VEHICLE_PHOTO = {
   'Party Bus':    ['partybus-ford',  'Party Bus'],
   'Coach Bus':    ['partybus-ford',  'Coach Bus']
 };
+
+// ===== PICKABLE FLEET STRIP =====
+const FLEET_ORDER = ['sedan-cadillac','sclass','suv-yukon','luxsuv-escalade','stretch-towncar','stretch-navigator','sprinter-new','partybus-ford','jet-sprinter'];
+const PHOTO_VEHICLE = {
+  'sedan-cadillac':'Sedan', 'sclass':'Luxury Sedan', 'suv-yukon':'SUV', 'luxsuv-escalade':'Luxury SUV',
+  'stretch-towncar':'Stretch Sedan', 'stretch-navigator':'Stretch SUV', 'sprinter-new':'Sprinter Van',
+  'partybus-ford':'Party Bus', 'jet-sprinter':'Sprinter Jet'
+};
+
+// Set the ride type programmatically — keeps the dropdown and the strip in sync
+function setVehicle(v) {
+  const wrap = document.getElementById('csel-vehicle');
+  const hidden = document.getElementById('vehicle-input');
+  if (hidden) hidden.value = v;
+  if (wrap) {
+    const btn = wrap.querySelector('.csel-btn');
+    if (btn) btn.textContent = v;
+    wrap.querySelectorAll('.csel-opt').forEach(o => o.classList.toggle('selected', o.textContent.trim() === v));
+  }
+  onVehicleChange(v);                                    // refresh passengers + magnify the photo
+  if (hidden) hidden.dispatchEvent(new Event('change')); // refresh price estimate
+  const key = (VEHICLE_PHOTO[v] || [])[0];
+  const idx = FLEET_ORDER.indexOf(key);
+  if (idx >= 0) window._fleetIdx = idx;
+}
+
+function selectVehicleFromPhoto(key) {
+  const v = PHOTO_VEHICLE[key];
+  if (v) setVehicle(v);
+}
+
+function fleetStep(dir) {
+  let idx = (typeof window._fleetIdx === 'number' ? window._fleetIdx : -1) + dir;
+  if (idx < 0) idx = FLEET_ORDER.length - 1;
+  if (idx >= FLEET_ORDER.length) idx = 0;
+  selectVehicleFromPhoto(FLEET_ORDER[idx]);
+}
 
 function _trackTranslateX(el) {
   const t = getComputedStyle(el).transform;
@@ -3435,11 +3481,9 @@ const PRICE_RATES = {
 };
 
 function getActiveTab() {
-  const active = document.querySelector('.trip-tab.active');
-  if (!active) return 'airport';
-  const txt = active.textContent.trim().toLowerCase();
-  if (txt.includes('one') || txt.includes('way')) return 'oneway';
-  if (txt.includes('hourly')) return 'hourly';
+  const m = window._quoteTab || 'airport';
+  if (m === 'hourly') return 'hourly';
+  if (m === 'pointtopoint') return 'oneway';
   return 'airport';
 }
 
@@ -3481,14 +3525,13 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('price-estimate').style.display = 'block';
       }
     };
+    window._bkRefreshPrice = showPrice;
     vehicleSel.addEventListener('change', showPrice);
-    document.querySelectorAll('.trip-tab').forEach(t => t.addEventListener('click', showPrice));
     showPrice(); // show on load
   }
-  // Show luggage row on initial load (Airport is default tab)
-  const luggageRow = document.getElementById('luggage-row');
-  if (luggageRow) luggageRow.style.display = 'block';
+  // Build the initial layout (Airport is the default tab)
   window._quoteTab = 'airport';
+  bkApplyLayout('airport');
 });
 
 function showFieldError(inputId, errId) {
@@ -3505,52 +3548,130 @@ function clearFieldError(inputId, errId) {
 }
 
 // ===== MULTI-STEP BOOKING FORM =====
+// Per-service field layouts. Each inner array is one page (list of field-block ids).
+const BK_LAYOUTS = {
+  airport: [
+    ['fb-pickup', 'dropoff-section', 'fb-phone', 'flight-field'],
+    ['fb-name', 'fb-email', 'fb-datetime'],
+    ['fb-vehpax', 'luggage-row', 'fb-notes']
+  ],
+  pointtopoint: [
+    ['fb-pickup', 'dropoff-section', 'fb-stops', 'fb-datetime', 'fb-vehpax'],
+    ['fb-name', 'fb-phone', 'fb-email', 'fb-notes']
+  ],
+  hourly: [
+    ['fb-pickup', 'dropoff-section', 'fb-datetime', 'fb-vehpax'],
+    ['fb-name', 'fb-phone', 'fb-email', 'fb-notes']
+  ]
+};
+const BK_REQUIRED = [
+  ['pickup-input', 'err-pickup'],
+  ['dropoff-input', 'err-dropoff'],
+  ['quote-phone', 'err-phone'],
+  ['quote-name', 'err-name']
+];
+
+function bkApplyLayout(mode) {
+  const layout = BK_LAYOUTS[mode] || BK_LAYOUTS.airport;
+  const total = layout.length;
+  window._bkTotal = total;
+  const pool = document.getElementById('bk-pool');
+  // Empty step containers: stash field blocks back in the pool, drop old navs
+  for (let i = 1; i <= 3; i++) {
+    const s = document.getElementById('bk-step-' + i);
+    if (!s) continue;
+    Array.from(s.children).forEach(ch => {
+      if (ch.classList.contains('bk-nav')) ch.remove();
+      else if (pool) pool.appendChild(ch);
+    });
+    s.classList.remove('active');
+    s.style.display = (i <= total) ? '' : 'none';
+  }
+  // Fill each active step with its field blocks + a freshly built nav row
+  layout.forEach((ids, idx) => {
+    const stepNo = idx + 1;
+    const s = document.getElementById('bk-step-' + stepNo);
+    if (!s) return;
+    ids.forEach(id => { const el = document.getElementById(id); if (el) s.appendChild(el); });
+    const isLast = stepNo === total;
+    if (isLast) { const pe = document.getElementById('price-estimate'); if (pe) s.appendChild(pe); }
+    const nav = document.createElement('div');
+    nav.className = 'bk-nav';
+    let html = '';
+    if (stepNo > 1) html += '<button type="button" class="bk-back" onclick="bkPrevStep(' + stepNo + ')">← Back</button>';
+    if (!isLast) html += '<button type="button" class="btn-book-full bk-next" onclick="bkNextStep(' + stepNo + ')">Continue →</button>';
+    else html += '<button class="btn-book-full" id="quote-btn" onclick="submitQuote()">See My Price &amp; Book</button>';
+    nav.innerHTML = html;
+    s.appendChild(nav);
+    if (isLast) { const qs = document.getElementById('quote-success'); if (qs) s.appendChild(qs); }
+  });
+  bkRenderProgress(total);
+  bkSetStep(1);
+  setTimeout(() => { try { const _d=document.querySelector('.booking-card p'); const _s=document.getElementById('bk-step-1'); const _p=document.getElementById('fb-pickup'); const _i=document.getElementById('pickup-input'); const hp=document.getElementById('home-page'); const fs=document.querySelector('.fleet-strip'); if(_d) _d.textContent='DBG3 s1parent='+_s.parentElement.id+'/'+_s.parentElement.className+' fsParent='+fs?.parentElement?.id+' poolDisp='+getComputedStyle(document.getElementById('bk-pool')).display; } catch(e){ const d=document.querySelector('.booking-card p'); if(d) d.textContent='DBG2ERR '+e.message; } }, 500);
+}
+
+function bkRenderProgress(total) {
+  const wrap = document.getElementById('bk-progress');
+  if (!wrap) return;
+  let h = '';
+  for (let i = 1; i <= total; i++) {
+    h += '<span class="bk-prog-step" id="bk-prog-' + i + '" role="button" tabindex="0" onclick="bkGoStep(' + i + ')">' + i + '</span>';
+    if (i < total) h += '<span class="bk-prog-line"></span>';
+  }
+  wrap.innerHTML = h;
+}
+
 function bkSetStep(n) {
+  const total = window._bkTotal || 3;
+  if (n < 1) n = 1;
+  if (n > total) n = total;
   for (let i = 1; i <= 3; i++) {
     const step = document.getElementById('bk-step-' + i);
+    if (step) step.classList.toggle('active', i === n && i <= total);
+  }
+  for (let i = 1; i <= total; i++) {
     const prog = document.getElementById('bk-prog-' + i);
-    if (step) step.classList.toggle('active', i === n);
     if (prog) {
       prog.classList.toggle('active', i === n);
       prog.classList.toggle('done', i < n);
     }
   }
-  document.querySelectorAll('.booking-card .bk-prog-line').forEach((ln, idx) => {
+  document.querySelectorAll('#bk-progress .bk-prog-line').forEach((ln, idx) => {
     ln.classList.toggle('done', (idx + 1) < n);
   });
   window._bkStep = n;
   document.getElementById('bk-step-' + n)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
+// Validate only the required fields that live inside step n
+function bkValidateStep(n) {
+  const step = document.getElementById('bk-step-' + n);
+  if (!step) return true;
+  let ok = true;
+  BK_REQUIRED.forEach(([id, err]) => {
+    const inp = document.getElementById(id);
+    if (inp && step.contains(inp) && !inp.value.trim()) { showFieldError(id, err); ok = false; }
+  });
+  if (!ok) step.querySelector('.field-error.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  return ok;
+}
+
 function bkNextStep(from) {
-  if (from === 1) {
-    let err = false;
-    const pickup = (document.getElementById('pickup-input')?.value || '').trim();
-    const dropoff = (document.getElementById('dropoff-input')?.value || '').trim();
-    const phone = (document.getElementById('quote-phone')?.value || '').trim();
-    const isHourly = (typeof getActiveTab === 'function' ? getActiveTab() : window._quoteTab) === 'hourly';
-    if (!pickup) { showFieldError('pickup-input', 'err-pickup'); err = true; }
-    if (!isHourly && !dropoff) { showFieldError('dropoff-input', 'err-dropoff'); err = true; }
-    if (!phone) { showFieldError('quote-phone', 'err-phone'); err = true; }
-    if (err) {
-      document.querySelector('#bk-step-1 .field-error.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
-    }
-    bkSetStep(2);
-  } else if (from === 2) {
-    let err = false;
-    const name = (document.getElementById('quote-name')?.value || '').trim();
-    if (!name) { showFieldError('quote-name', 'err-name'); err = true; }
-    if (err) {
-      document.querySelector('#bk-step-2 .field-error.show')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
-    }
-    bkSetStep(3);
-  }
+  if (bkValidateStep(from)) bkSetStep(from + 1);
 }
 
 function bkPrevStep(from) {
   bkSetStep(from - 1);
+}
+
+// Clickable stepper circles: go back freely, go forward only if earlier steps validate
+function bkGoStep(target) {
+  const cur = window._bkStep || 1;
+  if (target <= cur) { bkSetStep(target); return; }
+  for (let i = cur; i < target; i++) {
+    if (!bkValidateStep(i)) { bkSetStep(i); return; }
+  }
+  bkSetStep(target);
 }
 
 async function submitQuote() {
@@ -3565,24 +3686,25 @@ async function submitQuote() {
   const time = (hr && mn) ? `${hr}:${mn} ${ap}` : '';
   const vehicle  = document.getElementById('vehicle-input')?.value || '';
   const flight   = (document.getElementById('flight-input')?.value || '').trim().toUpperCase();
+  const email    = (document.getElementById('quote-email')?.value || '').trim();
+  const notes    = (document.getElementById('quote-notes')?.value || '').trim();
   const service  = getActiveTab() === 'airport' ? 'Airport Transfer' :
                    getActiveTab() === 'hourly'  ? 'Hourly Charter'   : 'One Way Transfer';
 
-  // Inline validation — show red errors under each missing field
-  const isHourly = getActiveTab() === 'hourly';
-  let hasError = false;
-  if (!name)  { showFieldError('quote-name',   'err-name');   hasError = true; }
-  if (!phone) { showFieldError('quote-phone',  'err-phone');  hasError = true; }
-  if (!pickup){ showFieldError('pickup-input', 'err-pickup'); hasError = true; }
-  if (!isHourly && !dropoff) { showFieldError('dropoff-input', 'err-dropoff'); hasError = true; }
-  if (hasError) {
-    // Surface the first missing field — jump back to step 1 if that's where it lives
-    if ((!pickup || !dropoff || !phone) && typeof bkSetStep === 'function' && window._bkStep !== 1) {
-      bkSetStep(1);
-    } else if (!name && typeof bkSetStep === 'function' && window._bkStep === 3) {
-      bkSetStep(2);
+  // Inline validation — flag every missing required field, then jump to the
+  // step that holds the first one.
+  const missing = [];
+  BK_REQUIRED.forEach(([id, err]) => {
+    const inp = document.getElementById(id);
+    if (inp && !inp.value.trim()) { showFieldError(id, err); missing.push(id); }
+  });
+  if (missing.length) {
+    const firstId = missing[0];
+    for (let i = 1; i <= (window._bkTotal || 3); i++) {
+      const s = document.getElementById('bk-step-' + i);
+      if (s && s.contains(document.getElementById(firstId))) { bkSetStep(i); break; }
     }
-    setTimeout(() => document.querySelector('.field-error.show')?.scrollIntoView({ behavior:'smooth', block:'center' }), 50);
+    setTimeout(() => document.querySelector('.field-error.show')?.scrollIntoView({ behavior:'smooth', block:'center' }), 60);
     return;
   }
 
@@ -3593,6 +3715,7 @@ async function submitQuote() {
   const templateParams = {
     from_name:   name,
     phone:        phone,
+    email:        email || '—',
     service:      service,
     pickup:       pickup,
     dropoff:      dropoff || '—',
@@ -3600,6 +3723,7 @@ async function submitQuote() {
     time:         time || '—',
     vehicle:      vehicle || '—',
     flight:       flight || '—',
+    notes:        notes || '—',
     source:       'Homepage Quote Widget'
   };
 
