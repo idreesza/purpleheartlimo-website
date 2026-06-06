@@ -363,6 +363,16 @@
   status = 301
 
 # ─────────────────────────────────────────────────────────────
+# 3c. API proxy → serverless functions (Google Routes drive-time
+#     for the booking price estimate). Query string is preserved
+#     automatically. Keeps the API key server-side.
+# ─────────────────────────────────────────────────────────────
+[[redirects]]
+  from   = "/api/distance"
+  to     = "/.netlify/functions/distance"
+  status = 200
+
+# ─────────────────────────────────────────────────────────────
 # 4. Custom 404 page — MUST stay last
 # ─────────────────────────────────────────────────────────────
 [[redirects]]
