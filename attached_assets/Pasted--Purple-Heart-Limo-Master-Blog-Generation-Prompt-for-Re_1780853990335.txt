@@ -1,0 +1,650 @@
+# Purple Heart Limo — Master Blog Generation Prompt for Replit AI
+# Version 1.0 | 23 Blog Posts | Dallas · Austin · Houston · Abilene · Midland · Odessa
+
+---
+
+## HOW TO USE THIS PROMPT
+
+Copy everything inside the "PROMPT START" and "PROMPT END" markers below and paste it directly into Replit AI. It contains all 23 blog post briefs, SEO metadata, content instructions, internal linking rules, and brand voice guidelines. Replit AI should generate each post one at a time — paste the full prompt once, then ask it to "Write Blog Post #[N]" for each one.
+
+---
+
+---
+# ============================================================
+# PROMPT START — PASTE EVERYTHING BELOW THIS LINE INTO REPLIT AI
+# ============================================================
+
+## ROLE & OBJECTIVE
+
+You are an expert SEO content writer specializing in luxury transportation, limo services, and local Texas travel. Your job is to write 23 fully optimized, long-form blog posts for **Purple Heart Limo** (purpleheartlimo.com) — a veteran-owned, flat-rate luxury limo and black car service operating across Dallas, Austin, Houston, Abilene, Midland, and Odessa, Texas.
+
+Every post must:
+- Be written in a warm, professional, confidence-inspiring tone (never salesy or robotic)
+- Be optimized for Google search with the exact meta tags provided per post
+- End with a direct call-to-action (CTA) linking to the booking page
+- Include at least 2 internal links to other service pages or blog posts on purpleheartlimo.com
+- Be 100% unique, human-sounding content — no filler, no repetition
+- Be formatted in clean HTML ready to paste into the site's blog CMS
+
+---
+
+## BRAND VOICE & DIFFERENTIATORS — USE IN EVERY POST
+
+- **Veteran-owned and operated** — founded with military values: punctuality, reliability, honor
+- **Flat-rate pricing — zero surge pricing** — unlike Uber/Lyft, the price never changes
+- **60-minute free wait time** on airport pickups
+- **4.9 stars from 214+ riders**
+- **Book in 60 seconds** at purpleheartlimo.com/booking.html
+- **Fleet:** Executive Sedan (Cadillac), Luxury Sedan (Mercedes S-Class), Executive SUV (Yukon), Luxury SUV (Escalade), Stretch Limo (Town Car), Stretched SUV (Navigator), Executive Sprinter Van, Party Bus, Sprinter Jet
+- **Phone:** (833) 740-0700
+- **Service areas:** Dallas-Fort Worth, Austin, Houston, Abilene TX, Midland TX, Odessa TX
+- **Spanish/English bilingual service available**
+
+---
+
+## INTERNAL LINKS TO INCLUDE (rotate these throughout posts)
+
+- Booking page: purpleheartlimo.com/booking.html
+- Fleet page: purpleheartlimo.com/fleet.html
+- Dallas service page: purpleheartlimo.com/limo-service-dallas-tx/
+- Austin service page: purpleheartlimo.com/limo-service-austin-tx/
+- Houston service page: purpleheartlimo.com/limo-service-houston-tx/
+- Services overview: purpleheartlimo.com/services.html
+- About us: purpleheartlimo.com/about.html
+- Testimonials: purpleheartlimo.com/testimonials.html
+- Flight tracker: purpleheartlimo.com/flight-tracker.html
+
+---
+
+## GLOBAL SCHEMA INSTRUCTIONS (add to every post's HTML <head>)
+
+Each post must include this JSON-LD block in the `<head>` — update the @id, headline, description, and url per post:
+
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[POST TITLE HERE]",
+  "description": "[META DESCRIPTION HERE]",
+  "author": {
+    "@type": "Organization",
+    "name": "Purple Heart Limo",
+    "url": "https://purpleheartlimo.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Purple Heart Limo",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://purpleheartlimo.com/images/logo.png"
+    }
+  },
+  "datePublished": "2025-07-01",
+  "dateModified": "2025-07-01",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://purpleheartlimo.com/blog/[POST-SLUG-HERE]"
+  }
+}
+</script>
+```
+
+Also add this LocalBusiness schema to every post's `<head>`:
+
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://purpleheartlimo.com",
+  "name": "Purple Heart Limo",
+  "description": "Veteran-owned flat-rate limo and black car service in Dallas, Austin, Houston, Abilene, Midland, and Odessa Texas.",
+  "url": "https://purpleheartlimo.com",
+  "telephone": "+18337400700",
+  "priceRange": "$$",
+  "areaServed": [
+    "Dallas, TX", "Fort Worth, TX", "Austin, TX",
+    "Houston, TX", "Abilene, TX", "Midland, TX", "Odessa, TX"
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "214"
+  }
+}
+</script>
+```
+
+---
+
+## STANDARD CTA BLOCK (paste at the end of every post)
+
+```html
+<div class="cta-block" style="background:#0a0a0a;color:#fff;padding:2rem;border-radius:12px;text-align:center;margin-top:2rem;">
+  <h3 style="color:#fff;margin-bottom:0.5rem;">Ready to ride in style?</h3>
+  <p style="color:#ccc;margin-bottom:1.25rem;">Flat-rate pricing. No surge. Veteran-owned. Book your Purple Heart Limo in 60 seconds.</p>
+  <a href="https://purpleheartlimo.com/booking.html" style="background:#7c3aed;color:#fff;padding:0.75rem 2rem;border-radius:8px;text-decoration:none;font-weight:600;">Book Your Ride Now →</a>
+  <p style="color:#888;font-size:0.85rem;margin-top:1rem;">Or call us: <a href="tel:+18337400700" style="color:#ccc;">(833) 740-0700</a></p>
+</div>
+```
+
+---
+
+# ============================================================
+# THE 23 BLOG POST BRIEFS
+# ============================================================
+
+---
+
+## POST 01
+**Title:** How much does limo service cost in Dallas, TX? (2025 flat-rate pricing guide)
+**Slug:** /blog/limo-service-cost-dallas-tx
+**Target keyword:** limo service cost dallas tx
+**Secondary keywords:** how much does a limo cost dallas, dallas limo price per hour, black car service rates dallas, flat rate limo dallas
+**Meta title (under 60 chars):** Limo service cost in Dallas TX — 2025 pricing guide
+**Meta description (under 155 chars):** How much does a limo cost in Dallas? Get real 2025 flat-rate prices for sedans, SUVs, stretch limos & party buses. No surge pricing. Book in 60 seconds.
+**Word count:** 1,800–2,200
+**Content to include:**
+- Open with the direct answer: flat-rate limo in Dallas starts at ~$75–$120/hr for a sedan, up to $200+/hr for a party bus
+- H2: Limo pricing by vehicle type (build an HTML table: vehicle | passengers | hourly rate | best for)
+- H2: What affects limo pricing in Dallas (distance, duration, vehicle type, day of week, events/holidays)
+- H2: Flat-rate vs. hourly — which is better?
+- H2: Why Purple Heart Limo never charges surge pricing (contrast with Uber/Lyft)
+- H2: How to get an accurate limo quote in Dallas (link to booking page and flight tracker)
+- FAQ section with schema: "Is tipping included?", "Are there hidden fees?", "How far in advance should I book?"
+- Internal links: fleet page, booking page, Dallas service page
+- End with standard CTA block
+
+---
+
+## POST 02
+**Title:** Best limo service in Dallas, TX — what to look for before you book
+**Slug:** /blog/best-limo-service-dallas-tx
+**Target keyword:** best limo service dallas tx
+**Secondary keywords:** top rated limo dallas, luxury car service dallas reviews, dallas limo company near me, licensed limo dallas
+**Meta title:** Best limo service in Dallas TX — what to look for
+**Meta description:** Looking for the best limo service in Dallas? Here's what separates top-rated companies from bad ones — plus why Purple Heart Limo has 4.9 stars from 214+ riders.
+**Word count:** 1,600–2,000
+**Content to include:**
+- H2: 7 things to check before booking a Dallas limo company (licensing, insurance, fleet age, reviews, flat-rate vs. surge, communication, chauffeur background checks)
+- H2: Red flags to avoid (no written quote, no insurance proof, no chauffeur uniform)
+- H2: Why veteran-owned matters in limo service (military values = punctuality + accountability)
+- H2: What 4.9-star service actually looks like (real customer experience description)
+- H2: How Purple Heart Limo compares (honest, not arrogant tone)
+- Internal links: testimonials page, about page, booking page
+- End with standard CTA block
+
+---
+
+## POST 03
+**Title:** DFW airport limo service: the complete pickup and drop-off guide (2025)
+**Slug:** /blog/dfw-airport-limo-service-guide
+**Target keyword:** dfw airport limo service
+**Secondary keywords:** dfw airport black car service, limo to dfw airport dallas, dallas fort worth airport transfer, dfw airport chauffeur
+**Meta title:** DFW airport limo service — complete 2025 pickup guide
+**Meta description:** Flying into DFW? Get stress-free airport pickup with flat-rate pricing, 60-min free wait, and real-time flight tracking. Purple Heart Limo — book in 60 seconds.
+**Word count:** 1,800–2,200
+**Content to include:**
+- H2: How DFW airport pickups work with Purple Heart Limo (step-by-step: book → flight tracker monitors → chauffeur meets you → 60-min free wait)
+- H2: Terminal-by-terminal pickup guide for DFW (A, B, C, D, E terminals — where to meet your driver)
+- H2: Why the 60-minute free wait matters (compare to Uber/Lyft surge on delayed flights)
+- H2: DFW airport drop-off tips (how early to leave Dallas depending on neighborhood)
+- H2: Business traveler vs. group traveler — which vehicle to choose
+- H2: Love Field airport (DAL) — same great service, different terminal guide
+- FAQ: "Can my driver track my flight?", "What if my flight is cancelled?", "Do you serve all DFW terminals?"
+- Internal links: flight tracker page, fleet page, booking page
+- End with standard CTA block
+
+---
+
+## POST 04
+**Title:** Wedding limo rental in Dallas: the complete planning checklist and timeline
+**Slug:** /blog/wedding-limo-rental-dallas-tx
+**Target keyword:** wedding limo dallas tx
+**Secondary keywords:** wedding car service dallas, bridal limo rental dallas, wedding transportation dallas fort worth, wedding limo package dallas
+**Meta title:** Wedding limo rental Dallas TX — planning checklist 2025
+**Meta description:** Planning wedding transportation in Dallas? Get the complete checklist — from booking timeline to vehicle selection, tipping, and day-of logistics. Purple Heart Limo.
+**Word count:** 2,000–2,400
+**Content to include:**
+- H2: When to book your wedding limo in Dallas (12 months out for peak May–October season)
+- H2: Choosing the right vehicle for your wedding party (chart: guests → recommended vehicle)
+- H2: The wedding day transportation timeline (pre-ceremony, ceremony, reception, grand exit)
+- H2: What to ask your limo company before signing a contract (8 key questions)
+- H2: Popular Dallas wedding venues and transportation tips (mention: The Adolphus, The Bell Tower, Gather, Lakewood Country Club — each is a local entity signal)
+- H2: Decorating your wedding limo — what's allowed and what's not
+- H2: Tipping your wedding chauffeur — the etiquette guide
+- FAQ schema + Internal links: fleet page, services page, booking page
+- End with standard CTA block
+
+---
+
+## POST 05
+**Title:** Prom limo rentals in Dallas: what parents need to know before booking
+**Slug:** /blog/prom-limo-rental-dallas-tx
+**Target keyword:** prom limo dallas tx
+**Secondary keywords:** prom limo rental dallas, limo for prom near me dallas, high school prom car service dallas, prom transportation dfw
+**Meta title:** Prom limo rental Dallas TX — parent's safety guide 2025
+**Meta description:** Planning prom limo transportation in Dallas? Here's the parent's complete guide — safety checks, contracts, booking timeline, and costs. Purple Heart Limo.
+**Word count:** 1,600–2,000
+**Content to include:**
+- H2: When to book prom limos in Dallas (January–March for May prom season)
+- H2: What parents should verify before signing a limo contract (5 non-negotiables: insurance, licensed chauffeur, no alcohol policy, vehicle inspection, written contract)
+- H2: How to split the cost among a prom group
+- H2: Stretch limo vs. party bus for prom — which is safer and more fun?
+- H2: What chauffeurs are NOT allowed to do (firm stance on safety, no alcohol, no unsupervised driving)
+- H2: What the night looks like — sample prom limo timeline
+- Internal links: fleet page, services page, booking page
+- End with standard CTA block
+
+---
+
+## POST 06
+**Title:** Limo vs. black car vs. rideshare in Dallas — which one should you actually book?
+**Slug:** /blog/limo-vs-black-car-vs-rideshare-dallas
+**Target keyword:** limo vs black car service dallas
+**Secondary keywords:** limo vs uber dallas, black car service vs rideshare texas, when to hire a limo dallas, uber vs limo dallas price
+**Meta title:** Limo vs black car vs rideshare in Dallas — honest comparison
+**Meta description:** Uber, black car, or limo — which is right for your Dallas trip? Honest 2025 comparison of pricing, reliability, and experience. No surge pricing with Purple Heart Limo.
+**Word count:** 1,600–2,000
+**Content to include:**
+- H2: What is a black car service? (vs. limo vs. rideshare — clear definitions)
+- H2: Comparison table (HTML table: category | Rideshare | Black Car | Limo — rows: surge pricing, chauffeur background check, vehicle age, wait time policy, luggage handling, cancellation policy, price predictability)
+- H2: When rideshare makes sense (short local trips under $20)
+- H2: When black car or limo is the smarter choice (airport, events, corporate, groups)
+- H2: The surge pricing problem — how much Uber actually costs at DFW at peak times
+- H2: Why flat-rate always wins for planned trips
+- Internal links: fleet page, booking page, DFW airport post
+- End with standard CTA block
+
+---
+
+## POST 07
+**Title:** Corporate limo and black car service in Dallas — what executive teams actually need
+**Slug:** /blog/corporate-limo-service-dallas-tx
+**Target keyword:** corporate limo service dallas
+**Secondary keywords:** business car service dallas tx, executive black car dallas, corporate transportation dallas fort worth, corporate car service dfw
+**Meta title:** Corporate limo service Dallas TX — executive black car guide
+**Meta description:** Dallas corporate travel deserves better than rideshare. See why Fortune 500 teams trust Purple Heart Limo for executive black car service — flat-rate, on-time, always.
+**Word count:** 1,600–1,900
+**Content to include:**
+- H2: Why corporate travel in Dallas is different (DFW traffic, tight schedules, client impressions)
+- H2: What corporate clients need from a limo company (on-time guarantee, professional chauffeur, clean vehicle, quiet ride, privacy, billing flexibility)
+- H2: Popular corporate routes in Dallas (Love Field, DFW, Uptown, Legacy, Las Colinas, Frisco corridor)
+- H2: Setting up a corporate account with Purple Heart Limo
+- H2: The veteran-owned advantage for corporate clients (accountability, discipline, confidentiality)
+- H2: Group corporate travel — Sprinter van and executive bus options
+- Internal links: fleet page, services page, booking page, about page
+- End with standard CTA block
+
+---
+
+## POST 08
+**Title:** Party bus vs. stretch limo in Dallas — which fits your group?
+**Slug:** /blog/party-bus-vs-stretch-limo-dallas
+**Target keyword:** party bus vs limo dallas
+**Secondary keywords:** party bus rental dallas tx, stretch limo rental dallas, group limo rental dallas, party bus price dallas
+**Meta title:** Party bus vs stretch limo Dallas TX — group size guide 2025
+**Meta description:** Party bus or stretch limo for your Dallas event? We break down size, price, vibe, and occasion so you book exactly the right ride. Purple Heart Limo.
+**Word count:** 1,500–1,800
+**Content to include:**
+- H2: What's actually the difference? (side-by-side breakdown)
+- H2: Comparison table (HTML: feature | Stretch Limo | Party Bus — passengers, standing room, sound system, bar area, cost, best occasion)
+- H2: When to choose a stretch limo (weddings, proms, anniversary, smaller groups of 6–10)
+- H2: When to choose a party bus (bachelorette, birthdays, game day, groups of 15–30)
+- H2: Dallas events where each shines (Cowboys games, Deep Ellum bar crawl, wedding receptions)
+- H2: How to split the cost per person
+- Internal links: fleet page, booking page
+- End with standard CTA block
+
+---
+
+## POST 09
+**Title:** Limo service from Dallas to Austin, TX — pricing, timing, and what to expect
+**Slug:** /blog/limo-service-dallas-to-austin-tx
+**Target keyword:** limo service dallas to austin
+**Secondary keywords:** black car service dallas to austin tx, luxury car service dallas austin, point to point limo texas, dallas austin limo price
+**Meta title:** Limo service Dallas to Austin TX — 2025 pricing guide
+**Meta description:** Need a limo from Dallas to Austin? Get flat-rate pricing, drive time tips, and what to expect on the 3-hour luxury ride. Purple Heart Limo serves the full Texas corridor.
+**Word count:** 1,500–1,800
+**Content to include:**
+- H2: Dallas to Austin by limo — the route overview (I-35, ~195 miles, 3–3.5 hrs)
+- H2: What does a Dallas to Austin limo cost? (flat-rate range by vehicle type)
+- H2: Best vehicle for the Dallas–Austin run (sedan for solo/couple, SUV for family, Sprinter for groups)
+- H2: Dallas to Austin for business travel — why black car beats flying for short hops
+- H2: Popular pickup and drop-off points (Downtown Dallas, Uptown, DFW airport, Austin-Bergstrom Airport, Downtown Austin, The Domain)
+- H2: What's included on a long-distance ride (WiFi, refreshments, chargers, privacy)
+- Internal links: Austin service page, fleet page, booking page
+- End with standard CTA block
+
+---
+
+## POST 10
+**Title:** Limo service from Dallas to Houston, TX — luxury travel on the I-45 corridor
+**Slug:** /blog/limo-service-dallas-to-houston-tx
+**Target keyword:** limo service dallas to houston
+**Secondary keywords:** black car dallas to houston, luxury car service houston to dallas, long distance limo texas, dallas houston limo price
+**Meta title:** Limo service Dallas to Houston TX — flat-rate 2025 guide
+**Meta description:** Traveling from Dallas to Houston in style? Flat-rate black car service with no surge, professional chauffeur, and door-to-door comfort. Purple Heart Limo.
+**Word count:** 1,500–1,800
+**Content to include:**
+- H2: Dallas to Houston by limo — the route overview (I-45, ~240 miles, 3.5–4 hrs)
+- H2: What does a Dallas–Houston limo cost? (by vehicle type)
+- H2: Why more business travelers choose limo over Southwest Airlines on this route
+- H2: Popular stops and pickup points (Dallas, The Woodlands, Hobby Airport, Bush IAH, Downtown Houston, Galleria)
+- H2: Group travel Dallas to Houston — Sprinter van and executive bus options
+- H2: Booking tips for long-distance rides (advance notice, luggage, refreshments)
+- Internal links: Houston service page, fleet page, booking page
+- End with standard CTA block
+
+---
+
+## POST 11
+**Title:** Limo service to Abilene, TX — luxury black car from Dallas, Midland & Odessa
+**Slug:** /blog/limo-service-abilene-tx
+**Target keyword:** limo service abilene tx
+**Secondary keywords:** black car service abilene texas, car service from dallas to abilene, luxury transportation abilene tx, limo abilene texas
+**Meta title:** Limo service Abilene TX — black car from Dallas & West Texas
+**Meta description:** Need a limo or black car to Abilene, TX? Purple Heart Limo serves the Abilene corridor from Dallas, Midland, and Odessa — flat-rate, no surge, veteran-owned.
+**Word count:** 1,400–1,700
+**Content to include:**
+- H2: Why Abilene travelers deserve better than rideshare (limited Uber availability in West Texas, surge pricing, unreliable drivers)
+- H2: Routes we serve to and from Abilene (Dallas–Abilene ~180 miles via I-20, Midland–Abilene ~130 miles, Odessa–Abilene ~135 miles)
+- H2: What to expect on a long-distance West Texas ride (flat highways, 2–3 hour rides, professional chauffeur, comfortable SUV or sedan)
+- H2: Business travel to Abilene — oil & gas, healthcare, and corporate trips
+- H2: Airport connections — Abilene Regional Airport (ABI) transfers
+- H2: Booking a one-way or round-trip ride to Abilene
+- Internal links: fleet page, booking page, services page
+- End with standard CTA block
+
+---
+
+## POST 12
+**Title:** Limo and black car service in Midland, TX — luxury transportation for the Permian Basin
+**Slug:** /blog/limo-service-midland-tx
+**Target keyword:** limo service midland tx
+**Secondary keywords:** black car service midland texas, luxury transportation midland tx, car service midland odessa, corporate car service midland tx
+**Meta title:** Limo service Midland TX — black car for the Permian Basin
+**Meta description:** Premium black car and limo service in Midland, TX. Flat-rate rides to MAF airport, corporate oil & gas travel, and luxury transportation across the Permian Basin.
+**Word count:** 1,400–1,700
+**Content to include:**
+- H2: Why Midland needs a real limo service (booming oil & gas economy, corporate visitors, limited luxury options)
+- H2: Midland International Air & Space Port (MAF) transfers — how it works
+- H2: Corporate travel in the Permian Basin — oil & gas executive transport
+- H2: Midland to Odessa rides — the 20-mile corridor (frequent business travel)
+- H2: Midland to Dallas route — I-20 corridor (~330 miles, ~4.5–5 hrs)
+- H2: Our fleet for West Texas (SUVs and Sprinter vans recommended for longer hauls)
+- Internal links: fleet page, booking page, Odessa post
+- End with standard CTA block
+
+---
+
+## POST 13
+**Title:** Limo and black car service in Odessa, TX — premium transportation in West Texas
+**Slug:** /blog/limo-service-odessa-tx
+**Target keyword:** limo service odessa tx
+**Secondary keywords:** black car service odessa texas, luxury transportation odessa tx, car service odessa midland, limo odessa texas
+**Meta title:** Limo service Odessa TX — luxury black car West Texas
+**Meta description:** Luxury limo and black car service in Odessa, TX. Flat-rate rides to Midland airport, corporate Permian Basin travel, and long-distance routes to Dallas and beyond.
+**Word count:** 1,400–1,700
+**Content to include:**
+- H2: Odessa's growing demand for premium transportation (Permian Basin boom, corporate visitors, limited luxury options)
+- H2: Odessa to Midland transfers (quick 20-minute route, executive sedan or SUV)
+- H2: Odessa to MAF airport — Midland International transfers from Odessa
+- H2: Long-distance rides from Odessa (Dallas ~330 miles, Abilene ~135 miles, San Antonio ~280 miles)
+- H2: Corporate and oil field executive transportation in Odessa
+- H2: Event transportation in Odessa (weddings, quinceañeras, galas)
+- Internal links: fleet page, booking page, Midland post
+- End with standard CTA block
+
+---
+
+## POST 14
+**Title:** Same-day limo service in Dallas — how to book a last-minute luxury ride
+**Slug:** /blog/same-day-limo-service-dallas-tx
+**Target keyword:** same day limo service dallas
+**Secondary keywords:** last minute limo dallas tx, limo on short notice dallas, book limo today dallas, emergency limo service dallas
+**Meta title:** Same-day limo service Dallas TX — book in 60 seconds
+**Meta description:** Need a limo in Dallas today? Purple Heart Limo offers same-day black car service with flat-rate pricing. No surge. Book in 60 seconds — call (833) 740-0700.
+**Word count:** 1,300–1,600
+**Content to include:**
+- H2: How to book a same-day limo in Dallas (online booking form, WhatsApp, phone — all three explained)
+- H2: What same-day availability looks like (honest: sedans and SUVs almost always available, specialty vehicles need more notice)
+- H2: Most common same-day limo requests in Dallas (last-minute airport run, surprise date, business guest pickup, event transportation)
+- H2: How pricing works for same-day bookings (flat-rate, no emergency surcharge)
+- H2: Tips to guarantee your same-day ride goes smoothly
+- Internal links: booking page, fleet page, DFW airport post
+- End with standard CTA block
+
+---
+
+## POST 15
+**Title:** How much do you tip a limo driver in Texas? The honest etiquette guide
+**Slug:** /blog/how-much-to-tip-limo-driver-texas
+**Target keyword:** how much to tip limo driver texas
+**Secondary keywords:** limo driver tip etiquette, do you tip black car driver dallas, limo gratuity texas, tip for chauffeur texas
+**Meta title:** How much to tip a limo driver in Texas — etiquette guide
+**Meta description:** Not sure how much to tip your limo driver in Texas? Here's the honest guide — standard amounts, when to tip more, and what's already included. Purple Heart Limo.
+**Word count:** 1,200–1,500
+**Content to include:**
+- H2: Is gratuity included in your limo bill? (answer: sometimes — always check the contract)
+- H2: Standard tipping amounts in Texas (15–20% is norm; $10–$20 flat for short rides)
+- H2: When to tip more (exceptional service, difficult route, late night, holiday, extra luggage help)
+- H2: When tipping is already covered (wedding packages, corporate accounts — clarify at booking)
+- H2: How to tip (cash vs. adding to invoice vs. app — which is preferred)
+- H2: Should you tip for a bad experience? (honest answer — no, but communicate the issue)
+- Internal links: booking page, testimonials page
+- End with standard CTA block
+
+---
+
+## POST 16
+**Title:** Top 10 Dallas venues that deserve a limo arrival — weddings, galas, and events
+**Slug:** /blog/best-dallas-venues-limo-arrival
+**Target keyword:** dallas wedding venues limo
+**Secondary keywords:** luxury venues dallas tx, best event venues dallas transportation, limo to dallas venues, black car service dallas events
+**Meta title:** Top 10 Dallas venues perfect for a limo arrival
+**Meta description:** The best Dallas venues deserve a grand entrance. Here are 10 iconic Dallas event venues — and how to arrive in style with Purple Heart Limo. Book your luxury ride.
+**Word count:** 1,600–2,000
+**Content to include:**
+- H2 for each venue (10 venues, 1 paragraph each):
+  1. The Adolphus Hotel (Downtown Dallas)
+  2. The Bell Tower on 34th (traditional elegance)
+  3. Lakewood Country Club
+  4. Gilley's Dallas (country chic)
+  5. Rosewood Mansion on Turtle Creek
+  6. The Joule Hotel
+  7. Klyde Warren Park (outdoor events)
+  8. The Venue at Greenville Avenue
+  9. Omni Dallas Hotel
+  10. The Dallas Arboretum
+- For each: describe the venue briefly, why it deserves a limo arrival, and nearest pickup/dropoff point
+- Internal links: wedding post, booking page, fleet page
+- End with standard CTA block
+
+---
+
+## POST 17
+**Title:** Quinceañera limo rental in Dallas, TX — how to plan the perfect grand entrance
+**Slug:** /blog/quinceanera-limo-rental-dallas-tx
+**Target keyword:** quinceanera limo dallas tx
+**Secondary keywords:** quinceanera car service dallas, sweet 16 limo dallas, limo rental quinceanera dfw, limo para quinceanera dallas
+**Meta title:** Quinceañera limo rental Dallas TX — grand entrance guide
+**Meta description:** Make her quinceañera unforgettable with a luxury limo in Dallas. Flat-rate pricing, stretch limos, and bilingual service from Purple Heart Limo. Book today.
+**Word count:** 1,600–2,000
+**Content to include:**
+- Write this post with warmth and cultural respect — this is one of the most important events in a family's life
+- H2: Choosing the right vehicle for a quinceañera (stretch limo for the birthday girl, Escalade for the court)
+- H2: The grand entrance — how to time it perfectly
+- H2: Popular quinceañera venues in Dallas and DFW (mention specific halls and banquet centers)
+- H2: Decoration and photography inside the limo — tips for stunning photos
+- H2: How to book a quinceañera limo package in Dallas (lead time, deposit, contract)
+- H2: Bilingual service — servicio en español disponible
+- Note: Include a paragraph in Spanish at the end welcoming Spanish-speaking families
+- Internal links: fleet page, booking page, services page
+- End with standard CTA block
+
+---
+
+## POST 18
+**Title:** Is surge pricing ruining your plans? Why flat-rate limo beats rideshare in Dallas
+**Slug:** /blog/flat-rate-limo-vs-surge-pricing-dallas
+**Target keyword:** flat rate limo dallas
+**Secondary keywords:** no surge pricing dallas car service, limo vs uber surge dallas, black car no surge dallas tx, why flat rate limo is better
+**Meta title:** Flat-rate limo vs surge pricing in Dallas — the honest truth
+**Meta description:** Tired of Uber surge pricing in Dallas? Purple Heart Limo charges a flat rate — no surprises, ever. See exactly how much you save on airport runs, events, and nights out.
+**Word count:** 1,500–1,800
+**Content to include:**
+- H2: What is surge pricing and why it's a problem in Dallas (DFW airport delays, Cowboys games, New Year's Eve examples — show real surge multiples)
+- H2: How flat-rate pricing works (price is locked at booking, never changes)
+- H2: Real Dallas scenarios — what surge pricing actually cost riders vs. flat rate (3 example scenarios with estimated numbers)
+- H2: The hidden costs of rideshare in Dallas (wait time fees, cancellation fees, driver cancellations when surge ends)
+- H2: When flat-rate wins every single time (airports, weddings, corporate, events)
+- Internal links: booking page, DFW airport post, pricing post
+- End with standard CTA block
+
+---
+
+## POST 19
+**Title:** Cowboys game day limo service in Dallas — arrive at AT&T Stadium like an owner
+**Slug:** /blog/cowboys-game-day-limo-service-dallas
+**Target keyword:** cowboys game limo service dallas
+**Secondary keywords:** at&t stadium limo service, game day car service arlington tx, nfl game transportation dallas, cowboys game transportation arlington
+**Meta title:** Cowboys game day limo Dallas — AT&T Stadium in style
+**Meta description:** Skip the AT&T Stadium parking nightmare. Arrive for Cowboys game day in a luxury limo or party bus. Flat-rate, no surge, veteran-owned. Book Purple Heart Limo.
+**Word count:** 1,400–1,700
+**Content to include:**
+- H2: Why driving to AT&T Stadium is a nightmare (parking costs $50–$100, traffic, 1-hr post-game exit delays)
+- H2: The game day limo experience — what the ride looks like
+- H2: Best vehicles for Cowboys game day (party bus for groups of 15–30, stretch SUV for VIP groups, Escalade for 5–7)
+- H2: Where to be dropped off at AT&T Stadium (specific entrances, VIP lot access notes)
+- H2: Pre-game and post-game — bar stops and tailgate pickups in Arlington
+- H2: Book your Cowboys game day ride (how far in advance, pricing expectations)
+- Internal links: fleet page, party bus vs limo post, booking page
+- End with standard CTA block
+
+---
+
+## POST 20
+**Title:** Bachelorette party limo and party bus in Dallas — the ultimate planning guide
+**Slug:** /blog/bachelorette-party-limo-dallas-tx
+**Target keyword:** bachelorette party limo dallas
+**Secondary keywords:** bachelorette party bus dallas tx, girls night out limo dallas, bachelorette transportation dallas, party bus bachelorette dfw
+**Meta title:** Bachelorette party limo Dallas TX — ultimate planning guide
+**Meta description:** Planning a bachelorette in Dallas? Get the ultimate party bus and limo guide — venues, routes, vehicle sizes, and booking tips. Purple Heart Limo serves all of DFW.
+**Word count:** 1,800–2,200
+**Content to include:**
+- H2: Why Dallas is a top bachelorette destination (nightlife, rooftop bars, restaurants, spa scene)
+- H2: Party bus vs. stretch limo for a bachelorette (decision guide based on group size)
+- H2: The ultimate Dallas bachelorette night route (sample itinerary: Uptown → Deep Ellum → Lower Greenville → Knox-Henderson)
+- H2: Best Dallas bars and venues for a bachelorette crawl (mention 6–8 spots as local entities)
+- H2: How to book a bachelorette limo in Dallas (group size, vehicle, deposit, cancellation)
+- H2: Decoration package options and what to bring
+- H2: Safety — why a professional chauffeur is the best bachelorette decision
+- Internal links: party bus vs limo post, fleet page, booking page
+- End with standard CTA block
+
+---
+
+## POST 21
+**Title:** Love Field airport limo service — the Dallas DAL pickup and drop-off guide
+**Slug:** /blog/love-field-airport-limo-service-dallas
+**Target keyword:** love field airport limo service
+**Secondary keywords:** dal airport car service dallas, love field black car dallas, love field airport transfer dallas, southwest airlines limo dallas
+**Meta title:** Love Field airport limo service Dallas — DAL pickup guide
+**Meta description:** Flying Southwest into Love Field? Get flat-rate black car pickup with real-time flight tracking and 60-min free wait. Purple Heart Limo serves Dallas Love Field 24/7.
+**Word count:** 1,400–1,700
+**Content to include:**
+- H2: Love Field vs. DFW — which airport and why it matters for your ride
+- H2: How Love Field limo pickup works (step-by-step, where to meet your driver)
+- H2: Best routes from Love Field to Dallas neighborhoods (Uptown, Downtown, Frisco, Plano, Irving, etc. — with estimated travel times)
+- H2: Love Field for business travelers (corporate routes to Las Colinas, Addison, Legacy)
+- H2: How flight tracking works — why it matters when Southwest delays happen
+- Internal links: DFW airport post, flight tracker page, booking page
+- End with standard CTA block
+
+---
+
+## POST 22
+**Title:** Why book a veteran-owned limo company in Dallas? The Purple Heart difference
+**Slug:** /blog/veteran-owned-limo-service-dallas-tx
+**Target keyword:** veteran owned limo service dallas
+**Secondary keywords:** veteran owned black car service texas, military limo service dallas, purple heart limo dallas, veteran chauffeur dallas
+**Meta title:** Veteran-owned limo service Dallas TX — the Purple Heart story
+**Meta description:** Purple Heart Limo is Dallas's only veteran-owned luxury limo service. Discover what military values mean for your ride — punctuality, honor, and zero excuses.
+**Word count:** 1,400–1,800
+**Content to include:**
+- Write this post with genuine pride and authenticity — this is the brand's heart
+- H2: The story behind Purple Heart Limo (founding values, veteran mission, serving Texas)
+- H2: What military service teaches about transportation (punctuality is non-negotiable, accountability, attention to detail, no complaints — just solutions)
+- H2: How veteran-owned businesses benefit local communities
+- H2: What our riders say — real testimonials (pull from 4.9-star reviews)
+- H2: Choosing a veteran-owned business: why it matters beyond the ride
+- H2: Book with pride — supporting veterans starts with a booking
+- Internal links: about page, testimonials page, booking page
+- End with standard CTA block
+
+---
+
+## POST 23
+**Title:** What's included in a limo rental in Dallas? (the complete amenities checklist)
+**Slug:** /blog/what-is-included-limo-rental-dallas
+**Target keyword:** what does limo service include dallas
+**Secondary keywords:** limo rental what to expect dallas, black car service amenities dallas, limo package dallas tx, limo rental checklist
+**Meta title:** What's included in a Dallas limo rental — full checklist 2025
+**Meta description:** Wondering what's actually included in a limo rental in Dallas? Here's the complete checklist — amenities, policies, what to expect, and what to ask before you book.
+**Word count:** 1,400–1,700
+**Content to include:**
+- H2: What's always included with Purple Heart Limo (professional licensed chauffeur, door-to-door service, flat-rate pricing, 60-min free wait for airports, flight tracking, luggage assistance, bottled water)
+- H2: What's available on request (additional stops, decorations, champagne/beverages, child seats)
+- H2: What's NOT included (and why — honest transparency builds trust)
+- H2: Vehicle-specific amenities (what's in the sedan vs. Sprinter vs. party bus)
+- H2: The booking process — what happens after you submit a request (5-minute response, confirmation, chauffeur info sent 1 hr before pickup)
+- H2: How to customize your ride for a special occasion
+- Internal links: fleet page, booking page, pricing post
+- End with standard CTA block
+
+---
+
+# ============================================================
+# PUBLISHING INSTRUCTIONS FOR REPLIT AI
+# ============================================================
+
+When generating each blog post, follow this exact HTML output structure:
+
+```html
+<!-- BLOG POST FILENAME: [slug].html -->
+<article class="blog-post">
+
+  <!-- SEO HEAD META (inject into page <head>) -->
+  <!--
+    TITLE: [meta title]
+    META DESCRIPTION: [meta description]
+    CANONICAL: https://purpleheartlimo.com/blog/[slug]
+    OG:TITLE: [meta title]
+    OG:DESCRIPTION: [meta description]
+    OG:IMAGE: https://purpleheartlimo.com/images/blog/[slug]-hero.jpg
+    SCHEMA: [BlogPosting + LocalBusiness JSON-LD as specified above]
+  -->
+
+  <header class="post-header">
+    <h1>[POST TITLE]</h1>
+    <p class="post-meta">By Purple Heart Limo Team · Dallas, TX · Updated 2025</p>
+  </header>
+
+  <div class="post-body">
+    [ALL H2 SECTIONS WITH FULL CONTENT]
+  </div>
+
+  [STANDARD CTA BLOCK]
+
+</article>
+```
+
+Generate each post one at a time. When I say "Write Post #[N]", produce the full HTML for that post following all the instructions above.
+
+---
+
+# ============================================================
+# PROMPT END
+# ============================================================
