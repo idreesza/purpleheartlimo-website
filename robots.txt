@@ -6,6 +6,8 @@ Disallow: /thank-you.html
 Disallow: /netlify/
 Disallow: /cdn-cgi/
 Disallow: /html/
+Disallow: /blog?q=
+Disallow: /blog?q&p=
 
 # Explicitly allow major AI crawlers (AIO)
 User-agent: GPTBot

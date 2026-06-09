@@ -1,0 +1,248 @@
+You are working on purpleheartlimo.com, a luxury limo service website 
+built as a static site deployed on Netlify. Fix ALL of the following 
+SEO and technical issues. Work through them in priority order.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 1 — NETLIFY _redirects FILE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Create or update the file: /public/_redirects
+
+Add ALL of the following rules. Each rule is one line:
+FORMAT: /old-path   /new-path   301
+
+# --- Domain canonicalization (www → non-www, http → https) ---
+https://www.purpleheartlimo.com/*   https://purpleheartlimo.com/:splat   301!
+http://www.purpleheartlimo.com/*    https://purpleheartlimo.com/:splat   301!
+http://purpleheartlimo.com/*        https://purpleheartlimo.com/:splat   301!
+
+# --- Old .html pages → new URLs ---
+/service-areas.html        /locations/              301
+/rates.html                /fleet.html              301
+/contact-us                /contact.html            301
+/about-us                  /about.html              301
+
+# --- Old blog URLs with trailing slash conflicts ---
+/blog/comparing-purple-heart-limo-with-other-austin-limo-services/   /blog/comparing-purple-heart-limo-with-other-austin-limo-services   301
+/blog/top-5-destinations-to-visit-with-a-limo-in-austin/             /blog/top-5-destinations-to-visit-with-a-limo-in-austin             301
+/blog/world-cup-2026-dallas-limo-service-guide/                      /blog/world-cup-2026-dallas-limo-service-guide                      301
+/blog/things-to-do-in-austin-texas-weekend-guide/                    /blog/things-to-do-in-austin-texas-weekend-guide                    301
+/blog/navigating-austin-s-traffic--why-a-limo-service-is-your-best-choice/  /blog/navigating-austin-s-traffic--why-a-limo-service-is-your-best-choice  301
+/blog/the-ultimate-guide-to-booking-a-limo-service-in-austin/        /blog/the-ultimate-guide-to-booking-a-limo-service-in-austin        301
+/blog/limo-service-from-dallas-to-austin/                            /blog/limo-service-from-dallas-to-austin                            301
+/blog/how-to-plan-the-perfect-night-out-with-a-limo-in-austin/       /blog/how-to-plan-the-perfect-night-out-with-a-limo-in-austin       301
+
+# --- Broken/leaked HTML tag URL ---
+/html/head/title    /    410
+
+# --- Old www blog URLs → non-www ---
+/blog/best-day-trips-from-dallas-by-limo        /blog/best-day-trips-from-dallas-by-limo        301
+/blog/best-wedding-venues-in-dallas-dfw-limo-service   /blog/best-wedding-venues-in-dallas-dfw-limo-service   301
+/blog/what-to-do-in-fort-worth-texas-by-limo    /blog/what-to-do-in-fort-worth-texas-by-limo    301
+/blog/frisco-tx-luxury-limo-transportation-guide  /blog/frisco-tx-luxury-limo-transportation-guide  301
+/blog/world-cup-2026-dallas-limo-service-guide  /blog/world-cup-2026-dallas-limo-service-guide  301
+
+# --- Redirect duplicate/thin blog posts to one canonical winner ---
+# MYTH/MISCONCEPTION topic → one winner
+/blog/myths-about-limo-services--what-you-need-to-know-2             /blog/5-myths-about-limousine-services-in-austin-debunked/   301
+/blog/common-myths-about-limo-services-debunked                      /blog/5-myths-about-limousine-services-in-austin-debunked/   301
+/blog/debunking-common-myths-about-limousine-services                /blog/5-myths-about-limousine-services-in-austin-debunked/   301
+/blog/5-common-misconceptions-about-limousine-services-debunked      /blog/5-myths-about-limousine-services-in-austin-debunked/   301
+/blog/common-misconceptions-about-limousine-services-in-austin-debunked  /blog/5-myths-about-limousine-services-in-austin-debunked/  301
+/blog/myths-about-limo-services--what-you-need-to-know-before-booking   /blog/5-myths-about-limousine-services-in-austin-debunked/  301
+/blog/misconceptions-about-limousine-services--what-you-need-to-know    /blog/5-myths-about-limousine-services-in-austin-debunked/  301
+
+# BOOKING GUIDE topic → one winner
+/blog/a-comprehensive-guide-to-limousine-booking-in-austin--what-you-need-to-know   /blog/the-ultimate-guide-to-booking-a-limo-service-in-austin   301
+/blog/a-comprehensive-guide-to-booking-limo-services-in-austin                      /blog/the-ultimate-guide-to-booking-a-limo-service-in-austin   301
+/blog/a-step-by-step-guide-to-multi-step-limo-booking-in-austin                     /blog/the-ultimate-guide-to-booking-a-limo-service-in-austin   301
+/blog/how-to-book-the-perfect-limousine-in-austin--a-step-by-step-guide             /blog/the-ultimate-guide-to-booking-a-limo-service-in-austin   301
+
+# TIPS topic → one winner
+/blog/expert-tips-for-maximizing-your-limousine-experience-in-austin  /blog/5-tips-for-booking-a-limo-in-austin-for-your-special-event/  301
+/blog/top-5-tips-for-choosing-the-best-limo-service-in-austin         /blog/5-tips-for-booking-a-limo-in-austin-for-your-special-event/  301
+/blog/expert-tips-for-booking-a-limousine-in-austin-during-festival-season  /blog/5-tips-for-booking-a-limo-in-austin-for-your-special-event/  301
+/blog/expert-tips--ensuring-a-seamless-limousine-experience-in-austin  /blog/5-tips-for-booking-a-limo-in-austin-for-your-special-event/  301
+/blog/top-5-reasons-to-choose-a-limo-service-for-your-austin-event    /blog/5-tips-for-booking-a-limo-in-austin-for-your-special-event/  301
+/blog/top-5-reasons-to-hire-a-limo-for-your-austin-event              /blog/5-tips-for-booking-a-limo-in-austin-for-your-special-event/  301
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 2 — robots.txt FIX
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Update /public/robots.txt
+
+The current robots.txt is blocking 3 legitimate blog posts.
+Replace it with this exact content:
+
+User-agent: *
+Allow: /
+
+Disallow: /cdn-cgi/
+Disallow: /blog?q=
+Disallow: /blog?q&p=
+
+Sitemap: https://purpleheartlimo.com/sitemap.xml
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 3 — CANONICAL TAGS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Fix the following canonical tag issues across all HTML files:
+
+1. Every page must have a self-referencing canonical tag:
+   <link rel="canonical" href="https://purpleheartlimo.com/EXACT-PAGE-URL" />
+
+2. /index.html must canonical to https://purpleheartlimo.com/
+   <link rel="canonical" href="https://purpleheartlimo.com/" />
+
+3. All blog pagination pages (/blog?q&p=1 through 18) must have:
+   <meta name="robots" content="noindex, follow" />
+   AND canonical pointing to https://purpleheartlimo.com/blog/
+
+4. /es/ pages must have hreflang tags added:
+   <link rel="alternate" hreflang="en" href="https://purpleheartlimo.com/[page]" />
+   <link rel="alternate" hreflang="es" href="https://purpleheartlimo.com/es/[page]" />
+   <link rel="alternate" hreflang="x-default" href="https://purpleheartlimo.com/[page]" />
+
+Apply this to these ES pages:
+- /es/limo-service-austin-tx/ → EN version: /limo-service-austin-tx/
+- /es/limo-service-dallas-tx/ → EN version: /limo-service-dallas-tx/
+- /es/limo-service-houston-tx/ → EN version: /limo-service-houston-tx/
+- /es/booking.html → EN version: /booking.html
+- /es/fleet.html → EN version: /fleet.html
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 4 — SITEMAP.XML UPDATE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Update /public/sitemap.xml to include ALL of these URLs that are 
+currently missing (discovered but never crawled):
+
+PRIORITY 1 — Money pages (add these first):
+https://purpleheartlimo.com/limo-service-austin-tx/
+https://purpleheartlimo.com/limo-service-dallas-tx/
+https://purpleheartlimo.com/limo-service-fort-worth-tx/
+https://purpleheartlimo.com/limo-service-highland-park-tx/
+https://purpleheartlimo.com/austin-airport-limo/
+https://purpleheartlimo.com/austin-chauffeur-service/
+https://purpleheartlimo.com/austin-corporate-car-service/
+https://purpleheartlimo.com/austin-limo-rental/
+https://purpleheartlimo.com/austin-sprinter-van-rental/
+https://purpleheartlimo.com/austin-wedding-limo/
+https://purpleheartlimo.com/car-service-arlington-tx/
+https://purpleheartlimo.com/car-service-austin-tx/
+https://purpleheartlimo.com/car-service-dallas-love-field/
+https://purpleheartlimo.com/car-service-frisco-tx/
+https://purpleheartlimo.com/car-service-irving-tx/
+https://purpleheartlimo.com/car-service-mckinney-tx/
+https://purpleheartlimo.com/car-service-plano-tx/
+https://purpleheartlimo.com/dallas-corporate-car-service/
+https://purpleheartlimo.com/dallas-party-bus/
+https://purpleheartlimo.com/dfw-airport-car-service/
+
+PRIORITY 2 — Supporting pages:
+https://purpleheartlimo.com/gallery.html
+https://purpleheartlimo.com/testimonials.html
+https://purpleheartlimo.com/locations/
+https://purpleheartlimo.com/fleet.html
+
+DO NOT include in sitemap:
+- Any /blog?q&p= pagination URLs
+- /index.html (use / instead)
+- /rates.html (redirected to /fleet.html)
+- /service-areas.html (redirected to /locations/)
+- Any www. URLs
+- Any http:// URLs
+- /html/head/title
+
+Set priority values:
+- Homepage: 1.0
+- City/service pages: 0.9
+- Fleet, locations, booking: 0.8
+- Blog posts: 0.7
+- Legal/policy pages: 0.3
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 5 — GZIP/BROTLI COMPRESSION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Create or update /netlify.toml with compression headers:
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Content-Encoding = "gzip"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Content-Encoding = "gzip"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+
+Note: Netlify handles compression automatically at the CDN level 
+when you enable "Asset Optimization" in the Netlify dashboard 
+under Site Settings → Build & Deploy → Asset Optimization.
+Make sure "Bundle CSS", "Minify CSS", "Bundle JS", "Minify JS", 
+and "Compress images" are all checked ON.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 6 — INTERNAL LINKING FIXES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+The page /car-service-dallas-love-field/ has only 1 internal link.
+Add links to it from:
+1. The /locations/ page — add it as a city service link
+2. The /dfw-airport-car-service/ page — add a "See also" link
+3. The homepage — add it to the service area section if present
+
+Also add internal links TO these money pages from the homepage 
+and /locations/ page if not already present:
+- /limo-service-dallas-tx/
+- /limo-service-austin-tx/
+- /limo-service-fort-worth-tx/
+- /dfw-airport-car-service/
+- /dallas-party-bus/
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 7 — BOOKING PAGE THIN CONTENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+/booking.html and /es/booking.html have a text/HTML ratio of only 6%.
+These pages are nearly empty of readable text content.
+
+Add the following to both booking pages (English and Spanish versions):
+1. A short intro paragraph (50-80 words) explaining the booking process
+2. A "Why book with us" section with 3-4 bullet points
+3. A FAQ section with at least 3 questions:
+   - "How far in advance should I book?"
+   - "What information do I need to make a reservation?"
+   - "Do you offer airport pickup tracking?"
+4. Add LocalBusiness schema markup to the page head
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 8 — WHATSAPP LINK FIX
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+The WhatsApp link https://wa.me/18337400700 appears on 16 pages 
+and returns a 429 error to crawlers.
+
+On every page where this link appears, add these attributes:
+rel="nofollow noopener" target="_blank"
+
+Example:
+<a href="https://wa.me/18337400700" rel="nofollow noopener" target="_blank">
+  WhatsApp Us
+</a>
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AFTER COMPLETING ALL SECTIONS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Verify the _redirects file has no duplicate rules
+2. Verify sitemap.xml is valid XML
+3. Verify robots.txt does not block any city/service pages
+4. Confirm all ES pages have hreflang tags
+5. Deploy to Netlify
+6. After deploy, go to Google Search Console and:
+   - Resubmit sitemap.xml
+   - Use URL Inspection to request indexing for the top 10 
+     money pages manually
