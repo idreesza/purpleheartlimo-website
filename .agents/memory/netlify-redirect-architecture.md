@@ -17,17 +17,20 @@ First-match-wins — keep specific rules above broader globs, and the `/*` 404 c
 last. For a URL that must return Gone, add a `status = 410` block (with `to = "/404.html"`)
 BEFORE any broader glob that would otherwise 301 it (e.g. `/html/head/title` before `/html/*`).
 
-# rates.html and service-areas.html are LIVE, not legacy
+# rates.html and service-areas.html: live pages the OWNER chose to retire
 
-Despite SEO prompts that assume `/rates.html` and `/service-areas.html` are old pages to redirect
-(to `/fleet.html` and `/locations/`), both are substantial, self-canonical, in sitemap.xml, and
-heavily internally linked (~49 and ~14 inbound links). `rates.html` = Pricing page (distinct from
-fleet/vehicles); `service-areas.html` = full A–Z city list (complementary to the `/locations/`
-metro overview, which even links to it as "the full list").
+`/rates.html` (Pricing) and `/service-areas.html` (full A–Z city list) were substantial,
+self-canonical, sitemap'd, heavily-linked pages (~49 and ~14 inbound links) — NOT legacy.
+The owner was warned of the SEO cost and explicitly chose to redirect them anyway:
+`/rates.html → /fleet.html` and `/service-areas.html → /locations/` (301, `force = true`
+required because the files still exist), and they were removed from sitemap.xml.
 
-**Why:** redirecting them would delete indexed content and turn dozens of internal links into 301 hops — a net SEO loss.
+**Why:** owner intent overrode the SEO caveat. The files still physically exist, so the
+redirects MUST keep `force = true` or Netlify will serve the stale files instead.
 
-**How to apply:** do NOT redirect these two; treat them as canonical destinations.
+**How to apply:** keep these as forced 301s. ~63 internal links still point at the old URLs
+(1-hop 301s) — only rewrite them to the final targets if the owner asks. If the owner ever
+reverses this, drop the two redirect blocks and restore the sitemap entries.
 
 # Blog consolidation winners
 

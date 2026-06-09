@@ -56,6 +56,24 @@
   from   = "/contact-us/"
   to     = "/contact.html"
   status = 301
+[[redirects]]
+  from   = "/our-services"
+  to     = "/services.html"
+  status = 301
+[[redirects]]
+  from   = "/our-services/"
+  to     = "/services.html"
+  status = 301
+[[redirects]]
+  from   = "/rates.html"
+  to     = "/fleet.html"
+  status = 301
+  force  = true
+[[redirects]]
+  from   = "/service-areas.html"
+  to     = "/locations/"
+  status = 301
+  force  = true
 
 [[redirects]]
   from   = "/html/head/title"
