@@ -8,5 +8,5 @@
 - [Netlify redirect architecture](netlify-redirect-architecture.md) — redirects live in netlify.toml (NO _redirects/_public); rates.html & service-areas.html are LIVE, don't redirect them.
 - [Blog folder-post playbook](blog-folder-post-playbook.md) — folder posts need MANUAL inbound links (index card + sitemap + cross-links); FAQPage JSON-LD needs matching visible FAQ.
 - [es/ link repoint gotcha](es-link-repoint-gotcha.md) — blanket replacing /fleet.html→/es/ in es pages breaks the 🌐 English / lang-toggle links; exclude those + hreflang.
-- [Live deploy host reality](live-deploy-host.md) — live domain serves from Replit static, not Netlify; host-level audit fixes need the live host or a DNS cutover.
+- [Live deploy host reality](live-deploy-host.md) — live domain now serves from Netlify (DNS cutover done); netlify.toml is authoritative; code goes live only via GitHub push; keep MX/SPF in Netlify DNS.
 - [Fleet marquee focus](fleet-marquee-focus.md) — picked ride-type centers/magnifies a car; never animate layout-affecting margin or getBoundingClientRect centering drifts.
