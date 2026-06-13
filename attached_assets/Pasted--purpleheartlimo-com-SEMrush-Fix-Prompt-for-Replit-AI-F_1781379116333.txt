@@ -1,0 +1,858 @@
+# purpleheartlimo.com — SEMrush Fix Prompt for Replit AI
+# Fix all issues identified in SEMrush audit dated June 13, 2026
+# Covers: 404 errors, missing keywords, thin content, schema markup, readability
+
+---
+
+# ============================================================
+# PROMPT START — PASTE EVERYTHING BELOW THIS LINE INTO REPLIT AI
+# ============================================================
+
+## YOUR ROLE
+
+You are an expert SEO developer. Fix every issue identified in the
+SEMrush audit for purpleheartlimo.com. Work through every task in
+order. Do not skip any task. After completing all tasks, generate
+a full audit report showing exactly what was changed on each file.
+
+## CRITICAL RULE
+
+Before making ANY change to any file, first READ the current file
+content so you know exactly what exists. Never overwrite content
+blindly — always preserve existing content and ADD to it.
+
+---
+
+## TASK 1 — FIX THE 3 BROKEN PAGES (404 ERRORS)
+
+SEMrush reports these 3 pages cannot be crawled. Fix them now.
+
+### 1A — Check and fix: /blog/dfw-thanksgiving.html
+- Open this file and verify it exists
+- If it does NOT exist: create it with full content (see content spec below)
+- If it exists but has wrong path: verify the filename is exactly
+  `dfw-thanksgiving.html` in the `/blog/` directory
+- After fixing, confirm the file is accessible at the correct URL
+
+Content spec if file needs to be created:
+```
+Title: Things to Do on Thanksgiving in Dallas 2025 | Dallas Thanksgiving Guide
+Meta description: Looking for things to do on Thanksgiving Day in Dallas? 
+  From the Dallas Holiday Parade to family dinners and live music events — 
+  your complete Thanksgiving activities guide for Dallas, TX.
+H1: Things to do on Thanksgiving Day in Dallas, TX
+Target keywords to include naturally in body:
+  - things to do on thanksgiving day in dallas
+  - thanksgiving day parade dallas
+  - thanksgiving parade in dallas
+  - thanksgiving activities in dallas tx
+  - things to do for thanksgiving in dallas
+  - dallas holiday parade
+  - downtown dallas
+  - holiday season
+  - friday november 28
+  - events calendar
+  - 12 days of christmas
+  - live music
+Word count target: 1,200 words minimum
+Sections to include (use H2 for each):
+  H2: Dallas Thanksgiving Day Parade
+  H2: Family-Friendly Thanksgiving Activities in Dallas
+  H2: Best Restaurants Open on Thanksgiving in Dallas
+  H2: Holiday Events Happening Around Thanksgiving Weekend
+  H2: Arrive in Style — Purple Heart Limo for Thanksgiving
+  (Last section is the Purple Heart Limo CTA section)
+```
+
+### 1B — Check and fix: /blog/grapevine-texas-guide.html
+- Open this file and verify it exists
+- If it does NOT exist: create it (see content spec below)
+- If it exists: verify path is exactly `grapevine-texas-guide.html`
+
+Content spec if file needs to be created:
+```
+Title: Grapevine Texas Guide — History, Wineries & Things to Do | Purple Heart Limo
+Meta description: Discover the history and charm of Grapevine, Texas. 
+  From the Cotton Belt Railroad to Grapevine Lake — your complete guide 
+  to Grapevine TX with luxury limo service from Purple Heart.
+H1: Grapevine, Texas: A Complete Guide to History, Wine & Things to Do
+Target keywords:
+  - grapevine history
+  - grapevine texas history
+  - tarrant county
+  - cities of grapevine
+  - grapevine historical society
+  - denton counties
+  - grapevine dam
+  - army corps of engineers
+  - united states
+  - grape vine prairie
+  - flood control
+  - 20th century
+  - cotton belt railroad
+  - fork of the trinity river
+  - visitors bureau
+  - grapevine convention
+Word count: 1,200 words minimum
+H2 sections:
+  H2: The History of Grapevine, Texas
+  H2: The Cotton Belt Railroad and Grapevine's Growth
+  H2: Grapevine Lake and the Army Corps of Engineers
+  H2: Grapevine Today — Wineries, Shopping & Events
+  H2: Getting to Grapevine in Style with Purple Heart Limo
+```
+
+### 1C — Check and fix: /blog/comparing-austin-s-top-limo-services--what-sets-purple-heart-apart-
+- This URL has an unusual slug with dashes. Check if the file exists
+  at this exact path
+- The issue may be the URL slug — check what the actual filename is
+- If it's a routing issue in the SPA: add a redirect from the broken
+  URL to the correct file
+- If file doesn't exist: create it at the path that matches your routing
+
+Content spec:
+```
+Title: Best Limo Service in Austin TX — Why Purple Heart Limo Stands Out
+Meta description: Looking for the best limo service in Austin? 
+  Purple Heart Limo offers premium limousine service, private car service, 
+  and limo rentals across the Austin area. Licensed, insured, veteran-owned.
+H1: Best Limo Service in Austin, TX — What Sets Purple Heart Apart
+Target keywords:
+  - best limo service austin
+  - limousine service
+  - limo service
+  - austin area
+Word count: 1,000 words minimum
+H2 sections:
+  H2: What Makes a Great Austin Limo Service?
+  H2: Purple Heart Limo in Austin — Our Services
+  H2: Why Austin Clients Choose Purple Heart
+  H2: Book Your Austin Limo Today
+```
+
+---
+
+## TASK 2 — FIX THE TWO HIGHEST PRIORITY PAGES
+
+These two pages have the highest SEMrush priority scores (15.74–15.84)
+meaning they have the most traffic potential. Fix them first.
+
+### 2A — Fix: /blog/bishop-arts-dallas.html
+**Current problem:** Target keyword "oak cliff bishop arts district"
+is missing from H1, title tag, meta description, and body text.
+Content is too short and hard to read.
+
+**Step 1 — Fix the title tag:**
+Find the current `<title>` tag and replace it with:
+```html
+<title>Oak Cliff Bishop Arts District Guide — Dallas's Most Unique Neighborhood | Purple Heart Limo</title>
+```
+
+**Step 2 — Fix the meta description:**
+Find `<meta name="description"` and replace content with:
+```html
+<meta name="description" content="Explore the Oak Cliff Bishop Arts District in Dallas — 60+ independent boutiques, restaurants, bars, coffee shops, and art galleries. Arrive in style with Purple Heart Limo.">
+```
+
+**Step 3 — Fix the H1 tag:**
+Find the existing `<h1>` tag and replace its text content with:
+```
+The Oak Cliff Bishop Arts District — Dallas's Most Unique Neighborhood
+```
+
+**Step 4 — Add missing keywords and semantic words to body:**
+Find the main body content section. Add or work in these words
+naturally throughout the existing text — do not force them awkwardly:
+- "oak cliff bishop arts district"
+- "north oak cliff"
+- "independent boutiques restaurants bars coffee shops and art galleries"
+- "arts district is home"
+- "dallas most unique"
+- "60 independent"
+- "bishop street"
+
+**Step 5 — Expand content to 1,200+ words:**
+After the existing content, add these new H2 sections:
+
+```
+H2: What Makes Oak Cliff Bishop Arts District Unique in Dallas
+Content: 150 words explaining the 60+ independent shops, walkable streets,
+no chain stores policy, arts galleries, and local restaurant scene.
+
+H2: Best Restaurants and Bars in the Bishop Arts District
+Content: 150 words covering the dining scene — Mexican food, craft cocktails,
+wine bars, brunch spots. Mention "independent boutiques restaurants bars
+coffee shops and art galleries" naturally.
+
+H2: Shopping in the Bishop Arts District
+Content: 100 words on the boutique shopping — vintage clothing, art,
+home goods. Use "60 independent" and "bishop street" naturally.
+
+H2: How to Get to Bishop Arts District from DFW
+Content: 100 words on getting there. Parking challenges (street parking fills
+fast on weekends), ride options, and the Purple Heart Limo suggestion for
+group outings, bachelorette parties, and date nights.
+
+H2: Purple Heart Limo — Your Bishop Arts District Transportation
+Content: 100 words CTA for booking Purple Heart Limo for a Bishop Arts
+District night out. Include phone number and booking link.
+```
+
+**Step 6 — Improve readability:**
+- Break any paragraphs longer than 4 sentences into shorter ones
+- Ensure H2 subheadings appear at least every 250 words
+- Use bullet point lists where appropriate (top restaurants, top shops)
+
+### 2B — Fix: /blog/uptown-dallas-guide.html
+**Target keywords:** "uptown dallas" and "uotown dallas" (note: uotown
+is a common misspelling SEMrush users search — include it in meta only)
+
+**Step 1 — Fix title tag:**
+```html
+<title>Uptown Dallas Neighborhood Guide — Best Bars, Restaurants & Things to Do | Purple Heart Limo</title>
+```
+
+**Step 2 — Fix meta description:**
+```html
+<meta name="description" content="Your complete Uptown Dallas guide — the best bars, restaurants, rooftop venues, and things to do in Uptown Dallas, TX. Arrive in style with Purple Heart Limo.">
+```
+
+**Step 3 — Fix H1:**
+```
+Uptown Dallas: The Complete Neighborhood Guide for Bars, Dining & Nightlife
+```
+
+**Step 4 — Expand content — add these H2 sections:**
+```
+H2: What Is Uptown Dallas? (if not already present)
+150 words: walkable neighborhood north of downtown, McKinney Avenue
+trolley (M-Line), mix of high-rises and historic buildings, nightlife hub
+
+H2: Best Bars and Nightlife in Uptown Dallas
+150 words: rooftop bars, sports bars, wine bars, club scene on
+McKinney Ave. Natural use of "uptown dallas" 2-3 times.
+
+H2: Best Restaurants in Uptown Dallas
+150 words: fine dining, brunch spots, happy hour, late night eats
+
+H2: Things to Do in Uptown Dallas
+150 words: Katy Trail, Klyde Warren Park nearby, shopping on
+McKinney Ave, art galleries
+
+H2: Getting Around Uptown Dallas — M-Line Trolley and Purple Heart Limo
+150 words: M-Line trolley is free, but for group outings and special
+events Purple Heart Limo is the premium choice
+```
+
+**Step 5 — Fix readability:** Short paragraphs, bullet lists,
+subheadings every 250 words.
+
+---
+
+## TASK 3 — FIX DALLAS HOTELS GUIDE (8 keywords, score 2.81)
+
+**File:** /blog/dallas-hotels-guide.html
+
+**Step 1 — Fix title tag:**
+```html
+<title>Best Luxury Hotels in Dallas TX — Uptown, Downtown & Beyond | Purple Heart Limo</title>
+```
+
+**Step 2 — Fix meta description (MISSING — add this):**
+```html
+<meta name="description" content="The best luxury hotels in Dallas TX — from high-end Uptown Dallas hotels to downtown Dallas luxury hotels. Compare top picks and arrive in style with Purple Heart Limo.">
+```
+
+**Step 3 — Fix H1:**
+```
+Best Luxury Hotels in Dallas, TX — High-End Stays for Every Occasion
+```
+
+**Step 4 — Fix keyword stuffing warning:**
+SEMrush flagged "luxury hotels in dallas" as OVERUSED. Find the
+body content and reduce uses of this exact phrase to maximum 3 times.
+Replace extra uses with natural variations:
+- "upscale Dallas accommodations"
+- "high-end hotels in Dallas"
+- "premium Dallas hotels"
+- "finest hotels in Dallas"
+- "top-rated Dallas hotels"
+
+**Step 5 — Add missing target keywords naturally:**
+- "high end hotels in dallas" — add to first H2 or intro paragraph
+- "luxury hotels in uptown dallas" — add as an H2 section heading
+- "uptown dallas" — use 2-3 times in body naturally
+- "dallas texas" — add to body content naturally
+
+**Step 6 — Expand content to 1,500+ words with these sections:**
+```
+H2: Best High-End Hotels in Dallas — Our Top Picks (if not present)
+200 words: overview of top luxury hotels — The Ritz-Carlton Dallas,
+Rosewood Mansion on Turtle Creek, The Joule, Hotel Crescent Court,
+Four Seasons Resort and Club Dallas at Las Colinas
+
+H2: Luxury Hotels in Uptown Dallas
+150 words: focus specifically on Uptown Dallas luxury hotels —
+walk to McKinney Ave, trolley access, proximity to nightlife
+
+H2: Downtown Dallas Luxury Hotels
+150 words: downtown options — Omni Dallas, Sheraton, Marriott
+
+H2: Book Purple Heart Limo for Your Dallas Hotel Transfer
+100 words: airport pickup from Love Field (DAL) or DFW,
+hotel-to-hotel transfers, prom and event pickups from hotels
+```
+
+**Step 7 — Add Hotel schema markup to <head>:**
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Best Luxury Hotels in Dallas TX",
+  "description": "A guide to the best luxury and high-end hotels in Dallas Texas including Uptown Dallas and Downtown Dallas options.",
+  "author": {
+    "@type": "Organization",
+    "name": "Purple Heart Limo"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Purple Heart Limo",
+    "url": "https://purpleheartlimo.com"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://purpleheartlimo.com/blog/dallas-hotels-guide.html"
+  }
+}
+</script>
+```
+
+---
+
+## TASK 4 — FIX DFW ROOFTOP BARS PAGE (score 2.20)
+
+**File:** /blog/dfw-rooftop-bars.html
+
+**Step 1 — Fix meta description (MISSING):**
+```html
+<meta name="description" content="The best rooftop bars in Dallas with stunning skyline views — from Uptown Dallas to Deep Ellum. Your complete guide to Dallas rooftop bars for special events and date nights.">
+```
+
+**Step 2 — The H1 and title should already contain "best rooftop bars
+in dallas" — verify they do. If not, update:**
+```html
+<title>Best Rooftop Bars in Dallas — Skyline Views, Cocktails & Special Events | Purple Heart Limo</title>
+H1: The Best Rooftop Bars in Dallas, TX for Skyline Views and Special Events
+```
+
+**Step 3 — Add missing semantic keywords naturally:**
+- "skyline views" — add to intro paragraph and/or H2
+- "special events" — add as context for why rooftop bars are popular
+- "wines by the glass" — add when describing bar menus/offerings
+
+**Step 4 — Expand content — add H2 section:**
+```
+H2: Best Rooftop Bars in Dallas for Special Events
+150 words covering: private events, birthday parties, corporate events,
+bachelorette parties. Mention "special events" and "skyline views"
+naturally. End with Purple Heart Limo CTA for rooftop bar night outs.
+```
+
+**Step 5 — Add ItemList schema markup:**
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Best Rooftop Bars in Dallas",
+  "description": "The top rooftop bars in Dallas TX with skyline views",
+  "url": "https://purpleheartlimo.com/blog/dfw-rooftop-bars.html",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Rooftop Bar at The Joule",
+      "url": "https://www.thejouledallas.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Monarch",
+      "url": "https://monarchdallas.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Headington Terrace at the Joule"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Q Rooftop at the Thompson Dallas"
+    },
+    {
+      "@type": "ListItem",
+      "position": 5,
+      "name": "Level Up at The Virgin Hotels Dallas"
+    }
+  ]
+}
+</script>
+```
+
+---
+
+## TASK 5 — FIX BACHELORETTE PAGE (score 0.52)
+
+**File:** /blog/dfw-bachelorette-party.html
+
+**Step 1 — Fix title tag:**
+```html
+<title>Bachelorette Party Ideas in Dallas & Fort Worth TX | Purple Heart Limo</title>
+```
+
+**Step 2 — Fix meta description (MISSING):**
+```html
+<meta name="description" content="Planning a bachelorette party in Dallas or Fort Worth? From cocktail bars to wine bars and party buses — your complete bachelorette Dallas TX guide with Purple Heart Limo.">
+```
+
+**Step 3 — Fix H1:**
+```
+Bachelorette Party Ideas in Dallas & Fort Worth, TX — The Ultimate Guide
+```
+
+**Step 4 — Add missing keywords to body:**
+Make sure these appear naturally in the body content:
+- "bachelorette dallas"
+- "bachelorette dallas tx"
+- "bachelorette party fort worth"
+- "bachelorette ideas in dallas"
+- "bachelorette weekend"
+- "cocktail bars"
+- "wine bar"
+- "wine on tap"
+
+**Step 5 — Add new H2 section:**
+```
+H2: Best Cocktail Bars and Wine Bars for a Dallas Bachelorette Party
+150 words: Dallas cocktail scene, wine bars, rooftop options, wine on tap
+bars that are perfect for bachelorette weekends. Include "cocktail bars",
+"wine bar", "wine on tap", "bachelorette weekend" naturally.
+
+H2: Bachelorette Party Ideas in Fort Worth
+100 words: Fort Worth options — Sundance Square, Near Southside bars,
+cultural district. Target "bachelorette party fort worth" keyword.
+```
+
+---
+
+## TASK 6 — FIX NEAR SOUTHSIDE FORT WORTH PAGE (score 0.44)
+
+**File:** /blog/near-southside-fort-worth.html
+
+**Step 1 — Fix title tag:**
+```html
+<title>Near Southside Fort Worth Guide — South Main Street Dining, Bars & Events | Purple Heart Limo</title>
+```
+
+**Step 2 — Fix H1:**
+```
+Near Southside Fort Worth — The Complete Guide to South Main Street
+```
+
+**Step 3 — Add missing keywords to body:**
+- "south main fort worth" — add to intro paragraph, H2, and body naturally
+- "near south side fort worth" — use as variation in body text
+- "supreme golf" — mention Near Southside's proximity or add as an activity
+
+**Step 4 — Expand content:**
+```
+H2: South Main Street in Near Southside Fort Worth
+150 words: the dining and bar scene on South Main — restaurants,
+cocktail lounges, live music venues. Use "south main fort worth" naturally.
+```
+
+---
+
+## TASK 7 — FIX TRINITY GROVES DALLAS PAGE (score 0.48)
+
+**File:** /blog/trinity-groves-dallas.html
+
+**Step 1 — Fix title tag:**
+```html
+<title>Trinity Groves Dallas — Best Restaurants and Things to Do | Purple Heart Limo</title>
+```
+
+**Step 2 — Fix meta description (MISSING):**
+```html
+<meta name="description" content="Explore Trinity Groves Dallas — an innovative restaurant hub just minutes from Downtown Dallas. Discover the best restaurants at Trinity Groves with a Purple Heart Limo night out.">
+```
+
+**Step 3 — Fix H1:**
+```
+Trinity Groves Dallas — Restaurants, Food Trucks & Things to Do
+```
+
+**Step 4 — Add missing keywords:**
+- "restaurants trinity grove" — in H1, title, meta, and body
+- "downtown dallas" — add as geographic context in body
+
+**Step 5 — Add ItemList schema:**
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Best Restaurants at Trinity Groves Dallas",
+  "url": "https://purpleheartlimo.com/blog/trinity-groves-dallas.html",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Mutts Canine Cantina"},
+    {"@type": "ListItem", "position": 2, "name": "Amberjax Fish Market Grille"},
+    {"@type": "ListItem", "position": 3, "name": "Trinity Groves Restaurant Village"},
+    {"@type": "ListItem", "position": 4, "name": "Pie Tap Pizza Workshop + Bar"},
+    {"@type": "ListItem", "position": 5, "name": "Mexican Sugar"}
+  ]
+}
+</script>
+```
+
+---
+
+## TASK 8 — FIX WEDDING VENUES PAGE (score 0.57)
+
+**File:** /blog/dfw-wedding-venues.html
+
+**Step 1 — Fix title tag:**
+```html
+<title>Best Wedding Venues in the DFW Area — Dallas Fort Worth Wedding Guide | Purple Heart Limo</title>
+```
+
+**Step 2 — Fix meta description (MISSING):**
+```html
+<meta name="description" content="Find the best wedding venues in the DFW area — from Dallas to Fort Worth and all surrounding suburbs. Compare top wedding venues with Purple Heart Limo wedding transportation.">
+```
+
+**Step 3 — Fix H1:**
+```
+Best Wedding Venues in the DFW Area — Dallas & Fort Worth
+```
+
+**Step 4 — Add missing keyword to body:**
+"wedding venues in the dfw area" — verify this phrase appears
+in at least 2 places in the body text naturally.
+
+**Step 5 — Add ItemList schema:**
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Best Wedding Venues in the DFW Area",
+  "url": "https://purpleheartlimo.com/blog/dfw-wedding-venues.html",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "The Adolphus Hotel Dallas"},
+    {"@type": "ListItem", "position": 2, "name": "Rosewood Mansion on Turtle Creek"},
+    {"@type": "ListItem", "position": 3, "name": "The Omni Fort Worth Hotel"},
+    {"@type": "ListItem", "position": 4, "name": "Ashton Depot Fort Worth"},
+    {"@type": "ListItem", "position": 5, "name": "Arlington Hall at Lee Park"}
+  ]
+}
+</script>
+```
+
+---
+
+## TASK 9 — FIX ADDISON RESTAURANT ROW PAGE (score 0.14)
+
+**File:** /blog/addison-restaurant-row.html
+
+**Step 1 — Fix title tag:**
+```html
+<title>Fine Dining in Addison TX — Best Restaurants on Restaurant Row | Purple Heart Limo</title>
+```
+
+**Step 2 — Fix H1:**
+```
+Fine Dining in Addison, TX — The Complete Restaurant Row Guide
+```
+
+**Step 3 — Add missing keywords naturally:**
+- "fine dining in addison tx" — in H1, title, and body
+- "special occasion" — add when describing fine dining context
+- "fine dining" — use 3-4 times naturally in body
+- "dining experiences" — add in body text
+
+**Step 4 — Add ItemList schema:**
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Fine Dining Restaurants in Addison TX",
+  "url": "https://purpleheartlimo.com/blog/addison-restaurant-row.html",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Chamberlain's Steak & Chop House"},
+    {"@type": "ListItem", "position": 2, "name": "Del Frisco's Double Eagle Steakhouse"},
+    {"@type": "ListItem", "position": 3, "name": "Al Biernat's North"},
+    {"@type": "ListItem", "position": 4, "name": "Wild Salsa"},
+    {"@type": "ListItem", "position": 5, "name": "The Capital Grille"}
+  ]
+}
+</script>
+```
+
+---
+
+## TASK 10 — FIX DALLAS LUXURY SHOPPING PAGE (score 1.19)
+
+**File:** /blog/dallas-luxury-shopping.html
+
+**Step 1 — Fix title tag:**
+```html
+<title>High End Shopping in Dallas TX — Luxury Malls, Boutiques & Designer Stores | Purple Heart Limo</title>
+```
+
+**Step 2 — Fix H1:**
+```
+High End Shopping in Dallas, TX — The Luxury Shopper's Complete Guide
+```
+
+**Step 3 — Add LocalBusiness schema:**
+```html
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "High End Shopping in Dallas TX",
+  "description": "A guide to the best luxury and high-end shopping in Dallas Texas",
+  "author": {
+    "@type": "Organization",
+    "name": "Purple Heart Limo",
+    "url": "https://purpleheartlimo.com"
+  }
+}
+</script>
+```
+
+---
+
+## TASK 11 — FIX ARLINGTON ENTERTAINMENT PAGE (score 0.85)
+
+**File:** /blog/arlington-entertainment.html
+
+**Step 1 — Fix title tag:**
+```html
+<title>Arlington TX Entertainment District — Things to Do in Arlington | Purple Heart Limo</title>
+```
+
+**Step 2 — Fix H1:**
+```
+Arlington, TX Entertainment District — Complete Guide to Events & Things to Do
+```
+
+**Step 3 — Add missing keywords:**
+- "arlington entertainment" — verify in body
+- "arlington tx" — add to body 2-3 times naturally
+- "arlington tx entertainment district" — in H2 heading
+- "arlington entertainment district map" — add to a section
+  mentioning how to navigate the district
+
+**Step 4 — Expand with H2 section:**
+```
+H2: Map of the Arlington TX Entertainment District
+100 words: overview of the Globe Life Field, AT&T Stadium / Jerry World,
+Esports Stadium Arlington, Six Flags, and how they connect. Use
+"arlington entertainment district map" naturally.
+```
+
+---
+
+## TASK 12 — FIX FLEET PAGE (score 1.30)
+
+**File:** /fleet.html
+
+**Step 1 — Fix title tag:**
+```html
+<title>Our Limo Fleet — Purple Limousine & Luxury Vehicles | Purple Heart Limo Dallas</title>
+```
+
+**Step 2 — Fix H1 (MISSING target keyword):**
+Find the current H1 and update to include "purple limousine":
+```
+Our Purple Limousine Fleet — Luxury Vehicles for Every Occasion
+```
+
+**Step 3 — Add "purple limousine" to body:**
+Find the intro paragraph of the fleet page. Add one natural
+sentence mentioning "purple limousine" — for example:
+"Our iconic purple limousine is the most recognizable luxury
+vehicle in the DFW area..."
+
+**Step 4 — Fix readability:**
+If fleet descriptions are long blocks of text, break them into
+bullet points listing vehicle features.
+
+---
+
+## TASK 13 — FIX LIVE MUSIC PAGE (score 0.19)
+
+**File:** /blog/dfw-live-music-scene.html
+
+**Step 1 — Fix title tag:**
+```html
+<title>Dallas Texas Music Scene — Best Live Music Venues in DFW | Purple Heart Limo</title>
+```
+
+**Step 2 — Fix H1:**
+```
+Dallas Texas Music Scene — The Best Live Music Venues in DFW
+```
+
+**Step 3 — Add missing keyword to body:**
+"dallas texas music scene" — verify it appears in body text
+at least 2 times naturally.
+
+---
+
+## TASK 14 — GLOBAL READABILITY FIXES (ALL PAGES)
+
+For every page modified in Tasks 1–13, apply these readability rules:
+
+**Rule 1 — Paragraph length:**
+No paragraph should be longer than 4 sentences. If you find
+paragraphs with 5+ sentences, split them into two paragraphs.
+
+**Rule 2 — Sentence length:**
+If you see sentences longer than 25 words, split them into
+two shorter sentences.
+
+**Rule 3 — Subheadings frequency:**
+Every 250–300 words of body content must have an H2 or H3 heading.
+If existing content has a section longer than 300 words without
+a subheading, add a relevant H3.
+
+**Rule 4 — Bullet points:**
+Any list of 3 or more items described in a sentence should be
+converted to a bulleted list.
+Example: "You can visit the Treasury, the Monastery, the High Place
+of Sacrifice, and the Siq" → becomes a bulleted list.
+
+---
+
+## TASK 15 — GENERATE AUDIT REPORT
+
+After completing all tasks, generate this report:
+
+```
+====================================================
+PURPLEHEARTLIMO.COM — SEMRUSH FIX AUDIT REPORT
+Date: [date]
+====================================================
+
+BROKEN PAGES FIXED:
+[ ] dfw-thanksgiving.html — status: [created/verified/fixed]
+[ ] grapevine-texas-guide.html — status: [created/verified/fixed]
+[ ] comparing-austin limo page — status: [created/verified/fixed]
+
+TITLE TAGS FIXED:
+[ ] bishop-arts-dallas.html — new title: [show it]
+[ ] uptown-dallas-guide.html — new title: [show it]
+[ ] dallas-hotels-guide.html — new title: [show it]
+[ ] dfw-rooftop-bars.html — new title: [show it]
+[ ] dfw-bachelorette-party.html — new title: [show it]
+[ ] near-southside-fort-worth.html — new title: [show it]
+[ ] trinity-groves-dallas.html — new title: [show it]
+[ ] dfw-wedding-venues.html — new title: [show it]
+[ ] addison-restaurant-row.html — new title: [show it]
+[ ] dallas-luxury-shopping.html — new title: [show it]
+[ ] arlington-entertainment.html — new title: [show it]
+[ ] fleet.html — new title: [show it]
+[ ] dfw-live-music-scene.html — new title: [show it]
+
+META DESCRIPTIONS FIXED:
+[ ] bishop-arts-dallas.html
+[ ] dfw-rooftop-bars.html
+[ ] dfw-bachelorette-party.html
+[ ] trinity-groves-dallas.html
+[ ] dfw-wedding-venues.html
+[ ] dallas-hotels-guide.html
+
+H1 TAGS FIXED:
+[ ] List all pages with updated H1 values
+
+SCHEMA MARKUP ADDED:
+[ ] dallas-hotels-guide.html — Article schema
+[ ] dfw-rooftop-bars.html — ItemList schema (5 bars)
+[ ] trinity-groves-dallas.html — ItemList schema (5 restaurants)
+[ ] dfw-wedding-venues.html — ItemList schema (5 venues)
+[ ] addison-restaurant-row.html — ItemList schema (5 restaurants)
+[ ] dallas-luxury-shopping.html — Article schema
+
+CONTENT EXPANDED:
+[ ] bishop-arts-dallas.html — word count before/after
+[ ] uptown-dallas-guide.html — word count before/after
+[ ] dallas-hotels-guide.html — word count before/after
+[ ] dfw-thanksgiving.html — word count
+[ ] grapevine-texas-guide.html — word count
+
+KEYWORD STUFFING FIXED:
+[ ] dallas-hotels-guide.html — "luxury hotels in dallas"
+    reduced from [N] to 3 uses
+
+READABILITY FIXES APPLIED:
+[ ] List of pages where paragraphs were shortened
+[ ] List of pages where bullet points were added
+[ ] List of pages where H3s were added
+
+TOTAL FILES MODIFIED: [N]
+TOTAL NEW SCHEMA BLOCKS ADDED: [N]
+
+AFTER THIS FIX — WHAT TO DO NEXT:
+1. Redeploy the site from Replit to purpleheartlimo.com
+2. Go to Google Search Console → URL Inspection
+3. Request reindexing for these priority URLs (do 10/day):
+   - purpleheartlimo.com/blog/bishop-arts-dallas.html
+   - purpleheartlimo.com/blog/uptown-dallas-guide.html
+   - purpleheartlimo.com/blog/dallas-hotels-guide.html
+   - purpleheartlimo.com/blog/dfw-rooftop-bars.html
+   - purpleheartlimo.com/blog/dfw-thanksgiving.html
+   - purpleheartlimo.com/blog/grapevine-texas-guide.html
+   - purpleheartlimo.com/blog/dfw-bachelorette-party.html
+   - purpleheartlimo.com/blog/trinity-groves-dallas.html
+   - purpleheartlimo.com/blog/dfw-wedding-venues.html
+   - purpleheartlimo.com/blog/addison-restaurant-row.html
+4. Come back to SEMrush in 2 weeks and run a new audit
+   to verify improvements
+
+====================================================
+END OF REPORT
+====================================================
+```
+
+---
+
+## BUILD COMMANDS — RUN IN THIS ORDER
+
+```
+"Run Task 1 — fix the 3 broken pages (404 errors)"
+"Run Task 2A — fix bishop-arts-dallas.html"
+"Run Task 2B — fix uptown-dallas-guide.html"
+"Run Task 3 — fix dallas-hotels-guide.html"
+"Run Task 4 — fix dfw-rooftop-bars.html"
+"Run Task 5 — fix dfw-bachelorette-party.html"
+"Run Task 6 — fix near-southside-fort-worth.html"
+"Run Task 7 — fix trinity-groves-dallas.html"
+"Run Task 8 — fix dfw-wedding-venues.html"
+"Run Task 9 — fix addison-restaurant-row.html"
+"Run Task 10 — fix dallas-luxury-shopping.html"
+"Run Task 11 — fix arlington-entertainment.html"
+"Run Task 12 — fix fleet.html"
+"Run Task 13 — fix dfw-live-music-scene.html"
+"Run Task 14 — apply global readability fixes to all modified pages"
+"Run Task 15 — generate complete audit report"
+```
+
+# ============================================================
+# PROMPT END
+# ============================================================
