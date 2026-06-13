@@ -340,6 +340,12 @@
   from = "/blog/comparing-limo-services-in-austin--what-sets-purple-heart-apart"
   to = "/blog/comparing-purple-heart-limo-with-other-austin-limo-services/"
   status = 301
+# SEMrush 2026-06 audit: this exact slug was reported 404; the real article
+# lives at the canonical slug below. Must precede the /blog/:slug catch-all.
+[[redirects]]
+  from = "/blog/comparing-austin-s-top-limo-services--what-sets-purple-heart-apart-"
+  to = "/blog/comparing-purple-heart-limo-with-other-austin-limo-services/"
+  status = 301
 [[redirects]]
   from = "/blog/case-study--how-dynamic-maps-improved-our-limo-service-efficiency"
   to = "/blog/how-dynamic-maps-enhance-limousine-services-in-austin/"
