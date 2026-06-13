@@ -5,6 +5,7 @@
 - [hreflang reciprocity](hreflang-reciprocity.md) — homepage has no Spanish twin; never add an `es` hreflang to it until a real /es/ homepage exists.
 - [Homepage scoping rules](homepage-dual-hero.md) — scope home-only styling to `#home-page`; `.hero` is shared by Spanish home and button classes are global across service pages.
 - [Semrush "only one internal link"](internal-link-audit.md) — it means INBOUND links; fix blog posts with scripts/add_related_links.py related blocks.
+- [Netlify clean-URL blog redirects](netlify-clean-url-redirects.md) — .html->extensionless needs force=true (existing files beat non-forced); keep scripts/data/*.json .html.
 - [Netlify redirect architecture](netlify-redirect-architecture.md) — redirects live in netlify.toml (NO _redirects/_public); rates.html & service-areas.html are LIVE, don't redirect them.
 - [Blog folder-post playbook](blog-folder-post-playbook.md) — folder posts need MANUAL inbound links (index card + sitemap + cross-links); FAQPage JSON-LD needs matching visible FAQ.
 - [es/ link repoint gotcha](es-link-repoint-gotcha.md) — blanket replacing /fleet.html→/es/ in es pages breaks the 🌐 English / lang-toggle links; exclude those + hreflang.

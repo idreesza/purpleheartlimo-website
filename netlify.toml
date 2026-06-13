@@ -372,6 +372,358 @@
   force = true
 
 # ─────────────────────────────────────────────────────────────
+# 3a-bis. Legacy blog .html -> clean extensionless URL (301).
+# force=true because the .html file still exists on disk; without
+# force, static files win and the redirect is skipped. Must stay
+# ABOVE the /blog/:slug trailing-slash rule (first match wins).
+# ─────────────────────────────────────────────────────────────
+[[redirects]]
+  from = "/blog/addison-restaurant-row.html"
+  to = "/blog/addison-restaurant-row"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/arlington-entertainment.html"
+  to = "/blog/arlington-entertainment"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/best-restaurants-dfw.html"
+  to = "/blog/best-restaurants-dfw"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/bishop-arts-dallas.html"
+  to = "/blog/bishop-arts-dallas"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/christmas-dfw.html"
+  to = "/blog/christmas-dfw"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/corporate-transportation-dfw.html"
+  to = "/blog/corporate-transportation-dfw"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dallas-arts-district.html"
+  to = "/blog/dallas-arts-district"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dallas-cowboys-game-limo.html"
+  to = "/blog/dallas-cowboys-game-limo"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dallas-hotels-guide.html"
+  to = "/blog/dallas-hotels-guide"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dallas-luxury-shopping.html"
+  to = "/blog/dallas-luxury-shopping"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dallas-mavericks-limo.html"
+  to = "/blog/dallas-mavericks-limo"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dallas-medical-transport.html"
+  to = "/blog/dallas-medical-transport"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dallas-nightlife.html"
+  to = "/blog/dallas-nightlife"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dallas-restaurant-week.html"
+  to = "/blog/dallas-restaurant-week"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dallas-stars-game.html"
+  to = "/blog/dallas-stars-game"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/deep-ellum-dallas-guide.html"
+  to = "/blog/deep-ellum-dallas-guide"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-airport-limo-guide.html"
+  to = "/blog/dfw-airport-limo-guide"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-anniversary-dinner.html"
+  to = "/blog/dfw-anniversary-dinner"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-art-galleries.html"
+  to = "/blog/dfw-art-galleries"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-arts-festivals.html"
+  to = "/blog/dfw-arts-festivals"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-bachelorette-party.html"
+  to = "/blog/dfw-bachelorette-party"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-birthday-limo.html"
+  to = "/blog/dfw-birthday-limo"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-brewery-wine-tour.html"
+  to = "/blog/dfw-brewery-wine-tour"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-brunch-guide.html"
+  to = "/blog/dfw-brunch-guide"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-charity-gala.html"
+  to = "/blog/dfw-charity-gala"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-concert-venues.html"
+  to = "/blog/dfw-concert-venues"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-corporate-event-venues.html"
+  to = "/blog/dfw-corporate-event-venues"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-executive-car-service.html"
+  to = "/blog/dfw-executive-car-service"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-family-activities.html"
+  to = "/blog/dfw-family-activities"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-golf-courses.html"
+  to = "/blog/dfw-golf-courses"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-graduation-limo.html"
+  to = "/blog/dfw-graduation-limo"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-lakes-guide.html"
+  to = "/blog/dfw-lakes-guide"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-live-music-scene.html"
+  to = "/blog/dfw-live-music-scene"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-luxury-experiences.html"
+  to = "/blog/dfw-luxury-experiences"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-new-resident-guide.html"
+  to = "/blog/dfw-new-resident-guide"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-new-years-eve.html"
+  to = "/blog/dfw-new-years-eve"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-nightlife-safety.html"
+  to = "/blog/dfw-nightlife-safety"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-quinceaneara-limo.html"
+  to = "/blog/dfw-quinceaneara-limo"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-real-estate-tours.html"
+  to = "/blog/dfw-real-estate-tours"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-rooftop-bars.html"
+  to = "/blog/dfw-rooftop-bars"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-silicon-prairie.html"
+  to = "/blog/dfw-silicon-prairie"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-spa-wellness.html"
+  to = "/blog/dfw-spa-wellness"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-sporting-events.html"
+  to = "/blog/dfw-sporting-events"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-thanksgiving.html"
+  to = "/blog/dfw-thanksgiving"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-valentines-day.html"
+  to = "/blog/dfw-valentines-day"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-wedding-venues.html"
+  to = "/blog/dfw-wedding-venues"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-wine-country.html"
+  to = "/blog/dfw-wine-country"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/dfw-world-cup-2026.html"
+  to = "/blog/dfw-world-cup-2026"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/fair-park-dallas.html"
+  to = "/blog/fair-park-dallas"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/fort-worth-stockyards.html"
+  to = "/blog/fort-worth-stockyards"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/fort-worth-things-to-do.html"
+  to = "/blog/fort-worth-things-to-do"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/grapevine-texas-guide.html"
+  to = "/blog/grapevine-texas-guide"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/highland-park-village.html"
+  to = "/blog/highland-park-village"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/july-4th-dfw.html"
+  to = "/blog/july-4th-dfw"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/las-colinas-guide.html"
+  to = "/blog/las-colinas-guide"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/legacy-west-plano.html"
+  to = "/blog/legacy-west-plano"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/limo-vs-rideshare-dfw.html"
+  to = "/blog/limo-vs-rideshare-dfw"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/lower-greenville-dallas.html"
+  to = "/blog/lower-greenville-dallas"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/mckinney-historic-district.html"
+  to = "/blog/mckinney-historic-district"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/near-southside-fort-worth.html"
+  to = "/blog/near-southside-fort-worth"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/plano-frisco-guide.html"
+  to = "/blog/plano-frisco-guide"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/private-jet-dfw.html"
+  to = "/blog/private-jet-dfw"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/prom-limo-dfw.html"
+  to = "/blog/prom-limo-dfw"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/southlake-town-square.html"
+  to = "/blog/southlake-town-square"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/sundance-square-fort-worth.html"
+  to = "/blog/sundance-square-fort-worth"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/texas-rangers-game.html"
+  to = "/blog/texas-rangers-game"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/things-to-do-dallas-weekend.html"
+  to = "/blog/things-to-do-dallas-weekend"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/trinity-groves-dallas.html"
+  to = "/blog/trinity-groves-dallas"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog/uptown-dallas-guide.html"
+  to = "/blog/uptown-dallas-guide"
+  status = 301
+  force = true
+
+# ─────────────────────────────────────────────────────────────
 # 3b. Canonicalize blog URLs to a trailing slash.
 # Directory posts (blog/<slug>/index.html) only serve at the
 # trailing-slash URL; without this, /blog/<slug> falls through to

@@ -68,6 +68,14 @@ class Handler(SimpleHTTPRequestHandler):
             except Exception as e:
                 return self._json({'error': str(e)}, 500)
 
+        # Netlify-style pretty URLs: serve /blog/foo from /blog/foo.html
+        # so the dev preview matches production (extensionless canonicals).
+        clean = urllib.parse.urlparse(self.path).path
+        if clean and not clean.endswith('/'):
+            fs_path = clean.lstrip('/')
+            if not os.path.isfile(fs_path) and os.path.isfile(fs_path + '.html'):
+                self.path = clean + '.html'
+
         return super().do_GET()
 
     def end_headers(self):
