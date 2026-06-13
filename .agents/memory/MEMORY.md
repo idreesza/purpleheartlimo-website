@@ -10,4 +10,5 @@
 - [es/ link repoint gotcha](es-link-repoint-gotcha.md) — blanket replacing /fleet.html→/es/ in es pages breaks the 🌐 English / lang-toggle links; exclude those + hreflang.
 - [Live deploy host reality](live-deploy-host.md) — live domain serves from Netlify; netlify.toml is authoritative; code goes live only via GitHub push; keep MX/SPF in Netlify DNS.
 - [Stale SEO audit 404s](seo-audit-stale-404s.md) — SEMrush/GSC 404s here often crawled the pre-Netlify host; verify the file exists before "fixing" — usually a slug-mismatch redirect, not a missing page.
+- [AI-readiness fixes](ai-readiness-fixes.md) — llms.txt & AI-bot robots already exist; headers go in netlify.toml not _headers; external prompts shipped WRONG phone — site truth is (833) 740-0700 / /booking.html.
 - [Fleet marquee focus](fleet-marquee-focus.md) — picked ride-type centers/magnifies a car; never animate layout-affecting margin or getBoundingClientRect centering drifts.

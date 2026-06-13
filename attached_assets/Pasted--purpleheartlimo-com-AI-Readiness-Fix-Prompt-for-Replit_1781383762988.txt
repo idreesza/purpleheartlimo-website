@@ -1,0 +1,408 @@
+# purpleheartlimo.com — AI Readiness Fix Prompt for Replit AI
+# Based on: isitagentready.com audit June 13, 2026
+# Stack: Static HTML + Netlify deployment
+# Score goal: 21 → 50+ (fixing the actionable items for a limo company)
+
+---
+
+# ============================================================
+# PROMPT START — PASTE EVERYTHING BELOW THIS LINE INTO REPLIT AI
+# ============================================================
+
+## YOUR ROLE
+
+You are an SEO and AI optimization developer fixing three specific
+files on purpleheartlimo.com — a veteran-owned luxury limo service
+based in the DFW area of Texas.
+
+The site scored 21/100 on isitagentready.com. Your job is to fix
+the items that are both actionable AND relevant for a limo service
+website. Do NOT add API catalogs, OAuth, or MCP configurations —
+those are for software platforms, not limo companies.
+
+Focus only on these 3 tasks. Do them perfectly.
+
+## BUSINESS IDENTITY
+
+Company: Purple Heart Limo
+Type: Veteran-owned luxury limousine service
+Location: DFW Texas (Austin + Dallas markets)
+Phone: (833) 400-7007
+Email: info@purpleheartlimo.com
+Booking: customer.moovs.app/purple-heart-limo
+Website: https://purpleheartlimo.com
+Social: Facebook | TikTok @austin.limousine | Instagram @austinlimousine
+GA4: G-Y469VZMYZT
+
+---
+
+## CRITICAL RULE
+
+This site is deployed on Netlify from a GitHub repository.
+Every change must be made to the actual source files in Replit —
+then committed and deployed through the existing Netlify pipeline.
+Do NOT touch any GA4 tracking code, meta tags, or canonical tags.
+Preserve all existing content — only ADD new files or ADD new lines.
+
+---
+
+## TASK 1 — UPDATE ROBOTS.TXT (add Content Signals)
+
+### Step 1 — Find the existing robots.txt
+Look for robots.txt in the project root or /public folder.
+Read the current contents before making any changes.
+
+### Step 2 — Add Content Signals at the TOP of robots.txt
+Insert these 4 lines at the very beginning of the file,
+BEFORE any existing User-agent rules:
+
+```
+# AI Content Signals — declares how AI systems may use this content
+Content-Signal: ai-train=no
+Content-Signal: search=yes
+Content-Signal: ai-input=no
+
+```
+
+Explanation of what each line does:
+- ai-train=no → AI companies cannot use our content to train models
+- search=yes → ChatGPT Search, Perplexity, Google AI Overview CAN
+  include purpleheartlimo.com in their AI-generated answers when
+  someone asks "best limo service in Dallas" or similar queries
+- ai-input=no → AI systems cannot use our content as direct input
+
+### Step 3 — Also add explicit AI bot permissions AFTER existing rules
+At the bottom of robots.txt, add these lines to explicitly allow
+the major AI crawlers that drive search visibility:
+
+```
+# Allow major AI search crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+```
+
+### Step 4 — Final robots.txt should look like this structure:
+```
+# AI Content Signals — declares how AI systems may use this content
+Content-Signal: ai-train=no
+Content-Signal: search=yes
+Content-Signal: ai-input=no
+
+[EXISTING RULES PRESERVED HERE — do not remove anything]
+
+# Allow major AI search crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+```
+
+---
+
+## TASK 2 — CREATE LLMS.TXT (new file — doesn't exist yet)
+
+Purple Heart Limo does NOT have an llms.txt file.
+Create one at the project root (same location as robots.txt).
+
+This file tells AI systems like ChatGPT, Perplexity, Claude,
+and Gemini exactly what Purple Heart Limo is and where to find
+the most important content — so when someone asks an AI assistant
+"what's the best limo service in Austin" or "luxury car service
+DFW" they are more likely to cite purpleheartlimo.com.
+
+Create the file at: /llms.txt (or /public/llms.txt — wherever
+robots.txt lives so it's accessible at purpleheartlimo.com/llms.txt)
+
+File contents:
+
+```markdown
+# Purple Heart Limo
+> Veteran-owned luxury limousine and car service serving Austin,
+> Dallas-Fort Worth, and all major Texas markets. Premium fleet,
+> professional chauffeurs, available 24/7 for corporate travel,
+> weddings, prom, airport transfers, and special events.
+
+Purple Heart Limo is a veteran-owned, USDOT-licensed luxury
+transportation company headquartered in Texas. We specialize in
+premium chauffeured experiences for individuals, couples, and
+corporate clients across Austin and the Dallas-Fort Worth metroplex.
+
+## Services
+
+- **Airport Transfers** — DFW, DAL, AUS, and all Texas airports.
+  On-time guaranteed. Flight tracking included.
+- **Corporate Transportation** — Executive car service, roadshows,
+  and recurring business accounts across DFW and Austin.
+- **Wedding Transportation** — Bridal party limousines, getaway cars,
+  and full-day wedding packages.
+- **Prom & Special Events** — Safe, premium transportation for proms,
+  homecoming, quinceaneras, and milestone celebrations.
+- **Night Out / Party Bus** — Group transportation for nights out,
+  concerts, bachelorette parties, and sporting events.
+- **Hourly Charter** — Book by the hour for any occasion with a
+  dedicated professional chauffeur.
+- **Wine Tours & Day Trips** — Curated Texas wine country experiences.
+- **Hotel & Resort Transfers** — Seamless transfers to luxury hotels
+  across Austin and DFW.
+
+## Fleet
+
+- Stretch Limousines (6-passenger, 8-passenger, 10-passenger)
+- Luxury SUVs (Cadillac Escalade, Lincoln Navigator)
+- Executive Sedans (Lincoln Continental, Cadillac CT6)
+- Party Buses (14-passenger, 20-passenger)
+- Sprinter Vans (luxury group transport)
+- Classic Cars (wedding and special occasion)
+
+## Service Areas
+
+**Primary markets:**
+Austin, TX | Dallas, TX | Fort Worth, TX | DFW Airport | AUS Airport
+
+**Extended coverage:**
+Plano | Frisco | Allen | McKinney | Southlake | Grapevine |
+Round Rock | Cedar Park | Georgetown | San Antonio | Houston
+
+## Why Purple Heart Limo
+
+- Veteran-owned and operated — founded with military values:
+  punctuality, discipline, and honor
+- USDOT licensed and fully insured
+- Professional, background-checked chauffeurs
+- 24/7 availability including holidays
+- Bilingual service available (English + Spanish)
+- Online booking via Moovs platform
+- All vehicles GPS-tracked and meticulously maintained
+
+## Contact & Booking
+
+- **Phone:** (833) 400-7007
+- **Email:** info@purpleheartlimo.com
+- **Online Booking:** https://customer.moovs.app/purple-heart-limo
+- **Website:** https://purpleheartlimo.com
+
+## Key Pages
+
+- Homepage: https://purpleheartlimo.com/
+- Fleet: https://purpleheartlimo.com/fleet.html
+- Book Now: https://customer.moovs.app/purple-heart-limo
+- Blog: https://purpleheartlimo.com/blog/
+- Sitemap: https://purpleheartlimo.com/sitemap.xml
+
+## Blog — Key Posts
+
+- DFW Rooftop Bars Guide: https://purpleheartlimo.com/blog/dfw-rooftop-bars.html
+- Uptown Dallas Guide: https://purpleheartlimo.com/blog/uptown-dallas-guide.html
+- Bishop Arts District: https://purpleheartlimo.com/blog/bishop-arts-dallas.html
+- Dallas Hotels Guide: https://purpleheartlimo.com/blog/dallas-hotels-guide.html
+- DFW Bachelorette Party: https://purpleheartlimo.com/blog/dfw-bachelorette-party.html
+- DFW Wedding Venues: https://purpleheartlimo.com/blog/dfw-wedding-venues.html
+- Arlington Entertainment: https://purpleheartlimo.com/blog/arlington-entertainment.html
+- Grapevine Texas Guide: https://purpleheartlimo.com/blog/grapevine-texas-guide.html
+
+## Social Media
+
+- Facebook: https://www.facebook.com/purpleheartlimo
+- Instagram: https://www.instagram.com/austinlimousine
+- TikTok: https://www.tiktok.com/@austin.limousine
+```
+
+---
+
+## TASK 3 — ADD MARKDOWN NEGOTIATION VIA _HEADERS FILE
+
+Purple Heart Limo is deployed on Netlify. Netlify uses a special
+`_headers` file to set HTTP response headers for all pages.
+
+Markdown Negotiation means: when an AI agent requests a page with
+the header `Accept: text/markdown`, the server responds that it
+supports markdown format. This is a signal that tells AI crawlers
+the site is "AI-agent friendly."
+
+### Step 1 — Find or create the _headers file
+Look for a file named `_headers` in the project root or /public.
+
+If it already exists: ADD to it (do not overwrite existing rules).
+If it doesn't exist: CREATE it.
+
+### Step 2 — Add these headers to the _headers file:
+
+```
+# Global headers for all pages
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Link: </.well-known/api-catalog>; rel="api-catalog"
+
+# Specific headers for AI agent content negotiation
+/
+  Vary: Accept
+  Content-Type: text/html; charset=utf-8
+
+# llms.txt specific headers
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=86400
+
+# robots.txt headers
+/robots.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=86400
+```
+
+### Step 3 — ALSO create a Markdown version of the homepage
+Create a new file at the same level as index.html called
+`index.md` OR serve the llms.txt content when `Accept: text/markdown`
+is requested. For a static Netlify site, the simplest approach is
+to ensure llms.txt exists and is linked from the homepage
+(already done in Task 2).
+
+---
+
+## TASK 4 — ADD LLMS.TXT LINK TO HOMEPAGE HEAD
+
+Open index.html (the main homepage file).
+In the `<head>` section, find where the other `<link>` tags are.
+Add this line alongside the existing link tags:
+
+```html
+<!-- AI Discovery -->
+<link rel="llms" href="/llms.txt" type="text/plain">
+<link rel="sitemap" href="/sitemap.xml" type="application/xml">
+```
+
+Note: Only add the sitemap link if it's not already there.
+Do NOT add if either of these lines already exist.
+
+---
+
+## TASK 5 — ALSO ADD CONTENT SIGNALS TO PURPLEHEARTLIMO.COM META
+
+Open index.html.
+In the `<head>` section, after the existing meta tags, add:
+
+```html
+<!-- AI Content Usage Signals -->
+<meta name="ai-content-usage" content="search=yes, train=no, input=no">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+```
+
+Note: Only add if these meta tags don't already exist.
+If a `<meta name="robots">` tag already exists, just update it
+to include the additional parameters — don't add a duplicate.
+
+---
+
+## VERIFICATION CHECKLIST
+
+After completing all tasks, verify:
+
+```
+1. robots.txt — read the final file and confirm:
+   [ ] Content-Signal: ai-train=no is present at top
+   [ ] Content-Signal: search=yes is present at top
+   [ ] Content-Signal: ai-input=no is present at top
+   [ ] All original rules are still intact
+   [ ] GPTBot, ClaudeBot, PerplexityBot Allow: / rules at bottom
+
+2. llms.txt — confirm:
+   [ ] File exists at project root / public folder
+   [ ] Accessible path: /llms.txt
+   [ ] Contains # Purple Heart Limo header
+   [ ] Contains all 8 service categories
+   [ ] Contains fleet information
+   [ ] Contains contact details with phone number
+   [ ] Contains key page URLs
+   [ ] Contains blog post links
+
+3. _headers file — confirm:
+   [ ] File exists
+   [ ] Link header pointing to /.well-known/api-catalog is present
+   [ ] /llms.txt has correct Content-Type header
+   [ ] /robots.txt has correct Content-Type header
+
+4. index.html — confirm:
+   [ ] <link rel="llms"> tag added to <head>
+   [ ] ai-content-usage meta tag added
+   [ ] No existing meta tags were removed
+   [ ] GA4 tracking code is untouched
+```
+
+---
+
+## EXPECTED SCORE IMPROVEMENT
+
+After these fixes, when re-scanned on isitagentready.com:
+
+Current failing checks that WILL be fixed:
+- Content Signals in robots.txt → ✓ FIXED (Task 1)
+- llms.txt/content for AI agents → ✓ FIXED (Task 2)  
+- Link headers → ✓ FIXED (Task 3)
+
+Checks that remain failing (not relevant for limo company):
+- DNS-AID → Skip (enterprise only)
+- API Catalog → Skip (no API)
+- OAuth/OIDC → Skip (no protected API)
+- Auth.md → Skip (no agent auth needed)
+- MCP Server Card → Skip (not a software tool)
+- Agent Skills Index → Skip (not applicable)
+- WebMCP → Skip (not applicable)
+
+Estimated new score: 35-45 / 100
+This is the realistic ceiling for a service business website.
+The remaining failing items are for software/API platforms only.
+
+---
+
+## BUILD COMMANDS — RUN IN THIS ORDER
+
+```
+"Run Task 1 — read and update robots.txt with Content Signals and AI bot rules"
+"Run Task 2 — create llms.txt with complete Purple Heart Limo content"
+"Run Task 3 — create or update _headers file for Netlify"
+"Run Task 4 — add llms.txt link tag to index.html head section"
+"Run Task 5 — add AI content usage meta tag to index.html"
+"Run verification checklist — confirm all 5 tasks completed correctly"
+"Show me the final content of robots.txt, llms.txt, and _headers"
+```
+
+After Replit completes:
+1. Commit and push to GitHub
+2. Netlify will auto-deploy (usually 1-2 minutes)
+3. Verify by visiting:
+   - purpleheartlimo.com/robots.txt (should show Content Signals)
+   - purpleheartlimo.com/llms.txt (should show the new file)
+4. Re-scan on isitagentready.com/purpleheartlimo.com
+5. Expected improvement: 21 → 35-45
+
+# ============================================================
+# PROMPT END
+# ============================================================
