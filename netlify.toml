@@ -227,6 +227,10 @@
   to = "/blog/"
   status = 301
 [[redirects]]
+  from = "/blog/innovations-in-multi-step-online-bookings--a-game-changer-for-travel-services"
+  to = "/blog/"
+  status = 301
+[[redirects]]
   from = "/blog/expert-tips-for-choosing-the-best-limousine-service-in-austin"
   to = "/blog/"
   status = 301
@@ -288,6 +292,10 @@
   status = 301
 [[redirects]]
   from = "/blog/a-comprehensive-guide-to-transportation-services-in-austin--texas"
+  to = "/blog/"
+  status = 301
+[[redirects]]
+  from = "/blog/the-ultimate-guide-to-transportation-services-in-austin--texas-3"
   to = "/blog/"
   status = 301
 [[redirects]]

@@ -30,3 +30,13 @@ source inputs (the `path`/`url` of the source file) and must keep `.html`. Same 
 **Dev parity:** `server.py` (SimpleHTTPRequestHandler) does NOT resolve extensionless URLs
 by default; it was patched to serve `/blog/foo` from `blog/foo.html` so the Replit preview
 matches Netlify prod.
+
+## Dead/nonexistent blog slugs -> "redirect error" in GSC
+A blog slug that has NO file (no flat .html, no folder) and NO explicit redirect
+falls through to the `/blog/:slug -> /blog/:slug/` rule: it 301s to its own
+trailing-slash URL, which then 404s (no folder index). GSC reports this chain as
+a **"Redirect error"** (redirect-to-404), NOT a plain 404.
+**Fix:** add an explicit `[[redirects]] from=/blog/<slug> to=/blog/ status=301`
+in the dead-post block (lines ~109-360), which sits BEFORE the `/blog/:slug` rule
+(first match wins). Convention in this file: dead AI-generated posts redirect to
+`/blog/` (only close content matches get a specific target).

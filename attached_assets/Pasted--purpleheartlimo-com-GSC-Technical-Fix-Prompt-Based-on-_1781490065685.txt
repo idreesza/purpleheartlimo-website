@@ -1,0 +1,380 @@
+# purpleheartlimo.com — GSC Technical Fix Prompt
+# Based on: 8 GSC Coverage Drilldown files dated June 14, 2026
+# Issues: Redirect error | 404s | www leak | SPA router leak |
+#         Trailing slash canonical | Blocked blog posts | Pagination
+
+---
+
+# ============================================================
+# PROMPT START — PASTE EVERYTHING BELOW THIS LINE INTO REPLIT AI
+# ============================================================
+
+## YOUR ROLE
+
+Fix specific technical issues identified in Google Search Console
+for purpleheartlimo.com — a Netlify-deployed static HTML site.
+
+Read every file before editing. Do not touch page content,
+GA4 tracking (G-Y469VZMYZT), or any working redirects.
+
+---
+
+## TASK 1 — FIX REDIRECT ERROR ON ONE BLOG POST (new June 8)
+
+### The problem:
+This specific URL has a redirect error — started June 8, 2026:
+https://purpleheartlimo.com/blog/innovations-in-multi-step-online-bookings--a-game-changer-for-travel-services
+
+### Step 1 — Check if the page exists:
+Search the project for this slug:
+"innovations-in-multi-step-online-bookings--a-game-changer-for-travel-services"
+
+### Step 2 — Fix based on what you find:
+
+If the page EXISTS but has a broken redirect:
+- Open _redirects file
+- Find any rule pointing to or from this URL
+- Fix the redirect chain so the URL resolves cleanly to HTTP 200
+
+If the page DOES NOT EXIST:
+- Add a 301 redirect to the closest related post:
+```
+/blog/innovations-in-multi-step-online-bookings--a-game-changer-for-travel-services  /blog/how-to-simplify-your-multi-step-limo-booking-experience  301
+```
+
+If the page EXISTS and returns 200:
+- The redirect error may be in the sitemap pointing to a wrong URL
+- Check sitemap.xml for this URL and verify it matches exactly
+
+---
+
+## TASK 2 — FIX THE SPA ROUTER LEAK (HTML tag names as URLs)
+
+### The problem:
+GSC shows this URL being crawled:
+https://purpleheartlimo.com/html/head/title
+
+This is a known SPA (Single Page Application) router bug where
+the router is treating HTML tag names as route paths. This was
+identified in a previous audit as an existing issue.
+
+### Step 1 — Find the router configuration:
+Look for: App.tsx, App.jsx, router.tsx, routes.tsx, main.tsx
+
+### Step 2 — Add a catch-all 404 handler:
+The router needs to catch any route that doesn't match a known
+page and return a proper 404 instead of rendering the page.
+
+In React Router:
+```javascript
+// Add as the LAST route in your routes array
+{
+  path: '*',
+  element: <NotFound /> // or redirect to homepage
+}
+```
+
+In Next.js — create: pages/404.tsx or app/not-found.tsx
+
+### Step 3 — Block HTML tag routes in robots.txt:
+Open public/robots.txt and add:
+```
+Disallow: /html/
+Disallow: /head/
+Disallow: /body/
+```
+
+### Step 4 — Add 404 redirect for the leaked URL in _redirects:
+```
+/html/*   /   404
+/head/*   /   404
+/body/*   /   404
+```
+
+---
+
+## TASK 3 — FIX THE WWW REDIRECT LEAK (36 pages affected)
+
+### The problem:
+GSC confirms both www versions still being crawled as of June 10:
+- http://www.purpleheartlimo.com/
+- https://www.purpleheartlimo.com/
+- https://www.purpleheartlimo.com/blog/dallas-nightlife-guide-uptown-deep-ellum-by-limo
+- Multiple www.purpleheartlimo.com/blog/* URLs
+
+### Step 1 — Find current _redirects file:
+Open _redirects (should be in /public or project root).
+
+### Step 2 — Check if www redirect rule exists:
+Look for a line like:
+```
+https://www.purpleheartlimo.com/*  https://purpleheartlimo.com/:splat  301!
+```
+
+### Step 3 — If missing or not using splat, fix it:
+The rule MUST use :splat to pass the full path through.
+Replace any incomplete www redirect with:
+
+```
+# www to non-www — catches ALL paths including blog posts
+https://www.purpleheartlimo.com/*  https://purpleheartlimo.com/:splat  301!
+http://www.purpleheartlimo.com/*   https://purpleheartlimo.com/:splat  301!
+http://purpleheartlimo.com/*       https://purpleheartlimo.com/:splat  301!
+```
+
+The `!` at the end forces the redirect even if another rule
+would match — critical for Netlify to override other rules.
+
+### Step 4 — Verify the specific URLs that were crawled redirect:
+After deploying, test these URLs return 301 → non-www:
+- www.purpleheartlimo.com/blog/dallas-nightlife-guide-uptown-deep-ellum-by-limo
+- www.purpleheartlimo.com/ (homepage)
+
+---
+
+## TASK 4 — FIX 404 ERRORS (24 pages, most critical ones)
+
+GSC shows 24 pages returning 404. Fix the highest priority ones:
+
+### 4A — /about-us returns 404 (crawled June 7):
+Check if the About page URL changed. Common scenario:
+- Old URL: /about-us
+- New URL: /about
+
+If so, add redirect:
+```
+/about-us   /about   301
+```
+
+If /about-us is the correct URL but the page broke:
+- Find the about-us route in the router
+- Verify the page component exists and is loading
+
+### 4B — /es/ returns 404 (Spanish homepage, crawled June 3):
+The Spanish homepage /es/ is in GSC as a 404 but /es (no trailing
+slash) shows as crawled May 23. Fix trailing slash inconsistency:
+
+```
+/es/   /es   301
+```
+
+Also verify the /es route exists in the router and returns content.
+
+### 4C — Multiple www blog posts returning 404:
+These www versions are 404ing instead of redirecting:
+- www.purpleheartlimo.com/blog/world-cup-2026-dallas-limo-service-guide
+- www.purpleheartlimo.com/blog/best-day-trips-from-dallas-by-limo
+- www.purpleheartlimo.com/blog/best-wedding-venues-in-dallas-dfw-limo-service
+- www.purpleheartlimo.com/es/
+
+Fix: The www redirect in Task 3 will handle these automatically
+once the _redirects rule is corrected.
+
+### 4D — Verify these specific blog posts exist:
+Check if the following blog posts return 200:
+- /blog/the-ultimate-guide-to-event-based-limousine-rental-in-austin
+- /blog/the-ultimate-guide-to-transportation-services-in-austin--texas-3
+- /blog/alternatives-to-austin-prestige-limos--what-makes-us-different
+
+If any return 404, add 301 redirects to the closest matching post.
+
+---
+
+## TASK 5 — FIX TRAILING SLASH CANONICAL CONFLICT (1 page)
+
+### The problem:
+This URL has "Google chose different canonical than user":
+https://purpleheartlimo.com/blog/what-to-do-in-fort-worth-texas-by-limo/
+(with trailing slash)
+
+Google is choosing the non-trailing-slash version as canonical,
+but the page's canonical tag may point to the trailing slash version.
+
+### Fix:
+### Step 1 — Find the blog post file for this slug
+### Step 2 — Check the canonical tag:
+It likely reads:
+```html
+<link rel="canonical" href="https://purpleheartlimo.com/blog/what-to-do-in-fort-worth-texas-by-limo/">
+```
+
+### Step 3 — Fix to remove trailing slash:
+```html
+<link rel="canonical" href="https://purpleheartlimo.com/blog/what-to-do-in-fort-worth-texas-by-limo">
+```
+
+### Step 4 — Add a redirect for the trailing slash version:
+```
+/blog/what-to-do-in-fort-worth-texas-by-limo/   /blog/what-to-do-in-fort-worth-texas-by-limo   301
+```
+
+### Step 5 — Apply this same fix globally:
+Search for any other blog post canonical tags that end with /
+and remove the trailing slash from ALL of them.
+
+---
+
+## TASK 6 — FIX BLOG POSTS BLOCKED BY ROBOTS.TXT (3 posts)
+
+### The problem:
+3 blog posts are being blocked by robots.txt:
+- /blog/misconceptions-about-limousine-services--what-you-need-to-know
+- /blog/how-to-create-a-lead-capture-system-for-limousine-services
+- /blog/why-choose-purple-heart-limousine-for-your-next-austin-event-
+
+These are legitimate content pages that should be indexable.
+
+### Step 1 — Open robots.txt and check for any rules that
+might accidentally block /blog/* paths.
+
+### Step 2 — Common cause: overly broad Disallow rule:
+If robots.txt has something like:
+```
+Disallow: /blog/misconceptions*
+```
+or any pattern that matches these slugs, remove or fix it.
+
+### Step 3 — The only things that SHOULD be blocked in robots.txt:
+```
+User-agent: *
+Disallow: /admin/
+Disallow: /api/
+Disallow: /cdn-cgi/
+```
+
+Blog posts should NEVER be in Disallow rules.
+
+### Step 4 — Verify the fix:
+After updating robots.txt, check that these 3 URLs are
+not matched by any Disallow pattern.
+
+---
+
+## TASK 7 — NOINDEX BLOG PAGINATION URLs
+
+### The problem:
+GSC shows these paginated blog URLs being indexed:
+- /blog?q&p=1, /blog?q&p=2, /blog?q&p=4, /blog?q&p=5
+- /blog?q&p=6, /blog?q&p=7, /blog?q&p=8
+- /blog?q&p=16, /blog?q&p=17, /blog?q&p=18
+
+These waste crawl budget. Add noindex to all paginated pages.
+
+### Find the blog listing component:
+Look for: pages/blog.tsx, components/Blog.tsx, or similar
+
+### Add noindex meta for paginated views:
+```javascript
+// In the blog listing page
+const searchParams = new URLSearchParams(window.location.search)
+const currentPage = parseInt(searchParams.get('p')) || 1
+
+// In <head>:
+{currentPage > 1 && (
+  <meta name="robots" content="noindex, follow" />
+)}
+```
+
+### Also add canonical for paginated pages:
+```html
+<link rel="canonical" href="https://purpleheartlimo.com/blog">
+```
+This should be added to ALL paginated views (p > 1).
+
+---
+
+## TASK 8 — REQUEST INDEXING PRIORITY LIST (manual — do in GSC)
+
+After deploying all fixes, go to Google Search Console →
+URL Inspection and request indexing for these URLs in order.
+(10 per day limit — do 10 today, 10 tomorrow)
+
+### Day 1 — Highest priority (10 URLs):
+1. https://purpleheartlimo.com/austin-airport-limo/
+   (404 per audit — fix first, then request indexing)
+2. https://purpleheartlimo.com/dfw-airport-car-service/
+3. https://purpleheartlimo.com/dallas-party-bus/
+4. https://purpleheartlimo.com/limo-service-austin-tx/
+5. https://purpleheartlimo.com/austin-corporate-car-service/
+6. https://purpleheartlimo.com/about-us (or /about — whichever is correct)
+7. https://purpleheartlimo.com/blog/world-cup-2026-dallas-limo-service-guide
+8. https://purpleheartlimo.com/blog/veteran-owned-limo-service-dallas-tx/
+9. https://purpleheartlimo.com/blog/prom-limo-rental-dallas-tx/
+10. https://purpleheartlimo.com/es/
+
+### Day 2 — Next 10 URLs:
+11. https://purpleheartlimo.com/car-service-plano-tx/
+12. https://purpleheartlimo.com/car-service-frisco-tx/
+13. https://purpleheartlimo.com/car-service-mckinney-tx/
+14. https://purpleheartlimo.com/car-service-irving-tx/
+15. https://purpleheartlimo.com/car-service-arlington-tx/
+16. https://purpleheartlimo.com/limo-service-fort-worth-tx/
+17. https://purpleheartlimo.com/dallas-corporate-car-service/
+18. https://purpleheartlimo.com/blog/love-field-airport-limo-service-dallas/
+19. https://purpleheartlimo.com/blog/limo-service-dallas-to-houston-tx/
+20. https://purpleheartlimo.com/blog/flat-rate-limo-vs-surge-pricing-dallas/
+
+---
+
+## VERIFICATION CHECKLIST
+
+```
+TASK 1 — Redirect error blog post:
+[ ] /blog/innovations-in-multi-step-online-bookings URL status:
+    [200 fixed / 301 redirect added to: _____ ]
+
+TASK 2 — SPA router leak:
+[ ] /html/head/title returns 404 (not a rendered page)
+[ ] Catch-all 404 route added to router
+[ ] robots.txt Disallow: /html/ added
+
+TASK 3 — www redirect:
+[ ] _redirects has wildcard rule for https://www.*
+[ ] _redirects has wildcard rule for http://www.*
+[ ] _redirects has rule for http://purpleheartlimo.com/*
+[ ] All 3 rules use :splat to pass full path
+
+TASK 4 — 404 fixes:
+[ ] /about-us status: [200 / 301 to /about]
+[ ] /es/ trailing slash: [301 to /es]
+[ ] www blog 404s: [handled by Task 3 www redirect]
+
+TASK 5 — Trailing slash canonical:
+[ ] what-to-do-in-fort-worth canonical has no trailing slash
+[ ] 301 redirect from trailing slash version added
+[ ] Global check: no blog canonical tags end with /
+
+TASK 6 — Robots.txt blog blocking:
+[ ] robots.txt checked for blog-blocking rules
+[ ] All 3 blocked blog posts are now unblocked
+[ ] Only /admin/, /api/, /cdn-cgi/ are disallowed
+
+TASK 7 — Pagination noindex:
+[ ] Blog pages with p > 1 have noindex meta tag
+[ ] Canonical points to /blog on all paginated pages
+
+BUILD:
+[ ] Deploy to Netlify via GitHub push
+[ ] Verify purpleheartlimo.com/robots.txt shows correct rules
+[ ] Verify www.purpleheartlimo.com/ redirects to https://purpleheartlimo.com/
+```
+
+---
+
+## BUILD COMMANDS — RUN IN THIS ORDER
+
+```
+"Run Task 1 — find the innovations-in-multi-step blog post redirect error and fix it"
+"Run Task 2 — fix SPA router leak: add catch-all 404 route and block /html/ in robots.txt"
+"Run Task 3 — fix www redirect in _redirects file with wildcard splat rules for all 3 variants"
+"Run Task 4 — fix /about-us 404, /es/ trailing slash, and verify broken blog posts"
+"Run Task 5 — fix trailing slash canonical on fort-worth post and audit all blog canonical tags"
+"Run Task 6 — audit robots.txt and unblock the 3 blocked blog posts"
+"Run Task 7 — add noindex and canonical to all blog pagination pages"
+"Run verification checklist — confirm all tasks complete"
+"Commit and push to GitHub for Netlify auto-deploy"
+```
+
+# ============================================================
+# PROMPT END
+# ============================================================
