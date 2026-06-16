@@ -1836,8 +1836,8 @@ footer {
 <div class="form-group">
 <label>Pickup Time</label>
 <div style="display:grid;grid-template-columns:1fr 1fr 80px;gap:6px;">
-<input aria-label="Hour" class="bk-time" id="time-hour" inputmode="numeric" max="12" min="1" oninput="bkClampTime(this,1,12)" placeholder="Hr" type="number"/>
-<input aria-label="Minute" class="bk-time" id="time-min" inputmode="numeric" max="59" min="0" oninput="bkClampTime(this,0,59)" placeholder="Min" type="number"/>
+<input aria-label="Hour" class="bk-time" id="time-hour" inputmode="numeric" maxlength="2" oninput="bkClampTime(this,1,12)" placeholder="Hr" type="text"/>
+<input aria-label="Minute" class="bk-time" id="time-min" inputmode="numeric" maxlength="2" oninput="bkClampTime(this,0,59)" onblur="bkPadMin(this)" placeholder="Min" type="text"/>
 <div class="csel compact" id="csel-ampm">
 <button class="csel-btn" onclick="cselToggle('csel-ampm')" type="button">AM</button>
 <div class="csel-list">
@@ -3623,9 +3623,14 @@ function initNominatimAutocomplete(inputId, opts) {
   const pickupId = opts.pickupId || null;
   const input = document.getElementById(inputId);
   if (!input) return;
+  // Dark dropdown only for the home booking form (scope: #home-page).
+  // Other forms (Spanish hero, contact) keep the original light dropdown.
+  const dark = (inputId === 'pickup-input' || inputId === 'dropoff-input' || inputId.indexOf('stop-input-') === 0);
   let list = document.createElement('ul');
   list.className = 'nominatim-list';
-  list.style.cssText = 'position:fixed;z-index:2147483600;background:#fff;border:1.5px solid rgba(45,0,69,0.18);border-radius:10px;list-style:none;margin:0;padding:0;max-height:280px;overflow-y:auto;box-shadow:0 12px 32px rgba(0,0,0,0.28);display:none;';
+  list.style.cssText = dark
+    ? 'position:fixed;z-index:2147483600;background:#0b0b0d;border:1px solid rgba(255,255,255,0.15);border-radius:10px;list-style:none;margin:0;padding:0;min-width:240px;max-height:280px;overflow-y:auto;box-shadow:0 12px 32px rgba(0,0,0,0.5);display:none;'
+    : 'position:fixed;z-index:2147483600;background:#fff;border:1.5px solid rgba(45,0,69,0.18);border-radius:10px;list-style:none;margin:0;padding:0;max-height:280px;overflow-y:auto;box-shadow:0 12px 32px rgba(0,0,0,0.28);display:none;';
   document.body.appendChild(list);
   const positionList = () => {
     const r = input.getBoundingClientRect();
@@ -3681,7 +3686,9 @@ function initNominatimAutocomplete(inputId, opts) {
         if (!data.length) { list.style.display = 'none'; return; }
         data.forEach(place => {
           const li = document.createElement('li');
-          li.style.cssText = 'padding:10px 14px;cursor:pointer;font-size:0.82rem;color:#333;border-bottom:1px solid rgba(45,0,69,0.06);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
+          li.style.cssText = dark
+            ? 'padding:10px 14px;cursor:pointer;font-size:0.82rem;color:rgba(255,255,255,0.92);border-bottom:1px solid rgba(255,255,255,0.08);white-space:normal;line-height:1.4;'
+            : 'padding:10px 14px;cursor:pointer;font-size:0.82rem;color:#333;border-bottom:1px solid rgba(45,0,69,0.06);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
           li.textContent = place.display_name;
           li.title = place.display_name;
           li.addEventListener('mousedown', e => {
@@ -3691,7 +3698,7 @@ function initNominatimAutocomplete(inputId, opts) {
             input.dataset.lon = place.lon;
             list.style.display = 'none';
           });
-          li.addEventListener('mouseover', () => li.style.background = '#f5f0ff');
+          li.addEventListener('mouseover', () => li.style.background = dark ? 'rgba(212,175,55,0.18)' : '#f5f0ff');
           li.addEventListener('mouseout', () => li.style.background = '');
           list.appendChild(li);
         });
@@ -3890,13 +3897,17 @@ function bkToggle() {
   }
 }
 
-// Keep manually-typed Hr/Min within range (min/max only constrain the spinner).
+// Keep manually-typed Hr/Min numeric and within range (strips non-digits, clamps).
 function bkClampTime(el, lo, hi) {
+  el.value = el.value.replace(/\D/g, '').slice(0, 2);
   if (el.value === '') return;
-  if (el.value.length > 2) el.value = el.value.slice(0, 2);
   let n = parseInt(el.value, 10);
   if (isNaN(n)) { el.value = ''; return; }
   el.value = String(Math.min(hi, Math.max(lo, n)));
+}
+// Show the minute with a leading zero once the field loses focus (5 -> 05).
+function bkPadMin(el) {
+  if (el.value !== '' && el.value.length < 2) el.value = el.value.padStart(2, '0');
 }
 
 async function submitQuote() {

@@ -1,0 +1,89 @@
+Fix the following UI issues on the Purple Heart Limo booking form. 
+DO NOT change any functionality — layout, theme, and positioning fixes only.
+
+---
+
+### FIX 1 — Calendar Dropdown: Align it under the DATE field, match the dark theme
+
+PROBLEM: The calendar popup opens in the center of the screen, not under the DATE field. 
+It also has a white/light background that clashes with the dark booking bar.
+
+FIX:
+- Position the calendar dropdown so it opens DIRECTLY BELOW the DATE input field 
+  it belongs to, left-aligned with that field
+- Use: position: absolute; top: 100%; left: 0; z-index: 9999; on the calendar container
+- The DATE field's parent container must have: position: relative;
+- Smart positioning: if there is NOT enough space below the viewport, 
+  flip it to open ABOVE the field using: bottom: 100%; top: auto;
+  Detect this with JavaScript: 
+  if (rect.bottom + calendarHeight > window.innerHeight) → open above
+- Restyle the calendar to match the dark booking bar theme:
+  background: #1a1a2e or match the booking bar's dark background color
+  Text color: white (#ffffff)
+  Day headers (Sun Mon Tue etc): color: #a89fd4 (lavender accent)
+  Today's date circle: border color white or lavender
+  Selected date circle: background: #534ab7 (purple), text: white
+  Hover state on dates: background: rgba(83, 74, 183, 0.3)
+  Month/year header: white, font-weight: 600
+  Navigation arrows (‹ ›): color white, hover color #a89fd4
+  Border: 1px solid rgba(255,255,255,0.15)
+  Border-radius: 12px
+  Box-shadow: 0 8px 32px rgba(0,0,0,0.5)
+  Remove any white or light background entirely
+
+---
+
+### FIX 2 — Apply the same dark theme to ALL form dropdowns and inputs
+
+The booking bar contains: PICKUP LOCATION, DROP-OFF LOCATION, DATE, 
+PICKUP TIME (Hr / Min / AM-PM), and VIEW OPTIONS.
+Make sure ALL interactive elements inside the booking bar share the same visual theme:
+- Input fields background: transparent or dark (matching the bar)
+- Text: white
+- Placeholder text: rgba(255,255,255,0.5)
+- Borders/dividers: rgba(255,255,255,0.15)
+- Autocomplete suggestion dropdown (image 3 shows a white popup for address suggestions):
+  Style the Google Places / address autocomplete dropdown to also use dark theme:
+  background: #1a1a2e
+  text: white
+  hover row: background rgba(83,74,183,0.3)
+  border: 1px solid rgba(255,255,255,0.15)
+  border-radius: 8px
+  Override using: .pac-container { } and .pac-item { } CSS classes 
+  (these are Google Places autocomplete classes)
+
+---
+
+### FIX 3 — Hour/Min fields: Replace scrollable dropdown with manual number input
+
+PROBLEM: The Hr and Min fields open a scrollable dropdown list with a visible scrollbar.
+
+FIX:
+- Replace both Hr and Min dropdowns with <input type="number"> fields
+- Hr: min="1" max="12", placeholder="Hr"
+- Min: min="0" max="59", placeholder="Min"
+- Format Min with leading zero on blur (e.g., user types 5 → displays 05)
+- Match dark theme: same background, white text, no border or subtle border only
+- Remove the number input spinner arrows:
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+  input[type=number] { -moz-appearance: textfield; }
+- Keep AM/PM toggle exactly as-is
+
+---
+
+### FIX 4 — Address autocomplete dropdown (Image 3): truncation fix
+
+PROBLEM: Address suggestions are being cut off with "..." before the full address shows.
+
+FIX:
+- Set the autocomplete dropdown container to: min-width: 100%; white-space: nowrap; 
+  overflow: hidden; text-overflow: ellipsis;
+- Or allow the dropdown to be wider than the input field if needed: 
+  min-width: 320px; max-width: 480px;
+- Apply the dark theme from FIX 2 to these suggestion rows as well
+
+---
+
+Preserve all existing booking logic, API calls, and form submission behavior. 
+Only change visual styles and dropdown positioning.
