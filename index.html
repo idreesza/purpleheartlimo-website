@@ -734,7 +734,7 @@ a { text-decoration:none; color:inherit; }
 }
 /* ===== HOME hero: bottom-anchored booking bar (mockup) ===== */
 #home-page .hero-content { display:none; }
-#home-page .hero { min-height:100vh; justify-content:flex-end; gap:24px; padding-bottom:30px; }
+#home-page .hero { min-height:100vh; justify-content:flex-end; gap:10px; padding-bottom:0; }
 #home-page .hero-inner { display:block; max-width:1080px; margin:0 auto; width:100%; }
 #home-page .hero .booking-card {
   background:none; border:none; box-shadow:none; padding:0;
@@ -792,6 +792,25 @@ a { text-decoration:none; color:inherit; }
   background:transparent !important; border:1px solid rgba(255,255,255,0.18) !important;
   border-radius:8px !important; padding:6px 8px !important; font-size:0.78rem; min-height:34px;
   color:#fff;
+}
+#home-page .bk-bar .csel-btn.open,
+#home-page .bk-bar .csel-btn:focus { border-color:rgba(212,175,55,0.6) !important; }
+/* Bar time dropdowns (Hr / Min / AM) — dark/gold, matches calendar */
+#home-page .bk-bar .csel-list {
+  background:#0b0b0d !important; border:1px solid rgba(212,175,55,0.35) !important;
+  border-radius:12px !important; min-width:88px; padding:4px !important; max-height:210px;
+  box-shadow:0 16px 40px rgba(0,0,0,0.7) !important;
+  scrollbar-width:thin; scrollbar-color:rgba(212,175,55,0.5) transparent;
+}
+#home-page .bk-bar .csel-list::-webkit-scrollbar { width:6px; }
+#home-page .bk-bar .csel-list::-webkit-scrollbar-thumb { background:rgba(212,175,55,0.45); border-radius:6px; }
+#home-page .bk-bar .csel-opt {
+  color:#fff !important; text-align:center; border-bottom:none !important;
+  border-radius:8px; padding:9px 8px !important; font-size:0.9rem;
+}
+#home-page .bk-bar .csel-opt:hover,
+#home-page .bk-bar .csel-opt.selected {
+  background:rgba(212,175,55,0.16) !important; color:#F4DC95 !important;
 }
 /* View options button cell */
 #home-page .bk-bar > .bk-bar-action {
@@ -943,31 +962,6 @@ body.home-active .navbar .hamburger span { background:#fff; }
   50%     { opacity:1; transform:scale(1.18); }
 }
 
-/* Scroll-down indicator */
-.hero-scroll {
-  display:flex; align-items:center; gap:20px; width:100%;
-  max-width:1300px; margin:6px auto 0; 
-  color:rgba(255,255,255,0.5); font-size:0.8rem;
-  font-family:'Plus Jakarta Sans','Inter',sans-serif; letter-spacing:0.05em;
-  position:relative; z-index:2;
-}
-.hero-scroll .hs-line { flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent); }
-.hero-scroll .hs-text { white-space:nowrap; }
-.hero-scroll .hs-mouse {
-  width:24px; height:38px; flex:none; position:relative;
-  border:1.5px solid rgba(255,255,255,0.4); border-radius:14px;
-}
-.hero-scroll .hs-mouse::after {
-  content:''; position:absolute; left:50%; top:7px; width:3px; height:7px;
-  margin-left:-1.5px; border-radius:2px; background:rgba(255,255,255,0.85);
-  animation:mouseWheel 1.8s ease-in-out infinite;
-}
-@keyframes mouseWheel {
-  0%   { opacity:0; transform:translateY(0); }
-  30%  { opacity:1; }
-  100% { opacity:0; transform:translateY(12px); }
-}
-
 /* Services marquee — the services we provide */
 .svc-marquee {
   width:100%; overflow:hidden; position:relative; z-index:2;
@@ -1008,13 +1002,11 @@ body.home-active .navbar .hamburger span { background:#fff; }
 
 @media (prefers-reduced-motion: reduce) {
   .svc-marquee-track { animation:none; }
-  .hero-scroll .hs-mouse::after { animation:none; }
   #home-page .hero-badge .badge-dot { animation:none; }
   #home-page .hero .hero-btns .btn-primary,
   #home-page .hero .hero-btns .btn-secondary { animation:none; }
 }
 @media (max-width:768px) {
-  .hero-scroll .hs-text.hs-right { display:none; }
   .svc-marquee-item { font-size:0.92rem; padding:0 22px; }
 }
 
@@ -1552,33 +1544,48 @@ footer {
   .booking-card { width:100%; max-width: calc(100vw - 48px); margin-left: auto; margin-right: auto; }
   .svc-hero { padding:100px 4% 50px; }
 }
-/* Flatpickr overrides — make it match widget style */
-.flatpickr-calendar {
-  font-family: 'Inter', sans-serif !important;
-  border-radius: 14px !important;
-  box-shadow: 0 12px 40px rgba(45,0,69,0.18) !important;
-  border: 1.5px solid rgba(45,0,69,0.14) !important;
+/* ===== Calendar (Flatpickr) — dark/gold theme, scoped to home picker only ===== */
+.flatpickr-calendar.phl-dark-cal {
+  font-family:'Plus Jakarta Sans','Inter',sans-serif !important;
+  background:#0b0b0d !important;
+  border-radius:16px !important;
+  border:1px solid rgba(212,175,55,0.35) !important;
+  box-shadow:0 20px 55px rgba(0,0,0,0.7) !important;
+  padding:6px !important;
 }
-.flatpickr-day.selected,
-.flatpickr-day.selected:hover {
-  background: var(--purple) !important;
-  border-color: var(--purple) !important;
+.flatpickr-calendar.phl-dark-cal::before, .flatpickr-calendar.phl-dark-cal::after { display:none !important; }
+.phl-dark-cal .flatpickr-months { background:transparent !important; padding-top:4px; }
+.phl-dark-cal .flatpickr-months .flatpickr-month,
+.phl-dark-cal .flatpickr-current-month { background:transparent !important; color:#fff !important; font-weight:700 !important; }
+.phl-dark-cal .flatpickr-current-month .flatpickr-monthDropdown-months,
+.phl-dark-cal .flatpickr-current-month input.cur-year { color:#fff !important; font-weight:700 !important; }
+.phl-dark-cal .flatpickr-monthDropdown-months { background:#0b0b0d !important; }
+.phl-dark-cal .flatpickr-current-month .numInputWrapper span { display:none !important; }
+.phl-dark-cal .flatpickr-weekdays { background:transparent !important; }
+.phl-dark-cal .flatpickr-weekday { color:#D4AF37 !important; font-weight:800 !important; font-size:0.78rem !important; }
+.phl-dark-cal .flatpickr-day {
+  color:rgba(255,255,255,0.92) !important; border:1px solid transparent !important;
+  border-radius:999px !important;
 }
-.flatpickr-day:hover { background: rgba(45,0,69,0.08) !important; }
-.flatpickr-months .flatpickr-month { background: var(--purple) !important; border-radius: 12px 12px 0 0 !important; }
-.flatpickr-current-month, .flatpickr-monthDropdown-months { color: #fff !important; }
-.flatpickr-weekday { color: var(--gold) !important; font-weight: 700 !important; }
-.numInputWrapper:hover { background: transparent !important; }
+.phl-dark-cal .flatpickr-day:hover { background:rgba(212,175,55,0.18) !important; color:#F4DC95 !important; }
+.phl-dark-cal .flatpickr-day.today { border:1px solid rgba(212,175,55,0.7) !important; }
+.phl-dark-cal .flatpickr-day.selected,
+.phl-dark-cal .flatpickr-day.selected:hover {
+  background:linear-gradient(135deg,#D4AF37,#C49A2C) !important;
+  border-color:#D4AF37 !important; color:#0a0a0a !important; font-weight:700 !important;
+}
+.phl-dark-cal .flatpickr-day.flatpickr-disabled,
+.phl-dark-cal .flatpickr-day.prevMonthDay,
+.phl-dark-cal .flatpickr-day.nextMonthDay { color:rgba(255,255,255,0.22) !important; }
+.phl-dark-cal .flatpickr-day.flatpickr-disabled:hover { background:transparent !important; color:rgba(255,255,255,0.22) !important; }
+.phl-dark-cal .flatpickr-prev-month svg, .phl-dark-cal .flatpickr-next-month svg { fill:#D4AF37 !important; stroke:#D4AF37 !important; width:18px !important; height:18px !important; }
+.phl-dark-cal .flatpickr-prev-month:hover svg, .phl-dark-cal .flatpickr-next-month:hover svg { fill:#fff !important; stroke:#fff !important; }
+.phl-dark-cal .numInputWrapper:hover { background:transparent !important; }
+#date-input { cursor: pointer; }
 /* Field validation errors */
 .field-error { display:none; font-size:0.72rem; color:#dc2626; font-weight:600; margin-top:4px; padding-left:2px; }
 .field-error.show { display:block; }
 .input-invalid { border-color:#dc2626 !important; background:rgba(220,38,38,0.04) !important; }
-
-.flatpickr-prev-month, .flatpickr-next-month { color: var(--gold) !important; fill: var(--gold) !important; opacity: 1 !important; }
-.flatpickr-prev-month:hover, .flatpickr-next-month:hover { color: #fff !important; opacity: 1 !important; }
-.flatpickr-prev-month svg, .flatpickr-next-month svg { fill: var(--gold) !important; width: 20px !important; height: 20px !important; stroke: var(--gold) !important; stroke-width: 2 !important; }
-.flatpickr-prev-month:hover svg, .flatpickr-next-month:hover svg { fill: #fff !important; stroke: #fff !important; }
-#date-input { cursor: pointer; }
 </style>
 <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -1803,9 +1810,17 @@ footer {
 <div class="csel-list">
 <div class="csel-opt" onclick="cselPick('csel-min','time-min','')">Min</div>
 <div class="csel-opt" onclick="cselPick('csel-min','time-min','00')">00</div>
+<div class="csel-opt" onclick="cselPick('csel-min','time-min','05')">05</div>
+<div class="csel-opt" onclick="cselPick('csel-min','time-min','10')">10</div>
 <div class="csel-opt" onclick="cselPick('csel-min','time-min','15')">15</div>
+<div class="csel-opt" onclick="cselPick('csel-min','time-min','20')">20</div>
+<div class="csel-opt" onclick="cselPick('csel-min','time-min','25')">25</div>
 <div class="csel-opt" onclick="cselPick('csel-min','time-min','30')">30</div>
+<div class="csel-opt" onclick="cselPick('csel-min','time-min','35')">35</div>
+<div class="csel-opt" onclick="cselPick('csel-min','time-min','40')">40</div>
 <div class="csel-opt" onclick="cselPick('csel-min','time-min','45')">45</div>
+<div class="csel-opt" onclick="cselPick('csel-min','time-min','50')">50</div>
+<div class="csel-opt" onclick="cselPick('csel-min','time-min','55')">55</div>
 </div>
 <input id="time-min" type="hidden" value=""/>
 </div>
@@ -1936,13 +1951,6 @@ footer {
 <div class="fleet-caption" id="fleet-caption"></div>
 <a class="bk-phone" href="tel:+18337400700">📞 (833) 740-0700</a>
 </div>
-</div>
-<div class="hero-scroll" aria-hidden="true">
-<span class="hs-text">Scroll down</span>
-<span class="hs-line"></span>
-<span class="hs-mouse"></span>
-<span class="hs-line"></span>
-<span class="hs-text hs-right">to explore our fleet</span>
 </div>
 <div class="svc-marquee" aria-label="The services we provide">
 <div class="svc-marquee-track">
@@ -3554,9 +3562,11 @@ document.addEventListener('DOMContentLoaded', () => {
       minDate: 'today',
       dateFormat: 'm/d/Y',
       disableMobile: true,
+      closeOnSelect: true,
       monthSelectorType: 'static',
       static: false,
       onReady(_, __, fp) {
+        fp.calendarContainer.classList.add('phl-dark-cal');
         fp.calendarContainer.style.zIndex = '999999';
         fp.calendarContainer.style.position = 'fixed';
         const reposition = () => {
