@@ -1,0 +1,165 @@
+Apply the homepage dark theme and header to the following 8 HTML pages.
+DO NOT touch index.html or booking.html (booking page gets header-only treatment — see below).
+
+TARGET PAGES (full theme):
+- fleet.html
+- flight-tracker.html
+- blog/ (index and any blog post files)
+- about.html
+- contact.html
+- gallery.html
+- testimonials.html
+- Any services and locations pages
+
+---
+
+### STEP 1 — Extract the header HTML from index.html
+
+Copy the ENTIRE <header> block from index.html exactly as-is.
+This includes:
+- The dark navbar with Home, Book, More▾ buttons
+- The PurpleHeart Limo logo (centered)
+- The EN language switcher and CALL button
+- All associated dropdown behavior (More menu with Company/Services/Locations)
+
+Paste this identical <header> block at the top of <body> in ALL 8 target pages above,
+replacing whatever header currently exists on each page.
+
+---
+
+### STEP 2 — Extract and apply global theme CSS from index.html
+
+From index.html, identify the core theme variables/styles:
+- Background color: #0a0a0f (or whatever the homepage body background is)
+- Primary text color: #ffffff
+- Accent purple: #534ab7
+- Accent lavender: #a89fd4
+- Font family (the serif + sans combo used on homepage)
+
+Add this CSS block inside <head> of every target page 
+(or add to a shared styles file if one exists):
+
+<style>
+  body {
+    background-color: #0a0a0f;
+    color: #ffffff;
+    font-family: [match homepage font stack];
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Sections on inner pages */
+  section, .page-content, main, .container {
+    background-color: transparent;
+  }
+
+  /* Cards, panels, boxes */
+  .card, .panel, .box, [class*="card"], [class*="panel"] {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    color: #ffffff;
+  }
+
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    color: #ffffff;
+  }
+
+  /* Links */
+  a {
+    color: #a89fd4;
+  }
+  a:hover {
+    color: #ffffff;
+  }
+
+  /* Buttons — match homepage pill style */
+  .btn, button, [class*="btn"] {
+    background: #534ab7;
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 22px;
+    cursor: pointer;
+  }
+  .btn:hover, button:hover {
+    background: #6c63d4;
+  }
+
+  /* Inputs and forms on inner pages */
+  input, select, textarea {
+    background: rgba(255,255,255,0.07);
+    color: #ffffff;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+  input::placeholder, textarea::placeholder {
+    color: rgba(255,255,255,0.4);
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: #534ab7;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(83,74,183,0.3);
+  }
+
+  /* Labels */
+  label {
+    color: rgba(255,255,255,0.6);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Tables if any */
+  table {
+    background: transparent;
+    color: #ffffff;
+  }
+  th {
+    color: #a89fd4;
+  }
+  tr:hover {
+    background: rgba(255,255,255,0.05);
+  }
+</style>
+
+---
+
+### STEP 3 — Remove conflicting light styles on each inner page
+
+On each target page, remove or override any:
+- white or #fff body/section backgrounds
+- light-colored cards or panels
+- black text on light backgrounds
+- any Bootstrap or framework light theme classes that contradict the dark theme
+  (e.g., bg-white, bg-light, text-dark — replace with bg-transparent, text-white)
+
+---
+
+### STEP 4 — booking.html: header only
+
+For booking.html ONLY:
+- Replace its existing header with the same homepage header from STEP 1
+- DO NOT change anything else on the booking page
+- Do not apply the body theme CSS to booking.html
+
+---
+
+### STEP 5 — Also fix the More dropdown menu theme
+
+The More▾ dropdown currently has a WHITE background (visible in screenshot).
+Fix it to match the dark theme:
+- Dropdown container: background: #12121f; border: 1px solid rgba(255,255,255,0.12); 
+  border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+- Menu items text: color: #ffffff;
+- Section labels (COMPANY, SERVICES, LOCATIONS): color: #a89fd4; font-size: 11px;
+- Hover on items: background: rgba(83,74,183,0.25);
+- Book Now button inside dropdown: keep purple #534ab7
+
+Apply this fix in the shared header so it works on ALL pages automatically.
+
+---
+
+Work file by file. Touch minimum code. Do not restructure any page layouts.
