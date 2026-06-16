@@ -1,0 +1,79 @@
+Fix the following UI issues across the Purple Heart Limo site.
+Preserve all functionality — visual and layout fixes only.
+
+---
+
+### FIX 1 — Flight No. field: overlapping placeholder and typed text
+
+PROBLEM: The FLT# placeholder text overlaps with the user's typed input.
+
+FIX:
+- Make sure the input field does NOT show the placeholder once the user starts typing
+- The "FLT#" prefix should either be:
+  OPTION A (preferred): a styled static label OUTSIDE the input to the left, 
+  not inside it — use a flex row: [FLT# label] [input field]
+  OPTION B: use input placeholder="AA1234" with no prefix inside the field, 
+  and put "FLT#" as a <span> absolutely positioned inside but non-interactive
+- Either way: placeholder and typed text must NEVER overlap
+- Input styling: dark background, white text, purple focus border #534ab7
+
+---
+
+### FIX 2 — Header logo: make it bigger across all pages
+
+- Increase the PurpleHeart Limo logo size in the header
+- Target the logo <img> or SVG in the navbar:
+  height: 60px (up from current ~36–40px)
+  width: auto (maintain aspect ratio)
+- Apply this change in the shared header component/file so it takes effect 
+  on ALL pages automatically
+- Do not change logo position or surrounding nav layout
+
+---
+
+### FIX 3 — Vehicle carousel: make cars more visible and selectable
+
+PROBLEM: The side vehicles are too dark/faded — customers can't easily see 
+or click to switch vehicles.
+
+FIX:
+- Non-selected (side) vehicle cards: opacity: 0.75 (up from current ~0.3–0.4)
+- On hover: opacity: 1; transform: scale(1.03); cursor: pointer;
+- Selected vehicle card: keep gold border, SELECTED badge, full opacity
+- Add a subtle transition: transition: all 0.25s ease;
+- If vehicle images are dark due to a background overlay, 
+  reduce that overlay opacity to maximum 0.3 on the carousel section
+- Make left (‹) and right (›) navigation arrows more visible:
+  background: rgba(255,255,255,0.15); 
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  On hover: background: #534ab7;
+
+---
+
+### FIX 4 — Apply hero theme + shared header across all site pages
+
+PROBLEM: Inner pages may have inconsistent headers or themes vs the homepage.
+
+FIX (minimum changes, shared files only):
+
+A) HEADER — find the shared header component (likely Header.jsx, navbar.jsx, 
+   or a shared layout file) and confirm it uses:
+   background: #0a0a0f or the same dark color as the homepage header
+   Logo size: 60px height (from FIX 2)
+   Nav buttons: same purple pill style (#534ab7 background, white text, border-radius: 50px)
+   EN and CALL buttons: same style as homepage
+   This one file change propagates to all pages automatically — do not duplicate 
+   header code into individual pages
+
+B) PAGE BACKGROUND & BODY — in the global CSS file (index.css or globals.css):
+   body { background-color: #0a0a0f; color: #ffffff; }
+   This ensures all pages inherit the dark theme without touching each page individually
+
+C) Do NOT redesign any inner page layouts — only confirm the shared header 
+   and global body background are consistent with the homepage hero theme
+
+---
+
+Total files to touch: Header component (1 file) + global CSS (1 file) + 
+Flight input component + carousel CSS. Minimum edits, maximum consistency.
