@@ -709,7 +709,7 @@ a { text-decoration:none; color:inherit; }
 #home-page .hero { background:#0b0712; }
 #home-page .hero::before {
   background-image:url('images/hero-escalade.webp');
-  background-size:cover; background-position:center center; background-repeat:no-repeat;
+  background-size:150% auto; background-position:center 88%; background-repeat:no-repeat;
   mix-blend-mode:normal; opacity:1; animation:none;
   top:0; left:0; width:100%; height:100%;
 }
@@ -831,8 +831,18 @@ a { text-decoration:none; color:inherit; }
   border:1px solid rgba(150,110,220,0.22);
   -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);
   text-align:left;
+  grid-template-columns:1fr 1fr; gap:14px 16px; align-content:start;
 }
-#home-page #booking-widget.expanded .bk-details { display:block; }
+#home-page #booking-widget.expanded .bk-details { display:grid; }
+/* Wide / composite blocks span the full row; single fields pair 2-per-line */
+#home-page .bk-details > #fb-contact,
+#home-page .bk-details > #fb-vehpax,
+#home-page .bk-details > #fb-stops,
+#home-page .bk-details > #luggage-row,
+#home-page .bk-details > #fb-notes,
+#home-page .bk-details > #price-estimate,
+#home-page .bk-details > .bk-details-action,
+#home-page .bk-details > #quote-success { grid-column:1 / -1; }
 #home-page #booking-widget.expanded .fleet-strip { display:flex; margin-top:16px; }
 #home-page #booking-widget.expanded .fleet-caption { display:block; }
 #home-page #booking-widget.expanded .bk-phone { display:block; }
@@ -1544,51 +1554,41 @@ footer {
   .booking-card { width:100%; max-width: calc(100vw - 48px); margin-left: auto; margin-right: auto; }
   .svc-hero { padding:100px 4% 50px; }
 }
-/* ===== Calendar (Flatpickr) — dark/gold theme, scoped to home picker only ===== */
-.flatpickr-calendar.phl-dark-cal {
-  font-family:'Plus Jakarta Sans','Inter',sans-serif !important;
-  background:#0b0b0d !important;
-  border-radius:16px !important;
-  border:1px solid rgba(212,175,55,0.35) !important;
-  box-shadow:0 20px 55px rgba(0,0,0,0.7) !important;
-  padding:6px !important;
+/* ===== Custom date picker (self-contained, dark/gold — no external CSS) ===== */
+.cal-pop {
+  position:fixed; z-index:2147483600; display:none; width:300px;
+  background:#0b0b0d; border:1px solid rgba(212,175,55,0.35);
+  border-radius:16px; box-shadow:0 20px 55px rgba(0,0,0,0.7);
+  padding:14px; font-family:'Plus Jakarta Sans','Inter',sans-serif; color:#fff;
 }
-.flatpickr-calendar.phl-dark-cal::before, .flatpickr-calendar.phl-dark-cal::after { display:none !important; }
-.phl-dark-cal .flatpickr-months { background:transparent !important; padding-top:4px; }
-.phl-dark-cal .flatpickr-months .flatpickr-month,
-.phl-dark-cal .flatpickr-current-month { background:transparent !important; color:#fff !important; font-weight:700 !important; }
-.phl-dark-cal .flatpickr-current-month .flatpickr-monthDropdown-months,
-.phl-dark-cal .flatpickr-current-month input.cur-year { color:#fff !important; font-weight:700 !important; }
-.phl-dark-cal .flatpickr-monthDropdown-months { background:#0b0b0d !important; }
-.phl-dark-cal .flatpickr-current-month .numInputWrapper span { display:none !important; }
-.phl-dark-cal .flatpickr-weekdays { background:transparent !important; }
-.phl-dark-cal .flatpickr-weekday { color:#D4AF37 !important; font-weight:800 !important; font-size:0.78rem !important; }
-.phl-dark-cal .flatpickr-day {
-  color:rgba(255,255,255,0.92) !important; border:1px solid transparent !important;
-  border-radius:999px !important;
+.cal-pop.open { display:block; }
+.cal-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+.cal-title { font-weight:700; font-size:1rem; color:#fff; }
+.cal-nav {
+  background:transparent; border:none; cursor:pointer; color:#D4AF37;
+  font-size:1.4rem; line-height:1; padding:2px 12px; border-radius:8px; transition:background 0.2s,color 0.2s;
 }
-.phl-dark-cal .flatpickr-day:hover { background:rgba(212,175,55,0.18) !important; color:#F4DC95 !important; }
-.phl-dark-cal .flatpickr-day.today { border:1px solid rgba(212,175,55,0.7) !important; }
-.phl-dark-cal .flatpickr-day.selected,
-.phl-dark-cal .flatpickr-day.selected:hover {
-  background:linear-gradient(135deg,#D4AF37,#C49A2C) !important;
-  border-color:#D4AF37 !important; color:#0a0a0a !important; font-weight:700 !important;
+.cal-nav:hover { background:rgba(212,175,55,0.15); color:#fff; }
+.cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; }
+.cal-wd { text-align:center; font-size:0.72rem; font-weight:800; color:#D4AF37; padding:6px 0; }
+.cal-day {
+  text-align:center; padding:9px 0; font-size:0.85rem; border-radius:999px; cursor:pointer;
+  color:rgba(255,255,255,0.92); border:1px solid transparent; transition:background 0.15s,color 0.15s;
 }
-.phl-dark-cal .flatpickr-day.flatpickr-disabled,
-.phl-dark-cal .flatpickr-day.prevMonthDay,
-.phl-dark-cal .flatpickr-day.nextMonthDay { color:rgba(255,255,255,0.22) !important; }
-.phl-dark-cal .flatpickr-day.flatpickr-disabled:hover { background:transparent !important; color:rgba(255,255,255,0.22) !important; }
-.phl-dark-cal .flatpickr-prev-month svg, .phl-dark-cal .flatpickr-next-month svg { fill:#D4AF37 !important; stroke:#D4AF37 !important; width:18px !important; height:18px !important; }
-.phl-dark-cal .flatpickr-prev-month:hover svg, .phl-dark-cal .flatpickr-next-month:hover svg { fill:#fff !important; stroke:#fff !important; }
-.phl-dark-cal .numInputWrapper:hover { background:transparent !important; }
+.cal-day:hover { background:rgba(212,175,55,0.18); color:#F4DC95; }
+.cal-day.cal-empty { visibility:hidden; cursor:default; }
+.cal-day.cal-disabled { color:rgba(255,255,255,0.2); cursor:not-allowed; }
+.cal-day.cal-disabled:hover { background:transparent; color:rgba(255,255,255,0.2); }
+.cal-day.cal-today { border-color:rgba(212,175,55,0.7); }
+.cal-day.cal-selected {
+  background:linear-gradient(135deg,#D4AF37,#C49A2C); color:#0a0a0a; font-weight:700; border-color:#D4AF37;
+}
 #date-input { cursor: pointer; }
 /* Field validation errors */
 .field-error { display:none; font-size:0.72rem; color:#dc2626; font-weight:600; margin-top:4px; padding-left:2px; }
 .field-error.show { display:block; }
 .input-invalid { border-color:#dc2626 !important; background:rgba(220,38,38,0.04) !important; }
 </style>
-<link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
   (function(){
@@ -3134,23 +3134,66 @@ const VEHICLE_CAPACITY = {
 };
 
 // ===== CUSTOM SELECT ENGINE =====
+// A list may be temporarily detached to <body> (bar dropdowns) to escape the
+// .bk-bar backdrop-filter containing block; data-owner tracks its home wrap.
+function cselFindList(wrap) {
+  return wrap.querySelector('.csel-list')
+      || document.querySelector('.csel-list[data-owner="' + wrap.id + '"]');
+}
+function cselCloseAll() {
+  document.querySelectorAll('.csel-list.open').forEach(l => {
+    l.classList.remove('open');
+    if (l.dataset.owner) {
+      const w = document.getElementById(l.dataset.owner);
+      l.style.position = ''; l.style.top = ''; l.style.left = '';
+      l.style.right = ''; l.style.width = '';
+      delete l.dataset.owner;
+      if (w) {
+        w.appendChild(l);
+        w.classList.remove('open');
+        const b = w.querySelector('.csel-btn');
+        if (b) b.classList.remove('open');
+      }
+    } else {
+      const c = l.closest('.csel');
+      if (c) {
+        c.classList.remove('open');
+        const b = c.querySelector('.csel-btn');
+        if (b) b.classList.remove('open');
+      }
+    }
+  });
+}
 function cselToggle(id) {
   const wrap = document.getElementById(id);
   if (!wrap) return;
   const btn  = wrap.querySelector('.csel-btn');
-  const list = wrap.querySelector('.csel-list');
+  const list = cselFindList(wrap);
+  if (!list) return;
   const isOpen = list.classList.contains('open');
-  // close all others first
-  document.querySelectorAll('.csel-list.open').forEach(l => {
-    l.classList.remove('open');
-    const c = l.closest('.csel');
-    c.classList.remove('open');
-    c.querySelector('.csel-btn').classList.remove('open');
-  });
+  cselCloseAll();
   if (!isOpen) {
-    list.classList.add('open');
     btn.classList.add('open');
     wrap.classList.add('open');
+    // Bar dropdowns: detach to <body> + fixed-position so they sit on top of
+    // everything (the bar's backdrop-filter would otherwise trap position:fixed).
+    if (wrap.closest('.bk-bar')) {
+      list.dataset.owner = id;
+      document.body.appendChild(list);
+      list.classList.add('open');
+      const r = btn.getBoundingClientRect();
+      list.style.position = 'fixed';
+      list.style.right = 'auto';
+      list.style.width = Math.max(r.width, 88) + 'px';
+      const w = list.offsetWidth;
+      let left = r.left;
+      if (left + w > window.innerWidth - 8) left = window.innerWidth - w - 8;
+      if (left < 8) left = 8;
+      list.style.top = (r.bottom + 4) + 'px';
+      list.style.left = left + 'px';
+    } else {
+      list.classList.add('open');
+    }
   }
 }
 
@@ -3159,27 +3202,110 @@ function cselPick(wrapId, hiddenId, value, label) {
   const hidden = document.getElementById(hiddenId);
   if (!wrap || !hidden) return;
   const displayText = label || value;
-  wrap.querySelector('.csel-btn').textContent = displayText;
-  wrap.querySelector('.csel-btn').classList.remove('open');
-  wrap.querySelector('.csel-list').classList.remove('open');
-  wrap.classList.remove('open');
+  const btn = wrap.querySelector('.csel-btn');
+  if (btn) btn.textContent = displayText;
   hidden.value = value;
-  // mark selected
-  wrap.querySelectorAll('.csel-opt').forEach(o => o.classList.remove('selected'));
-  event.target.closest('.csel-opt').classList.add('selected');
+  const list = cselFindList(wrap);
+  if (list) list.querySelectorAll('.csel-opt').forEach(o => o.classList.remove('selected'));
+  if (typeof event !== 'undefined' && event.target && event.target.closest('.csel-opt')) {
+    event.target.closest('.csel-opt').classList.add('selected');
+  }
+  cselCloseAll();
 }
 
 document.addEventListener('click', e => {
-  if (!e.target.closest('.csel')) {
-    document.querySelectorAll('.csel-list.open').forEach(l => {
-      l.classList.remove('open');
-      const c = l.closest('.csel');
-      c.classList.remove('open');
-      c.querySelector('.csel-btn').classList.remove('open');
-    });
+  if (!e.target.closest('.csel') && !e.target.closest('.csel-list')) {
+    cselCloseAll();
   }
 });
 // ===== END CUSTOM SELECT ENGINE =====
+
+// ===== CUSTOM DATE PICKER (self-contained, dark/gold) =====
+(function(){
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const WD = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  let pop, viewY, viewM, selDate = null, boundInput = null;
+  const today = new Date(); today.setHours(0,0,0,0);
+  function fmt(d){ return (d.getMonth()+1)+'/'+d.getDate()+'/'+d.getFullYear(); }
+  function build(){
+    pop = document.createElement('div');
+    pop.className = 'cal-pop';
+    document.body.appendChild(pop);
+  }
+  function render(){
+    const first = new Date(viewY, viewM, 1);
+    const startWd = first.getDay();
+    const daysIn = new Date(viewY, viewM+1, 0).getDate();
+    let html = '<div class="cal-head">'
+      + '<button type="button" class="cal-nav" data-nav="-1" aria-label="Previous month">\u2039</button>'
+      + '<div class="cal-title">'+MONTHS[viewM]+' '+viewY+'</div>'
+      + '<button type="button" class="cal-nav" data-nav="1" aria-label="Next month">\u203a</button></div>';
+    html += '<div class="cal-grid">';
+    WD.forEach(w => html += '<div class="cal-wd">'+w+'</div>');
+    for(let i=0;i<startWd;i++) html += '<div class="cal-day cal-empty"></div>';
+    for(let d=1; d<=daysIn; d++){
+      const dd = new Date(viewY, viewM, d);
+      let cls = 'cal-day';
+      if(dd < today) cls += ' cal-disabled';
+      if(dd.getTime() === today.getTime()) cls += ' cal-today';
+      if(selDate && dd.getTime() === selDate.getTime()) cls += ' cal-selected';
+      html += '<div class="'+cls+'" data-day="'+d+'">'+d+'</div>';
+    }
+    html += '</div>';
+    pop.innerHTML = html;
+  }
+  function position(){
+    if(!boundInput) return;
+    const r = boundInput.getBoundingClientRect();
+    const w = 300, h = 340;
+    let top = r.bottom + 6, left = r.left;
+    if(left + w > window.innerWidth - 8) left = window.innerWidth - w - 8;
+    if(left < 8) left = 8;
+    if(top + h > window.innerHeight && r.top - h > 0) top = r.top - h - 6;
+    pop.style.top = top + 'px';
+    pop.style.left = left + 'px';
+  }
+  function open(input){
+    boundInput = input;
+    const base = selDate || today;
+    viewY = base.getFullYear(); viewM = base.getMonth();
+    render(); position();
+    pop.classList.add('open');
+  }
+  function close(){ if(pop) pop.classList.remove('open'); }
+  window.initDatePicker = function(inputId){
+    if(!pop) build();
+    const input = document.getElementById(inputId);
+    if(!input) return;
+    input.addEventListener('click', () => open(input));
+    input.addEventListener('focus', () => open(input));
+  };
+  document.addEventListener('click', e => {
+    if(!pop) return;
+    if(e.target.closest('.cal-pop')){
+      const nav = e.target.closest('[data-nav]');
+      if(nav){
+        viewM += parseInt(nav.dataset.nav, 10);
+        if(viewM < 0){ viewM = 11; viewY--; }
+        if(viewM > 11){ viewM = 0; viewY++; }
+        render();
+        return;
+      }
+      const day = e.target.closest('[data-day]');
+      if(day && !day.classList.contains('cal-disabled') && !day.classList.contains('cal-empty')){
+        selDate = new Date(viewY, viewM, parseInt(day.dataset.day, 10));
+        if(boundInput) boundInput.value = fmt(selDate);
+        close();
+      }
+      return;
+    }
+    if(boundInput && e.target === boundInput) return;
+    close();
+  });
+  window.addEventListener('scroll', () => { if(pop && pop.classList.contains('open')) position(); }, true);
+  window.addEventListener('resize', () => { if(pop && pop.classList.contains('open')) position(); });
+})();
+// ===== END CUSTOM DATE PICKER =====
 
 function onVehicleChange(vehicle) {
   // Update the custom pax dropdown options based on vehicle
@@ -3468,10 +3594,16 @@ function initNominatimAutocomplete(inputId) {
   if (!input) return;
   let list = document.createElement('ul');
   list.className = 'nominatim-list';
-  list.style.cssText = 'position:absolute;z-index:9999;background:#fff;border:1.5px solid rgba(45,0,69,0.15);border-top:none;border-radius:0 0 10px 10px;list-style:none;margin:0;padding:0;max-height:220px;overflow-y:auto;width:100%;box-shadow:0 8px 24px rgba(0,0,0,0.1);display:none;';
-  const wrap = input.parentElement;
-  wrap.style.position = 'relative';
-  wrap.appendChild(list);
+  list.style.cssText = 'position:fixed;z-index:2147483600;background:#fff;border:1.5px solid rgba(45,0,69,0.18);border-radius:10px;list-style:none;margin:0;padding:0;max-height:240px;overflow-y:auto;box-shadow:0 12px 32px rgba(0,0,0,0.28);display:none;';
+  document.body.appendChild(list);
+  const positionList = () => {
+    const r = input.getBoundingClientRect();
+    list.style.top = (r.bottom + 4) + 'px';
+    list.style.left = r.left + 'px';
+    list.style.width = r.width + 'px';
+  };
+  window.addEventListener('scroll', () => { if (list.style.display === 'block') positionList(); }, true);
+  window.addEventListener('resize', () => { if (list.style.display === 'block') positionList(); });
   let debounce;
   input.addEventListener('input', () => {
     clearTimeout(debounce);
@@ -3492,6 +3624,7 @@ function initNominatimAutocomplete(inputId) {
           li.addEventListener('mouseout', () => li.style.background = '');
           list.appendChild(li);
         });
+        positionList();
         list.style.display = 'block';
       } catch(e) { list.style.display = 'none'; }
     }, 350);
@@ -3556,30 +3689,8 @@ function getActiveTab() {
 
 // Show price estimate when vehicle changes
 document.addEventListener('DOMContentLoaded', () => {
-  // ── Flatpickr date picker (replaces native <input type="date"> to fix OS popup misposition) ──
-  if (typeof flatpickr !== 'undefined') {
-    flatpickr('#date-input', {
-      minDate: 'today',
-      dateFormat: 'm/d/Y',
-      disableMobile: true,
-      closeOnSelect: true,
-      monthSelectorType: 'static',
-      static: false,
-      onReady(_, __, fp) {
-        fp.calendarContainer.classList.add('phl-dark-cal');
-        fp.calendarContainer.style.zIndex = '999999';
-        fp.calendarContainer.style.position = 'fixed';
-        const reposition = () => {
-          const rect = fp._input.getBoundingClientRect();
-          fp.calendarContainer.style.top  = (rect.bottom + 4) + 'px';
-          fp.calendarContainer.style.left = rect.left + 'px';
-        };
-        fp._input.addEventListener('click', reposition);
-        window.addEventListener('scroll', () => { if(fp.isOpen) reposition(); }, true);
-        window.addEventListener('resize', () => { if(fp.isOpen) reposition(); });
-      }
-    });
-  }
+  // ── Custom date picker (self-contained, no external dependency) ──
+  if (typeof initDatePicker === 'function') initDatePicker('date-input');
 
   const vehicleSel = document.getElementById('vehicle-input');
   if (vehicleSel) {
@@ -3640,6 +3751,8 @@ const BK_REQUIRED = [
 ];
 
 function bkApplyLayout(mode) {
+  // Return any body-detached bar dropdowns to their wraps before reshuffling fields
+  if (typeof cselCloseAll === 'function') cselCloseAll();
   const zones = BK_ZONES[mode] || BK_ZONES.airport;
   const pool = document.getElementById('bk-pool');
   const bar = document.getElementById('bk-bar');
