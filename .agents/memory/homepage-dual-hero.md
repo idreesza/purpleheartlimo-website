@@ -25,3 +25,14 @@ is also a Spanish home `#es-home-page`, plus many service pages (`#airport-page`
   repurpose of Portfolite's logo marquee.
 - The booking form contract (field IDs, `submitQuote()`) is independent of styling — never
   let a visual edit touch those IDs.
+
+## Swapping the home hero background — neutralize the smoke layers
+`.hero::before` and `.hero::after` (base rule) paint `hero-smoke.webp` with
+`mix-blend-mode:screen` + drift animations, positioned `top:-25%;left:-25%;150%`.
+When replacing the home background image you MUST override `#home-page .hero::before`
+(set the new image, `mix-blend-mode:normal; opacity:1; animation:none; top:0;left:0;100%`)
+AND `#home-page .hero::after{display:none}` — otherwise the smoke screen-blend washes
+out any photo you set on `.hero`. The purple-Escalade direction (images/hero-escalade.webp)
+supersedes the old monochrome smoke hero.
+**Why:** the smoke is on pseudo-elements, not the `.hero` background, so changing
+`.hero{background}` alone does nothing visible.

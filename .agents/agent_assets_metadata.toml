@@ -6,6 +6,12 @@ uri = "file://images/hero-smoke.png"
 type = "image"
 title = "monochrome smoke texture"
 
+[[generated]]
+id = "hCyBDwT6uyvEr4Sn4Wv4u"
+uri = "file://images/hero-escalade.png"
+type = "image"
+title = "purple escalade hero"
+
 [[outputs]]
 id = "JkUNDP8kjejZhYioyYljN"
 uri = "file://backlink-action-plan.md"
