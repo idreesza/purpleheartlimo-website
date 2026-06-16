@@ -274,6 +274,16 @@ a { text-decoration:none; color:inherit; }
   box-shadow:0 4px 14px rgba(124,58,237,0.45) !important;
   transform:translateY(-1px) !important;
 }
+/* "Book Now" promoted into the More dropdown */
+.nav-links .dropdown-menu a.dd-booknow {
+  background:linear-gradient(135deg,#7C3AED,#5B21B6) !important;
+  color:#fff !important; font-weight:700 !important;
+  justify-content:center !important; margin-bottom:6px !important;
+}
+.nav-links .dropdown-menu a.dd-booknow:hover {
+  background:linear-gradient(135deg,#8B4DF2,#6926C9) !important;
+  color:#fff !important; transform:translateY(-1px) !important;
+}
 
 .dropdown { position:relative; }
 .dropdown-menu {
@@ -1323,17 +1333,6 @@ footer {
 .navbar .nav-cta .nav-phone .phone-ico svg,
 .navbar .nav-cta .nav-phone .phone-ico svg path { fill:#fff !important; }
 .hamburger { grid-column:3; justify-self:end; }
-#btn-booknow.btn-primary {
-  background: linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%) !important;
-  color:#fff !important;
-  border:none !important;
-  animation:none !important;
-  box-shadow: 0 4px 16px rgba(124,58,237,0.4) !important;
-}
-#btn-booknow.btn-primary:hover {
-  background: linear-gradient(135deg, #8B4DF2 0%, #6926C9 100%) !important;
-  box-shadow: 0 8px 24px rgba(124,58,237,0.5) !important;
-}
 @media(max-width:768px){
   .navbar .nav-cta { grid-column:1; justify-self:start; }
 }
@@ -1538,7 +1537,7 @@ footer {
   .blog-grid { grid-template-columns:repeat(2,1fr); }
 }
 @media(max-width:768px){
-  .nav-links,.nav-cta .btn-primary { display:none; }
+  .nav-links { display:none; }
   .nav-logo-sub { display:none !important; }
   #lang-toggle { display:none !important; }
   .hamburger { display:flex; }
@@ -1643,8 +1642,9 @@ footer {
 <li><a href="/">Home</a></li>
 <li><a href="/booking.html">Book</a></li>
 <li class="dropdown">
-<a href="/about.html">More ▾</a>
+<a href="#" onclick="event.preventDefault()" aria-haspopup="true">More ▾</a>
 <div class="dropdown-menu" style="min-width:240px;">
+<a class="dd-booknow" href="https://customer.moovs.app/purple-heart-limo/request/new" rel="noopener" target="_blank">🚘 Book Now</a>
 <div class="dd-section-static-title" style="border-top:none;margin-top:0;padding-top:4px;">Company</div>
 <a href="/fleet.html">🚗 Our Fleet</a>
 <a href="/flight-tracker.html" style="color:#C9A84C;font-weight:600;">✈ Flight Tracker</a>
@@ -1680,9 +1680,7 @@ footer {
 </ul>
 <div class="nav-cta">
 <button aria-label="Switch language" id="lang-toggle" onclick="toggleLang()" style="background:none;border:1.5px solid rgba(0,0,0,0.15);border-radius:20px;padding:5px 12px;font-family:inherit;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;cursor:pointer;color:var(--purple);display:flex;align-items:center;gap:5px;transition:all 0.2s;" title="Switch language">🌐 <span id="lang-label">EN</span></button>
-<a class="nav-phone" href="tel:+18337400700"><span class="phone-ico"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.05 15.05 0 0 1-6.59-6.59l2.2-2.21a1 1 0 0 0 .25-1.02A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"></path></svg></span><span class="nav-phone-label">Call</span></a>
-<a class="btn-primary" data-en="Book Now" data-es="Reservar" href="https://customer.moovs.app/purple-heart-limo/request/new" id="btn-booknow" style="padding:10px 20px;font-size:0.78rem;" target="_blank">Book Now</a>
-</div>
+<a class="nav-phone" href="tel:+18337400700"><span class="phone-ico"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.05 15.05 0 0 1-6.59-6.59l2.2-2.21a1 1 0 0 0 .25-1.02A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"></path></svg></span><span class="nav-phone-label">Call</span></a></div>
 <button aria-expanded="false" aria-label="Open navigation menu" class="hamburger" id="hamburger" onclick="toggleMenu()">
 <span></span><span></span><span></span>
 </button>
@@ -3476,13 +3474,11 @@ const I18N = {
     'label-type':    'Ride Type',
     'label-pax':     'Passengers',
     'label-luggage': '🧳 Luggage',
-    'btn-booknow':   'Book Now',
   },
   es: {
     'label-type':    'Tipo',
     'label-pax':     'Pasajeros',
     'label-luggage': '🧳 Equipaje',
-    'btn-booknow':   'Reservar',
   }
 };
 
@@ -3491,7 +3487,6 @@ const I18N_ATTRS = [
   ['#label-type',    null, 'Ride Type',  'Tipo'],
   ['#label-pax',     null, 'Passengers', 'Pasajeros'],
   ['#label-luggage', null, '🧳 Luggage', '🧳 Equipaje'],
-  ['#btn-booknow',   null, 'Book Now',   'Reservar'],
   // Booking card
   ['.booking-card h3',          null, 'Get an Instant Quote',                   'Obtén una Cotización Rápida'],
   ['.booking-card > p',         null, "Enter your details — we'll respond within 5 minutes.", 'Ingresa tus datos — te respondemos en 5 minutos.'],
