@@ -1,0 +1,55 @@
+Fix the following 3 UI issues on the Purple Heart Limo homepage:
+
+---
+
+### FIX 1 — Header Layout: Align logo and nav buttons on the same line
+
+The header currently has the logo and the nav buttons (Home, Book, More, EN, CALL) 
+on different vertical levels. Fix the header so that:
+- The logo (PurpleHeart Limo shield icon + text) is vertically centered in the header
+- All nav buttons (Home, Book, More ▾, 🌐 EN, 📞 CALL) are on the SAME horizontal 
+  line as the logo
+- Use flexbox: `display: flex; align-items: center; justify-content: space-between;` 
+  on the header container
+- The logo should be centered or left-aligned, and the nav buttons should be grouped 
+  to the right (or as currently designed), but everything must sit on one single row
+- Do not change button styles, colors, or fonts — layout fix only
+
+---
+
+### FIX 2 — Time Picker: Remove scrollbar, allow manual input for Hour and Minute
+
+The current Hour (Hr) and Minute (Min) fields open a dropdown with a scrollbar. 
+Replace this behavior entirely:
+- Remove the dropdown and scrollbar completely
+- Replace the Hr and Min fields with plain <input type="number"> fields
+- Hr field: min="1" max="12", placeholder="Hr"
+- Min field: min="0" max="59", placeholder="Min", with leading zero display 
+  (e.g., 05, 30)
+- Keep the AM/PM toggle as-is
+- Style the number inputs to match the current dark booking bar aesthetic 
+  (same background, same text color, same border/radius as the existing fields)
+- Remove any spinner arrows on the number inputs using CSS: 
+  input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+---
+
+### FIX 3 — "View Options →" button: Toggle expand/collapse with dynamic label
+
+Currently clicking "View Options →" expands a section but the button label and arrow 
+do not change. Fix the toggle behavior:
+- When the section is COLLAPSED (default): button shows "View options →" (arrow right)
+- When the user CLICKS and the section EXPANDS: button label changes to "Hide options ↑" 
+  (arrow up)
+- When the user CLICKS again and the section COLLAPSES: button reverts to "View options →"
+- Implement this with a simple JavaScript toggle:
+  - Add a boolean state or a CSS class toggle (e.g., .expanded) on the button's 
+    parent container
+  - On click: toggle the expanded section visibility AND swap the button text between 
+    "View options →" and "Hide options ↑"
+- Do not change button color, size, or position — behavior change only
+
+---
+
+Make all 3 fixes independently. Do not restyle anything beyond what is described. 
+Preserve all existing functionality (booking form, date picker, service type tabs, etc.).

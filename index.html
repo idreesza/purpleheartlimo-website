@@ -229,6 +229,9 @@ a { text-decoration:none; color:inherit; }
   height: 72px;
   display: grid; grid-template-columns:1fr auto 1fr; align-items:center;
 }
+/* Keep all nav items on one centered row. Grid auto-placement was bumping
+   .nav-links onto a 2nd row because its column (1) is lower than the logo's (2). */
+.navbar > .nav-logo, .navbar > .nav-links, .navbar > .nav-cta, .navbar > .hamburger { grid-row:1; }
 .nav-logo { display:flex; align-items:center; gap:10px; grid-column:2; justify-self:center; }
 .nav-logo-img { height:46px; width:auto; display:block; }
 .nav-logo-icon {
@@ -816,6 +819,17 @@ a { text-decoration:none; color:inherit; }
 }
 #home-page .bk-bar .csel-btn.open,
 #home-page .bk-bar .csel-btn:focus { border-color:rgba(212,175,55,0.6) !important; }
+/* Manual Hr/Min number inputs in the bar — match field aesthetic, no spinners */
+#home-page .bk-bar input.bk-time {
+  background:transparent !important; border:1px solid rgba(255,255,255,0.18) !important;
+  border-radius:8px !important; padding:6px 8px !important; height:auto !important;
+  min-height:34px; font-size:0.78rem !important; color:#fff !important;
+  text-align:center; width:100%; -moz-appearance:textfield; appearance:textfield;
+}
+#home-page .bk-bar input.bk-time:focus { border-color:rgba(212,175,55,0.6) !important; outline:none; box-shadow:none !important; }
+#home-page .bk-bar input.bk-time::placeholder { color:rgba(255,255,255,0.5) !important; }
+#home-page .bk-bar input.bk-time::-webkit-inner-spin-button,
+#home-page .bk-bar input.bk-time::-webkit-outer-spin-button { -webkit-appearance:none; margin:0; }
 /* Remove gold dropdown carets from home booking-widget fields */
 #home-page .csel-btn::after { display:none !important; }
 #home-page .csel.compact .csel-btn { padding-right:10px; }
@@ -1822,44 +1836,8 @@ footer {
 <div class="form-group">
 <label>Pickup Time</label>
 <div style="display:grid;grid-template-columns:1fr 1fr 80px;gap:6px;">
-<div class="csel compact" id="csel-hour">
-<button class="csel-btn" onclick="cselToggle('csel-hour')" type="button">Hr</button>
-<div class="csel-list">
-<div class="csel-opt" onclick="cselPick('csel-hour','time-hour','')">Hr</div>
-<div class="csel-opt" onclick="cselPick('csel-hour','time-hour','1')">1</div>
-<div class="csel-opt" onclick="cselPick('csel-hour','time-hour','2')">2</div>
-<div class="csel-opt" onclick="cselPick('csel-hour','time-hour','3')">3</div>
-<div class="csel-opt" onclick="cselPick('csel-hour','time-hour','4')">4</div>
-<div class="csel-opt" onclick="cselPick('csel-hour','time-hour','5')">5</div>
-<div class="csel-opt" onclick="cselPick('csel-hour','time-hour','6')">6</div>
-<div class="csel-opt" onclick="cselPick('csel-hour','time-hour','7')">7</div>
-<div class="csel-opt" onclick="cselPick('csel-hour','time-hour','8')">8</div>
-<div class="csel-opt" onclick="cselPick('csel-hour','time-hour','9')">9</div>
-<div class="csel-opt" onclick="cselPick('csel-hour','time-hour','10')">10</div>
-<div class="csel-opt" onclick="cselPick('csel-hour','time-hour','11')">11</div>
-<div class="csel-opt" onclick="cselPick('csel-hour','time-hour','12')">12</div>
-</div>
-<input id="time-hour" type="hidden" value=""/>
-</div>
-<div class="csel compact" id="csel-min">
-<button class="csel-btn" onclick="cselToggle('csel-min')" type="button">Min</button>
-<div class="csel-list">
-<div class="csel-opt" onclick="cselPick('csel-min','time-min','')">Min</div>
-<div class="csel-opt" onclick="cselPick('csel-min','time-min','00')">00</div>
-<div class="csel-opt" onclick="cselPick('csel-min','time-min','05')">05</div>
-<div class="csel-opt" onclick="cselPick('csel-min','time-min','10')">10</div>
-<div class="csel-opt" onclick="cselPick('csel-min','time-min','15')">15</div>
-<div class="csel-opt" onclick="cselPick('csel-min','time-min','20')">20</div>
-<div class="csel-opt" onclick="cselPick('csel-min','time-min','25')">25</div>
-<div class="csel-opt" onclick="cselPick('csel-min','time-min','30')">30</div>
-<div class="csel-opt" onclick="cselPick('csel-min','time-min','35')">35</div>
-<div class="csel-opt" onclick="cselPick('csel-min','time-min','40')">40</div>
-<div class="csel-opt" onclick="cselPick('csel-min','time-min','45')">45</div>
-<div class="csel-opt" onclick="cselPick('csel-min','time-min','50')">50</div>
-<div class="csel-opt" onclick="cselPick('csel-min','time-min','55')">55</div>
-</div>
-<input id="time-min" type="hidden" value=""/>
-</div>
+<input aria-label="Hour" class="bk-time" id="time-hour" inputmode="numeric" max="12" min="1" oninput="bkClampTime(this,1,12)" placeholder="Hr" type="number"/>
+<input aria-label="Minute" class="bk-time" id="time-min" inputmode="numeric" max="59" min="0" oninput="bkClampTime(this,0,59)" placeholder="Min" type="number"/>
 <div class="csel compact" id="csel-ampm">
 <button class="csel-btn" onclick="cselToggle('csel-ampm')" type="button">AM</button>
 <div class="csel-list">
@@ -3912,16 +3890,26 @@ function bkToggle() {
   }
 }
 
+// Keep manually-typed Hr/Min within range (min/max only constrain the spinner).
+function bkClampTime(el, lo, hi) {
+  if (el.value === '') return;
+  if (el.value.length > 2) el.value = el.value.slice(0, 2);
+  let n = parseInt(el.value, 10);
+  if (isNaN(n)) { el.value = ''; return; }
+  el.value = String(Math.min(hi, Math.max(lo, n)));
+}
+
 async function submitQuote() {
   const name     = (document.getElementById('quote-name')?.value || '').trim();
   const phone    = (document.getElementById('quote-phone')?.value || '').trim();
   const pickup   = (document.getElementById('pickup-input')?.value || '').trim();
   const dropoff  = (document.getElementById('dropoff-input')?.value || '').trim();
   const date     = document.getElementById('date-input')?.value || '';
-  const hr = document.getElementById('time-hour')?.value || '';
-  const mn = document.getElementById('time-min')?.value || '';
+  const hr = (document.getElementById('time-hour')?.value || '').trim();
+  let mn = (document.getElementById('time-min')?.value || '').trim();
+  if (mn !== '' && mn.length < 2) mn = mn.padStart(2, '0');
   const ap = document.getElementById('time-ampm')?.value || '';
-  const time = (hr && mn) ? `${hr}:${mn} ${ap}` : '';
+  const time = (hr && mn !== '') ? `${hr}:${mn} ${ap}` : '';
   const vehicle  = document.getElementById('vehicle-input')?.value || '';
   const flight   = (document.getElementById('flight-input')?.value || '').trim().toUpperCase();
   const email    = (document.getElementById('quote-email')?.value || '').trim();
