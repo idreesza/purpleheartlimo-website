@@ -26,13 +26,12 @@ is also a Spanish home `#es-home-page`, plus many service pages (`#airport-page`
 - The booking form contract (field IDs, `submitQuote()`) is independent of styling — never
   let a visual edit touch those IDs.
 
-## Swapping the home hero background — neutralize the smoke layers
-`.hero::before` and `.hero::after` (base rule) paint `hero-smoke.webp` with
-`mix-blend-mode:screen` + drift animations, positioned `top:-25%;left:-25%;150%`.
-When replacing the home background image you MUST override `#home-page .hero::before`
-(set the new image, `mix-blend-mode:normal; opacity:1; animation:none; top:0;left:0;100%`)
-AND `#home-page .hero::after{display:none}` — otherwise the smoke screen-blend washes
-out any photo you set on `.hero`. The purple-Escalade direction (images/hero-escalade.webp)
-supersedes the old monochrome smoke hero.
-**Why:** the smoke is on pseudo-elements, not the `.hero` background, so changing
-`.hero{background}` alone does nothing visible.
+## Home hero backdrop lives on pseudo-elements, not `.hero`
+The home hero's backdrop is painted by `.hero::before` / `.hero::after`
+(with `mix-blend-mode:screen` + a drift animation), NOT by `.hero { background }`.
+Setting a background image on `.hero` alone shows nothing — the blended
+pseudo-element layer covers it.
+**Why:** screen-blend on the pseudo-elements washes out anything set on `.hero`.
+**How to apply:** to change the home backdrop, override `#home-page .hero::before`
+(new image + `mix-blend-mode:normal; animation:none; opacity:1`, and reset its
+`top/left/width/height` to `0 / 0 / 100% / 100%`) and hide `::after`.
