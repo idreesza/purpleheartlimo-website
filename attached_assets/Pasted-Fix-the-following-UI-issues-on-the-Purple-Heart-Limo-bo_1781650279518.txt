@@ -1,0 +1,88 @@
+Fix the following UI issues on the Purple Heart Limo booking form and expanded fields.
+DO NOT change any functionality — positioning, alignment, and theme fixes only.
+
+---
+
+### FIX 1 — Address Autocomplete Dropdown: Anchor to field corner, flush under the bar
+
+PROBLEM: The address suggestion dropdown opens slightly offset and not flush with the 
+booking bar's bottom edge.
+
+FIX:
+- The dropdown must appear IMMEDIATELY below the bottom border of the booking bar
+- The TOP-LEFT corner of the dropdown must align exactly with the BOTTOM-LEFT corner 
+  of the PICKUP LOCATION or DROP-OFF LOCATION field that triggered it
+- Use: position: absolute; top: 100%; left: 0; right: 0; margin-top: 0;
+- The parent field container must have: position: relative; overflow: visible;
+- Remove any margin, padding-top, or offset between the bar bottom and dropdown top
+- Border-radius: top-left: 0; top-right: 0; bottom-left: 8px; bottom-right: 8px;
+  (so it feels like it's growing out of the field seamlessly)
+- Keep dark theme: background #1a1a2e, white text, purple hover rows
+
+---
+
+### FIX 2 — PICKUP TIME: Replace Hr/Min inputs with styled dropdowns
+
+PROBLEM: The Hr and Min fields are plain number inputs. They should be dropdowns 
+that feel like the rest of the booking bar — interactive but styled consistently.
+
+FIX:
+- Replace Hr input with a <select> dropdown listing hours 1–12
+- Replace Min input with a <select> dropdown listing minutes: 
+  00, 05, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55
+- Keep AM/PM as a toggle or <select> with AM / PM options
+- The dropdowns must open DIRECTLY BELOW their field, 
+  corner-aligned (same rule as FIX 1: top-left corner of dropdown = 
+  bottom-left corner of the field)
+- Dropdown styling:
+  background: #1a1a2e
+  text: white
+  border: 1px solid rgba(255,255,255,0.15)
+  border-radius: 0 0 8px 8px (flush top, rounded bottom)
+  Each option row: padding 10px 16px; hover: background rgba(83,74,183,0.4)
+  Selected option: background #534ab7, color white
+  Remove default browser select arrow — use a custom small ▾ chevron in white
+- The select fields inside the booking bar should look identical to the 
+  PICKUP LOCATION and DROP-OFF LOCATION fields: dark background, white text, 
+  no visible border within the bar
+
+---
+
+### FIX 3 — Expanded Form Fields (Name, Email, Phone, Flight No, Ride Type, Passengers)
+Make all form inputs match the dark booking bar theme — remove white/light backgrounds
+
+PROBLEM: When "View Options" expands, the YOUR NAME, EMAIL, and PHONE fields 
+have white/light backgrounds that clash with the dark purple theme.
+
+FIX all input fields in the expanded section:
+- background: rgba(255,255,255,0.07)  ← subtle dark glass look
+- color: white
+- border: 1px solid rgba(255,255,255,0.15)
+- border-radius: 8px
+- padding: 14px 16px
+- font-size: 15px
+- placeholder color: rgba(255,255,255,0.4)
+- On focus: border-color: #534ab7; box-shadow: 0 0 0 2px rgba(83,74,183,0.3)
+- Label text (YOUR NAME, EMAIL, PHONE, etc.): 
+  color: rgba(255,255,255,0.55); font-size: 11px; letter-spacing: 0.08em;
+- The active/focused field currently shows a yellow/gold border — 
+  change that to purple: #534ab7
+
+Apply this to ALL inputs and selects in the expanded section:
+  YOUR NAME, EMAIL, PHONE, FLIGHT NO., RIDE TYPE, PASSENGERS
+
+---
+
+### FIX 4 — Overall form visual consistency
+
+- Make sure the expanded form section background matches the booking bar: 
+  same dark color, no lighter panel or card effect breaking the visual flow
+- The expanded section should feel like a seamless downward extension of the bar
+- Section dividers between fields: use rgba(255,255,255,0.08) subtle lines only
+- Remove any box-shadow or card elevation on the expanded form container 
+  that makes it look like a separate white card
+
+---
+
+Preserve all form logic, validation, API calls, and submission behavior.
+Only change visual styles, dropdown positioning, and corner alignment.
