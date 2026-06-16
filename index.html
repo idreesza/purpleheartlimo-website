@@ -816,6 +816,10 @@ a { text-decoration:none; color:inherit; }
 }
 #home-page .bk-bar .csel-btn.open,
 #home-page .bk-bar .csel-btn:focus { border-color:rgba(212,175,55,0.6) !important; }
+/* Remove gold dropdown carets from home booking-widget fields */
+#home-page .csel-btn::after { display:none !important; }
+#home-page .csel.compact .csel-btn { padding-right:10px; }
+#home-page .booking-card .csel-btn { padding-right:16px; }
 /* Bar time dropdowns (Hr / Min / AM) — dark/gold, matches calendar */
 #home-page .bk-bar .csel-list {
   background:#0b0b0d !important; border:1px solid rgba(212,175,55,0.35) !important;
@@ -3207,21 +3211,34 @@ function cselToggle(id) {
       list.dataset.owner = id;
       document.body.appendChild(list);
       list.classList.add('open');
-      const r = btn.getBoundingClientRect();
       list.style.position = 'fixed';
       list.style.right = 'auto';
-      list.style.width = Math.max(r.width, 88) + 'px';
-      const w = list.offsetWidth;
-      let left = r.left;
-      if (left + w > window.innerWidth - 8) left = window.innerWidth - w - 8;
-      if (left < 8) left = 8;
-      list.style.top = (r.bottom + 4) + 'px';
-      list.style.left = left + 'px';
+      cselPositionList(list);
     } else {
       list.classList.add('open');
     }
   }
 }
+// Re-anchor a detached bar dropdown under its field; called on open + scroll/resize
+// so the list follows the field instead of staying pinned to one screen spot.
+function cselPositionList(list) {
+  const id = list.dataset.owner;
+  if (!id) return;
+  const wrap = document.getElementById(id);
+  const btn = wrap && wrap.querySelector('.csel-btn');
+  if (!btn) return;
+  const r = btn.getBoundingClientRect();
+  list.style.width = Math.max(r.width, 88) + 'px';
+  const w = list.offsetWidth;
+  let left = r.left;
+  if (left + w > window.innerWidth - 8) left = window.innerWidth - w - 8;
+  if (left < 8) left = 8;
+  list.style.top = (r.bottom + 4) + 'px';
+  list.style.left = left + 'px';
+}
+['scroll', 'resize'].forEach(ev => window.addEventListener(ev, () => {
+  document.querySelectorAll('.csel-list.open[data-owner]').forEach(cselPositionList);
+}, true));
 
 function cselPick(wrapId, hiddenId, value, label) {
   const wrap   = document.getElementById(wrapId);
@@ -3845,7 +3862,7 @@ function bkApplyLayout(mode) {
   zones.bar.forEach(id => { const el = document.getElementById(id); if (el) bar.appendChild(el); });
   const act = document.createElement('div');
   act.className = 'bk-bar-action';
-  act.innerHTML = '<button type="button" class="btn-book-full bk-view" onclick="bkExpand()">View options →</button>';
+  act.innerHTML = '<button type="button" class="btn-book-full bk-view" onclick="bkToggle()">View options →</button>';
   bar.appendChild(act);
   // Fill the expandable details panel
   zones.details.forEach(id => { const el = document.getElementById(id); if (el) details.appendChild(el); });
@@ -3870,12 +3887,29 @@ function bkExpand() {
   }
   const w = document.getElementById('booking-widget');
   if (w) w.classList.add('expanded');
+  _bkSetViewLabel(true);
   if (typeof window._bkRefreshPrice === 'function') window._bkRefreshPrice();
   setTimeout(() => document.getElementById('bk-details')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 80);
 }
 
 function bkCollapse() {
   document.getElementById('booking-widget')?.classList.remove('expanded');
+  _bkSetViewLabel(false);
+}
+
+function _bkSetViewLabel(expanded) {
+  const b = document.querySelector('#bk-bar .bk-view');
+  if (b) b.textContent = expanded ? 'Hide options ↑' : 'View options →';
+}
+
+function bkToggle() {
+  const w = document.getElementById('booking-widget');
+  if (w && w.classList.contains('expanded')) {
+    bkCollapse();
+    document.getElementById('booking-widget')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  } else {
+    bkExpand();
+  }
 }
 
 async function submitQuote() {
