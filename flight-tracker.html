@@ -283,20 +283,22 @@
     }
   </style>
   <link rel="stylesheet" href="/css/global.css">
+  <link rel="stylesheet" href="/css/header.css">
 </head>
-<body class="dark-theme">
+<body class="dark-theme hdr-v2">
 
 <!-- NAVBAR -->
 <nav class="navbar" id="navbar">
-  <a href="/" class="nav-logo">
-    <img src="/logo.webp" alt="Purple Heart Limo Logo">
-    <div><div class="nav-logo-text">Purple Heart Limo</div><span class="nav-logo-sub">Texan Owned · Est. 2020</span></div>
-  </a>
-  <ul class="nav-links">
+<a class="nav-logo" href="/">
+<img alt="Purple Heart Limo" class="nav-logo-img" decoding="async" src="/images/logo-full.png"/>
+</a>
+<ul class="nav-links">
 <li><a href="/">Home</a></li>
+<li><a href="/booking.html">Book</a></li>
 <li class="dropdown">
-<a href="/about.html">Company ▾</a>
+<a href="#" onclick="event.preventDefault()" aria-haspopup="true">More ▾</a>
 <div class="dropdown-menu" style="min-width:240px;">
+<a class="dd-booknow" href="https://customer.moovs.app/purple-heart-limo/request/new" rel="noopener" target="_blank">🚘 Book Now</a>
 <div class="dd-section-static-title" style="border-top:none;margin-top:0;padding-top:4px;">Company</div>
 <a href="/fleet.html">🚗 Our Fleet</a>
 <a href="/flight-tracker.html" style="color:#C9A84C;font-weight:600;">✈ Flight Tracker</a>
@@ -321,17 +323,21 @@
 <a href="/limo-service-austin-tx/">📍 Austin Limo Service</a>
 <a href="/limo-service-dallas-tx/">📍 Dallas-Fort Worth</a>
 <a href="/limo-service-houston-tx/">📍 Houston Limo Service</a>
+<a href="/limo-service-fort-worth-tx/">📍 Fort Worth Limo Service</a>
+<a href="/dfw-airport-car-service/">✈️ DFW Airport Car Service</a>
+<a href="/car-service-dallas-love-field/">✈️ Dallas Love Field Car Service</a>
+<a href="/dallas-party-bus/">🎉 Dallas Party Bus</a>
 <a href="/locations/" style="font-weight:600;">→ All Service Areas</a>
 </details>
 </div>
 </li>
-<li><a href="/booking.html">Book</a></li>
 </ul>
-  <div class="nav-cta">
-    <a href="tel:+18337400700" class="nav-phone">📞 (833) 740-0700</a>
-    <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank" class="btn-primary" style="padding:10px 20px;font-size:0.78rem;">Book Now</a>
-  </div>
-  <button class="hamburger" onclick="toggleMenu()" id="hamburger" aria-label="Open navigation menu" aria-expanded="false"><span></span><span></span><span></span></button>
+<div class="nav-cta">
+<button aria-label="Switch language" id="lang-toggle" onclick="toggleLang()" style="background:none;border:1.5px solid rgba(255,255,255,0.3);border-radius:20px;padding:5px 12px;font-family:inherit;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;cursor:pointer;color:#fff;display:flex;align-items:center;gap:5px;transition:all 0.2s;" title="Switch language">🌐 <span id="lang-label">EN</span></button>
+<a class="nav-phone" href="tel:+18337400700"><span class="phone-ico"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.05 15.05 0 0 1-6.59-6.59l2.2-2.21a1 1 0 0 0 .25-1.02A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"></path></svg></span><span class="nav-phone-label">Call</span></a></div>
+<button aria-expanded="false" aria-label="Open navigation menu" class="hamburger" id="hamburger" onclick="toggleMenu()">
+<span></span><span></span><span></span>
+</button>
 </nav>
 <div id="mobile-menu" style="display:none;position:fixed;top:72px;left:0;right:0;background:white;z-index:999;padding:20px;box-shadow:0 12px 48px rgba(45,0,69,0.18);border-bottom:2px solid #F2EFE8;">
   <a href="/" style="display:block;padding:12px;font-size:0.9rem;color:#0a0a0a;border-bottom:1px solid #F2EFE8;">🏠 Home</a>
@@ -879,5 +885,6 @@ document.getElementById('stateEmpty').classList.add('show');
 document.getElementById('flightNum').addEventListener('keydown', e=>{ if(e.key==='Enter') trackFlight(); });
 </script>
 <script src="/js/nav-dropdown.js" defer></script>
+<script src="/js/header.js" defer></script>
 </body>
 </html>

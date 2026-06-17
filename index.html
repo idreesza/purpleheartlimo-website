@@ -296,8 +296,13 @@ a { text-decoration:none; color:inherit; }
   box-shadow:var(--shadow-lg); display:none; z-index:100;
 }
 .dropdown:hover .dropdown-menu { display:block; }
-.dropdown-menu a { display:block; padding:9px 12px; border-radius:8px; font-size:0.82rem; color:var(--text); transition:all 0.15s; }
-.dropdown-menu a:hover { background:var(--gray-light); color:var(--purple); }
+/* Dark "More" dropdown — matches the dark form/select dropdown (#12121f) */
+.dropdown-menu { background:#12121f !important; border:1px solid rgba(255,255,255,0.08) !important; box-shadow:0 16px 48px rgba(0,0,0,0.55) !important; }
+.dropdown-menu a { display:block; padding:9px 12px; border-radius:8px; font-size:0.82rem; color:#fff !important; transition:all 0.15s; }
+.dropdown-menu a:hover { background:rgba(83,74,183,.25) !important; color:#fff !important; }
+.dropdown-menu .dd-section-static-title, .dropdown-menu .dd-section > summary { color:#a89fd4 !important; }
+.dropdown-menu .dd-section { border-top-color:rgba(255,255,255,.1) !important; }
+.dropdown-menu .dd-section > summary::after { color:#a89fd4 !important; }
 
 .nav-cta { display:flex; align-items:center; gap:12px; grid-column:3; justify-self:end; }
 .nav-phone {

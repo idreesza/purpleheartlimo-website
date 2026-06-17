@@ -1,0 +1,113 @@
+/* ============================================================
+   UNIFIED HEADER — ported from the home (index.html) header.
+   Applied to inner pages via <body class="... hdr-v2">.
+   Solid dark glass bar, centered logo image, purple pills,
+   purple "Call" button, and a DARK "More" dropdown (#12121f)
+   matching the form/select dropdown theme.
+   MUST load AFTER css/global.css to win its !important rules.
+============================================================ */
+body.hdr-v2 .navbar {
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  background:rgba(10,10,10,0.92) !important;
+  -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,0.08) !important;
+  box-shadow:0 2px 20px rgba(0,0,0,0.28) !important;
+  padding:0 5%; height:72px;
+  display:grid !important; grid-template-columns:1fr auto 1fr; align-items:center;
+}
+body.hdr-v2 .navbar > .nav-logo,
+body.hdr-v2 .navbar > .nav-links,
+body.hdr-v2 .navbar > .nav-cta,
+body.hdr-v2 .navbar > .hamburger { grid-row:1; }
+
+/* Centered logo image */
+body.hdr-v2 .nav-logo { display:flex; align-items:center; gap:10px; grid-column:2; justify-self:center; }
+body.hdr-v2 .nav-logo-img { height:60px; width:auto; display:block; }
+
+/* Left nav pills (purple) */
+body.hdr-v2 .navbar .nav-links { display:flex !important; align-items:center; gap:8px; list-style:none; grid-column:1; justify-self:start; margin:0; padding:0; }
+body.hdr-v2 .navbar .nav-links > li > a {
+  padding:9px 18px !important; border-radius:50px !important;
+  font-size:0.82rem !important; font-weight:600 !important; color:#fff !important;
+  background:linear-gradient(135deg,#7C3AED 0%,#5B21B6 100%) !important;
+  border:1.5px solid transparent !important;
+  box-shadow:0 2px 10px rgba(124,58,237,0.30) !important;
+  letter-spacing:normal !important; transition:all 0.2s !important;
+  display:block; white-space:nowrap;
+}
+body.hdr-v2 .navbar .nav-links > li > a:hover,
+body.hdr-v2 .navbar .nav-links .dropdown.open > a {
+  background:linear-gradient(135deg,#8B4DF2 0%,#6926C9 100%) !important;
+  border-color:transparent !important; color:#fff !important;
+  box-shadow:0 4px 14px rgba(124,58,237,0.45) !important;
+  transform:translateY(-1px) !important;
+}
+body.hdr-v2 .navbar .nav-links > li > a:after { display:none !important; }
+
+/* "More" dropdown panel — DARK (#12121f), matches form/select dropdown */
+body.hdr-v2 .nav-links .dropdown { position:relative !important; }
+body.hdr-v2 .nav-links .dropdown-menu {
+  position:absolute !important; top:100% !important; left:0 !important; margin-top:10px !important;
+  min-width:240px !important; background:#12121f !important;
+  border:1px solid rgba(255,255,255,0.08) !important; border-radius:14px !important;
+  box-shadow:0 16px 48px rgba(0,0,0,0.55) !important; padding:8px !important; z-index:1000 !important;
+}
+body.hdr-v2 .nav-links .dropdown-menu a {
+  display:flex !important; align-items:center; gap:10px !important;
+  padding:11px 14px !important; border-radius:10px !important;
+  font-size:0.86rem !important; font-weight:500 !important; color:#fff !important;
+  transition:all 0.15s ease !important; white-space:nowrap !important;
+}
+body.hdr-v2 .nav-links .dropdown-menu a:hover { background:rgba(83,74,183,.25) !important; color:#fff !important; transform:translate(2px) !important; }
+body.hdr-v2 .nav-links .dropdown-menu a.dd-booknow {
+  background:linear-gradient(135deg,#7C3AED,#5B21B6) !important; color:#fff !important;
+  font-weight:700 !important; justify-content:center !important; margin-bottom:6px !important;
+}
+body.hdr-v2 .nav-links .dropdown-menu a.dd-booknow:hover { background:linear-gradient(135deg,#8B4DF2,#6926C9) !important; transform:translateY(-1px) !important; }
+body.hdr-v2 .nav-links .dropdown-menu .dd-section-static-title { color:#a89fd4 !important; font-size:0.65rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:10px 12px 4px; border-top:1px solid rgba(255,255,255,.1); margin-top:6px; }
+body.hdr-v2 .nav-links .dropdown-menu .dd-section { border-top:1px solid rgba(255,255,255,.1); margin-top:6px; padding-top:2px; }
+body.hdr-v2 .nav-links .dropdown-menu .dd-section:first-of-type { border-top:none; margin-top:0; padding-top:0; }
+body.hdr-v2 .nav-links .dropdown-menu .dd-section > summary { color:#a89fd4 !important; font-size:0.65rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:8px 12px 6px; cursor:pointer; list-style:none; display:flex; align-items:center; justify-content:space-between; border-radius:6px; }
+body.hdr-v2 .nav-links .dropdown-menu .dd-section > summary:hover { background:rgba(83,74,183,.18) !important; }
+body.hdr-v2 .nav-links .dropdown-menu .dd-section > summary::-webkit-details-marker { display:none; }
+body.hdr-v2 .nav-links .dropdown-menu .dd-section > summary::after { content:"▾"; font-size:0.7rem; transition:transform 0.2s; color:#a89fd4; }
+body.hdr-v2 .nav-links .dropdown-menu .dd-section[open] > summary::after { transform:rotate(180deg); }
+
+/* Right CTA: language toggle + purple Call */
+body.hdr-v2 .nav-cta { display:flex !important; align-items:center; gap:12px; grid-column:3; justify-self:end; }
+body.hdr-v2 #lang-toggle { color:#fff !important; border:1.5px solid rgba(255,255,255,0.3) !important; background:none !important; }
+body.hdr-v2 .navbar .nav-cta .nav-phone {
+  color:#fff !important; font-weight:700 !important; font-size:0.82rem !important;
+  display:inline-flex !important; align-items:center; gap:7px;
+  padding:9px 20px !important; border-radius:999px !important;
+  background:linear-gradient(135deg,#7C3AED 0%,#5B21B6 100%) !important;
+  border:none !important; box-shadow:0 2px 10px rgba(124,58,237,0.35) !important;
+  letter-spacing:0.06em; text-transform:uppercase; transition:filter 0.2s, transform 0.2s;
+  text-decoration:none; white-space:nowrap !important; min-width:78px !important; width:auto !important;
+}
+body.hdr-v2 .navbar .nav-cta .nav-phone::before,
+body.hdr-v2 .navbar .nav-cta .nav-phone::after { content:none !important; display:none !important; }
+body.hdr-v2 .navbar .nav-cta .nav-phone .nav-phone-label {
+  display:inline-block !important; visibility:visible !important; opacity:1 !important;
+  font-size:0.82rem !important; color:#fff !important; width:auto !important; height:auto !important;
+  position:static !important; clip:auto !important; clip-path:none !important; text-indent:0 !important;
+}
+body.hdr-v2 .nav-phone .phone-ico { display:inline-flex; align-items:center; justify-content:center; width:16px; height:16px; }
+body.hdr-v2 .nav-phone .phone-ico svg, body.hdr-v2 .nav-phone .phone-ico svg path { width:100%; height:100%; fill:#fff !important; }
+body.hdr-v2 .nav-phone .phone-ico::before, body.hdr-v2 .nav-phone .phone-ico::after { content:none !important; display:none !important; }
+body.hdr-v2 .nav-phone:hover { filter:brightness(1.08); transform:translateY(-1px); }
+
+/* Hamburger */
+body.hdr-v2 .hamburger { display:none; background:none; border:none; cursor:pointer; padding:8px; flex-direction:column; gap:5px; grid-column:3; justify-self:end; }
+body.hdr-v2 .hamburger span { display:block; width:24px; height:2px; background:#fff; border-radius:2px; transition:all 0.3s; }
+
+/* Dark mobile menu panel (overrides inline white background) */
+body.hdr-v2 #mobile-menu { background:#12121f !important; border-bottom:1px solid rgba(255,255,255,0.08) !important; box-shadow:0 12px 48px rgba(0,0,0,0.5) !important; }
+body.hdr-v2 #mobile-menu a { color:#fff !important; border-bottom-color:rgba(255,255,255,0.08) !important; }
+
+@media(max-width:768px){
+  body.hdr-v2 .nav-links { display:none !important; }
+  body.hdr-v2 #lang-toggle { display:none !important; }
+  body.hdr-v2 .navbar .nav-cta { grid-column:1; justify-self:start; }
+  body.hdr-v2 .hamburger { display:flex; grid-column:3; justify-self:end; }
+}
