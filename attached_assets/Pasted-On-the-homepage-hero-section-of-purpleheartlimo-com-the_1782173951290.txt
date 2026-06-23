@@ -1,0 +1,11 @@
+On the homepage hero section of purpleheartlimo.com (the full-width section with the SUV photo, "Luxury Rides. Premier Limo Service. Prime Limo Fleet." headline, and the booking widget):
+1. Lighten the hero section. It currently reads as very dark/moody (heavy purple-toned overlay or dark gradient over the car photo). Reduce the darkness of whatever overlay/gradient sits on top of the hero image — aim for noticeably brighter while keeping the same color mood (purple/sunset tones), not washed out. Make sure the white nav text, gold headline text, and the booking widget still have enough contrast to stay easily readable against the brighter background — adjust the overlay gradient strength rather than just cranking image brightness, so text legibility isn't compromised.
+2. Add a one-time "headlight flash" animation on page load, similar to the flash a car's lights give when you unlock it with a key fob remotely.
+
+Add two small absolutely-positioned overlay elements directly on top of the car's actual headlights in the hero image (and ideally a third behind/below for taillights if visible) — these should be soft white/warm radial-gradient "glow" shapes, sized and positioned to roughly match the headlight locations in the current hero image.
+On page load, animate these glow elements from invisible → bright flash → invisible, twice in quick succession (mimicking a real remote-unlock double-blink — roughly 150–200ms per flash, ~150ms gap between the two), then leave them fully invisible/off afterward. This should play once per page load, not loop continuously.
+Use CSS @keyframes with opacity and a touch of box-shadow/filter: blur() for the glow look — no JS animation library needed.
+Respect prefers-reduced-motion: reduce — if that's set, skip the flash animation entirely and just show the page normally.
+Scope this to the homepage hero only; don't affect any other page or section.
+
+Test that the page still loads correctly and the booking widget/buttons remain fully clickable and unaffected by the new overlay elements (use pointer-events: none on the glow elements so they never block clicks).
