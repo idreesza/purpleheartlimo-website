@@ -1,0 +1,25 @@
+1. Remove the headlight flash animation from the homepage hero.
+
+A previous change added a one-time "headlight flash" animation on page load — two small absolutely-positioned glow overlay elements placed over the SUV's headlights in the hero image, animated via CSS @keyframes (opacity/box-shadow/blur) to flash twice on load, plus a prefers-reduced-motion check to skip it. Find and remove:
+
+The HTML markup for the glow overlay elements (likely two <div>s with classes like .headlight-glow or similar, positioned over the car in the hero section).
+The associated CSS (@keyframes for the flash, and the positioning/glow styles for those elements).
+Any JS that triggers the animation on page load, if it's not pure CSS.
+
+Leave everything else in the hero section untouched — just remove this one feature cleanly, no leftover empty elements or dead CSS rules.
+
+
+
+2. Fix the mobile hero background image position.
+
+On mobile widths, the hero background image (the SUV photo) is currently positioned/cropped so the car is only visible lower down — behind the booking form section — while the area behind the headline text ("Luxury Rides. Premier Limo Service. Prime Limo Fleet.") shows as plain dark background with no car visible.
+
+Fix: adjust the image's positioning on mobile breakpoints so the car is visible at the top of the hero — behind the headline/gold text — instead of behind the form. Concretely:
+
+Find the mobile media query (likely max-width: 768px or similar) controlling the hero section's background.
+If it's a CSS background-image, change background-position to bias toward the top (e.g. center top instead of center bottom or center center).
+If it's an <img> with object-fit: cover, adjust object-position the same way (e.g. center top).
+The goal: on mobile, the car should read as the backdrop directly behind the gold headline text near the top of the hero. The booking form below can sit on a plain/dark background instead — it doesn't need the car image behind it anymore.
+Test at a few mobile widths (375px, 414px, 768px) to confirm the car stays reasonably visible behind the headline across that range, not cropped out entirely on smaller screens.
+
+Don't change anything on desktop — scope this to mobile breakpoints only.

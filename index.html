@@ -753,41 +753,14 @@ a { text-decoration:none; color:inherit; }
   top:0; left:0; width:100%; height:100%;
 }
 #home-page .hero::after { display:none; }
+@media (max-width:768px) {
+  #home-page .hero::before { background-position:center top; }
+}
 #home-page .hero-overlay {
   background:
     linear-gradient(90deg, rgba(13,6,26,0.11) 0%, rgba(13,6,26,0.025) 42%, rgba(22,11,44,0.10) 100%),
     radial-gradient(ellipse 130% 95% at 42% 118%, rgba(7,3,14,0.21), transparent 72%),
     linear-gradient(180deg, rgba(11,5,22,0.17) 0%, transparent 24%);
-}
-/* ===== HOME HERO — headlight flash on load (home-only) ===== */
-#home-page .hl-glow {
-  position:absolute; pointer-events:none; z-index:2;
-  border-radius:50%; filter:blur(7px); opacity:0; will-change:opacity;
-}
-#home-page .hl-glow.hl-head {
-  background:radial-gradient(circle, rgba(255,250,235,0.98) 0%, rgba(255,240,200,0.55) 38%, rgba(255,235,190,0) 72%);
-  box-shadow:0 0 34px 12px rgba(255,242,210,0.6);
-}
-#home-page .hl-glow.hl-tail {
-  background:radial-gradient(circle, rgba(255,224,210,0.9) 0%, rgba(255,120,90,0.5) 40%, rgba(255,90,70,0) 72%);
-  box-shadow:0 0 26px 10px rgba(255,110,80,0.5);
-}
-#home-page .hl-head-driver { left:20.5%; top:46.5%; width:6%;   aspect-ratio:1/0.7; }
-#home-page .hl-head-pass   { left:37%;   top:47.5%; width:4.6%; aspect-ratio:1/0.7; }
-#home-page .hl-tail        { left:76.5%; top:51%;   width:4.2%; aspect-ratio:1/0.8; }
-@media (prefers-reduced-motion: no-preference) {
-  #home-page .hl-glow { animation:headlightFlash 0.95s ease-out 0.35s 1 both; }
-}
-@keyframes headlightFlash {
-  0%   { opacity:0; }
-  6%   { opacity:0; }
-  12%  { opacity:1; }
-  24%  { opacity:0.05; }
-  40%  { opacity:0; }
-  50%  { opacity:1; }
-  62%  { opacity:0.05; }
-  74%  { opacity:0; }
-  100% { opacity:0; }
 }
 #home-page .hero h1.bk-tagline {
   font-family:'Plus Jakarta Sans','Inter',sans-serif;
@@ -1847,9 +1820,6 @@ footer {
 <!-- Hero -->
 <section class="hero">
 <div class="hero-overlay" aria-hidden="true"></div>
-<div class="hl-glow hl-head hl-head-driver" aria-hidden="true"></div>
-<div class="hl-glow hl-head hl-head-pass" aria-hidden="true"></div>
-<div class="hl-glow hl-tail" aria-hidden="true"></div>
 <div class="hero-inner">
 <div class="hero-content" aria-hidden="true"></div>
 <!-- Booking Widget -->
