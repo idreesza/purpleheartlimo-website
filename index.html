@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google Analytics 4 — Purple Heart Limo -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y469VZMYZT"></script>
+<!-- Google Analytics 4 — Purple Heart Limo (deferred to window load for performance) -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-Y469VZMYZT');
+  window.addEventListener('load', function(){
+    var s = document.createElement('script');
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-Y469VZMYZT';
+    s.async = true;
+    document.head.appendChild(s);
+  });
 </script>
 
 <link href="/favicon.png" rel="icon" type="image/png"/>
@@ -102,6 +107,8 @@
 }
 </script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
+<link as="image" href="/images/hero-escalade.webp" rel="preload" fetchpriority="high"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" media="print" onload="this.media='all'" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&amp;family=Cinzel:wght@500;600;700&amp;family=Poppins:wght@300;400;500;600;700;800&amp;family=Mulish:wght@700;800;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Playfair+Display:wght@500;600;700;800;900&amp;display=swap" media="print" onload="this.media='all'" rel="stylesheet"/>
 <noscript><link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&amp;family=Cinzel:wght@500;600;700&amp;family=Poppins:wght@300;400;500;600;700;800&amp;family=Mulish:wght@700;800;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Playfair+Display:wght@500;600;700;800;900&amp;display=swap" rel="stylesheet"/></noscript>
@@ -1719,12 +1726,11 @@ footer {
 .field-error.show { display:block; }
 .input-invalid { border-color:#dc2626 !important; background:rgba(220,38,38,0.04) !important; }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
 <script>
-  (function(){
-    var EJS_PUB = 'coK69SSFSbc1x8dc6';
-    emailjs.init({ publicKey: EJS_PUB });
-  })();
+  document.addEventListener('DOMContentLoaded', function(){
+    if (window.emailjs) { emailjs.init({ publicKey: 'coK69SSFSbc1x8dc6' }); }
+  });
 </script>
 <link href="/css/global.css" rel="stylesheet"/>
 <link href="https://purpleheartlimo.com/" hreflang="en" rel="alternate"/><link href="https://purpleheartlimo.com/" hreflang="x-default" rel="alternate"/></head>
@@ -1732,7 +1738,7 @@ footer {
 <!-- ===== NAVBAR ===== -->
 <nav class="navbar" id="navbar">
 <a class="nav-logo" href="/">
-<img alt="Purple Heart Limo" class="nav-logo-img" decoding="async" src="/images/logo-full-transparent.png"/>
+<img alt="Purple Heart Limo" class="nav-logo-img" decoding="async" width="354" height="105" src="/images/logo-full.webp"/>
 </a>
 <ul class="nav-links">
 <li><a href="/">Home</a></li>
@@ -2131,22 +2137,22 @@ footer {
 <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:32px;margin-bottom:40px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,0.08);">
 <div style="text-align:center;">
 <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:1.9rem;color:#fff;font-weight:600;line-height:1;letter-spacing:-0.02em;">Texan-Owned</div>
-<div style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:4px;">Texan Owned · Est. 2020</div>
+<div style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.88);margin-top:4px;">Texan Owned · Est. 2020</div>
 </div>
 <div style="width:1px;background:rgba(255,255,255,0.12);align-self:stretch;"></div>
 <div style="text-align:center;">
 <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:1.9rem;color:#fff;font-weight:600;line-height:1;letter-spacing:-0.02em;">Licensed &amp; Insured</div>
-<div style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:4px;">Fully Covered · Every Ride</div>
+<div style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.88);margin-top:4px;">Fully Covered · Every Ride</div>
 </div>
 <div style="width:1px;background:rgba(255,255,255,0.12);align-self:stretch;"></div>
 <div style="text-align:center;">
 <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:1.9rem;color:#fff;font-weight:600;line-height:1;letter-spacing:-0.02em;">No Surge Pricing</div>
-<div style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:4px;">Flat Rates · Always Guaranteed</div>
+<div style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.88);margin-top:4px;">Flat Rates · Always Guaranteed</div>
 </div>
 <div style="width:1px;background:rgba(255,255,255,0.12);align-self:stretch;"></div>
 <div style="text-align:center;">
 <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:1.9rem;color:#fff;font-weight:600;line-height:1;letter-spacing:-0.02em;">Confirmed in 5 Min</div>
-<div style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-top:4px;">24 / 7 · Austin · DFW · Houston</div>
+<div style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.88);margin-top:4px;">24 / 7 · Austin · DFW · Houston</div>
 </div>
 </div>
 <p style="color:rgba(255,255,255,0.5);font-size:0.88rem;margin-bottom:20px;">Luxury Rides · Premier Limo Service · Prime Limo Fleet · Anywhere in Texas.</p>
@@ -3063,7 +3069,7 @@ footer {
 </a>
 <p>Texan-owned luxury limousine &amp; black car service in Austin, Dallas-Fort Worth &amp; Houston, Texas. No surge pricing. Flat rates. Professional chauffeurs. The ride you deserve. 🎖️</p>
 <p style="margin-top:14px;"><a href="tel:+18337400700" style="color:var(--gold);font-size:0.85rem;font-weight:600;">📞 (833) 740-0700</a></p>
-<p style="margin-top:4px;"><a href="mailto:info@purpleheartlimo.com" style="color:rgba(255,255,255,0.45);font-size:0.8rem;">info@purpleheartlimo.com</a></p>
+<p style="margin-top:4px;"><a href="mailto:info@purpleheartlimo.com" style="color:rgba(255,255,255,0.88);font-size:0.8rem;">info@purpleheartlimo.com</a></p>
 <div style="display:flex;gap:0.5rem;margin-top:1rem;">
 <a aria-label="Facebook" href="https://www.facebook.com/profile.php?id=61578479742416" rel="noopener" style="width:36px;height:36px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);transition:all 0.2s;" target="_blank">
 <svg fill="currentColor" height="16" viewbox="0 0 24 24" width="16"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>

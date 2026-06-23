@@ -1,0 +1,359 @@
+You are optimizing the website purpleheartlimo.com for performance, accessibility, and Core Web Vitals. The site currently scores 66/100 on PageSpeed Insights (Desktop) with a First Contentful Paint of 4.2s and Largest Contentful Paint of 7.2s — both critically slow. Fix every issue below in priority order.
+
+---
+
+## 🔴 CRITICAL: Image Optimization (Est. savings: 511 KiB)
+
+This is the single biggest performance problem on the site.
+
+### Fix 1: Resize and compress /logo.webp
+- Current file: /logo.webp — 268 KiB, displayed at 54x70px but the actual file is 650x850px
+- Action: Resize the image to exactly 2x the display size (108x140px at most for retina) 
+- Re-compress as WebP with quality 80 or lower
+- Target final file size: under 10 KiB
+- The HTML tag is: <img alt="Purple Heart Limo" src="/logo.webp" style="width: 40px; height: 40px; object-fit: contain; border-radius: 50%;">
+- Add explicit width and height attributes: width="40" height="40"
+
+### Fix 2: Replace /images/logo-full.png with a WebP
+- Current file: /images/logo-full.png — 250 KiB, PNG format, displayed at 354x105px but native is 955x283px
+- Action: Convert to WebP format
+- Resize to 708x210 (2x for retina) maximum
+- Compress to quality 80
+- Target final file size: under 20 KiB
+- Update the HTML tag: <img alt="Purple Heart Limo" class="nav-logo-img" decoding="async" src="/images/logo-full.webp">
+- Add explicit width="354" height="105" to prevent layout shift
+
+### Fix 3: Compress /images/hero-escalade.webp
+- Current: 72.5 KiB — can be reduced significantly
+- Re-compress this hero image to quality 75-80
+- Ensure it has a width and height attribute matching its CSS display size
+- Add fetchpriority="high" to this image since it is the LCP element
+
+### Fix 4: Add responsive images with srcset for all major images
+For any image displayed at different sizes on mobile vs desktop, use srcset:
+```html
+<img 
+  src="/images/logo-full.webp"
+  srcset="/images/logo-full-sm.webp 354w, /images/logo-full-lg.webp 708w"
+  sizes="(max-width: 768px) 354px, 354px"
+  width="354" height="105"
+  alt="Purple Heart Limo"
+  decoding="async"
+>
+```
+
+---
+
+## 🔴 CRITICAL: Largest Contentful Paint (LCP) — Currently 7.2s (Target: under 2.5s)
+
+The LCP breakdown is:
+- Time to first byte: 160ms (good)
+- Resource load delay: 510ms (needs fix)
+- Resource load duration: 320ms (needs fix via image compression above)
+- Element render delay: 110ms (needs fix)
+
+### Fix 5: Make LCP image discoverable from initial HTML
+The hero image (LCP element) inside <section class="hero"> must be:
+1. In the initial HTML — NOT loaded via JavaScript or CSS background-image
+2. NOT lazy-loaded: remove loading="lazy" if present
+3. Add fetchpriority="high" to the hero image tag:
+```html
+<img 
+  src="/images/hero-escalade.webp" 
+  fetchpriority="high" 
+  decoding="async"
+  width="1440" height="800"
+  alt="Purple Heart Limo luxury escalade"
+>
+```
+4. Do NOT use loading="lazy" on any above-the-fold image
+
+### Fix 6: Eliminate render-blocking resources
+
+Two resources are blocking the initial render:
+- /css/global.css (2.4 KiB, 390ms delay)
+- cdn.jsdelivr.net/...dist/email.min.js (2.3 KiB, 750ms delay)
+
+Fixes:
+a) For global.css: inline the critical above-the-fold CSS directly in the <head> as a <style> tag. Then load the full stylesheet asynchronously:
+```html
+<style>/* paste critical CSS here — navbar, hero, above-fold layout */</style>
+<link rel="preload" href="/css/global.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/css/global.css"></noscript>
+```
+
+b) For email.min.js from JSDelivr CDN: This is an email obfuscation script. Load it with defer or async:
+```html
+<script src="https://cdn.jsdelivr.net/...dist/email.min.js" defer></script>
+```
+
+### Fix 7: Add resource hints to preload critical assets
+Add these to the <head>, before any other scripts:
+```html
+<!-- Preload LCP hero image -->
+<link rel="preload" as="image" href="/images/hero-escalade.webp" fetchpriority="high">
+<!-- Preload main CSS -->
+<link rel="preload" as="style" href="/css/global.css">
+<!-- Preconnect to font origins -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+```
+
+---
+
+## 🔴 CRITICAL: Reduce DOM Size (Currently 2,815 elements — max recommended: 800)
+
+The page has 2,815 DOM elements with a maximum depth of 1 and one parent with 69 children (the blog-grid div). This is severely oversized.
+
+### Fix 8: Reduce DOM elements
+- The blog grid (<div class="blog-grid">) has 69 children — paginate it or lazy-load additional posts so only 6-9 show on initial load
+- Remove any hidden/offscreen content that's still in the DOM (use JavaScript to inject it on demand instead)
+- Remove any duplicate navigation elements that exist but are hidden — if the same nav appears multiple times (desktop + mobile + sticky), consider rendering only one and using CSS to show/hide
+- Audit all carousels and sliders: only render the visible slide in the DOM; lazy-load the rest
+- Target: under 1,000 DOM elements total
+
+---
+
+## 🟡 IMPORTANT: Reduce Unused JavaScript (Est. savings: 65 KiB)
+
+### Fix 9: Defer or optimize Google Tag Manager
+- Google Tag Manager (/gtag/js) has 65 KiB of unused JavaScript and is causing 2 long main-thread tasks (109ms and 60ms at the 4.5s mark)
+- Move GTM loading to after the page becomes interactive:
+```html
+<!-- Load GTM after page load -->
+<script>
+  window.addEventListener('load', function() {
+    var s = document.createElement('script');
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-Y469VZMYZT';
+    s.async = true;
+    document.head.appendChild(s);
+  });
+</script>
+```
+- Alternatively use the GTM "Performance" trigger to delay loading by 3 seconds
+
+### Fix 10: Minify inline JavaScript
+- The inline JavaScript (inline: // ===== PAGE ROUTER =====) is 9.5 KiB and can save 2.3 KiB by minification
+- Run all inline JS through a minifier (e.g., Terser) and replace the verbose version with the minified output
+- Remove all comments (// ===== PAGE ROUTER =====, etc.) from production JS
+
+---
+
+## 🟡 IMPORTANT: Reduce Unused CSS (Est. savings: 10 KiB)
+
+### Fix 11: Remove and purge unused CSS
+- The main CSS file (/css/global.css, 16 KiB) has 10 KiB of unused rules
+- Use PurgeCSS or a similar tool to remove CSS rules not used on each page
+- Split CSS into: critical.css (inlined, above-fold only) + rest.css (loaded async)
+- Remove duplicate/redundant selectors
+
+### Fix 12: Minify CSS (Est. savings: 2.6 KiB)
+- The CSS file (/css/global.css) is not minified — it contains comments, whitespace, and verbose formatting
+- Remove all comments like /* ===== CSS VARIABLES ===== */
+- Minify using cssnano or similar
+- Target: reduce from 16.2 KiB to under 8 KiB after purging + minifying
+
+---
+
+## 🟡 IMPORTANT: Fix Non-Composited Animations (Affects CLS & jank)
+
+### Fix 13: Replace non-composited CSS animations
+Three animated elements are using CSS properties that cannot be GPU-composited, causing jank:
+
+a) The "Book Online Now" button and "BOOK A RIDE" link use a shimmer animation on background-position-x — this is not composited:
+```css
+/* WRONG: causes reflow/repaint */
+.shimmer {
+  animation: shimmer 2s infinite;
+  background-position-x: 200%;
+}
+
+/* CORRECT: use transform or opacity instead */
+.shimmer {
+  animation: shimmer 2s infinite;
+  /* Use transform-based shimmer with a pseudo-element */
+}
+```
+Replace with a composited shimmer using a ::before pseudo-element and transform: translateX():
+```css
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  animation: shimmer 2s infinite;
+}
+@keyframes shimmer {
+  to { transform: translateX(200%); }
+}
+```
+
+b) The navbar (#navbar) animates border-bottom-color and box-shadow on scroll — these are not composited:
+- Instead of animating box-shadow (causes repaint), use opacity on a pseudo-element:
+```css
+/* Instead of: */
+.navbar.scrolled { box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+
+/* Use: */
+.navbar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.navbar.scrolled::after { opacity: 1; }
+```
+
+---
+
+## 🟡 IMPORTANT: Fix Forced Reflow from Google Analytics
+
+### Fix 14: Forced reflow in gtag
+- The gtag/js script is causing a 51ms forced reflow (querying offsetWidth after DOM mutation)
+- This is internal to GTM — mitigate by deferring GTM loading as described in Fix 9
+- If using a custom event listener that reads offsetWidth or similar layout properties, batch those reads and avoid interleaving reads and writes
+
+---
+
+## 🟡 IMPORTANT: Fix Google Fonts Loading
+
+### Fix 15: Optimize font loading
+Currently loading 5 Google Fonts weight files totaling 160 KiB. Optimize:
+
+a) Add font-display: swap to all @font-face declarations to prevent invisible text during load:
+```css
+@font-face {
+  font-display: swap;
+}
+```
+
+b) Subset fonts to only include characters actually used:
+- Add &text= parameter to Google Fonts URL for display fonts (e.g., heading fonts)
+- Or self-host the fonts to eliminate the extra DNS lookup to fonts.googleapis.com
+
+c) Reduce font weights: only load the specific weights actually used (check which font-weight values appear in CSS and remove unused ones from the Google Fonts import URL)
+
+d) Use font-display: optional for non-critical fonts to avoid layout shifts
+
+---
+
+## 🟡 ACCESSIBILITY: Fix Contrast Issues (Score: 87 → target 95+)
+
+### Fix 16: Fix low contrast text in the ticker/banner strip
+The following elements in the dark banner section (background: rgb(10, 10, 10)) have insufficient contrast:
+- "TEXAN OWNED · EST. 2020" — font-size: 0.68rem, text-transform: uppercase — very small and low contrast
+- "FULLY COVERED · EVERY RIDE"
+- "FLAT RATES · ALWAYS GUARANTEED"  
+- "24 / 7 · AUSTIN · DFW · HOUSTON"
+
+Fix: Increase text color to pure white (#ffffff) or at minimum rgba(255,255,255,0.85) for WCAG AA compliance. Currently using a near-transparent white.
+
+### Fix 17: Fix low contrast email link in footer
+- The email link `info@purpleheartlimo.com` uses `color:rgba(255,255,255,0.45)` — this is far below WCAG AA contrast requirements against a dark background
+- Change to: `color: rgba(255,255,255,0.87)` or `color: #e0e0e0` minimum
+
+### Fix 18: Fix low contrast footer links
+- "Privacy", "Terms", "Sitemap" footer links appear to have insufficient contrast
+- Change to `color: #cccccc` or lighter against the dark footer background
+- All footer links must meet 4.5:1 contrast ratio
+
+### Fix 19: Fix low contrast copyright text
+- "© 2026 Purple Heart Limo. All rights reserved." appears in low-contrast text
+- Change to `color: rgba(255,255,255,0.87)` minimum
+
+---
+
+## 🟡 ACCESSIBILITY: Fix Touch Targets (Best Practices)
+
+### Fix 20: Increase tap target sizes on mobile
+The following navigation/service links are too small for reliable mobile tapping (minimum 44x44px required):
+- Service links: Airport Transfer, Wedding Limo, Corporate Travel, Prom & Graduation, Night Out & Party, Hourly Service, Game Day & Sports, World Cup 2026
+- Airport links: DFW Airport Limo, Dallas Love Field, Austin-Bergstrom, IAH Airport Limo, Hobby Airport
+- City links: Austin Limo Service, Dallas-Fort Worth Limo, Houston Limo Service
+- Footer links: About Us, Our Fleet, Photo Gallery, Testimonials, Blog, FAQ, Reviews, Military Discount, Contact & Book, Privacy Policy, Terms of Service, Cancellation Policy
+
+Fix for all of these: Add sufficient padding to ensure each tap target is at least 44px tall:
+```css
+nav a, .service-link, footer a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+}
+```
+
+---
+
+## 🟡 ACCESSIBILITY: Fix Heading Structure
+
+### Fix 21: Fix heading hierarchy
+- There is a heading order issue: an H3 ("Get an Instant Quote") appears before H4 elements ("SERVICES") without a proper H2 parent
+- Fix the heading structure to follow sequential order: H1 → H2 → H3 → H4
+- The page's main heading (H1) should be the hero headline
+- Section headings should be H2, subsections H3
+
+---
+
+## 🟡 ACCESSIBILITY: Fix Missing Main Landmark
+
+### Fix 22: Add a <main> landmark element
+- The page is missing a `<main>` element, which is required for screen reader navigation
+- Wrap the primary page content (everything between the header/nav and the footer) in a `<main>` tag:
+```html
+<header>...</header>
+<nav>...</nav>
+<main id="main-content">
+  <!-- all page sections go here -->
+</main>
+<footer>...</footer>
+```
+
+---
+
+## 🟡 ACCESSIBILITY: Fix Redundant Alt Text
+
+### Fix 23: Fix redundant alt text on logo
+- The navbar logo has `alt="Purple Heart Limo"` but this text also appears as adjacent visible text in the nav
+- Since the logo image is decorative in context (the text is already visible), change to `alt=""` to avoid screen readers announcing it twice
+- OR keep the alt text but remove the adjacent visible text
+
+---
+
+## 🟢 PERFORMANCE: Optimize Critical Request Chain
+
+### Fix 24: Shorten the critical path
+Current maximum critical path latency: 757ms
+Chain: purpleheartlimo.com (493ms) → email.min.js (495ms) → /css/global.css (757ms)
+
+- Fix by inlining critical CSS (Fix 6 above) — this removes /css/global.css from the critical chain
+- Fix by deferring email.min.js (Fix 6 above) — this removes it from the chain entirely
+- After both fixes, the critical path should only be the initial HTML request
+
+---
+
+## 🟢 PERFORMANCE: Optimize Total Page Weight
+
+### Fix 25: Reduce total network payload (currently 997 KiB)
+Breakdown of what needs cutting:
+- /logo.webp: 268 KiB → target < 10 KiB (Fix 1)
+- /images/logo-full.png: 250 KiB → target < 20 KiB (Fix 2)
+- /gtag/js (Google Tag Manager): 155 KiB → defer loading (Fix 9)
+- /images/hero-escalade.webp: 72 KiB → target < 40 KiB (Fix 3)
+- Google Fonts: 160 KiB → subset and reduce (Fix 15)
+
+Target total page weight after fixes: under 400 KiB
+
+---
+
+## 🟢 SECURITY: Add Content Security Policy headers
+
+### Fix 26: Add security headers (flagged by Best Practices)
+Although the Best Practices score is 100, these security issues are flagged as warnings:
+Add the following HTTP response headers (in your server config, .htaccess, or Cloudflare):
