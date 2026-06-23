@@ -1,0 +1,170 @@
+You are working on the website purpleheartlimo.com, a luxury limousine service based in Dallas/Austin, Texas. The site is built and hosted via Webflow/similar CMS (adjust if different). I need you to fix a series of critical technical SEO issues identified in Google Search Console, and implement on-page SEO improvements to recover and improve search rankings.
+
+Here is a full breakdown of every issue and improvement needed:
+
+---
+
+## 🔴 CRITICAL: Technical SEO & Crawling/Indexing Fixes
+
+### 1. Fix www / HTTP Redirect Issues (36 pages affected)
+- Ensure ALL of the following redirect correctly to https://purpleheartlimo.com (non-www, HTTPS):
+  - http://purpleheartlimo.com → 301 to https://purpleheartlimo.com
+  - http://www.purpleheartlimo.com → 301 to https://purpleheartlimo.com
+  - https://www.purpleheartlimo.com → 301 to https://purpleheartlimo.com
+- Verify redirects are 301 (permanent), not 302 (temporary)
+- The canonical domain must be: https://purpleheartlimo.com (no www, HTTPS only)
+- Check all internal links and make sure none link to the www or http versions
+
+### 2. Fix 404 Errors (24 pages affected)
+The following URLs are returning 404 and need to be either restored or properly 301 redirected to their closest matching live page:
+- /about-us → restore this page or 301 redirect to the homepage or an appropriate page
+- /es/ → this appears to be a Spanish language section; either restore it or remove from sitemap
+- /blog/a-comprehensive-guide-to-limousine-booking-in-austin--what-you-need-to-know → restore or redirect to nearest blog post
+- /blog/the-ultimate-guide-to-event-based-limousine-rental-in-austin → restore or redirect
+- /blog/the-ultimate-guide-to-transportation-services-in-austin--texas-3 → restore or redirect
+- /blog/alternatives-to-austin-prestige-limos--what-makes-us-different → restore or redirect
+- /blog/myths-about-limo-services--what-you-need-to-know-2 → restore or redirect
+- /blog/top-5-tips-for-choosing-the-best-limo-service-in-austin → restore or redirect
+- /blog/a-step-by-step-guide-to-multi-step-limo-booking-in-austin → restore or redirect
+- /blog/choosing-the-right-limo-for-your-event--a-comprehensive-guide-to-destination-time-selection → restore or redirect
+- For all other 404 blog posts not listed, audit them and add 301 redirects to the most relevant existing blog post or the /blog index page
+- Rule: NEVER leave a 404 — always 301 redirect deleted pages
+
+### 3. Fix robots.txt — Stop Blocking Blog Pages (4 pages affected)
+- Open robots.txt and review all Disallow rules
+- The following pages are being incorrectly blocked and must be allowed:
+  - /blog/misconceptions-about-limousine-services--what-you-need-to-know
+  - /blog/how-to-create-a-lead-capture-system-for-limousine-services
+  - /blog/why-choose-purple-heart-limousine-for-your-next-austin-event-
+- Only block: /cdn-cgi/ (Cloudflare system paths) — this one is fine to block
+- Make sure Googlebot is allowed to crawl all /blog/* paths
+- Ensure the sitemap URL is referenced in robots.txt: Sitemap: https://purpleheartlimo.com/sitemap.xml
+
+### 4. Fix Canonical Tag Conflicts (18 pages affected)
+- Audit all pages for canonical tag mismatches
+- Every page must have a self-referencing canonical pointing to its own HTTPS non-www URL
+- Example: the page at https://purpleheartlimo.com/blog/example must have:
+  <link rel="canonical" href="https://purpleheartlimo.com/blog/example" />
+- Remove any canonical tags pointing to www or http versions
+- Fix the one page where Google overrode the canonical (Google chose differently than what was set) — this usually means there is a near-duplicate page; consolidate it
+
+### 5. Fix "Discovered - Currently Not Indexed" (40 pages)
+These pages exist and Google knows about them but has deprioritized crawling them. This usually means:
+- The pages have thin content (fewer than 300 words)
+- They are not linked to from other pages on the site
+Fix by:
+- Adding internal links from the homepage, blog index, and other high-traffic pages to these unindexed pages
+- Expanding any thin content pages to at least 600–800 words of relevant, original content
+- Making sure each page has a unique, descriptive title tag and meta description
+
+### 6. Fix "Crawled - Currently Not Indexed" (39 pages)
+Google crawled these but decided they weren't worth indexing. This usually means:
+- Content is too thin, duplicate, or low-quality
+- No clear value-add vs. other similar pages
+Fix by:
+- Auditing these pages for duplicate or near-duplicate content
+- Either: (a) significantly improve the content quality, or (b) consolidate them with a related page using a 301 redirect + canonical
+- Add unique structured data (Schema.org) to help Google understand the content
+
+### 7. Fix Sitemap (sitemap.xml)
+- The sitemap currently lists 176 pages — but 163 are not indexed
+- Remove all 404 URLs from the sitemap immediately
+- Remove all redirect URLs (www/http versions) from the sitemap
+- Only include canonical, indexable, 200-status pages in the sitemap
+- Add lastmod dates to every URL in the sitemap
+- Add priority and changefreq tags
+- Re-submit the cleaned sitemap to Google Search Console after fixes
+
+---
+
+## 🟡 ON-PAGE SEO: Title Tags & Meta Descriptions (CTR Fix)
+
+The site gets 11,300 impressions per month but only 34 clicks (0.3% CTR). This means pages show in Google but nobody clicks. Fix every page's title and meta description:
+
+### Rules for Title Tags:
+- Format: [Primary Keyword] | Purple Heart Limo | [City]
+- Length: 50–60 characters max
+- Must include the main keyword near the front
+- Must be unique for every page
+
+### Rules for Meta Descriptions:
+- Length: 150–160 characters
+- Must include a clear call to action (e.g., "Book now", "Get a free quote", "Available 24/7")
+- Must include the primary keyword naturally
+- Must create urgency or communicate a benefit
+
+### Priority pages to fix first:
+1. Homepage (https://purpleheartlimo.com/) — target keyword: "limo service dallas" or "luxury limo service austin"
+2. /our-services — target keyword: "limousine services dallas austin texas"
+3. /blog/common-myths-about-limo-services-debunked — currently position 7.6, fix CTR to convert impressions to clicks
+4. /blog/alternatives-to-austin-prestige-limos--what-makes-us-different — position 5.3
+5. /blog/the-ultimate-guide-to-dynamic-map-integration-for-limousine-services — position 2.3 (close to #1!)
+6. /blog — the blog index page, position 6.3
+
+---
+
+## 🟡 ON-PAGE SEO: Internal Linking Strategy
+
+The site has 144 indexed pages but very poor internal linking, which is why Google won't crawl the other 39+ pages. Implement:
+
+- Every blog post must link to at least 2–3 other relevant blog posts (use descriptive anchor text, not "click here")
+- Every blog post must link to at least one service/conversion page (e.g., /our-services or the booking page)
+- The homepage must link to the top 5 most important blog posts
+- The /blog index page must display all published posts with pagination
+- Add a "Related Posts" section at the bottom of every blog post
+- Add a "Popular Posts" or "You May Also Like" sidebar widget
+
+---
+
+## 🟡 ON-PAGE SEO: Schema / Structured Data
+
+Add the following JSON-LD structured data to the appropriate pages:
+
+1. **LocalBusiness schema** on the homepage:
+   - Business name: Purple Heart Limo
+   - Type: LimousineFService (or TaxiService)
+   - Address, phone, service areas: Dallas, TX and Austin, TX
+   - PriceRange, openingHours
+
+2. **BlogPosting schema** on every blog post:
+   - headline, datePublished, dateModified, author, image
+
+3. **BreadcrumbList schema** on all inner pages
+
+4. **FAQPage schema** on any blog post or service page that has a Q&A section
+
+---
+
+## 🟢 CONTENT SEO: Target Near-Page-1 Keywords
+
+These queries are already ranking position 11–20 (just off page 1). Optimize their pages to push to page 1:
+
+1. **"luxury experiences in dallas"** → currently position 11.3 (2 impressions only — needs more content depth and internal links)
+2. **"best limo service austin"** → currently position 43.7 with 100 impressions — huge opportunity. Needs a dedicated, long-form page (1500+ words) targeting this exact keyword
+3. **"best hotels in dallas"** → position 36.2 with 68 impressions — if a blog post exists for this, expand it significantly; if not, create one targeting Dallas hotel + limo combos
+
+---
+
+## 🟢 CONTENT SEO: Fix Low CTR Queries
+
+The site shows up for "fifa world cup 2026 transportation dallas" at position 29.3 with 21 impressions. This is a high-intent, timely keyword. Create or improve a dedicated page for:
+- FIFA World Cup 2026 transportation and limo services in Dallas
+- Target: "world cup 2026 limo dallas", "fifa world cup transportation dallas 2026"
+- Include: group transportation, fleet options, airport transfers, stadium proximity
+
+---
+
+## 📋 IMPLEMENTATION PRIORITY ORDER
+
+1. robots.txt fix (immediate, 5 min fix, high impact)
+2. 301 redirects for all 404 pages (critical for crawl budget)
+3. www/HTTP redirect enforcement (critical for canonical authority)
+4. Sitemap cleanup and resubmission
+5. Canonical tag audit and fix
+6. Title tags and meta descriptions (CTR fix)
+7. Internal linking across all blog posts
+8. Schema/structured data implementation
+9. Content expansion for thin/unindexed pages
+10. New content: "best limo service austin" landing page + FIFA World Cup page
+
+After completing all fixes, go to Google Search Console and click "Validate Fix" on each issue that was resolved.
