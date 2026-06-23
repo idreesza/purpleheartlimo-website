@@ -16,3 +16,4 @@
 - [Stale SEO audit 404s](seo-audit-stale-404s.md) — SEMrush/GSC 404s here often crawled the pre-Netlify host; verify the file exists before "fixing" — usually a slug-mismatch redirect, not a missing page.
 - [AI-readiness fixes](ai-readiness-fixes.md) — llms.txt & AI-bot robots already exist; headers go in netlify.toml not _headers; external prompts shipped WRONG phone — site truth is (833) 740-0700 / /booking.html.
 - [Fleet marquee focus](fleet-marquee-focus.md) — picked ride-type centers/magnifies a car; never animate layout-affecting margin or getBoundingClientRect centering drifts.
+- [Hostinger .htaccess port](hostinger-htaccess-port.md) — Hostinger=Apache ignores netlify.toml; .htaccess is GENERATED from it via scripts/gen_htaccess.py; :slug→capture group, functions not portable.
