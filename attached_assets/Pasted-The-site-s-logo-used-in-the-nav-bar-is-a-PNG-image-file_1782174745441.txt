@@ -1,0 +1,10 @@
+The site's logo (used in the nav bar) is a PNG/image file with a solid dark navy/indigo rectangular background baked into the image itself. This box clashes with the purple gradient background it sits on in the nav bar — it creates a visible mismatched rectangle around the logo instead of blending in.
+Fix needed: make the logo's background transparent so it blends seamlessly with whatever background sits behind it (the purple nav bar gradient currently, but it should work on any background going forward).
+Steps:
+
+Locate the logo image file in the project (used in the header/nav — likely something like logo.png, logo-full.png, or similar in an /images or /assets folder).
+Process the image to remove its solid background color and make it transparent (PNG with alpha channel). Since the background is a flat/uniform dark navy color (not a photo), this can be done with a simple chroma-key / color-to-alpha script — e.g. using Python's Pillow library: load the image, identify the background color (sample a corner pixel), and convert any pixel matching that color (with a small tolerance for anti-aliasing at the edges) to fully transparent, while leaving the shield emblem, text, and gold line fully opaque.
+Pay special attention to the edges of the shield/text where anti-aliasing blends the navy background into the artwork — use a tolerance-based match (not exact-pixel-only) so you don't leave a jagged navy outline or halo around the letters and shield after the background is removed.
+Save the result as a new transparent PNG (e.g. logo-transparent.png) and update the <img> src / CSS reference in the header component to use this new file instead of the original.
+Don't touch the original file — keep it as a fallback in case the transparency process doesn't look clean and needs another pass.
+After the change, visually confirm: the navy box should be gone, the shield/text/gold line should look identical to before, and there should be no leftover dark fringe/halo around the edges of the artwork against the purple nav background.
