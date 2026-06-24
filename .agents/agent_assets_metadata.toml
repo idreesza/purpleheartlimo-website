@@ -46,13 +46,13 @@ title = "Purple Heart Limo — Full Website (35.6 MB)"
 id = "EFKnfxN2MTAumFvhCX5Zn"
 uri = "file://business-card/purpleheart-business-card-front.png"
 type = "image"
-title = "Business Card — Front (logo + tagline)"
+title = "Business Card — Front"
 
 [[outputs]]
 id = "xzpJScC_b797jSppaiRWV"
 uri = "file://business-card/purpleheart-business-card-back.png"
 type = "image"
-title = "Business Card — Back (phone, email, website, QR)"
+title = "Business Card — Back (smaller QR)"
 
 [[outputs]]
 id = "Qgq_fw1DHykj1Jjuj1jKx"
