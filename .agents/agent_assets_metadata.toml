@@ -71,3 +71,15 @@ id = "Qgq_fw1DHykj1Jjuj1jKx"
 uri = "file://business-card/purpleheart-business-card.pdf"
 type = "pdf"
 title = "Print-Ready PDF (front + back, 300 DPI, with bleed)"
+
+[[outputs]]
+id = "JRzJ6XIWpebq7RwCaqYqT"
+uri = "file://business-card/purpleheart-card-clean.png"
+type = "image"
+title = "Business Card — clean (surroundings removed, flattened, real working QR)"
+
+[[outputs]]
+id = "u0X3y5EEeooO4XF8j0EGj"
+uri = "file://business-card/purpleheart-card-clean.pdf"
+type = "pdf"
+title = "Print-Ready PDF (3.5×2\", 500 DPI)"
