@@ -76,10 +76,10 @@ title = "Print-Ready PDF (front + back, 300 DPI, with bleed)"
 id = "JRzJ6XIWpebq7RwCaqYqT"
 uri = "file://business-card/purpleheart-card-clean.png"
 type = "image"
-title = "Business Card — clean (surroundings removed, flattened, real working QR)"
+title = "Business Card — purple crop margin added, corner fixed"
 
 [[outputs]]
 id = "u0X3y5EEeooO4XF8j0EGj"
 uri = "file://business-card/purpleheart-card-clean.pdf"
 type = "pdf"
-title = "Print-Ready PDF (3.5×2\", 500 DPI)"
+title = "Print-Ready PDF (with crop margin, 500 DPI)"
