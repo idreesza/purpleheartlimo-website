@@ -24,6 +24,12 @@ uri = "file://attached_assets/generated_images/gold_limo.png"
 type = "image"
 title = "gold limo silhouette"
 
+[[generated]]
+id = "P9kcBr_nr14rg-84bhq7g"
+uri = "file://attached_assets/generated_images/gold_crest.png"
+type = "image"
+title = "ornate gold crest"
+
 [[outputs]]
 id = "JkUNDP8kjejZhYioyYljN"
 uri = "file://backlink-action-plan.md"
@@ -52,13 +58,13 @@ title = "Purple Heart Limo — Full Website (35.6 MB)"
 id = "EFKnfxN2MTAumFvhCX5Zn"
 uri = "file://business-card/purpleheart-business-card-front.png"
 type = "image"
-title = "Business Card — Front (reference theme: logo, limo, contact, QR)"
+title = "Business Card — Front (gold crest logo, no background cars)"
 
 [[outputs]]
 id = "xzpJScC_b797jSppaiRWV"
 uri = "file://business-card/purpleheart-business-card-back.png"
 type = "image"
-title = "Business Card — Back (branded)"
+title = "Business Card — Back"
 
 [[outputs]]
 id = "Qgq_fw1DHykj1Jjuj1jKx"
