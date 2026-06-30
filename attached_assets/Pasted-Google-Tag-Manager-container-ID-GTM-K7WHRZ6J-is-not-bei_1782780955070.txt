@@ -1,0 +1,23 @@
+Google Tag Manager (container ID: GTM-K7WHRZ6J) is not being detected on the live site at purpleheartlimo.com, even though the snippets exist in the codebase. The issue is that the GTM code is not being rendered into the actual HTML output that browsers receive.
+Find and fix the root cause:
+
+Locate the global layout template or shared <head> component that actually renders into every page's final HTML output — this is likely a root layout file, _document, app.html, layout.html, base.html, or similar depending on the framework being used.
+Confirm that BOTH of the following snippets are present in that file and will actually be rendered (not commented out, not inside a condition that evaluates to false, not in a file that isn't actually imported/used):
+
+In <head> as high as possible:
+html<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K7WHRZ6J');</script>
+<!-- End Google Tag Manager -->
+Immediately after the opening <body> tag:
+html<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K7WHRZ6J"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+If those snippets are in a file that is NOT the active global layout (e.g. a legacy HTML file that's been superseded by a new framework structure), add them to the correct active layout file instead.
+If there are any existing gtag.js or Google Analytics scripts already loading separately, leave them in place — do not remove them. GTM and GA can coexist.
+After deploying, view the raw page source of https://purpleheartlimo.com (not the DOM inspector — actual page source via Ctrl+U) and confirm both snippets appear: one inside <head> and one immediately after <body>. If they're visible in source, the GTM detection test in Google Tag Manager will pass.
