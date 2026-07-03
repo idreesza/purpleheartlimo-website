@@ -95,13 +95,14 @@
 # ─────────────────────────────────────────────────────────────
 
 # --- /es/ root (no Spanish home page exists) → primary Spanish landing ---
+# Dallas is the primary market (physical presence), so /es lands there.
 [[redirects]]
   from = "/es"
-  to = "/es/limo-service-austin-tx/"
+  to = "/es/limo-service-dallas-tx/"
   status = 301
 [[redirects]]
   from = "/es/"
-  to = "/es/limo-service-austin-tx/"
+  to = "/es/limo-service-dallas-tx/"
   status = 301
 
 # --- 404s where the actual page exists with a trailing slash ---
@@ -361,6 +362,10 @@
 [[redirects]]
   from = "/blog/myths-about-limo-services--what-you-need-to-know-2"
   to = "/blog/5-myths-about-limousine-services-in-austin-debunked/"
+  status = 301
+[[redirects]]
+  from = "/blog/contact-us"
+  to = "/contact.html"
   status = 301
 [[redirects]]
   from = "/blog/top-5-tips-for-choosing-the-best-limo-service-in-austin"
@@ -746,9 +751,258 @@
   from = "/blog"
   to = "/blog/"
   status = 301
+# NOTE: no /blog/:slug catch-all here. A generic :slug rule matches its
+# own trailing-slash output on Netlify (matching ignores trailing
+# slashes), so nonexistent slugs entered an infinite 301 loop instead
+# of 404ing. Explicit rules per live folder post below; unknown slugs
+# now fall through to the final /* -> 404.html rule.
 [[redirects]]
-  from = "/blog/:slug"
-  to = "/blog/:slug/"
+  from = "/blog/5-myths-about-limousine-services-in-austin-debunked"
+  to = "/blog/5-myths-about-limousine-services-in-austin-debunked/"
+  status = 301
+[[redirects]]
+  from = "/blog/5-tips-for-booking-a-limo-in-austin-for-your-special-event"
+  to = "/blog/5-tips-for-booking-a-limo-in-austin-for-your-special-event/"
+  status = 301
+[[redirects]]
+  from = "/blog/airport-transfers-made-easy-stress-free-travel-with-limo-services"
+  to = "/blog/airport-transfers-made-easy-stress-free-travel-with-limo-services/"
+  status = 301
+[[redirects]]
+  from = "/blog/austin-bergstrom-airport-limo-service-guide"
+  to = "/blog/austin-bergstrom-airport-limo-service-guide/"
+  status = 301
+[[redirects]]
+  from = "/blog/austin-wedding-limo-hill-country-venue-guide"
+  to = "/blog/austin-wedding-limo-hill-country-venue-guide/"
+  status = 301
+[[redirects]]
+  from = "/blog/best-day-trips-from-dallas-by-limo"
+  to = "/blog/best-day-trips-from-dallas-by-limo/"
+  status = 301
+[[redirects]]
+  from = "/blog/best-limo-service-dallas-tx"
+  to = "/blog/best-limo-service-dallas-tx/"
+  status = 301
+[[redirects]]
+  from = "/blog/best-things-to-do-in-dallas-texas-with-a-limo"
+  to = "/blog/best-things-to-do-in-dallas-texas-with-a-limo/"
+  status = 301
+[[redirects]]
+  from = "/blog/best-wedding-venues-in-dallas-dfw-limo-service"
+  to = "/blog/best-wedding-venues-in-dallas-dfw-limo-service/"
+  status = 301
+[[redirects]]
+  from = "/blog/comparing-purple-heart-limo-with-other-austin-limo-services"
+  to = "/blog/comparing-purple-heart-limo-with-other-austin-limo-services/"
+  status = 301
+[[redirects]]
+  from = "/blog/corporate-limo-service-dallas-tx"
+  to = "/blog/corporate-limo-service-dallas-tx/"
+  status = 301
+[[redirects]]
+  from = "/blog/dallas-cowboys-game-day-limo-service-guide"
+  to = "/blog/dallas-cowboys-game-day-limo-service-guide/"
+  status = 301
+[[redirects]]
+  from = "/blog/dallas-nightlife-guide-uptown-deep-ellum-by-limo"
+  to = "/blog/dallas-nightlife-guide-uptown-deep-ellum-by-limo/"
+  status = 301
+[[redirects]]
+  from = "/blog/dfw-resorts-mega-guide-2026"
+  to = "/blog/dfw-resorts-mega-guide-2026/"
+  status = 301
+[[redirects]]
+  from = "/blog/dfw-to-dal-airport-transfer-guide"
+  to = "/blog/dfw-to-dal-airport-transfer-guide/"
+  status = 301
+[[redirects]]
+  from = "/blog/executive-business-travel-austin-corporate-limo-guide"
+  to = "/blog/executive-business-travel-austin-corporate-limo-guide/"
+  status = 301
+[[redirects]]
+  from = "/blog/f1-cota-limo-service-austin-grand-prix-transportation"
+  to = "/blog/f1-cota-limo-service-austin-grand-prix-transportation/"
+  status = 301
+[[redirects]]
+  from = "/blog/flat-rate-limo-vs-surge-pricing-dallas"
+  to = "/blog/flat-rate-limo-vs-surge-pricing-dallas/"
+  status = 301
+[[redirects]]
+  from = "/blog/frequently-asked-questions-about-hiring-a-limo-service-in-austin"
+  to = "/blog/frequently-asked-questions-about-hiring-a-limo-service-in-austin/"
+  status = 301
+[[redirects]]
+  from = "/blog/frisco-tx-luxury-limo-transportation-guide"
+  to = "/blog/frisco-tx-luxury-limo-transportation-guide/"
+  status = 301
+[[redirects]]
+  from = "/blog/how-dynamic-map-integration-enhances-your-limo-experience"
+  to = "/blog/how-dynamic-map-integration-enhances-your-limo-experience/"
+  status = 301
+[[redirects]]
+  from = "/blog/how-dynamic-maps-enhance-limousine-services-in-austin"
+  to = "/blog/how-dynamic-maps-enhance-limousine-services-in-austin/"
+  status = 301
+[[redirects]]
+  from = "/blog/how-much-does-limo-service-cost-austin-2026"
+  to = "/blog/how-much-does-limo-service-cost-austin-2026/"
+  status = 301
+[[redirects]]
+  from = "/blog/how-much-to-tip-limo-driver-texas"
+  to = "/blog/how-much-to-tip-limo-driver-texas/"
+  status = 301
+[[redirects]]
+  from = "/blog/how-to-choose-the-perfect-limousine-for-your-wedding"
+  to = "/blog/how-to-choose-the-perfect-limousine-for-your-wedding/"
+  status = 301
+[[redirects]]
+  from = "/blog/how-to-plan-the-perfect-night-out-with-a-limo-in-austin"
+  to = "/blog/how-to-plan-the-perfect-night-out-with-a-limo-in-austin/"
+  status = 301
+[[redirects]]
+  from = "/blog/jsx-semi-private-flights-texas-guide"
+  to = "/blog/jsx-semi-private-flights-texas-guide/"
+  status = 301
+[[redirects]]
+  from = "/blog/kalahari-round-rock-family-guide"
+  to = "/blog/kalahari-round-rock-family-guide/"
+  status = 301
+[[redirects]]
+  from = "/blog/limo-service-abilene-tx"
+  to = "/blog/limo-service-abilene-tx/"
+  status = 301
+[[redirects]]
+  from = "/blog/limo-service-cost-dallas-tx"
+  to = "/blog/limo-service-cost-dallas-tx/"
+  status = 301
+[[redirects]]
+  from = "/blog/limo-service-dallas-to-houston-tx"
+  to = "/blog/limo-service-dallas-to-houston-tx/"
+  status = 301
+[[redirects]]
+  from = "/blog/limo-service-dfw-airport-complete-guide"
+  to = "/blog/limo-service-dfw-airport-complete-guide/"
+  status = 301
+[[redirects]]
+  from = "/blog/limo-service-from-dallas-to-austin"
+  to = "/blog/limo-service-from-dallas-to-austin/"
+  status = 301
+[[redirects]]
+  from = "/blog/limo-service-midland-tx"
+  to = "/blog/limo-service-midland-tx/"
+  status = 301
+[[redirects]]
+  from = "/blog/limo-service-odessa-tx"
+  to = "/blog/limo-service-odessa-tx/"
+  status = 301
+[[redirects]]
+  from = "/blog/limo-vs-black-car-vs-rideshare-dallas"
+  to = "/blog/limo-vs-black-car-vs-rideshare-dallas/"
+  status = 301
+[[redirects]]
+  from = "/blog/love-field-airport-limo-service-dallas"
+  to = "/blog/love-field-airport-limo-service-dallas/"
+  status = 301
+[[redirects]]
+  from = "/blog/luxury-limo-vs-rideshare-uber-lyft-austin"
+  to = "/blog/luxury-limo-vs-rideshare-uber-lyft-austin/"
+  status = 301
+[[redirects]]
+  from = "/blog/navigating-austin-s-traffic--why-a-limo-service-is-your-best-choice"
+  to = "/blog/navigating-austin-s-traffic--why-a-limo-service-is-your-best-choice/"
+  status = 301
+[[redirects]]
+  from = "/blog/party-bus-rental-costs-dfw"
+  to = "/blog/party-bus-rental-costs-dfw/"
+  status = 301
+[[redirects]]
+  from = "/blog/party-bus-vs-stretch-limo-dallas"
+  to = "/blog/party-bus-vs-stretch-limo-dallas/"
+  status = 301
+[[redirects]]
+  from = "/blog/plano-tx-corporate-limo-service"
+  to = "/blog/plano-tx-corporate-limo-service/"
+  status = 301
+[[redirects]]
+  from = "/blog/prom-limo-rental-dallas-tx"
+  to = "/blog/prom-limo-rental-dallas-tx/"
+  status = 301
+[[redirects]]
+  from = "/blog/round-rock-to-austin-airport-limo-transfers"
+  to = "/blog/round-rock-to-austin-airport-limo-transfers/"
+  status = 301
+[[redirects]]
+  from = "/blog/same-day-limo-service-dallas-tx"
+  to = "/blog/same-day-limo-service-dallas-tx/"
+  status = 301
+[[redirects]]
+  from = "/blog/seasonal-events-in-austin--why-a-limo-service-is-your-best-choice"
+  to = "/blog/seasonal-events-in-austin--why-a-limo-service-is-your-best-choice/"
+  status = 301
+[[redirects]]
+  from = "/blog/success-stories--memorable-events-with-purple-heart-limousine-services-in-austin"
+  to = "/blog/success-stories--memorable-events-with-purple-heart-limousine-services-in-austin/"
+  status = 301
+[[redirects]]
+  from = "/blog/sxsw-limo-service-austin-transportation-guide"
+  to = "/blog/sxsw-limo-service-austin-transportation-guide/"
+  status = 301
+[[redirects]]
+  from = "/blog/the-ultimate-guide-to-booking-a-limo-service-in-austin"
+  to = "/blog/the-ultimate-guide-to-booking-a-limo-service-in-austin/"
+  status = 301
+[[redirects]]
+  from = "/blog/things-to-do-in-austin-texas-weekend-guide"
+  to = "/blog/things-to-do-in-austin-texas-weekend-guide/"
+  status = 301
+[[redirects]]
+  from = "/blog/top-5-destinations-to-visit-with-a-limo-in-austin"
+  to = "/blog/top-5-destinations-to-visit-with-a-limo-in-austin/"
+  status = 301
+[[redirects]]
+  from = "/blog/top-5-reasons-to-hire-a-limo-for-your-austin-event"
+  to = "/blog/top-5-reasons-to-hire-a-limo-for-your-austin-event/"
+  status = 301
+[[redirects]]
+  from = "/blog/top-restaurants-in-dallas-for-a-night-out-by-limo"
+  to = "/blog/top-restaurants-in-dallas-for-a-night-out-by-limo/"
+  status = 301
+[[redirects]]
+  from = "/blog/top-seasonal-events-in-austin-perfect-for-a-limo-experience"
+  to = "/blog/top-seasonal-events-in-austin-perfect-for-a-limo-experience/"
+  status = 301
+[[redirects]]
+  from = "/blog/universal-kids-resort-frisco-family-guide"
+  to = "/blog/universal-kids-resort-frisco-family-guide/"
+  status = 301
+[[redirects]]
+  from = "/blog/veteran-owned-limo-service-dallas-tx"
+  to = "/blog/veteran-owned-limo-service-dallas-tx/"
+  status = 301
+[[redirects]]
+  from = "/blog/vonlane-luxury-bus-texas-guide"
+  to = "/blog/vonlane-luxury-bus-texas-guide/"
+  status = 301
+[[redirects]]
+  from = "/blog/wedding-limo-rental-dallas-tx"
+  to = "/blog/wedding-limo-rental-dallas-tx/"
+  status = 301
+[[redirects]]
+  from = "/blog/what-is-included-limo-rental-dallas"
+  to = "/blog/what-is-included-limo-rental-dallas/"
+  status = 301
+[[redirects]]
+  from = "/blog/what-to-do-in-fort-worth-texas-by-limo"
+  to = "/blog/what-to-do-in-fort-worth-texas-by-limo/"
+  status = 301
+[[redirects]]
+  from = "/blog/why-choose-purple-heart-for-your-corporate-transportation-needs-in-austin"
+  to = "/blog/why-choose-purple-heart-for-your-corporate-transportation-needs-in-austin/"
+  status = 301
+[[redirects]]
+  from = "/blog/world-cup-2026-dallas-limo-service-guide"
+  to = "/blog/world-cup-2026-dallas-limo-service-guide/"
   status = 301
 
 # ─────────────────────────────────────────────────────────────
