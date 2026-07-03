@@ -32,6 +32,21 @@ redirects MUST keep `force = true` or Netlify will serve the stale files instead
 (1-hop 301s) — only rewrite them to the final targets if the owner asks. If the owner ever
 reverses this, drop the two redirect blocks and restore the sitemap entries.
 
+# NEVER use a `:slug -> :slug/` catch-all — infinite 301 loop
+
+A rule like `from = "/blog/:slug"` / `to = "/blog/:slug/"` loops forever on NONEXISTENT slugs:
+Netlify's matcher ignores trailing slashes, so `/blog/xyz/` re-matches `/blog/:slug` and 301s to
+itself (curl hits 50 redirects; GSC logs these as redirect/soft-404 and deprioritizes the whole
+/blog/ section). Real folder posts were unaffected only because static files beat non-forced rules.
+
+**Why:** this single rule caused ~130 "Discovered/Crawled – not indexed" GSC entries (July 2026).
+
+**How to apply:** trailing-slash canonicalization must be EXPLICIT per live folder post
+(generated block in netlify.toml, one rule per `blog/<slug>/` dir). When adding a new folder
+post: add its explicit `/blog/<slug> -> /blog/<slug>/` rule + sitemap entry. Unknown slugs then
+fall through to the final `/* -> /404.html 404`. `/es` + `/es/` 301 to the DALLAS es page
+(primary market), not Austin.
+
 # Blog consolidation winners
 
 Dead/duplicate blog slugs are consolidated via 301 to three canonical "winner" posts (trailing slash):
