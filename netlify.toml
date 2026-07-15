@@ -1050,6 +1050,16 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+[[headers]]
+  for = "/logo.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/favicon.png"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
 # ─────────────────────────────────────────────────────────────
 # 5. AI-agent / markdown content-negotiation signals
 #    (isitagentready.com readiness). Vary: Accept on the homepage
