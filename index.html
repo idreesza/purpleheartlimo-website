@@ -1857,6 +1857,8 @@ footer {
 #logo-intro img { width:min(62vw,480px); height:auto; display:block; opacity:0; transform:scale(.92); animation:introIn .7s ease forwards; will-change:transform; }
 @keyframes introIn { to { opacity:1; transform:scale(1); } }
 body.intro-active .nav-logo-img { visibility:hidden; }
+/* Hide Home nav button while on the home page */
+body.home-active .nav-links > li.nav-home-li { display:none !important; }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
 <script>
@@ -1877,7 +1879,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <img alt="Purple Heart Limo" class="nav-logo-img" decoding="async" width="640" height="320" src="/images/logo-heart-limo.webp"/>
 </a>
 <ul class="nav-links">
-<li><a href="/">Home</a></li>
+<li class="nav-home-li"><a href="/">Home</a></li>
 <li><a href="/booking.html">Book</a></li>
 <li class="dropdown">
 <a href="#" onclick="event.preventDefault()" aria-haspopup="true">More ▾</a>
