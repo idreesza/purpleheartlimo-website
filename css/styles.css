@@ -16,9 +16,9 @@ body {
 
 /* ---- CSS Variables ---- */
 :root {
-  --primary:       #7c3aed;
-  --primary-dark:  #5b21b6;
-  --primary-light: #a78bfa;
+  --primary:       #C9A84C;
+  --primary-dark:  #a8873a;
+  --primary-light: #E2C36A;
   --accent:        #d4af37;
   --accent-light:  #f0d060;
   --dark:          #0f0f0f;
@@ -28,10 +28,10 @@ body {
   --text:          #f5f5f5;
   --text-muted:    #9ca3af;
   --text-dark:     #6b7280;
-  --border:        rgba(124, 58, 237, 0.25);
+  --border:        rgba(201, 168, 76, 0.25);
   --border-gold:   rgba(212, 175, 55, 0.35);
   --shadow:        0 4px 20px rgba(0,0,0,0.5);
-  --shadow-purple: 0 4px 30px rgba(124,58,237,0.3);
+  --shadow-purple: 0 4px 30px rgba(201,168,76,0.3);
   --shadow-gold:   0 4px 20px rgba(212,175,55,0.25);
   --radius:        8px;
   --radius-lg:     16px;
@@ -99,7 +99,7 @@ a:hover { color: var(--accent-light); }
   background: linear-gradient(135deg, var(--primary-dark), #4c1d95);
   color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 6px 30px rgba(124,58,237,0.5);
+  box-shadow: 0 6px 30px rgba(201,168,76,0.5);
 }
 .btn-gold {
   background: linear-gradient(135deg, var(--accent), #c9a227);
@@ -241,7 +241,7 @@ a:hover { color: var(--accent-light); }
 .hero::after {
   content: '';
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 30% 50%, rgba(124,58,237,0.18) 0%, transparent 65%);
+  background: radial-gradient(ellipse at 30% 50%, rgba(201,168,76,0.18) 0%, transparent 65%);
 }
 .hero-content { position: relative; z-index: 2; max-width: 720px; }
 .hero-badge {
@@ -298,7 +298,7 @@ a:hover { color: var(--accent-light); }
 .service-card:hover::before { transform: scaleX(1); }
 .service-icon {
   width: 56px; height: 56px;
-  background: rgba(124,58,237,0.12);
+  background: rgba(201,168,76,0.12);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   display: flex;
@@ -308,7 +308,7 @@ a:hover { color: var(--accent-light); }
   margin-bottom: 1.25rem;
   transition: var(--transition);
 }
-.service-card:hover .service-icon { background: rgba(124,58,237,0.28); }
+.service-card:hover .service-icon { background: rgba(201,168,76,0.28); }
 .service-card h3 { color: var(--text); margin-bottom: 0.75rem; font-size: 1.2rem; }
 .service-card p  { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.25rem; }
 
@@ -355,7 +355,7 @@ a:hover { color: var(--accent-light); }
 .feature-item { text-align: center; padding: 2rem 1.5rem; }
 .feature-icon {
   width: 72px; height: 72px;
-  background: rgba(124,58,237,0.1);
+  background: rgba(201,168,76,0.1);
   border: 2px solid var(--border);
   border-radius: 50%;
   display: flex;
@@ -365,7 +365,7 @@ a:hover { color: var(--accent-light); }
   margin: 0 auto 1.25rem;
   transition: var(--transition);
 }
-.feature-item:hover .feature-icon { background:rgba(124,58,237,0.25); border-color:var(--primary-light); transform:scale(1.1); }
+.feature-item:hover .feature-icon { background:rgba(201,168,76,0.25); border-color:var(--primary-light); transform:scale(1.1); }
 .feature-item h3  { color: var(--text); margin-bottom: 0.75rem; font-size: 1.15rem; }
 .feature-item p   { color: var(--text-muted); font-size: 0.95rem; }
 
@@ -403,7 +403,7 @@ a:hover { color: var(--accent-light); }
 .contact-item  { display: flex; align-items: flex-start; gap: 1rem; }
 .contact-item-icon {
   width: 48px; height: 48px;
-  background: rgba(124,58,237,0.12);
+  background: rgba(201,168,76,0.12);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   display: flex; align-items: center; justify-content: center;
@@ -442,7 +442,7 @@ a:hover { color: var(--accent-light); }
 }
 .form-group input:focus,
 .form-group select:focus,
-.form-group textarea:focus { border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(124,58,237,0.15); }
+.form-group textarea:focus { border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(201,168,76,0.15); }
 .form-group textarea  { min-height: 120px; resize: vertical; }
 .form-group select option { background: var(--dark-3); }
 .form-required { color: #f87171; }
@@ -463,7 +463,7 @@ a:hover { color: var(--accent-light); }
 .page-hero::after {
   content: '';
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse at top, rgba(124,58,237,0.15) 0%, transparent 70%);
+  background: radial-gradient(ellipse at top, rgba(201,168,76,0.15) 0%, transparent 70%);
   pointer-events: none;
 }
 .page-hero .container { position: relative; z-index: 2; }
