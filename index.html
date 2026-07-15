@@ -1851,6 +1851,12 @@ footer {
 .field-error { display:none; font-size:0.72rem; color:#dc2626; font-weight:600; margin-top:4px; padding-left:2px; }
 .field-error.show { display:block; }
 .input-invalid { border-color:#dc2626 !important; background:rgba(220,38,38,0.04) !important; }
+/* Logo intro splash */
+#logo-intro { position:fixed; inset:0; z-index:99999; background:linear-gradient(180deg,#FDFBF6 0%,#F3EAD6 100%); display:flex; align-items:center; justify-content:center; opacity:1; transition:opacity .5s ease; }
+#logo-intro.fade { opacity:0; pointer-events:none; }
+#logo-intro img { width:min(62vw,480px); height:auto; display:block; opacity:0; transform:scale(.92); animation:introIn .7s ease forwards; will-change:transform; }
+@keyframes introIn { to { opacity:1; transform:scale(1); } }
+body.intro-active .nav-logo-img { visibility:hidden; }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
 <script>
@@ -1868,7 +1874,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ===== NAVBAR ===== -->
 <nav class="navbar" id="navbar">
 <a class="nav-logo" href="/">
-<img alt="Purple Heart Limo" class="nav-logo-img" decoding="async" width="354" height="105" src="/images/logo-full.webp"/>
+<img alt="Purple Heart Limo" class="nav-logo-img" decoding="async" width="640" height="320" src="/images/logo-heart-limo.webp"/>
 </a>
 <ul class="nav-links">
 <li><a href="/">Home</a></li>
@@ -4602,6 +4608,50 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 </div>
 <script defer="" src="/js/nav-dropdown.js"></script>
+<script>
+(function(){
+  try {
+    if (sessionStorage.getItem('phlIntro')) return;
+    sessionStorage.setItem('phlIntro','1');
+  } catch(e) {}
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+  var navImg = document.querySelector('.nav-logo-img');
+  if (!navImg) return;
+  document.body.classList.add('intro-active');
+  var ov = document.createElement('div');
+  ov.id = 'logo-intro';
+  ov.setAttribute('aria-hidden','true');
+  var img = document.createElement('img');
+  img.src = '/images/logo-heart-limo.webp';
+  img.alt = '';
+  ov.appendChild(img);
+  document.body.appendChild(ov);
+  function finish(){
+    document.body.classList.remove('intro-active');
+    if (ov.parentNode) ov.parentNode.removeChild(ov);
+  }
+  setTimeout(finish, 3500); /* fail-safe: overlay can never stay stuck */
+  setTimeout(function(){
+    try {
+    var from = img.getBoundingClientRect();
+    var to = navImg.getBoundingClientRect();
+    if (!from.width || !from.height || !to.width || !to.height) { ov.classList.add('fade'); setTimeout(finish, 550); return; }
+    var scale = to.height / from.height;
+    var dx = (to.left + to.width/2) - (from.left + from.width/2);
+    var dy = (to.top + to.height/2) - (from.top + from.height/2);
+    img.style.animation = 'none';
+    img.style.transition = 'transform .8s cubic-bezier(.55,.1,.25,1)';
+    img.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(' + scale + ')';
+    setTimeout(function(){ ov.classList.add('fade'); }, 620);
+    setTimeout(function(){
+      document.body.classList.remove('intro-active');
+      setTimeout(finish, 400);
+    }, 780);
+    } catch(e) { finish(); }
+  }, 1200);
+})();
+</script>
 </body>
 </html>
 <!-- Navigation fix applied -->
