@@ -71,3 +71,5 @@ body.dark-theme .ft-hero{background:linear-gradient(160deg,#141020,#0a0a0f 55%,#
 body.dark-theme .ft-hero h1{color:#fff!important}
 body.dark-theme .ft-hero p{color:rgba(255,255,255,.7)!important}
 body.dark-theme .airports-section{background:transparent!important}
+
+@media(max-width:768px){.navbar .nav-cta .nav-phone{display:none!important}}
