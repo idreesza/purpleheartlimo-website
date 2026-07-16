@@ -16,6 +16,7 @@
 - [Stale SEO audit 404s](seo-audit-stale-404s.md) — SEMrush/GSC 404s here often crawled the pre-Netlify host; verify the file exists before "fixing" — usually a slug-mismatch redirect, not a missing page.
 - [AI-readiness fixes](ai-readiness-fixes.md) — llms.txt & AI-bot robots already exist; headers go in netlify.toml not _headers; external prompts shipped WRONG phone — site truth is (833) 740-0700 / /booking.html.
 - [Theme is body-class gated](dark-theme-body-class.md) — light/dark gated by body classes (dark-theme/hdr-v2/home-active); purple hides in 4 CSS layers + JS hover fallbacks — grep constants list.
+- [Logo assets & typo-fix recipe](logo-assets.md) — header/footer/splash logo roles; fix generated-text typos via glyph transplant, never regeneration.
 - [Fleet marquee focus](fleet-marquee-focus.md) — picked ride-type centers/magnifies a car; never animate layout-affecting margin or getBoundingClientRect centering drifts.
 - [Netlify HTML optimizer](netlify-html-optimizer.md) — live HTML rewrites quotes + strips .html from hrefs; verify deploys with quote/extension-agnostic greps.
 - [Hostinger .htaccess port](hostinger-htaccess-port.md) — Hostinger=Apache ignores netlify.toml; .htaccess is GENERATED from it via scripts/gen_htaccess.py; :slug→capture group, functions not portable.
