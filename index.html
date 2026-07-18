@@ -1855,7 +1855,7 @@ footer {
 /* Logo intro splash */
 #logo-intro { position:fixed; inset:0; z-index:99999; background:linear-gradient(180deg,#FDFBF6 0%,#F3EAD6 100%); display:flex; align-items:center; justify-content:center; opacity:1; transition:opacity .5s ease; }
 #logo-intro.fade { opacity:0; pointer-events:none; }
-#logo-intro img { width:min(62vw,480px); height:auto; display:block; opacity:0; transform:scale(.92); animation:introIn .7s ease forwards; will-change:transform; }
+#logo-intro img { width:min(78vw,620px); height:auto; display:block; opacity:0; transform:scale(.92); animation:introIn .7s ease forwards; will-change:transform; filter:drop-shadow(0 14px 34px rgba(45,0,69,0.22)); }
 @keyframes introIn { to { opacity:1; transform:scale(1); } }
 body.intro-active .nav-logo-img { visibility:hidden; }
 /* Hide Home nav button while on the home page */
@@ -4626,7 +4626,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ov.id = 'logo-intro';
   ov.setAttribute('aria-hidden','true');
   var img = document.createElement('img');
-  img.src = '/images/logo-badge.webp?v=3';
+  img.src = '/images/logo-banner.webp';
   img.alt = '';
   ov.appendChild(img);
   document.body.appendChild(ov);
