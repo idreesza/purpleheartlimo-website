@@ -4620,8 +4620,8 @@ document.addEventListener('DOMContentLoaded', () => {
 <script>
 (function(){
   try {
-    if (sessionStorage.getItem('phlIntro')) return;
-    sessionStorage.setItem('phlIntro','1');
+    /* skip only when arriving from another page of this site */
+    if (document.referrer && new URL(document.referrer).host === location.host) return;
   } catch(e) {}
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) return;
