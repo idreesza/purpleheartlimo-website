@@ -28,43 +28,16 @@ class Handler(SimpleHTTPRequestHandler):
                 params = urllib.parse.parse_qs(qs)
                 origin = params.get('origin', [''])[0]
                 destination = params.get('destination', [''])[0]
-                gkey = os.environ.get('GOOGLE_MAPS_API_KEY', '')
-                if not (origin and destination and gkey):
-                    return self._json({'error': 'missing params or key'}, 400)
-                url = 'https://routes.googleapis.com/directions/v2:computeRoutes'
-                body = json.dumps({
-                    'origin': {'address': origin},
-                    'destination': {'address': destination},
-                    'travelMode': 'DRIVE',
-                    'routingPreference': 'TRAFFIC_AWARE',
-                    'units': 'IMPERIAL',
-                }).encode()
-                req = urllib.request.Request(url, data=body, method='POST', headers={
-                    'Content-Type': 'application/json',
-                    'X-Goog-Api-Key': gkey,
-                    'X-Goog-FieldMask': 'routes.distanceMeters,routes.duration',
-                })
-                try:
-                    with urllib.request.urlopen(req, timeout=12) as r:
-                        data = json.loads(r.read().decode())
-                except urllib.error.HTTPError as he:
-                    msg = he.read().decode(errors='ignore')[:400]
-                    return self._json({'error': f'HTTP {he.code}', 'message': msg}, 400)
-                routes = data.get('routes') or []
-                if not routes:
+                if not (origin and destination):
+                    return self._json({'error': 'missing params'}, 400)
+                result = self._google_route(origin, destination)
+                if result is None:
+                    # Google Routes API unavailable (not enabled on the
+                    # project yet) — fall back to free OpenStreetMap routing.
+                    result = self._osrm_route(origin, destination)
+                if result is None:
                     return self._json({'error': 'no_route'}, 400)
-                rt = routes[0]
-                meters = rt.get('distanceMeters', 0)
-                dur = rt.get('duration', '0s')
-                ds = str(dur).rstrip('s') if str(dur).endswith('s') else str(dur)
-                try: seconds = int(round(float(ds)))
-                except Exception: seconds = 0
-                return self._json({
-                    'meters': meters,
-                    'miles': round(meters / 1609.34, 1),
-                    'seconds': seconds,
-                    'minutes': round(seconds / 60),
-                })
+                return self._json(result)
             except Exception as e:
                 return self._json({'error': str(e)}, 500)
 
@@ -83,6 +56,88 @@ class Handler(SimpleHTTPRequestHandler):
         self.send_header('Pragma', 'no-cache')
         self.send_header('Expires', '0')
         SimpleHTTPRequestHandler.end_headers(self)
+
+    def _google_route(self, origin, destination):
+        gkey = os.environ.get('GOOGLE_MAPS_API_KEY', '')
+        if not gkey:
+            return None
+        try:
+            url = 'https://routes.googleapis.com/directions/v2:computeRoutes'
+            body = json.dumps({
+                'origin': {'address': origin},
+                'destination': {'address': destination},
+                'travelMode': 'DRIVE',
+                'routingPreference': 'TRAFFIC_AWARE',
+                'units': 'IMPERIAL',
+            }).encode()
+            req = urllib.request.Request(url, data=body, method='POST', headers={
+                'Content-Type': 'application/json',
+                'X-Goog-Api-Key': gkey,
+                'X-Goog-FieldMask': 'routes.distanceMeters,routes.duration',
+            })
+            with urllib.request.urlopen(req, timeout=12) as r:
+                data = json.loads(r.read().decode())
+            routes = data.get('routes') or []
+            if not routes:
+                return None
+            rt = routes[0]
+            meters = rt.get('distanceMeters', 0)
+            dur = str(rt.get('duration', '0s'))
+            ds = dur[:-1] if dur.endswith('s') else dur
+            try:
+                seconds = int(round(float(ds)))
+            except Exception:
+                seconds = 0
+            return {
+                'meters': meters,
+                'miles': round(meters / 1609.34, 1),
+                'seconds': seconds,
+                'minutes': round(seconds / 60),
+                'source': 'google',
+            }
+        except Exception:
+            return None
+
+    def _geocode(self, q):
+        url = ('https://nominatim.openstreetmap.org/search?format=json&limit=1'
+               '&countrycodes=us&q=' + urllib.parse.quote(q))
+        req = urllib.request.Request(url, headers={
+            'User-Agent': 'PurpleHeartLimo/1.0 (purpleheartlimo.com)',
+            'Accept-Language': 'en',
+        })
+        with urllib.request.urlopen(req, timeout=10) as r:
+            data = json.loads(r.read().decode())
+        if not data:
+            return None
+        return (data[0]['lon'], data[0]['lat'])
+
+    def _osrm_route(self, origin, destination):
+        try:
+            a = self._geocode(origin)
+            b = self._geocode(destination)
+            if not a or not b:
+                return None
+            url = (f'https://router.project-osrm.org/route/v1/driving/'
+                   f'{a[0]},{a[1]};{b[0]},{b[1]}?overview=false')
+            req = urllib.request.Request(url, headers={
+                'User-Agent': 'PurpleHeartLimo/1.0 (purpleheartlimo.com)',
+            })
+            with urllib.request.urlopen(req, timeout=12) as r:
+                data = json.loads(r.read().decode())
+            routes = data.get('routes') or []
+            if not routes:
+                return None
+            meters = routes[0].get('distance', 0)
+            seconds = int(round(routes[0].get('duration', 0)))
+            return {
+                'meters': int(meters),
+                'miles': round(meters / 1609.34, 1),
+                'seconds': seconds,
+                'minutes': round(seconds / 60),
+                'source': 'osrm',
+            }
+        except Exception:
+            return None
 
     def _json(self, obj, status=200):
         body = json.dumps(obj).encode()

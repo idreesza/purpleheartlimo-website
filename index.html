@@ -942,8 +942,19 @@ a { text-decoration:none; color:inherit; }
 #es-home-page .bk-details > #quote-success { grid-column:1 / -1; }
 #home-page .bk-details > #luggage-row,
 #es-home-page .bk-details > #luggage-row { margin-top:0 !important; }
-#home-page .bk-details > #luggage-row + #fb-notes,
-#es-home-page .bk-details > #luggage-row + #fb-notes { grid-column:span 2; }
+#home-page .bk-details > #fb-vehicle + #fb-notes,
+#es-home-page .bk-details > #fb-vehicle + #fb-notes { grid-column:span 2; }
+#home-page .bk-details > #vehicle-display,
+#es-home-page .bk-details > #vehicle-display { grid-column:1 / -1; }
+.vd-card { background:rgba(0,0,0,0.03); border:1px solid rgba(0,0,0,0.08); border-radius:12px; padding:14px 16px; }
+.vd-head { display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:10px; }
+.vd-name { font-family:'Cormorant Garamond',serif; font-size:1.25rem; color:#1a1a1a; }
+.vd-caps { font-size:0.74rem; color:#555; font-weight:600; }
+.vd-photos { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+.vd-photos figure { margin:0; }
+.vd-photos img { width:100%; height:88px; object-fit:cover; border-radius:8px; display:block; background:#e8e8e8; }
+.vd-photos figcaption { font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:#777; text-align:center; margin-top:4px; font-weight:700; }
+@media (max-width:640px){ .vd-photos img { height:64px; } }
 #home-page .bk-details #quote-notes,
 #es-home-page .bk-details #quote-notes { min-height:48px; height:48px; resize:none; overflow:auto; scrollbar-width:none; }
 #home-page .bk-details #quote-notes::-webkit-scrollbar,
@@ -1868,6 +1879,7 @@ body.intro-active .nav-logo-img { visibility:hidden; }
 body.home-active .nav-links > li.nav-home-li { display:none !important; }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+<script src="js/pricing.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function(){
     if (window.emailjs) { emailjs.init({ publicKey: 'coK69SSFSbc1x8dc6' }); }
@@ -2107,12 +2119,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="form-group" id="fb-vehicle">
 <label data-en="Ride Type" data-es="Tipo" id="label-type" style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Ride Type</label>
 <div class="csel" id="csel-vehicle">
-<button class="csel-btn" onclick="cselToggle('csel-vehicle')" type="button">Sedan</button>
+<button class="csel-btn" onclick="cselToggle('csel-vehicle')" type="button">Luxury SUV</button>
 <div class="csel-list">
-<div class="csel-opt selected" onclick="cselPick('csel-vehicle','vehicle-input','Sedan');onVehicleChange('Sedan')">Sedan</div>
+<div class="csel-opt selected" onclick="cselPick('csel-vehicle','vehicle-input','Luxury SUV');onVehicleChange('Luxury SUV')">Luxury SUV</div>
+<div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','Business SUV');onVehicleChange('Business SUV')">Business SUV</div>
 <div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','Luxury Sedan');onVehicleChange('Luxury Sedan')">Luxury Sedan</div>
-<div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','SUV');onVehicleChange('SUV')">SUV</div>
-<div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','Luxury SUV');onVehicleChange('Luxury SUV')">Luxury SUV</div>
+<div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','Business Sedan');onVehicleChange('Business Sedan')">Business Sedan</div>
 <div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','Sprinter Van');onVehicleChange('Sprinter Van')">Sprinter Van</div>
 <div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','Sprinter Jet');onVehicleChange('Sprinter Jet')">Sprinter Jet</div>
 <div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','Stretch Sedan');onVehicleChange('Stretch Sedan')">Stretch Sedan</div>
@@ -2120,7 +2132,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','Party Bus');onVehicleChange('Party Bus')">Party Bus</div>
 <div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','Coach Bus');onVehicleChange('Coach Bus')">Coach Bus</div>
 </div>
-<input id="vehicle-input" type="hidden" value="Sedan"/>
+<input id="vehicle-input" type="hidden" value="Luxury SUV"/>
 </div>
 </div>
 <div class="form-group" id="fb-pax">
@@ -2169,6 +2181,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <label>Notes <span class="optional-badge">(optional)</span></label>
 <textarea id="quote-notes" placeholder="Special requests..." rows="2"></textarea>
 </div>
+<div id="vehicle-display" style="display:none;"></div>
 <div id="price-estimate" style="display:none;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.18);border-radius:10px;padding:12px 16px;margin-bottom:10px;text-align:center;">
 <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:4px;">Estimated Rate</div>
 <div id="price-value" style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:#ffffff;font-weight:400;"></div>
@@ -2182,6 +2195,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 </div>
 <div class="bk-bar" id="bk-bar"></div>
+<div id="distance-note" style="display:none;margin-top:8px;font-size:0.78rem;color:rgba(255,255,255,0.85);text-align:left;padding-left:6px;"></div>
 <div class="bk-details" id="bk-details"></div>
 <!-- Real vehicle photo strip — pickable + arrows -->
 <div class="fleet-strip">
@@ -3360,9 +3374,9 @@ function removeQuoteStop(n) {
 }
 
 const PAX_RANGES = {
-  'Sedan':         [1,2,3],
+  'Business Sedan': [1,2,3],
   'Luxury Sedan':  [1,2,3],
-  'SUV':           [1,2,3,4,5,6],
+  'Business SUV':  [1,2,3,4,5,6],
   'Luxury SUV':    [1,2,3,4,5,6],
   'Sprinter Van':  [1,2,3,4,5,6,7,8,9,10,11,12],
   'Sprinter Jet':  [1,2,3,4,5,6],
@@ -3375,9 +3389,9 @@ const PAX_RANGES = {
 function updatePaxOptions(vehicle) {}
 
 const PAX_OPTIONS = {
-  'Sedan':         [['1','1'],['2','2'],['3','3']],
+  'Business Sedan': [['1','1'],['2','2'],['3','3']],
   'Luxury Sedan':  [['1','1'],['2','2'],['3','3']],
-  'SUV':           [['1','1'],['2','2'],['3','3'],['4','4'],['5','5'],['6','6']],
+  'Business SUV':  [['1','1'],['2','2'],['3','3'],['4','4'],['5','5'],['6','6']],
   'Luxury SUV':    [['1','1'],['2','2'],['3','3'],['4','4'],['5','5'],['6','6']],
   'Sprinter Van':  [['1','1'],['2','2'],['3','3'],['4','4'],['5','5'],['6','6'],['7','7'],['8','8'],['9','9'],['10','10'],['11','11'],['12','12']],
   'Sprinter Jet':  [['1','1'],['2','2'],['3','3'],['4','4'],['5','5'],['6','6']],
@@ -3388,9 +3402,9 @@ const PAX_OPTIONS = {
 };
 
 const VEHICLE_CAPACITY = {
-  'Sedan':         { maxPax: 3,  maxBags: 2,  upgrade: 'SUV' },
+  'Business Sedan': { maxPax: 3,  maxBags: 2,  upgrade: 'Business SUV' },
   'Luxury Sedan':  { maxPax: 3,  maxBags: 2,  upgrade: 'Luxury SUV' },
-  'SUV':           { maxPax: 6,  maxBags: 5,  upgrade: 'Luxury SUV' },
+  'Business SUV':  { maxPax: 6,  maxBags: 5,  upgrade: 'Luxury SUV' },
   'Luxury SUV':    { maxPax: 6,  maxBags: 5,  upgrade: 'Sprinter Van' },
   'Sprinter Van':  { maxPax: 12, maxBags: 12, upgrade: 'Party Bus' },
   'Sprinter Jet':  { maxPax: 6,  maxBags: 6,  upgrade: 'Sprinter Van' },
@@ -3606,9 +3620,9 @@ function onVehicleChange(vehicle) {
 
 // Maps each ride type to its photo in the sliding fleet strip
 const VEHICLE_PHOTO = {
-  'Sedan':        ['sedan-cadillac', 'Executive Sedan'],
+  'Business Sedan': ['sedan-cadillac', 'Business Sedan'],
   'Luxury Sedan': ['sclass',         'Luxury Sedan'],
-  'SUV':          ['suv-yukon',      'Executive SUV'],
+  'Business SUV':  ['suv-yukon',      'Business SUV'],
   'Luxury SUV':   ['luxsuv-escalade','Luxury SUV'],
   'Sprinter Van': ['sprinter-new',   'Executive Sprinter'],
   'Sprinter Jet': ['jet-sprinter',   'Sprinter Jet'],
@@ -3621,7 +3635,7 @@ const VEHICLE_PHOTO = {
 // ===== PICKABLE FLEET STRIP =====
 const FLEET_ORDER = ['sedan-cadillac','sclass','suv-yukon','luxsuv-escalade','stretch-towncar','stretch-navigator','sprinter-new','partybus-ford','jet-sprinter'];
 const PHOTO_VEHICLE = {
-  'sedan-cadillac':'Sedan', 'sclass':'Luxury Sedan', 'suv-yukon':'SUV', 'luxsuv-escalade':'Luxury SUV',
+  'sedan-cadillac':'Business Sedan', 'sclass':'Luxury Sedan', 'suv-yukon':'Business SUV', 'luxsuv-escalade':'Luxury SUV',
   'stretch-towncar':'Stretch Sedan', 'stretch-navigator':'Stretch SUV', 'sprinter-new':'Sprinter Van',
   'partybus-ford':'Party Bus', 'jet-sprinter':'Sprinter Jet'
 };
@@ -3706,7 +3720,7 @@ function focusFleetPhoto(vehicle) {
 }
 
 function checkCapacity() {
-  const vehicle = (document.getElementById('vehicle-input') || {}).value || 'Sedan';
+  const vehicle = (document.getElementById('vehicle-input') || {}).value || 'Luxury SUV';
   const pax = parseInt((document.getElementById('pax-input') || {}).value) || 1;
   const cap = VEHICLE_CAPACITY[vehicle];
   const warn = document.getElementById('capacity-warning');
@@ -3997,13 +4011,14 @@ async function submitCloud() {
 }
 
 // ===== QUOTE FORM =====
+// Larger vehicles (no live distance pricing) — quoted "from" rates.
 const PRICE_RATES = {
-  'Sedan (1–3 passengers)':    { airport: 'From $119', oneway: 'From $119', hourly: '$95/hr' },
-  'SUV (1–6 passengers)':      { airport: 'From $159', oneway: 'From $159', hourly: '$125/hr' },
-  'Stretch Limo (up to 10)':   { airport: 'From $249', oneway: 'From $249', hourly: '$175/hr', note: '3-hr minimum required' },
-  'Sprinter Van (up to 14)':   { airport: 'From $199', oneway: 'From $199', hourly: '$150/hr', note: '3-hr minimum required' },
-  'Party Bus (up to 22)':      { airport: 'From $349', oneway: 'From $349', hourly: '$225/hr', note: '4-hr minimum required' },
-  'Coach Bus (22+)':           { airport: 'From $449', oneway: 'From $449', hourly: '$275/hr', note: '4-hr minimum required' },
+  'Sprinter Van':  { airport: 'From $199', oneway: 'From $199', hourly: '$150/hr', note: '3-hr minimum required' },
+  'Sprinter Jet':  { airport: 'From $225', oneway: 'From $225', hourly: '$165/hr', note: '3-hr minimum required' },
+  'Stretch Sedan': { airport: 'From $249', oneway: 'From $249', hourly: '$175/hr', note: '3-hr minimum required' },
+  'Stretch SUV':   { airport: 'From $279', oneway: 'From $279', hourly: '$225/hr', note: '3-hr minimum required' },
+  'Party Bus':     { airport: 'From $349', oneway: 'From $349', hourly: '$225/hr', note: '4-hr minimum required' },
+  'Coach Bus':     { airport: 'From $449', oneway: 'From $449', hourly: '$275/hr', note: '4-hr minimum required' },
 };
 
 function getActiveTab() {
@@ -4013,28 +4028,121 @@ function getActiveTab() {
   return 'airport';
 }
 
-// Show price estimate when vehicle changes
+// ===== VEHICLE DISPLAY CARD (selected ride class + photos) =====
+function renderVehicleDisplay() {
+  const box = document.getElementById('vehicle-display');
+  if (!box) return;
+  const v = (document.getElementById('vehicle-input') || {}).value || 'Luxury SUV';
+  const cls = (typeof phlGetClass === 'function') ? phlGetClass(v) : null;
+  if (cls) {
+    box.innerHTML =
+      '<div class="vd-card">' +
+        '<div class="vd-head"><span class="vd-name">' + cls.name + ' · ' + cls.vehicle + '</span>' +
+        '<span class="vd-caps">👤 up to ' + cls.pax + ' passengers · 🧳 up to ' + cls.bags + ' bags</span></div>' +
+        '<div class="vd-photos">' +
+          '<figure><img src="' + cls.photos.exterior + '" alt="' + cls.name + ' exterior" loading="lazy"><figcaption>Exterior</figcaption></figure>' +
+          '<figure><img src="' + cls.photos.interior + '" alt="' + cls.name + ' interior" loading="lazy"><figcaption>Interior</figcaption></figure>' +
+          '<figure><img src="' + cls.photos.trunk + '" alt="' + cls.name + ' luggage space" loading="lazy"><figcaption>Luggage</figcaption></figure>' +
+        '</div></div>';
+    box.style.display = 'block';
+    return;
+  }
+  // Larger vehicles: exterior photo + capacity only
+  const cap = VEHICLE_CAPACITY[v];
+  const photo = (VEHICLE_PHOTO[v] || [])[0];
+  box.innerHTML =
+    '<div class="vd-card">' +
+      '<div class="vd-head"><span class="vd-name">' + v + '</span>' +
+      (cap ? '<span class="vd-caps">👤 up to ' + cap.maxPax + ' passengers' + (cap.maxBags ? ' · 🧳 up to ' + cap.maxBags + ' bags' : '') + '</span>' : '') + '</div>' +
+      (photo ? '<div class="vd-photos" style="grid-template-columns:1fr;"><figure><img src="images/' + photo + '.webp" alt="' + v + '" loading="lazy" style="height:140px;"><figcaption>Exterior</figcaption></figure></div>' : '') +
+    '</div>';
+  box.style.display = 'block';
+}
+
+// ===== LIVE DISTANCE + FARE =====
+window._phlLastFare = null;
+let _phlPriceSeq = 0;
+
+async function refreshLivePricing() {
+  renderVehicleDisplay();
+  const seq = ++_phlPriceSeq;
+  const v = (document.getElementById('vehicle-input') || {}).value || 'Luxury SUV';
+  const tab = getActiveTab();
+  const pe = document.getElementById('price-estimate');
+  const pv = document.getElementById('price-value');
+  const noteEl = document.getElementById('price-note');
+  const distEl = document.getElementById('distance-note');
+  const cls = (typeof phlGetClass === 'function') ? phlGetClass(v) : null;
+  window._phlLastFare = null;
+  if (!pe || !pv) return;
+
+  // Larger vehicles — quoted "from" rates, no live math
+  if (!cls) {
+    const rate = PRICE_RATES[v];
+    pv.textContent = rate ? (rate[tab] || rate.airport) : '';
+    if (noteEl) noteEl.textContent = rate && rate.note ? '⚠ ' + rate.note + ' · Final quote confirmed by phone' : 'Final quote confirmed by phone';
+    pe.style.display = rate ? 'block' : 'none';
+    return;
+  }
+
+  // Hourly charter tab — show the hourly rate directly
+  if (tab === 'hourly') {
+    pv.textContent = '$' + cls.hourly + '/hr';
+    if (noteEl) noteEl.textContent = '2-hour minimum';
+    pe.style.display = 'block';
+    return;
+  }
+
+  const pickup = ((document.getElementById('pickup-input') || {}).value || '').trim();
+  const dropoff = ((document.getElementById('dropoff-input') || {}).value || '').trim();
+  if (!pickup || !dropoff) {
+    pv.textContent = 'From $' + cls.flat;
+    if (noteEl) noteEl.textContent = 'Enter pickup & drop-off for your exact fare';
+    pe.style.display = 'block';
+    if (distEl) distEl.style.display = 'none';
+    return;
+  }
+
+  pv.innerHTML = '<span style="font-size:1rem;">Calculating…</span>';
+  if (noteEl) noteEl.textContent = '';
+  pe.style.display = 'block';
+  try {
+    const d = await phlFetchDistance(pickup, dropoff);
+    if (seq !== _phlPriceSeq) return; // stale response — a newer request superseded it
+    if (distEl) {
+      distEl.textContent = '📍 Estimated distance: ' + d.miles + ' miles · ~' + d.minutes + ' min drive';
+      distEl.style.display = 'block';
+    }
+    const fare = phlComputeFare(cls, d.miles, d.minutes);
+    pv.textContent = 'Estimated fare: $' + fare.total;
+    if (noteEl) noteEl.textContent = fare.breakdown;
+    window._phlLastFare = { total: fare.total, miles: d.miles, minutes: d.minutes, vehicle: cls.name };
+  } catch (e) {
+    if (seq !== _phlPriceSeq) return;
+    pv.textContent = 'From $' + cls.flat;
+    if (noteEl) noteEl.textContent = 'Live distance unavailable — exact fare confirmed by phone';
+    if (distEl) distEl.style.display = 'none';
+  }
+}
+
+let _phlDebounce = null;
+function schedulePriceRefresh() {
+  clearTimeout(_phlDebounce);
+  _phlDebounce = setTimeout(refreshLivePricing, 600);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   // ── Custom date picker (self-contained, no external dependency) ──
   if (typeof initDatePicker === 'function') initDatePicker('date-input');
 
+  window._bkRefreshPrice = refreshLivePricing;
   const vehicleSel = document.getElementById('vehicle-input');
-  if (vehicleSel) {
-    const showPrice = () => {
-      const v = vehicleSel.value;
-      const tab = getActiveTab();
-      const rate = PRICE_RATES[v];
-      if (rate) {
-        document.getElementById('price-value').textContent = rate[tab] || rate.airport;
-        const noteEl = document.getElementById('price-note');
-        if (noteEl) noteEl.textContent = rate.note ? '⚠ ' + rate.note : '';
-        document.getElementById('price-estimate').style.display = 'block';
-      }
-    };
-    window._bkRefreshPrice = showPrice;
-    vehicleSel.addEventListener('change', showPrice);
-    showPrice(); // show on load
-  }
+  if (vehicleSel) vehicleSel.addEventListener('change', refreshLivePricing);
+  ['pickup-input', 'dropoff-input'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.addEventListener('change', schedulePriceRefresh); el.addEventListener('input', schedulePriceRefresh); }
+  });
+  renderVehicleDisplay();
   // Build the initial layout (Airport is the default tab)
   window._quoteTab = 'airport';
   bkApplyLayout('airport');
@@ -4058,15 +4166,15 @@ function clearFieldError(inputId, errId) {
 const BK_ZONES = {
   airport: {
     bar: ['fb-pickup', 'dropoff-section', 'fb-datetime'],
-    details: ['fb-name', 'fb-email', 'fb-phone', 'flight-field', 'fb-vehicle', 'fb-pax', 'luggage-row', 'fb-notes']
+    details: ['fb-name', 'fb-email', 'fb-phone', 'flight-field', 'fb-pax', 'luggage-row', 'fb-vehicle', 'fb-notes', 'vehicle-display']
   },
   pointtopoint: {
     bar: ['fb-pickup', 'dropoff-section', 'fb-datetime'],
-    details: ['fb-name', 'fb-email', 'fb-phone', 'fb-stops', 'fb-vehicle', 'fb-pax', 'fb-notes']
+    details: ['fb-name', 'fb-email', 'fb-phone', 'fb-stops', 'fb-pax', 'fb-vehicle', 'fb-notes', 'vehicle-display']
   },
   hourly: {
     bar: ['fb-pickup', 'dropoff-section', 'fb-datetime'],
-    details: ['fb-name', 'fb-email', 'fb-phone', 'fb-vehicle', 'fb-pax', 'fb-notes']
+    details: ['fb-name', 'fb-email', 'fb-phone', 'fb-pax', 'fb-vehicle', 'fb-notes', 'vehicle-display']
   }
 };
 const BK_REQUIRED = [
@@ -4102,7 +4210,7 @@ function bkApplyLayout(mode) {
   const pe = document.getElementById('price-estimate'); if (pe) details.appendChild(pe);
   const sub = document.createElement('div');
   sub.className = 'bk-details-action';
-  sub.innerHTML = '<button class="btn-book-full" id="quote-btn" onclick="submitQuote()">See My Price &amp; Book</button>';
+  sub.innerHTML = '<button class="btn-book-full" id="quote-btn" onclick="submitQuote()">Book My Ride</button>';
   details.appendChild(sub);
   const qs = document.getElementById('quote-success'); if (qs) details.appendChild(qs);
   bkCollapse();
@@ -4200,7 +4308,15 @@ async function submitQuote() {
   } catch(e) { /* best-effort — show success regardless */ }
 
   btn.style.display = 'none';
-  document.getElementById('quote-success').style.display = 'block';
+  const qs = document.getElementById('quote-success');
+  if (window._phlLastFare) {
+    qs.innerHTML =
+      '<div style="color:#16a34a;font-weight:700;font-size:0.88rem;">✅ Request received!</div>' +
+      '<div style="color:#166534;font-size:1.15rem;font-weight:700;margin-top:6px;">Estimated fare: $' + window._phlLastFare.total + '</div>' +
+      '<div style="color:#166534;font-size:0.74rem;margin-top:3px;">' + window._phlLastFare.vehicle + ' · ' + window._phlLastFare.miles + ' mi · ~' + window._phlLastFare.minutes + ' min</div>' +
+      '<a href="https://customer.moovs.app/purple-heart-limo/request/new" style="display:inline-block;margin-top:8px;padding:7px 18px;background:var(--purple);color:#fff;border-radius:8px;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;" target="_blank">Book Online Now →</a>';
+  }
+  qs.style.display = 'block';
 }
 
 // ===== CONTACT FORM =====

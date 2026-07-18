@@ -448,7 +448,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <button aria-label="Next vehicle" class="car-nav next" onclick="carSlide(1)">
 <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="20"><polyline points="9 18 15 12 9 6"></polyline></svg>
 </button>
-<div class="car-caption" id="carCaption">Executive Sedan</div>
+<div class="car-caption" id="carCaption">Luxury SUV</div>
 </div>
 <div class="car-dots" id="carDots"></div>
 </div>
@@ -564,7 +564,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <div class="alert alert-success" id="alertSuccess"></div>
 <div class="alert alert-error" id="alertError"></div>
-<button class="btn-submit" id="submitBtn" onclick="openEstimateModal()">🚗 Request My Ride — Review &amp; Confirm</button>
+<button class="btn-submit" id="submitBtn" onclick="openEstimateModal()">🚗 Book My Ride</button>
 <div class="moovs-cta" id="moovsLink">
 <a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank">Or book instantly online via our booking portal →</a>
 </div>
@@ -619,7 +619,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <div class="modal-cta">
 <button class="btn-cancel" onclick="closeModal()" type="button">Edit Details</button>
-<button class="btn-confirm" id="mdlConfirm" onclick="confirmAndSend()" type="button">Confirm &amp; Submit Request</button>
+<button class="btn-confirm" id="mdlConfirm" onclick="confirmAndSend()" type="button">Book My Ride</button>
 </div>
 </div>
 </div>
@@ -709,10 +709,10 @@ function toggleMenu(){const m=document.getElementById('mobile-menu');const b=doc
 
 // Vehicle data
 const VEHICLES=[
-  {id:'sedan',name:'Executive Sedan',desc:'Cadillac CTS — solo & business travel',pax:3,lug:2,imgairport:129,imgoneway:129,imghourly:119,img:'images/sedan-cadillac.webp',note:'',features:['Leather interior · climate control','Complimentary bottled water','Professional chauffeur · suit & tie','Free WiFi · phone chargers']},
-  {id:'luxsedan',name:'Luxury Sedan',desc:'Mercedes S-Class — premium business class',pax:2,lug:2,imgairport:269,imgoneway:229,imghourly:229,img:'images/sclass.webp',note:'Premium',features:['Top-tier Mercedes-Benz comfort','Privacy partition · rear climate','Premium leather · ambient lighting','VIP / executive transport ready']},
-  {id:'execsuv',name:'Executive SUV',desc:'GMC Yukon Denali — small groups & families',pax:6,lug:6,imgairport:159,imgoneway:149,imghourly:149,img:'images/suv-yukon.webp',note:'',features:['Up to 6 passengers · 6 large bags','Spacious 3-row seating','Tinted windows · privacy','Great for families & airport runs']},
-  {id:'suv',name:'Luxury SUV',desc:'Cadillac Escalade — luxury group travel',pax:6,lug:6,imgairport:189,imgoneway:179,imghourly:179,img:'images/luxsuv-escalade.webp',note:'',features:['Premium Escalade Platinum trim','Captain seats · rear entertainment','Up to 6 passengers in luxury','Ideal for VIP group transport']},
+  {id:'suv',name:'Luxury SUV',desc:'Cadillac Escalade — luxury group travel',pax:6,lug:5,imgairport:190,imgoneway:190,imghourly:179,img:'images/luxsuv-escalade.webp',note:'',features:['Premium Escalade Platinum trim','Captain seats · rear entertainment','Up to 6 passengers in luxury','Ideal for VIP group transport']},
+  {id:'execsuv',name:'Business SUV',desc:'GMC Yukon Denali — small groups & families',pax:6,lug:5,imgairport:150,imgoneway:150,imghourly:149,img:'images/suv-yukon.webp',note:'',features:['Up to 6 passengers · 5 large bags','Spacious 3-row seating','Tinted windows · privacy','Great for families & airport runs']},
+  {id:'luxsedan',name:'Luxury Sedan',desc:'Mercedes S-Class — premium business class',pax:3,lug:2,imgairport:190,imgoneway:190,imghourly:229,img:'images/sclass.webp',note:'Premium',features:['Top-tier Mercedes-Benz comfort','Privacy partition · rear climate','Premium leather · ambient lighting','VIP / executive transport ready']},
+  {id:'sedan',name:'Business Sedan',desc:'Cadillac CTS — solo & business travel',pax:3,lug:2,imgairport:120,imgoneway:120,imghourly:119,img:'images/sedan-cadillac.webp',note:'',features:['Leather interior · climate control','Complimentary bottled water','Professional chauffeur · suit & tie','Free WiFi · phone chargers']},
   {id:'stretch',name:'Stretch Limousine',desc:'Lincoln Town Car stretch — weddings & celebrations',pax:8,lug:2,imgairport:179,imgoneway:169,imghourly:169,img:'images/stretch-towncar.webp',note:'Most Popular',minHrs:true,features:['Up to 8 passengers · classic stretch','Wet bar · mood lighting · sound','Perfect for weddings & proms','Photos & celebrations welcome']},
   {id:'stretchsuv',name:'Stretched SUV',desc:'Lincoln Navigator stretch — large luxury groups',pax:10,lug:6,imgairport:279,imgoneway:279,imghourly:279,img:'images/stretch-navigator.webp',note:'',minHrs:true,features:['Up to 10 passengers in stretch luxury','Premium bar · LED lighting · audio','Bachelor / bachelorette ready','Statement arrival for any event']},
   {id:'sprinter',name:'Executive Sprinter',desc:'Mercedes Sprinter — groups up to 12',pax:12,lug:10,imgairport:179,imgoneway:159,imghourly:159,img:'images/sprinter-new.webp',note:'',minHrs:true,features:['Up to 12 passengers · 10 bags','Tall interior · easy boarding','USB charging · WiFi available','Corporate roadshows & group travel']},
@@ -721,7 +721,7 @@ const VEHICLES=[
 ];
 
 let curSvc='airport';
-let selVeh=null;
+let selVeh='suv';
 
 function getPrice(v){return v['img'+curSvc]||v.imgairport;}
 
@@ -966,13 +966,18 @@ async function fetchDistance(origin, destination){
 
 function computePrice(v, totalMiles, totalMinutes){
   const flat = getPrice(v);
+  // Trips over 40 minutes switch to a 2-hour minimum at the hourly rate.
+  if(totalMinutes > 40){
+    const hourlyRate = v.imghourly; // existing hourly rates reused per class
+    const hours = Math.max(2, Math.ceil(totalMinutes / 60));
+    return { total: hourlyRate * hours, breakdown: `${hours} hr × $${hourlyRate}/hr (trips over 40 min use a 2-hour minimum)` };
+  }
   if(totalMiles <= 20) {
     return { total: flat, breakdown: `Flat rate (up to 20 mi)` };
   }
-  const hourlyRate = v.imghourly;
-  const hours = Math.max(2, Math.ceil(totalMinutes / 60));
-  const total = hourlyRate * hours;
-  return { total, breakdown: `${hours} hr × $${hourlyRate}/hr (over 20 mi → hourly)` };
+  // $2 per extra mile beyond 20, partial miles rounded UP
+  const extra = Math.ceil(totalMiles - 20);
+  return { total: flat + extra * 2, breakdown: `$${flat} first 20 mi + ${extra} mi × $2` };
 }
 
 async function updateEstimate(){
@@ -1010,12 +1015,13 @@ async function updateEstimate(){
         legs.push(`${d.miles} mi · ${d.minutes} min`);
       }
     } else {
-      const d1 = await fetchDistance(pickup, dropoff);
-      const d2 = await fetchDistance(dropoff, RETURN_BASE);
-      totalMiles = d1.miles + d2.miles;
-      totalMinutes = d1.minutes + d2.minutes;
-      legs = [`Pickup → Drop-off: ${d1.miles} mi · ${d1.minutes} min`,
-              `Drop-off → ${RETURN_BASE} (return): ${d2.miles} mi · ${d2.minutes} min`];
+      const stops = getStops();
+      const route = [pickup, ...stops, dropoff];
+      for(let i=0; i<route.length-1; i++){
+        const d = await fetchDistance(route[i], route[i+1]);
+        totalMiles += d.miles; totalMinutes += d.minutes;
+        legs.push(`${route.length>2?`Leg ${i+1}: `:''}${d.miles} mi · ${d.minutes} min`);
+      }
     }
     const { total, breakdown } = computePrice(v, totalMiles, totalMinutes);
     priceEl.textContent = `$${total}`;
@@ -1084,7 +1090,7 @@ function openEstimateModal(){
   if(_lastEstimate){
     document.getElementById('mdlPrice').textContent = `$${_lastEstimate.total}`;
     document.getElementById('mdlPriceSub').innerHTML = `${_lastEstimate.breakdown}<br><span style="opacity:0.75;">* Average estimate. Final price confirmed by our representative.</span>`;
-    document.getElementById('mdlDist').textContent = `${_lastEstimate.totalMiles.toFixed(1)} mi (round trip)`;
+    document.getElementById('mdlDist').textContent = `${_lastEstimate.totalMiles.toFixed(1)} mi`;
     document.getElementById('mdlDur').textContent = `${_lastEstimate.totalMinutes} min`;
   } else {
     document.getElementById('mdlPrice').textContent = `From $${getPrice(veh)}`;
@@ -1139,10 +1145,12 @@ async function confirmAndSend(){
   }catch(e){ /* still show success */ }
   closeModal();
   const succ=document.getElementById('alertSuccess');
-  succ.innerHTML='✅ <strong>Request received!</strong> Our representative will call you shortly to confirm your reservation and finalize the price.';
+  succ.innerHTML = _lastEstimate
+    ? `✅ <strong>Request received!</strong> Estimated fare: <strong>$${_lastEstimate.total}</strong> — ${_lastEstimate.totalMiles.toFixed(1)} mi · ~${_lastEstimate.totalMinutes} min (${_lastEstimate.breakdown}).`
+    : '✅ <strong>Request received!</strong> Our representative will call you shortly to confirm your reservation and finalize the price.';
   succ.classList.add('show');
   document.getElementById('moovsLink').style.display='block';
-  btn.disabled=false; btn.textContent='Confirm & Submit Request';
+  btn.disabled=false; btn.textContent='Book My Ride';
   document.getElementById('submitBtn').scrollIntoView({behavior:'smooth',block:'center'});
 }
 
