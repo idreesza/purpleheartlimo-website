@@ -1855,8 +1855,14 @@ footer {
 /* Logo intro splash */
 #logo-intro { position:fixed; inset:0; z-index:99999; background:linear-gradient(180deg,#FDFBF6 0%,#F3EAD6 100%); display:flex; align-items:center; justify-content:center; opacity:1; transition:opacity .5s ease; }
 #logo-intro.fade { opacity:0; pointer-events:none; }
-#logo-intro img { width:min(78vw,620px); height:auto; display:block; opacity:0; transform:scale(.92); animation:introIn .7s ease forwards; will-change:transform; filter:drop-shadow(0 14px 34px rgba(45,0,69,0.22)); }
+#logo-intro img { width:min(64vw,420px); height:auto; display:block; opacity:0; transform:scale(.92); animation:introIn .6s ease forwards, introGlow 1.6s ease-in-out .4s infinite alternate; will-change:transform,filter; filter:drop-shadow(0 0 18px rgba(201,168,76,0.35)); }
 @keyframes introIn { to { opacity:1; transform:scale(1); } }
+@keyframes introGlow {
+  from { filter:drop-shadow(0 0 14px rgba(201,168,76,0.30)) drop-shadow(0 0 34px rgba(226,195,106,0.18)); }
+  to   { filter:drop-shadow(0 0 26px rgba(226,195,106,0.65)) drop-shadow(0 0 60px rgba(201,168,76,0.35)); }
+}
+#logo-intro::before { content:""; position:absolute; width:min(90vw,640px); aspect-ratio:1; border-radius:50%; background:radial-gradient(circle, rgba(226,195,106,0.35) 0%, rgba(226,195,106,0.12) 40%, transparent 70%); animation:introHalo 1.6s ease-in-out infinite alternate; }
+@keyframes introHalo { from { opacity:.55; transform:scale(.96); } to { opacity:1; transform:scale(1.05); } }
 body.intro-active .nav-logo-img { visibility:hidden; }
 /* Hide Home nav button while on the home page */
 body.home-active .nav-links > li.nav-home-li { display:none !important; }
@@ -4619,40 +4625,24 @@ document.addEventListener('DOMContentLoaded', () => {
   } catch(e) {}
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) return;
-  var navImg = document.querySelector('.nav-logo-img');
-  if (!navImg) return;
-  document.body.classList.add('intro-active');
   var ov = document.createElement('div');
   ov.id = 'logo-intro';
   ov.setAttribute('aria-hidden','true');
   var img = document.createElement('img');
-  img.src = '/images/logo-banner.webp';
+  img.src = '/images/logo-crest.webp';
   img.alt = '';
   ov.appendChild(img);
   document.body.appendChild(ov);
   function finish(){
-    document.body.classList.remove('intro-active');
     if (ov.parentNode) ov.parentNode.removeChild(ov);
   }
   setTimeout(finish, 3500); /* fail-safe: overlay can never stay stuck */
   setTimeout(function(){
     try {
-    var from = img.getBoundingClientRect();
-    var to = navImg.getBoundingClientRect();
-    if (!from.width || !from.height || !to.width || !to.height) { ov.classList.add('fade'); setTimeout(finish, 550); return; }
-    var scale = to.height / from.height;
-    var dx = (to.left + to.width/2) - (from.left + from.width/2);
-    var dy = (to.top + to.height/2) - (from.top + from.height/2);
-    img.style.animation = 'none';
-    img.style.transition = 'transform .8s cubic-bezier(.55,.1,.25,1)';
-    img.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(' + scale + ')';
-    setTimeout(function(){ ov.classList.add('fade'); }, 620);
-    setTimeout(function(){
-      document.body.classList.remove('intro-active');
-      setTimeout(finish, 400);
-    }, 780);
+      ov.classList.add('fade');
+      setTimeout(finish, 550);
     } catch(e) { finish(); }
-  }, 1200);
+  }, 2000); /* logo holds for 2s while the page loads behind it */
 })();
 </script>
 </body>
