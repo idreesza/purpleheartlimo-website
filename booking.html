@@ -705,15 +705,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a class="m-wa" href="https://wa.me/18337400700" target="_blank" rel="nofollow noopener">💬 WhatsApp</a>
 <a class="m-book" href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank">Book a Ride</a>
 </div>
+<script src="/js/pricing.js"></script>
 <script>
 function toggleMenu(){const m=document.getElementById('mobile-menu');const b=document.getElementById('hamburger');const open=m.style.display!=='block';m.style.display=open?'block':'none';if(b)b.setAttribute('aria-expanded',open?'true':'false');}
 
 // Vehicle data
+// The four live-priced classes pull their rates & capacities from the shared
+// js/pricing.js (window.PHL_CLASSES) so booking.html can never drift out of
+// sync with the homepage widget. Larger vehicles below stay page-local.
+const _phl = id => window.phlGetClass(id);
+const _suv=_phl('luxury-suv'), _bsuv=_phl('business-suv'), _lsed=_phl('luxury-sedan'), _bsed=_phl('business-sedan');
 const VEHICLES=[
-  {id:'suv',name:'Luxury SUV',desc:'Cadillac Escalade — luxury group travel',pax:6,lug:5,imgairport:190,imgoneway:190,imghourly:179,img:'images/luxsuv-escalade.webp',note:'',features:['Premium Escalade Platinum trim','Captain seats · rear entertainment','Up to 6 passengers in luxury','Ideal for VIP group transport']},
-  {id:'execsuv',name:'Business SUV',desc:'GMC Yukon Denali — small groups & families',pax:6,lug:5,imgairport:150,imgoneway:150,imghourly:149,img:'images/suv-yukon.webp',note:'',features:['Up to 6 passengers · 5 large bags','Spacious 3-row seating','Tinted windows · privacy','Great for families & airport runs']},
-  {id:'luxsedan',name:'Luxury Sedan',desc:'Mercedes S-Class — premium business class',pax:3,lug:2,imgairport:190,imgoneway:190,imghourly:229,img:'images/sclass.webp',note:'Premium',features:['Top-tier Mercedes-Benz comfort','Privacy partition · rear climate','Premium leather · ambient lighting','VIP / executive transport ready']},
-  {id:'sedan',name:'Business Sedan',desc:'Cadillac CTS — solo & business travel',pax:3,lug:2,imgairport:120,imgoneway:120,imghourly:119,img:'images/sedan-cadillac.webp',note:'',features:['Leather interior · climate control','Complimentary bottled water','Professional chauffeur · suit & tie','Free WiFi · phone chargers']},
+  {id:'suv',cls:'luxury-suv',name:_suv.name,desc:'Cadillac Escalade — luxury group travel',pax:_suv.pax,lug:_suv.bags,imgairport:_suv.flat,imgoneway:_suv.flat,imghourly:_suv.hourly,img:'images/luxsuv-escalade.webp',note:'',features:['Premium Escalade Platinum trim','Captain seats · rear entertainment','Up to 6 passengers in luxury','Ideal for VIP group transport']},
+  {id:'execsuv',cls:'business-suv',name:_bsuv.name,desc:'GMC Yukon Denali — small groups & families',pax:_bsuv.pax,lug:_bsuv.bags,imgairport:_bsuv.flat,imgoneway:_bsuv.flat,imghourly:_bsuv.hourly,img:'images/suv-yukon.webp',note:'',features:['Up to 6 passengers · 5 large bags','Spacious 3-row seating','Tinted windows · privacy','Great for families & airport runs']},
+  {id:'luxsedan',cls:'luxury-sedan',name:_lsed.name,desc:'Mercedes S-Class — premium business class',pax:_lsed.pax,lug:_lsed.bags,imgairport:_lsed.flat,imgoneway:_lsed.flat,imghourly:_lsed.hourly,img:'images/sclass.webp',note:'Premium',features:['Top-tier Mercedes-Benz comfort','Privacy partition · rear climate','Premium leather · ambient lighting','VIP / executive transport ready']},
+  {id:'sedan',cls:'business-sedan',name:_bsed.name,desc:'Cadillac CTS — solo & business travel',pax:_bsed.pax,lug:_bsed.bags,imgairport:_bsed.flat,imgoneway:_bsed.flat,imghourly:_bsed.hourly,img:'images/sedan-cadillac.webp',note:'',features:['Leather interior · climate control','Complimentary bottled water','Professional chauffeur · suit & tie','Free WiFi · phone chargers']},
   {id:'stretch',name:'Stretch Limousine',desc:'Lincoln Town Car stretch — weddings & celebrations',pax:8,lug:2,imgairport:179,imgoneway:169,imghourly:169,img:'images/stretch-towncar.webp',note:'Most Popular',minHrs:true,features:['Up to 8 passengers · classic stretch','Wet bar · mood lighting · sound','Perfect for weddings & proms','Photos & celebrations welcome']},
   {id:'stretchsuv',name:'Stretched SUV',desc:'Lincoln Navigator stretch — large luxury groups',pax:10,lug:6,imgairport:279,imgoneway:279,imghourly:279,img:'images/stretch-navigator.webp',note:'',minHrs:true,features:['Up to 10 passengers in stretch luxury','Premium bar · LED lighting · audio','Bachelor / bachelorette ready','Statement arrival for any event']},
   {id:'sprinter',name:'Executive Sprinter',desc:'Mercedes Sprinter — groups up to 12',pax:12,lug:10,imgairport:179,imgoneway:159,imghourly:159,img:'images/sprinter-new.webp',note:'',minHrs:true,features:['Up to 12 passengers · 10 bags','Tall interior · easy boarding','USB charging · WiFi available','Corporate roadshows & group travel']},
@@ -949,25 +955,14 @@ let _estCache = {};
 let _estDebounce = null;
 let _lastEstimate = null;
 
-/* Hub positioning — same rules as the homepage widget (js/pricing.js):
-   within 60 driving miles of the anchor hub, positioning is absorbed;
-   beyond that, the class hourly rate × round-trip hub drive time is added. */
-const HUB_FREE_MILES = 60;
-const _posCache = {};
-async function fetchPositioning(pickup, dropoff){
-  const k = JSON.stringify([pickup||'', dropoff||'']);
-  if(_posCache[k]) return _posCache[k];
-  const r = await fetch(`/api/positioning?pickup=${encodeURIComponent(pickup||'')}&dropoff=${encodeURIComponent(dropoff||'')}`);
-  let d = {};
-  try { d = await r.json(); } catch(e){}
-  if(!r.ok || d.error) throw new Error(d.error || 'positioning unavailable');
-  _posCache[k] = d;
-  return d;
-}
-function computePositioning(hourlyRate, pos){
-  if(!pos || pos.miles <= HUB_FREE_MILES) return { surcharge: 0, hub: pos && pos.hub, miles: pos && pos.miles };
-  const hours = (2 * pos.minutes) / 60; // round trip hub → location → hub
-  return { surcharge: Math.ceil(hourlyRate * hours), hub: pos.hub, miles: pos.miles };
+/* Hub positioning — shared rules from js/pricing.js (window.phlFetchPositioning
+   / window.phlComputePositioning / window.PHL_HUB_FREE_MILES). */
+const fetchPositioning = window.phlFetchPositioning;
+/* Resolve the pricing class for a vehicle: shared classes come straight from
+   PHL_CLASSES; page-local vehicles (stretch, sprinter, party bus, jet) get a
+   synthetic class using their own rates so the shared math still applies. */
+function vehClass(v){
+  return (v.cls && window.phlGetClass(v.cls)) || { flat: getPrice(v), hourly: v.imghourly };
 }
 
 async function fetchDistance(origin, destination){
@@ -987,19 +982,13 @@ async function fetchDistance(origin, destination){
 }
 
 function computePrice(v, totalMiles, totalMinutes){
-  const flat = getPrice(v);
-  // Trips over 40 minutes switch to a 2-hour minimum at the hourly rate.
-  if(totalMinutes > 40){
-    const hourlyRate = v.imghourly; // existing hourly rates reused per class
-    const hours = Math.max(2, Math.ceil(totalMinutes / 60));
-    return { total: hourlyRate * hours, breakdown: `${hours} hr × $${hourlyRate}/hr (trips over 40 min use a 2-hour minimum)` };
-  }
-  if(totalMiles <= 20) {
-    return { total: flat, breakdown: `Flat rate (up to 20 mi)` };
-  }
-  // $2 per extra mile beyond 20, partial miles rounded UP
-  const extra = Math.ceil(totalMiles - 20);
-  return { total: flat + extra * 2, breakdown: `$${flat} first 20 mi + ${extra} mi × $2` };
+  // Shared fare math from js/pricing.js — flat rate, per-extra-mile rate,
+  // and the long-trip hourly switch all live in one place.
+  const cls = vehClass(v);
+  const fare = window.phlComputeFare(cls, totalMiles, totalMinutes);
+  // For 'airport'/'oneway' the page may use a service-specific flat rate on
+  // page-local vehicles; phlComputeFare already uses cls.flat from vehClass.
+  return { total: fare.total, breakdown: fare.breakdown };
 }
 
 async function updateEstimate(){
@@ -1050,10 +1039,10 @@ async function updateEstimate(){
     let posNote = '';
     try {
       const pos = await fetchPositioning(pickup, curSvc==='hourly' ? '' : dropoff);
-      const p = computePositioning(v.imghourly, pos);
+      const p = window.phlComputePositioning(vehClass(v), pos);
       if(p.surcharge > 0){
         total += p.surcharge;
-        breakdown += ` + $${p.surcharge} hub positioning (${p.miles} mi from ${p.hub} hub, beyond ${HUB_FREE_MILES} mi)`;
+        breakdown += ` + $${p.surcharge} hub positioning (${p.miles} mi from ${p.hub} hub, beyond ${window.PHL_HUB_FREE_MILES} mi)`;
       }
     } catch(e){
       posNote = `<br><span style="font-size:0.7rem;opacity:0.85;">Hub positioning check unavailable — confirmed by phone.</span>`;
