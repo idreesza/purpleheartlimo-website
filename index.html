@@ -4171,8 +4171,17 @@ function renderVehicleDisplay() {
 // ===== LIVE DISTANCE + FARE =====
 window._phlLastFare = null;
 let _phlPriceSeq = 0;
+/* Promise of the in-flight price refresh, so submitQuote can await a
+   recalculation instead of sending a quote with no price. */
+window._phlPricePromise = null;
 
-async function refreshLivePricing() {
+function refreshLivePricing() {
+  const p = _phlRefreshLivePricing();
+  window._phlPricePromise = p;
+  return p;
+}
+
+async function _phlRefreshLivePricing() {
   renderVehicleDisplay();
   const seq = ++_phlPriceSeq;
   const v = (document.getElementById('vehicle-input') || {}).value || 'Luxury SUV';
@@ -4272,7 +4281,7 @@ async function refreshLivePricing() {
 let _phlDebounce = null;
 function schedulePriceRefresh() {
   clearTimeout(_phlDebounce);
-  _phlDebounce = setTimeout(refreshLivePricing, 600);
+  _phlDebounce = setTimeout(function () { _phlDebounce = null; refreshLivePricing(); }, 600);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -4445,6 +4454,24 @@ async function submitQuote() {
   const btn = document.getElementById('quote-btn');
   btn.disabled = true;
   btn.textContent = 'Sending…';
+
+  /* If the customer just edited pickup/drop-off, a price recalculation may
+     still be in flight (window._phlLastFare is nulled at its start). Flush any
+     pending debounce and wait briefly for the refresh so the email carries the
+     same estimate the customer is about to see. */
+  try {
+    if (_phlDebounce) {
+      clearTimeout(_phlDebounce);
+      _phlDebounce = null;
+      refreshLivePricing();
+    }
+    if (window._phlPricePromise) {
+      await Promise.race([
+        window._phlPricePromise,
+        new Promise(function (res) { setTimeout(res, 6000); })
+      ]);
+    }
+  } catch (e) { /* pricing is best-effort — never block the quote */ }
 
   /* Quoted estimate — mirror exactly what the customer saw (incl. hub
      positioning surcharge and hourly-tab state) so the office gets the
