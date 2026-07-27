@@ -324,6 +324,10 @@
   to = "/blog/the-ultimate-guide-to-booking-a-limo-service-in-austin/"
   status = 301
 [[redirects]]
+  from = "/blog/a-comprehensive-guide-to-limousine-booking-in-austin"
+  to = "/blog/the-ultimate-guide-to-booking-a-limo-service-in-austin/"
+  status = 301
+[[redirects]]
   from = "/blog/common-myths-about-limo-services-debunked"
   to = "/blog/5-myths-about-limousine-services-in-austin-debunked/"
   status = 301

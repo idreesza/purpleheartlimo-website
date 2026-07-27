@@ -540,6 +540,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <div class="form-row wide">
 <div class="fg"><label>Full Name <span style="color:var(--pk)">*</span></label><input autocomplete="name" id="fname" placeholder="John Smith" type="text"/></div>
+<input id="bk-website" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;height:0;width:0;opacity:0;pointer-events:none;"/>
 <div class="fg"><label>Phone <span style="color:var(--pk)">*</span></label><input autocomplete="tel" id="fphone" placeholder="(555) 000-0000" type="tel"/></div>
 <div class="fg">
 <label>Passengers</label>
@@ -566,7 +567,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="alert alert-error" id="alertError"></div>
 <button class="btn-submit" id="submitBtn" onclick="openEstimateModal()">🚗 Book My Ride</button>
 <div class="moovs-cta" id="moovsLink">
-<a href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank">Or book instantly online via our booking portal →</a>
+<a href="https://customer.moovs.app/purple-heart-limo/request/new" onclick="if(typeof gtag==='function')gtag('event','close_convert_lead',{form_location:'booking_page_success'})" target="_blank">Or book instantly online via our booking portal →</a>
 </div>
 </div>
 </div>
@@ -1104,8 +1105,18 @@ function closeModal(){ document.getElementById('confirmModal').classList.remove(
 document.getElementById('confirmModal').addEventListener('click', e=>{ if(e.target.id==='confirmModal') closeModal(); });
 
 async function confirmAndSend(){
+  /* Honeypot — bots fill hidden fields; silently pretend success */
+  if((document.getElementById('bk-website')?.value||'').trim()){
+    closeModal();
+    const hp=document.getElementById('alertSuccess');
+    hp.innerHTML='✅ <strong>Request received!</strong> Our representative will call you shortly.';
+    hp.classList.add('show');
+    return;
+  }
   const btn=document.getElementById('mdlConfirm');
   btn.disabled=true; btn.textContent='Sending…';
+  /* GA4: quote/booking request submitted */
+  if(typeof gtag==='function') gtag('event','quote_request_submit',{ form_location:'booking_page', service_type:curSvc });
   const name=document.getElementById('fname').value.trim();
   const phone=document.getElementById('fphone').value.trim();
   const email=document.getElementById('femail').value.trim();
@@ -1142,6 +1153,8 @@ async function confirmAndSend(){
       estimate: estStr,
       source: 'Booking Page', full_summary: fullSummary
     });
+    /* GA4: lead validated & delivered to backend */
+    if(typeof gtag==='function') gtag('event','qualify_lead',{ form_location:'booking_page', service_type:curSvc, vehicle: veh });
   }catch(e){ /* still show success */ }
   closeModal();
   const succ=document.getElementById('alertSuccess');

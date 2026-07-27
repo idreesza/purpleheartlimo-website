@@ -2047,6 +2047,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="form-group" id="fb-name">
 <label>Your Name</label>
 <input id="quote-name" oninput="clearFieldError('quote-name','err-name')" placeholder="Full name" type="text"/>
+<input id="quote-website" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;height:0;width:0;opacity:0;pointer-events:none;"/>
 <span class="field-error" id="err-name">⚠ Name is required</span>
 </div>
 <div class="form-group" id="fb-email">
@@ -2191,7 +2192,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div id="quote-success" style="display:none;background:#f0fdf4;border:1.5px solid #22c55e;border-radius:10px;padding:12px 14px;text-align:center;margin-top:8px;">
 <div style="color:#16a34a;font-weight:700;font-size:0.88rem;">✅ Request received!</div>
 <div style="color:#166534;font-size:0.78rem;margin-top:4px;">We'll call or text you within 5 minutes with your exact flat rate.</div>
-<a href="https://customer.moovs.app/purple-heart-limo/request/new" style="display:inline-block;margin-top:8px;padding:7px 18px;background:var(--purple);color:#fff;border-radius:8px;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;" target="_blank">Book Online Now →</a>
+<a href="https://customer.moovs.app/purple-heart-limo/request/new" onclick="if(typeof gtag==='function')gtag('event','close_convert_lead',{form_location:'homepage_quote_success'})" style="display:inline-block;margin-top:8px;padding:7px 18px;background:var(--purple);color:#fff;border-radius:8px;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;" target="_blank">Book Online Now →</a>
 </div>
 </div>
 <div class="bk-bar" id="bk-bar"></div>
@@ -4254,6 +4255,14 @@ function bkToggle() {
 }
 
 async function submitQuote() {
+  /* Honeypot — bots fill hidden fields; silently pretend success */
+  if ((document.getElementById('quote-website')?.value || '').trim()) {
+    const hpBtn = document.getElementById('quote-btn');
+    if (hpBtn) hpBtn.style.display = 'none';
+    const hpBox = document.getElementById('quote-success');
+    if (hpBox) hpBox.style.display = 'block';
+    return;
+  }
   const name     = (document.getElementById('quote-name')?.value || '').trim();
   const phone    = (document.getElementById('quote-phone')?.value || '').trim();
   const pickup   = (document.getElementById('pickup-input')?.value || '').trim();
@@ -4284,6 +4293,11 @@ async function submitQuote() {
     return;
   }
 
+  /* GA4: quote/booking request submitted (validation passed) */
+  if (typeof gtag === 'function') gtag('event', 'quote_request_submit', {
+    form_location: 'homepage_quote_widget', service_type: service
+  });
+
   const btn = document.getElementById('quote-btn');
   btn.disabled = true;
   btn.textContent = 'Sending…';
@@ -4305,6 +4319,10 @@ async function submitQuote() {
 
   try {
     await emailjs.send('service_53lh00r', 'template_xwek3ac', templateParams);
+    /* GA4: lead validated & delivered to backend */
+    if (typeof gtag === 'function') gtag('event', 'qualify_lead', {
+      form_location: 'homepage_quote_widget', service_type: service
+    });
   } catch(e) { /* best-effort — show success regardless */ }
 
   btn.style.display = 'none';
@@ -4314,7 +4332,7 @@ async function submitQuote() {
       '<div style="color:#16a34a;font-weight:700;font-size:0.88rem;">✅ Request received!</div>' +
       '<div style="color:#166534;font-size:1.15rem;font-weight:700;margin-top:6px;">Estimated fare: $' + window._phlLastFare.total + '</div>' +
       '<div style="color:#166534;font-size:0.74rem;margin-top:3px;">' + window._phlLastFare.vehicle + ' · ' + window._phlLastFare.miles + ' mi · ~' + window._phlLastFare.minutes + ' min</div>' +
-      '<a href="https://customer.moovs.app/purple-heart-limo/request/new" style="display:inline-block;margin-top:8px;padding:7px 18px;background:var(--purple);color:#fff;border-radius:8px;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;" target="_blank">Book Online Now →</a>';
+      '<a href="https://customer.moovs.app/purple-heart-limo/request/new" onclick="if(typeof gtag===\'function\')gtag(\'event\',\'close_convert_lead\',{form_location:\'homepage_quote_success\'})" style="display:inline-block;margin-top:8px;padding:7px 18px;background:var(--purple);color:#fff;border-radius:8px;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;" target="_blank">Book Online Now →</a>';
   }
   qs.style.display = 'block';
 }

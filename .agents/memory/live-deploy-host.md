@@ -1,29 +1,23 @@
 ---
 name: Live deploy host reality
-description: Where purpleheartlimo.com actually serves from, and how its DNS/email are wired.
+description: Where purpleheartlimo.com actually serves from, and which redirect config is authoritative.
 ---
 
-The live custom domain **purpleheartlimo.com now serves from Netlify** (project
-`purpleheartlimo`, subdomain `purpleheartlimo.netlify.app`, auto-deploys from the
-GitHub repo `idreesza/purpleheartlimo-website` main branch). The DNS cutover is
-done: the domain uses **Netlify DNS** (nameservers `dns{1..4}.p01.nsone.net`),
-apex is the primary domain, and `www` redirects to apex. Let's Encrypt SSL is
-issued and valid.
+**As of July 2026, purpleheartlimo.com serves from the Replit STATIC deployment**
+(`purpleheartlimo-website.replit.app`, custom domain attached, `via: 1.1 google`
+response header). It is NOT on Netlify and NOT on Hostinger anymore — verify with
+`getDeploymentInfo()` and live response headers before trusting any host assumption.
 
-**Why it matters:** `netlify.toml` is now the LIVE, authoritative config for
-redirects/headers — it is no longer dormant. The old Replit static deployment
-(`purpleheartlimo-website.replit.app`, deploymentTarget="static") still exists but
-is NOT what the domain points at. Edit `netlify.toml` for any redirect/header
-change and it takes effect on the live domain after a GitHub push + Netlify build.
+**Why it matters:**
+- `netlify.toml` and `.htaccess` are IGNORED by the live host. They are kept in the
+  repo (and `.htaccess` regenerated via `scripts/gen_htaccess.py`) only as portable
+  configs in case of a future host move.
+- Replit static deployments support ONLY `[[deployment.rewrites]]` in `.replit`
+  (200 rewrites, no 301s). Legacy-URL fixes (e.g. /about-us, dead blog slugs) live
+  there; SEO consolidation relies on canonical tags on the target pages.
+- Netlify Functions (`netlify/functions/*`) do NOT run in production — anything
+  needing a backend (e.g. /api/distance) has no live endpoint on a static deploy.
 
-**Code reaches the live site only via GitHub.** Replit checkpoint commits are NOT
-auto-pushed; you must push to GitHub `origin/main` for Netlify to rebuild. (Main
-agent cannot push — guide the user, or they push from the Replit Git pane.)
-
-**Email is on Netlify DNS — protect it.** Because nameservers point to Netlify,
-ALL DNS (including mail) lives in the Netlify DNS zone. The domain uses **Namecheap
-Private Email**; required records were re-added manually after the cutover:
-MX `@ -> mx1.privateemail.com` / `mx2.privateemail.com` (pri 10), TXT SPF
-`v=spf1 include:spf.privateemail.com ~all`. DKIM (`default._domainkey` TXT, unique
-per account) was deferred. **Any future DNS change must keep these MX/TXT records
-or the business email breaks.**
+**How to apply:** any redirect/header change must be added to `.replit`
+`[[deployment.rewrites]]` (and optionally mirrored into netlify.toml → gen_htaccess
+for portability). Changes go live only after the user republishes the deployment.
