@@ -6,7 +6,10 @@
    NOTE FOR OWNER: pax/bag capacities marked estimated:true are placeholders
    from the spec defaults — confirm real capacities.
    NOTE: fleet.html, rates.html and es/fleet.html render their visible price
-   labels from this table via /js/price-sync.js — edit rates HERE only. */
+   labels from this table via /js/price-sync.js — edit rates HERE only.
+   IMPORTANT: after ANY rate change here, run `python3 scripts/sync_seo_prices.py`
+   to regenerate the SEO-only prices search engines read from the raw HTML
+   (JSON-LD offers, FAQ answer text, meta description, no-JS span fallbacks). */
 window.PHL_CLASSES = [
   { id: 'luxury-suv',     name: 'Luxury SUV',     flat: 190, hourly: 179, pax: 6, bags: 5,
     vehicle: 'Cadillac Escalade',
