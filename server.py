@@ -22,6 +22,23 @@ class Handler(SimpleHTTPRequestHandler):
             self.wfile.write(js.encode())
             return
 
+        if self.path.startswith('/api/positioning'):
+            # Hub positioning: pick the anchor hub for a trip and return the
+            # real driving distance/time from that hub to the far end.
+            try:
+                qs = urllib.parse.urlparse(self.path).query
+                params = urllib.parse.parse_qs(qs)
+                pickup = params.get('pickup', [''])[0]
+                dropoff = params.get('dropoff', [''])[0]
+                if not pickup:
+                    return self._json({'error': 'missing pickup'}, 400)
+                result = self._hub_positioning(pickup, dropoff)
+                if result is None:
+                    return self._json({'error': 'no_route'}, 400)
+                return self._json(result)
+            except Exception as e:
+                return self._json({'error': str(e)}, 500)
+
         if self.path.startswith('/api/distance'):
             try:
                 qs = urllib.parse.urlparse(self.path).query
@@ -98,7 +115,82 @@ class Handler(SimpleHTTPRequestHandler):
         except Exception:
             return None
 
+    # Operating hubs: every vehicle starts and ends its day at one of these.
+    HUBS = [
+        ('Austin',            -97.7431, 30.2672),
+        ('Dallas\u2013Fort Worth', -96.7970, 32.7767),
+        ('Houston',           -95.3698, 29.7604),
+    ]
+    HUB_FREE_MILES = 60
+    _geo_cache = {}
+
+    @staticmethod
+    def _haversine_miles(a, b):
+        import math
+        lon1, lat1, lon2, lat2 = map(math.radians, (float(a[0]), float(a[1]), float(b[0]), float(b[1])))
+        h = (math.sin((lat2 - lat1) / 2) ** 2 +
+             math.cos(lat1) * math.cos(lat2) * math.sin((lon2 - lon1) / 2) ** 2)
+        return 3958.8 * 2 * math.asin(math.sqrt(h))
+
+    def _hub_positioning(self, pickup, dropoff):
+        p = self._geocode(pickup)
+        if not p:
+            return None
+        d = None
+        if dropoff:
+            d = self._geocode(dropoff)
+            if not d:
+                # A drop-off was given but couldn't be located — fail loudly
+                # rather than quietly pricing from the pickup alone.
+                return None
+        # Anchor hub: the hub nearest to either end of the trip. A trip that
+        # touches a hub metro naturally selects that hub; a remote trip gets
+        # whichever hub is closest overall.
+        best = None
+        for name, lon, lat in self.HUBS:
+            hp = self._haversine_miles((lon, lat), p)
+            hd = self._haversine_miles((lon, lat), d) if d else hp
+            score = min(hp, hd)
+            if best is None or score < best[0]:
+                best = (score, name, (lon, lat), hp, hd)
+        _, hub_name, hub_pt, hp, hd = best
+        # Far end of the trip relative to the anchor hub
+        far_pt = d if (d and hd > hp) else p
+        route = self._route_coords(hub_pt, far_pt)
+        if route is None:
+            return None
+        route['hub'] = hub_name
+        route['free_miles'] = self.HUB_FREE_MILES
+        return route
+
+    def _route_coords(self, a, b):
+        try:
+            url = (f'https://router.project-osrm.org/route/v1/driving/'
+                   f'{a[0]},{a[1]};{b[0]},{b[1]}?overview=false')
+            req = urllib.request.Request(url, headers={
+                'User-Agent': 'PurpleHeartLimo/1.0 (purpleheartlimo.com)',
+            })
+            with urllib.request.urlopen(req, timeout=12) as r:
+                data = json.loads(r.read().decode())
+            routes = data.get('routes') or []
+            if not routes:
+                return None
+            meters = routes[0].get('distance', 0)
+            seconds = int(round(routes[0].get('duration', 0)))
+            return {
+                'meters': int(meters),
+                'miles': round(meters / 1609.34, 1),
+                'seconds': seconds,
+                'minutes': round(seconds / 60),
+                'source': 'osrm',
+            }
+        except Exception:
+            return None
+
     def _geocode(self, q):
+        cached = Handler._geo_cache.get(q)
+        if cached is not None:
+            return cached
         url = ('https://nominatim.openstreetmap.org/search?format=json&limit=1'
                '&countrycodes=us&q=' + urllib.parse.quote(q))
         req = urllib.request.Request(url, headers={
@@ -109,7 +201,9 @@ class Handler(SimpleHTTPRequestHandler):
             data = json.loads(r.read().decode())
         if not data:
             return None
-        return (data[0]['lon'], data[0]['lat'])
+        result = (data[0]['lon'], data[0]['lat'])
+        Handler._geo_cache[q] = result
+        return result
 
     def _osrm_route(self, origin, destination):
         try:

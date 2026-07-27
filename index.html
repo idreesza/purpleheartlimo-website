@@ -802,14 +802,14 @@ a { text-decoration:none; color:inherit; }
 /* Centered pill tabs */
 #home-page .hero .booking-card .trip-tabs,
 #es-home-page .hero .booking-card .trip-tabs {
-  width:fit-content; margin:0 auto 16px; gap:4px; padding:5px;
+  width:100%; margin:0 0 16px; gap:4px; padding:5px;
   background:rgba(255,255,255,0.7); border:1px solid rgba(0,0,0,0.08);
   border-radius:999px;
   -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
 }
 #home-page .hero .booking-card .trip-tab,
 #es-home-page .hero .booking-card .trip-tab {
-  flex:0 0 auto; border-radius:999px; padding:9px 22px;
+  flex:1 1 0; border-radius:999px; padding:9px 22px; text-align:center;
   color:rgba(0,0,0,0.6); text-transform:none; letter-spacing:0.02em;
   font-size:0.82rem; background:transparent; font-weight:600;
 }
@@ -4151,11 +4151,30 @@ async function refreshLivePricing() {
     return;
   }
 
-  // Hourly charter tab — show the hourly rate directly
+  // Hourly charter tab — show the hourly rate + any hub positioning surcharge
   if (tab === 'hourly') {
     pv.textContent = '$' + cls.hourly + '/hr';
     if (noteEl) noteEl.textContent = '2-hour minimum';
     pe.style.display = 'block';
+    window._phlLastFare = { hourlyRate: cls.hourly, surcharge: 0, vehicle: cls.name, hourly: true };
+    const hPickup = ((document.getElementById('pickup-input') || {}).value || '').trim();
+    const hDrop = ((document.getElementById('dropoff-input') || {}).value || '').trim();
+    if (hPickup) {
+      try {
+        const posData = await phlFetchPositioning(hPickup, hDrop);
+        if (seq !== _phlPriceSeq) return;
+        const pos = phlComputePositioning(cls, posData);
+        if (pos && pos.surcharge > 0) {
+          pv.textContent = '$' + cls.hourly + '/hr + $' + pos.surcharge;
+          if (noteEl) noteEl.textContent = '2-hour minimum · +$' + pos.surcharge +
+            ' positioning (' + pos.miles + ' mi from ' + pos.hub + ' hub, beyond ' + PHL_HUB_FREE_MILES + ' mi)';
+          window._phlLastFare = { hourlyRate: cls.hourly, surcharge: pos.surcharge, vehicle: cls.name, hourly: true };
+        }
+      } catch (e) {
+        if (seq !== _phlPriceSeq) return;
+        if (noteEl) noteEl.textContent = '2-hour minimum · hub positioning check unavailable — confirmed by phone';
+      }
+    }
     return;
   }
 
@@ -4173,16 +4192,32 @@ async function refreshLivePricing() {
   if (noteEl) noteEl.textContent = '';
   pe.style.display = 'block';
   try {
-    const d = await phlFetchDistance(pickup, dropoff);
+    const [d, posResult] = await Promise.all([
+      phlFetchDistance(pickup, dropoff),
+      phlFetchPositioning(pickup, dropoff).then(function (p) { return { ok: true, data: p }; },
+                                               function () { return { ok: false }; })
+    ]);
     if (seq !== _phlPriceSeq) return; // stale response — a newer request superseded it
     if (distEl) {
       distEl.textContent = '📍 Estimated distance: ' + d.miles + ' miles · ~' + d.minutes + ' min drive';
       distEl.style.display = 'block';
     }
     const fare = phlComputeFare(cls, d.miles, d.minutes);
-    pv.textContent = 'Estimated fare: $' + fare.total;
-    if (noteEl) noteEl.textContent = fare.breakdown;
-    window._phlLastFare = { total: fare.total, miles: d.miles, minutes: d.minutes, vehicle: cls.name };
+    let total = fare.total;
+    let note = fare.breakdown;
+    if (posResult.ok) {
+      const pos = phlComputePositioning(cls, posResult.data);
+      if (pos && pos.surcharge > 0) {
+        total += pos.surcharge;
+        note += ' + $' + pos.surcharge + ' positioning (' + pos.miles + ' mi from ' +
+          pos.hub + ' hub, beyond ' + PHL_HUB_FREE_MILES + ' mi)';
+      }
+    } else {
+      note += ' · hub positioning check unavailable — confirmed by phone';
+    }
+    pv.textContent = 'Estimated fare: $' + total;
+    if (noteEl) noteEl.textContent = note;
+    window._phlLastFare = { total: total, miles: d.miles, minutes: d.minutes, vehicle: cls.name };
   } catch (e) {
     if (seq !== _phlPriceSeq) return;
     pv.textContent = 'From $' + cls.flat;
@@ -4269,7 +4304,7 @@ function bkApplyLayout(mode) {
   zones.bar.forEach(id => { const el = document.getElementById(id); if (el) bar.appendChild(el); });
   const act = document.createElement('div');
   act.className = 'bk-bar-action';
-  act.innerHTML = '<button type="button" class="btn-book-full bk-view" onclick="bkToggle()">View options →</button>';
+  act.innerHTML = '<button type="button" class="btn-book-full bk-view" onclick="bkToggle()">View options ↓</button>';
   bar.appendChild(act);
   // Fill the expandable details panel
   zones.details.forEach(id => { const el = document.getElementById(id); if (el) details.appendChild(el); });
@@ -4306,7 +4341,7 @@ function bkCollapse() {
 
 function _bkSetViewLabel(expanded) {
   const b = document.querySelector('#bk-bar .bk-view');
-  if (b) b.textContent = expanded ? 'Hide options ↑' : 'View options →';
+  if (b) b.textContent = expanded ? 'Hide options ↑' : 'View options ↓';
 }
 
 function bkToggle() {

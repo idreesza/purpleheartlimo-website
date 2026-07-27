@@ -69,6 +69,41 @@ window.phlComputeFare = function (cls, miles, minutes) {
   };
 };
 
+/* ===== Hub positioning =====
+   Vehicles operate out of Austin, Dallas–Fort Worth, and Houston hubs.
+   Within PHL_HUB_FREE_MILES driving miles of the anchor hub, positioning is
+   absorbed into the normal rate. Beyond that, the class hourly rate is
+   charged for the round-trip hub drive time, on top of the normal fare. */
+window.PHL_HUB_FREE_MILES = 60;
+
+window.phlFetchPositioning = (function () {
+  var cache = {};
+  return async function (pickup, dropoff) {
+    var k = JSON.stringify([pickup || '', dropoff || '']);
+    if (cache[k]) return cache[k];
+    var url = '/api/positioning?pickup=' + encodeURIComponent(pickup || '') +
+              '&dropoff=' + encodeURIComponent(dropoff || '');
+    var r = await fetch(url);
+    var d = {};
+    try { d = await r.json(); } catch (e) {}
+    if (!r.ok || d.error) throw new Error(d.error || 'positioning unavailable');
+    cache[k] = d;
+    return d;
+  };
+})();
+
+/* Returns {surcharge, hub, miles, minutes, hours} — surcharge is 0 when the
+   trip is within the free radius of its anchor hub. */
+window.phlComputePositioning = function (cls, pos) {
+  if (!cls || !pos) return null;
+  if (pos.miles <= window.PHL_HUB_FREE_MILES) {
+    return { surcharge: 0, hub: pos.hub, miles: pos.miles, minutes: pos.minutes, hours: 0 };
+  }
+  var hours = (2 * pos.minutes) / 60; // round trip hub → location → hub
+  var surcharge = Math.ceil(cls.hourly * hours);
+  return { surcharge: surcharge, hub: pos.hub, miles: pos.miles, minutes: pos.minutes, hours: Math.round(hours * 10) / 10 };
+};
+
 window.phlFetchDistance = (function () {
   var cache = {};
   return async function (origin, destination) {
