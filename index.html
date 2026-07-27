@@ -952,9 +952,8 @@ a { text-decoration:none; color:inherit; }
 .vd-caps { font-size:0.74rem; color:#555; font-weight:600; }
 .vd-photos { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
 .vd-photos figure { margin:0; }
-.vd-photos img { width:100%; height:88px; object-fit:cover; border-radius:8px; display:block; background:#e8e8e8; }
+.vd-photos img { width:100%; aspect-ratio:1/1; height:auto; object-fit:cover; border-radius:8px; display:block; background:#e8e8e8; }
 .vd-photos figcaption { font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase; color:#777; text-align:center; margin-top:4px; font-weight:700; }
-@media (max-width:640px){ .vd-photos img { height:64px; } }
 #home-page .bk-details #quote-notes,
 #es-home-page .bk-details #quote-notes { min-height:48px; height:48px; resize:none; overflow:auto; scrollbar-width:none; }
 #home-page .bk-details #quote-notes::-webkit-scrollbar,
@@ -3617,6 +3616,9 @@ function onVehicleChange(vehicle) {
   document.getElementById('pax-input').value = firstOpt[1];
   checkCapacity();
   focusFleetPhoto(vehicle);
+  // Swap the Exterior / Interior / Luggage photo set + refresh pricing for the new ride type
+  if (typeof refreshLivePricing === 'function') refreshLivePricing();
+  else if (typeof renderVehicleDisplay === 'function') renderVehicleDisplay();
 }
 
 // Maps each ride type to its photo in the sliding fleet strip
