@@ -8,25 +8,36 @@
 window.PHL_CLASSES = [
   { id: 'luxury-suv',     name: 'Luxury SUV',     flat: 190, hourly: 179, pax: 6, bags: 5,
     vehicle: 'Cadillac Escalade',
-    photos: { exterior: 'images/luxsuv-escalade.webp',
+    photos: { exterior: 'images/ext-escalade.webp',
               interior: 'images/int-escalade.webp',
               trunk:    'images/trunk-escalade.webp' } },
   { id: 'business-suv',   name: 'Business SUV',   flat: 150, hourly: 149, pax: 6, bags: 5,
     vehicle: 'GMC Yukon Denali',
-    photos: { exterior: 'images/suv-yukon.webp',
+    photos: { exterior: 'images/ext-yukon.webp',
               interior: 'images/int-yukon.webp',
               trunk:    'images/trunk-yukon.webp' } },
   { id: 'luxury-sedan',   name: 'Luxury Sedan',   flat: 190, hourly: 229, pax: 3, bags: 2,
     vehicle: 'Mercedes S-Class',
-    photos: { exterior: 'images/sclass.webp',
+    photos: { exterior: 'images/ext-sclass.webp',
               interior: 'images/int-sclass.webp',
               trunk:    'images/trunk-sclass.webp' } },
   { id: 'business-sedan', name: 'Business Sedan', flat: 120, hourly: 119, pax: 3, bags: 2,
     vehicle: 'Cadillac CTS',
-    photos: { exterior: 'images/sedan-cadillac.webp',
+    photos: { exterior: 'images/ext-cts.webp',
               interior: 'images/int-cts.webp',
               trunk:    'images/trunk-cts.webp' } }
 ];
+
+
+/* Photo sets for larger vehicles (quoted "from" rates, no live pricing). */
+window.PHL_GALLERY = {
+  'Sprinter Van':  { exterior: 'images/ext-sprinter.webp',     interior: 'images/int-sprinter.webp',     trunk: 'images/trunk-sprinter.webp' },
+  'Sprinter Jet':  { exterior: 'images/ext-jetsprinter.webp',  interior: 'images/int-jetsprinter.webp',  trunk: 'images/trunk-jetsprinter.webp' },
+  'Stretch Sedan': { exterior: 'images/ext-stretchsedan.webp', interior: 'images/int-stretchsedan.webp', trunk: 'images/trunk-stretchsedan.webp' },
+  'Stretch SUV':   { exterior: 'images/ext-stretchsuv.webp',   interior: 'images/int-stretchsuv.webp',   trunk: 'images/trunk-stretchsuv.webp' },
+  'Party Bus':     { exterior: 'images/ext-partybus.webp',     interior: 'images/int-partybus.webp',     trunk: 'images/trunk-partybus.webp' },
+  'Coach Bus':     { exterior: 'images/ext-coachbus.webp',     interior: 'images/int-coachbus.webp',     trunk: 'images/trunk-coachbus.webp' }
+};
 
 window.PHL_INCLUDED_MILES = 20;
 window.PHL_PER_MILE = 2;

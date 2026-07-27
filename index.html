@@ -4050,14 +4050,21 @@ function renderVehicleDisplay() {
     box.style.display = 'block';
     return;
   }
-  // Larger vehicles: exterior photo + capacity only
+  // Larger vehicles: full photo set (exterior / interior / luggage) + capacity
   const cap = VEHICLE_CAPACITY[v];
-  const photo = (VEHICLE_PHOTO[v] || [])[0];
+  const gal = (window.PHL_GALLERY || {})[v];
+  const fallback = (VEHICLE_PHOTO[v] || [])[0];
   box.innerHTML =
     '<div class="vd-card">' +
       '<div class="vd-head"><span class="vd-name">' + v + '</span>' +
       (cap ? '<span class="vd-caps">👤 up to ' + cap.maxPax + ' passengers' + (cap.maxBags ? ' · 🧳 up to ' + cap.maxBags + ' bags' : '') + '</span>' : '') + '</div>' +
-      (photo ? '<div class="vd-photos" style="grid-template-columns:1fr;"><figure><img src="images/' + photo + '.webp" alt="' + v + '" loading="lazy" style="height:140px;"><figcaption>Exterior</figcaption></figure></div>' : '') +
+      (gal
+        ? '<div class="vd-photos">' +
+            '<figure><img src="' + gal.exterior + '" alt="' + v + ' exterior" loading="lazy"><figcaption>Exterior</figcaption></figure>' +
+            '<figure><img src="' + gal.interior + '" alt="' + v + ' interior" loading="lazy"><figcaption>Interior</figcaption></figure>' +
+            '<figure><img src="' + gal.trunk + '" alt="' + v + ' luggage space" loading="lazy"><figcaption>Luggage</figcaption></figure>' +
+          '</div>'
+        : (fallback ? '<div class="vd-photos" style="grid-template-columns:1fr;"><figure><img src="images/' + fallback + '.webp" alt="' + v + '" loading="lazy"><figcaption>Exterior</figcaption></figure></div>' : '')) +
     '</div>';
   box.style.display = 'block';
 }
