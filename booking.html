@@ -949,6 +949,27 @@ let _estCache = {};
 let _estDebounce = null;
 let _lastEstimate = null;
 
+/* Hub positioning — same rules as the homepage widget (js/pricing.js):
+   within 60 driving miles of the anchor hub, positioning is absorbed;
+   beyond that, the class hourly rate × round-trip hub drive time is added. */
+const HUB_FREE_MILES = 60;
+const _posCache = {};
+async function fetchPositioning(pickup, dropoff){
+  const k = JSON.stringify([pickup||'', dropoff||'']);
+  if(_posCache[k]) return _posCache[k];
+  const r = await fetch(`/api/positioning?pickup=${encodeURIComponent(pickup||'')}&dropoff=${encodeURIComponent(dropoff||'')}`);
+  let d = {};
+  try { d = await r.json(); } catch(e){}
+  if(!r.ok || d.error) throw new Error(d.error || 'positioning unavailable');
+  _posCache[k] = d;
+  return d;
+}
+function computePositioning(hourlyRate, pos){
+  if(!pos || pos.miles <= HUB_FREE_MILES) return { surcharge: 0, hub: pos && pos.hub, miles: pos && pos.miles };
+  const hours = (2 * pos.minutes) / 60; // round trip hub → location → hub
+  return { surcharge: Math.ceil(hourlyRate * hours), hub: pos.hub, miles: pos.miles };
+}
+
 async function fetchDistance(origin, destination){
   const k = origin + '|' + destination;
   if(_estCache[k]) return _estCache[k];
@@ -1024,11 +1045,24 @@ async function updateEstimate(){
         legs.push(`${route.length>2?`Leg ${i+1}: `:''}${d.miles} mi · ${d.minutes} min`);
       }
     }
-    const { total, breakdown } = computePrice(v, totalMiles, totalMinutes);
+    let { total, breakdown } = computePrice(v, totalMiles, totalMinutes);
+    // Hub positioning surcharge — mirrors the homepage widget
+    let posNote = '';
+    try {
+      const pos = await fetchPositioning(pickup, curSvc==='hourly' ? '' : dropoff);
+      const p = computePositioning(v.imghourly, pos);
+      if(p.surcharge > 0){
+        total += p.surcharge;
+        breakdown += ` + $${p.surcharge} hub positioning (${p.miles} mi from ${p.hub} hub, beyond ${HUB_FREE_MILES} mi)`;
+      }
+    } catch(e){
+      posNote = `<br><span style="font-size:0.7rem;opacity:0.85;">Hub positioning check unavailable — confirmed by phone.</span>`;
+      breakdown += ' · hub positioning check unavailable — confirmed by phone';
+    }
     priceEl.textContent = `$${total}`;
     metaEl.innerHTML = `<strong>${v.name}</strong> · ${breakdown}<br>` +
       `Total distance: <strong>${totalMiles.toFixed(1)} mi</strong> · Est. drive time: <strong>${totalMinutes} min</strong><br>` +
-      legs.map(l=>`<span style="font-size:0.7rem;opacity:0.85;">• ${l}</span>`).join('<br>');
+      legs.map(l=>`<span style="font-size:0.7rem;opacity:0.85;">• ${l}</span>`).join('<br>') + posNote;
     _lastEstimate = { total, totalMiles, totalMinutes, breakdown, vehicle: v.name };
   } catch(e){
     priceEl.textContent='—';
