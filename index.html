@@ -3186,26 +3186,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a class="btn-white" href="tel:+18337400700">📞 (833) 740-0700</a>
 </div>
 </div>
-<div class="booking-card">
-<h3>Obtener Cotización Instantánea</h3>
-<p>Complete sus datos — confirmación en 5 minutos.</p>
-<div class="form-group"><label>Lugar de Recogida</label><input autocomplete="off" id="es-pickup" placeholder="Dirección, hotel o aeropuerto..." type="text"/></div>
-<div class="form-group"><label>Destino</label><input autocomplete="off" id="es-dropoff" placeholder="Destino..." type="text"/></div>
-<div class="form-row">
-<div class="form-group"><label>Fecha</label><input type="date"/></div>
-<div class="form-group"><label>Hora de Recogida</label><input type="time"/></div>
-</div>
-<div class="form-group"><label>Número de Vuelo <span class="optional-badge">opcional</span></label><input placeholder="ej. AA1234" type="text"/></div>
-<div class="form-group"><label>Tipo de Vehículo</label>
-<select>
-<option>Sedán Ejecutivo</option><option>Sedán de Lujo</option>
-<option>SUV de Lujo</option><option>Limusina Stretch</option>
-<option>SUV Stretch (Escalade)</option><option>Bus de Fiesta Sprinter</option>
-<option>Bus de Fiesta</option><option>Bus Ejecutivo (22+ pax)</option>
-</select>
-</div>
-<button class="btn-book-full" onclick="submitQuote()">🚗 Ver Mi Precio y Reservar</button>
-</div>
+<!-- The shared #booking-widget is moved here (and localized to Spanish) by bkRelocate() when this page is shown -->
+<div id="es-bk-mount" style="min-width:0;"></div>
 </div>
 </section>
 <div class="vet-strip">
@@ -3369,7 +3351,143 @@ function showPage(id) {
   const menu = document.getElementById('mobile-menu');
   if (menu) menu.style.display = 'none';
   updateNavbar(id);
+  bkRelocate(id);
   return false;
+}
+
+// ===== BOOKING WIDGET — SHARED BETWEEN EN & ES HOMEPAGES =====
+// There is exactly one #booking-widget. When the Spanish homepage is shown we
+// move the widget into its hero and localize every visible string; moving back
+// to the English homepage restores the English copy.
+function bkEs() { return document.documentElement.getAttribute('data-lang') === 'es'; }
+
+function bkRelocate(id) {
+  const w = document.getElementById('booking-widget');
+  if (!w) return;
+  if (id === 'es-home') {
+    const m = document.getElementById('es-bk-mount');
+    if (m && !m.contains(w)) m.appendChild(w);
+    bkSetLang('es');
+  } else if (id === 'home') {
+    const h = document.querySelector('#home-page .hero-inner');
+    if (h && !h.contains(w)) h.appendChild(w);
+    bkSetLang('en');
+  }
+}
+
+const BK_L10N = {
+  en: {
+    tagline: 'Luxury Rides. Premier Limo Service. Prime Limo Fleet.',
+    tabAirport: '✈ Airport', tabP2P: '→ Point to Point', tabHourly: '⏱ Hourly',
+    lblPickup: 'Pickup Location', lblDropoff: 'Drop-off Location', lblFlight: '✈ Flight No.',
+    lblName: 'Your Name', lblEmail: 'Email ', lblPhone: 'Phone', lblDate: 'Date',
+    lblTime: 'Pickup Time', lblNotes: 'Notes ', optional: '(optional)',
+    phPickup: 'Address, hotel or airport...', phDropoff: 'Destination...',
+    phName: 'Full name', phEmail: 'you@email.com', phNotes: 'Special requests...',
+    errPickup: '⚠ Pickup location is required', errDropoff: '⚠ Drop-off location is required',
+    errName: '⚠ Name is required', errPhone: '⚠ Phone number is required',
+    addStop: '+ Add Extra Stop', priceTitle: 'Estimated Rate',
+    priceFlat: 'Flat rate · No surge · All-inclusive',
+    okTitle: '✅ Request received!', okSub: "We'll call or text you within 5 minutes with your exact flat rate.",
+    okCta: 'Book Online Now →'
+  },
+  es: {
+    tagline: 'Viajes de Lujo. Servicio de Limusina Premier. Flota de Primera.',
+    tabAirport: '✈ Aeropuerto', tabP2P: '→ Punto a Punto', tabHourly: '⏱ Por Hora',
+    lblPickup: 'Lugar de Recogida', lblDropoff: 'Lugar de Destino', lblFlight: '✈ Núm. de Vuelo',
+    lblName: 'Su Nombre', lblEmail: 'Correo ', lblPhone: 'Teléfono', lblDate: 'Fecha',
+    lblTime: 'Hora de Recogida', lblNotes: 'Notas ', optional: '(opcional)',
+    phPickup: 'Dirección, hotel o aeropuerto...', phDropoff: 'Destino...',
+    phName: 'Nombre completo', phEmail: 'usted@correo.com', phNotes: 'Solicitudes especiales...',
+    errPickup: '⚠ El lugar de recogida es obligatorio', errDropoff: '⚠ El lugar de destino es obligatorio',
+    errName: '⚠ El nombre es obligatorio', errPhone: '⚠ El número de teléfono es obligatorio',
+    addStop: '+ Agregar Parada Extra', priceTitle: 'Tarifa Estimada',
+    priceFlat: 'Tarifa plana · Sin recargos · Todo incluido',
+    okTitle: '✅ ¡Solicitud recibida!', okSub: 'Le llamaremos o enviaremos un mensaje en 5 minutos con su tarifa plana exacta.',
+    okCta: 'Reservar en Línea →'
+  }
+};
+
+function bkSetLang(lang) {
+  const t = BK_L10N[lang] || BK_L10N.en;
+  document.documentElement.setAttribute('data-lang', lang);
+  const w = document.getElementById('booking-widget');
+  if (!w) return;
+  const setTxt = (sel, txt) => { const el = w.querySelector(sel); if (el) el.textContent = txt; };
+  const setPh = (id, ph) => { const el = document.getElementById(id); if (el) el.placeholder = ph; };
+  setTxt('.bk-tagline', t.tagline);
+  // Trip tabs (keyed off their onclick handlers)
+  w.querySelectorAll('.trip-tab').forEach(btn => {
+    const oc = btn.getAttribute('onclick') || '';
+    if (oc.includes("'airport'"))      btn.textContent = t.tabAirport;
+    if (oc.includes("'pointtopoint'")) btn.textContent = t.tabP2P;
+    if (oc.includes("'hourly'"))       btn.textContent = t.tabHourly;
+  });
+  // Field labels
+  setTxt('#fb-pickup > label', t.lblPickup);
+  setTxt('#dropoff-section label', t.lblDropoff);
+  setTxt('#flight-field label span:first-child', t.lblFlight);
+  const nameLbl = w.querySelector('#fb-name > label'); if (nameLbl) nameLbl.textContent = t.lblName;
+  const emailLbl = w.querySelector('#fb-email > label');
+  if (emailLbl) emailLbl.innerHTML = t.lblEmail + '<span class="optional-badge">' + t.optional + '</span>';
+  setTxt('#fb-phone > label', t.lblPhone);
+  const dtLabels = w.querySelectorAll('#fb-datetime .form-group > label');
+  if (dtLabels[0]) dtLabels[0].textContent = t.lblDate;
+  if (dtLabels[1]) dtLabels[1].textContent = t.lblTime;
+  const typeLbl = document.getElementById('label-type');
+  if (typeLbl) typeLbl.textContent = typeLbl.getAttribute('data-' + lang) || typeLbl.textContent;
+  const paxLbl = document.getElementById('label-pax');
+  if (paxLbl) paxLbl.textContent = paxLbl.getAttribute('data-' + lang) || paxLbl.textContent;
+  const lugLbl = document.getElementById('label-luggage');
+  if (lugLbl) lugLbl.textContent = lugLbl.getAttribute('data-' + lang) || lugLbl.textContent;
+  const notesLbl = w.querySelector('#fb-notes > label');
+  if (notesLbl) notesLbl.innerHTML = t.lblNotes + '<span class="optional-badge">' + t.optional + '</span>';
+  const flightOpt = w.querySelector('#flight-field .optional-badge');
+  if (flightOpt) flightOpt.textContent = t.optional;
+  // Placeholders
+  setPh('pickup-input', t.phPickup); setPh('dropoff-input', t.phDropoff);
+  setPh('quote-name', t.phName); setPh('quote-email', t.phEmail); setPh('quote-notes', t.phNotes);
+  // Inline validation messages
+  setTxt('#err-pickup', t.errPickup); setTxt('#err-dropoff', t.errDropoff);
+  setTxt('#err-name', t.errName); setTxt('#err-phone', t.errPhone);
+  // Add-stop button
+  setTxt('#add-stop-row button', t.addStop);
+  // Price estimate box (title + flat-rate line)
+  const pe = document.getElementById('price-estimate');
+  if (pe && pe.children.length >= 3) {
+    pe.children[0].textContent = t.priceTitle;
+    pe.children[2].textContent = t.priceFlat;
+  }
+  // Default success box (pre-submit copy)
+  const qs = document.getElementById('quote-success');
+  if (qs && qs.children.length >= 3 && !window._phlLastFare) {
+    qs.children[0].textContent = t.okTitle;
+    qs.children[1].textContent = t.okSub;
+    qs.children[2].textContent = t.okCta;
+  }
+  // Luggage options: "2 bags" → "2 bolsas"
+  const bagWord = (n) => lang === 'es' ? (n === '1' ? 'bolsa' : 'bolsas') : (n === '1' ? 'bag' : 'bags');
+  const lugWrap = document.getElementById('csel-luggage');
+  if (lugWrap) {
+    lugWrap.querySelectorAll('.csel-opt').forEach(opt => {
+      const m = (opt.getAttribute('onclick') || '').match(/'([0-9+]+)'\s*,\s*'[^']*'\s*\)/);
+      if (!m) return;
+      const n = m[1].replace('+', '');
+      const txt = m[1] + ' ' + bagWord(n);
+      opt.textContent = txt;
+      opt.setAttribute('onclick', "cselPick('csel-luggage','luggage-input','" + m[1] + "','" + txt + "')");
+    });
+    const lugBtn = lugWrap.querySelector('.csel-btn');
+    const lugVal = (document.getElementById('luggage-input') || {}).value || '0';
+    if (lugBtn) lugBtn.textContent = lugVal + ' ' + bagWord(lugVal.replace('+', ''));
+  }
+  // Injected bar/details buttons + dynamic panels
+  _bkSetViewLabel(!!(w.classList && w.classList.contains('expanded')));
+  const qBtn = document.getElementById('quote-btn');
+  if (qBtn && qBtn.style.display !== 'none') qBtn.textContent = lang === 'es' ? 'Reservar Mi Viaje' : 'Book My Ride';
+  if (typeof _vdLastKey !== 'undefined') _vdLastKey = null;
+  if (typeof renderVehicleDisplay === 'function') renderVehicleDisplay();
+  if (typeof window._bkRefreshPrice === 'function') window._bkRefreshPrice();
 }
 
 function updateNavbar(pageId) {
@@ -3414,11 +3532,12 @@ function addQuoteStop() {
   _stopCount++;
   const container = document.getElementById('extra-stops-container');
   const isHourly = window._quoteTab === 'hourly';
-  const label = isHourly ? `Drop-off ${_stopCount}` : `Extra Stop ${_stopCount}`;
+  const label = isHourly ? (bkEs() ? `Destino ${_stopCount}` : `Drop-off ${_stopCount}`)
+                         : (bkEs() ? `Parada Extra ${_stopCount}` : `Extra Stop ${_stopCount}`);
   const div = document.createElement('div');
   div.className = 'form-group';
   div.id = `stop-group-${_stopCount}`;
-  div.innerHTML = `<label style="display:flex;justify-content:space-between;align-items:center;">${label} <button type="button" onclick="removeQuoteStop(${_stopCount})" style="background:none;border:none;cursor:pointer;font-size:0.75rem;color:#9ca3af;padding:0;font-weight:600;letter-spacing:0.05em;">× Remove</button></label><input type="text" id="stop-input-${_stopCount}" placeholder="Address..." autocomplete="off" style="width:100%;">`;
+  div.innerHTML = `<label style="display:flex;justify-content:space-between;align-items:center;">${label} <button type="button" onclick="removeQuoteStop(${_stopCount})" style="background:none;border:none;cursor:pointer;font-size:0.75rem;color:#9ca3af;padding:0;font-weight:600;letter-spacing:0.05em;">${bkEs() ? '× Quitar' : '× Remove'}</button></label><input type="text" id="stop-input-${_stopCount}" placeholder="${bkEs() ? 'Dirección...' : 'Address...'}" autocomplete="off" style="width:100%;">`;
   container.appendChild(div);
   if (typeof initNominatimAutocomplete === 'function') initNominatimAutocomplete(`stop-input-${_stopCount}`);
 }
@@ -3759,7 +3878,7 @@ function focusFleetPhoto(vehicle) {
   target.classList.add('car-selected');
 
   if (caption) {
-    caption.innerHTML = `<span class="fc-badge">✓ Selected</span><span class="fc-name">${displayName}</span>`;
+    caption.innerHTML = `<span class="fc-badge">${bkEs() ? '✓ Seleccionado' : '✓ Selected'}</span><span class="fc-name">${displayName}</span>`;
     caption.classList.add('show');
   }
 
@@ -4137,11 +4256,13 @@ function renderVehicleDisplay() {
     box.innerHTML =
       '<div class="vd-card">' +
         '<div class="vd-head"><span class="vd-name">' + cls.name + ' · ' + cls.vehicle + '</span>' +
-        '<span class="vd-caps">👤 up to ' + cls.pax + ' passengers · 🧳 up to ' + cls.bags + ' bags</span></div>' +
+        (bkEs()
+          ? '<span class="vd-caps">👤 hasta ' + cls.pax + ' pasajeros · 🧳 hasta ' + cls.bags + ' maletas</span></div>'
+          : '<span class="vd-caps">👤 up to ' + cls.pax + ' passengers · 🧳 up to ' + cls.bags + ' bags</span></div>') +
         vdSliderHTML([
           { src: cls.photos.exterior, label: 'Exterior' },
           { src: cls.photos.interior, label: 'Interior' },
-          { src: cls.photos.trunk, label: 'Luggage' }
+          { src: cls.photos.trunk, label: bkEs() ? 'Maletero' : 'Luggage' }
         ], cls.name) +
       '</div>';
     box.style.display = 'block';
@@ -4155,12 +4276,14 @@ function renderVehicleDisplay() {
   box.innerHTML =
     '<div class="vd-card">' +
       '<div class="vd-head"><span class="vd-name">' + v + '</span>' +
-      (cap ? '<span class="vd-caps">👤 up to ' + cap.maxPax + ' passengers' + (cap.maxBags ? ' · 🧳 up to ' + cap.maxBags + ' bags' : '') + '</span>' : '') + '</div>' +
+      (cap ? (bkEs()
+          ? '<span class="vd-caps">👤 hasta ' + cap.maxPax + ' pasajeros' + (cap.maxBags ? ' · 🧳 hasta ' + cap.maxBags + ' maletas' : '') + '</span>'
+          : '<span class="vd-caps">👤 up to ' + cap.maxPax + ' passengers' + (cap.maxBags ? ' · 🧳 up to ' + cap.maxBags + ' bags' : '') + '</span>') : '') + '</div>' +
       (gal
         ? vdSliderHTML([
             { src: gal.exterior, label: 'Exterior' },
             { src: gal.interior, label: 'Interior' },
-            { src: gal.trunk, label: 'Luggage' }
+            { src: gal.trunk, label: bkEs() ? 'Maletero' : 'Luggage' }
           ], v)
         : (fallback ? vdSliderHTML([{ src: 'images/' + fallback + '.webp', label: 'Exterior' }], v) : '')) +
     '</div>';
@@ -4198,15 +4321,16 @@ async function _phlRefreshLivePricing() {
   if (!cls) {
     const rate = PRICE_RATES[v];
     pv.textContent = rate ? (rate[tab] || rate.airport) : '';
-    if (noteEl) noteEl.textContent = rate && rate.note ? '⚠ ' + rate.note + ' · Final quote confirmed by phone' : 'Final quote confirmed by phone';
+    const finalPhone = bkEs() ? 'Cotización final confirmada por teléfono' : 'Final quote confirmed by phone';
+    if (noteEl) noteEl.textContent = rate && rate.note ? '⚠ ' + rate.note + ' · ' + finalPhone : finalPhone;
     pe.style.display = rate ? 'block' : 'none';
     return;
   }
 
   // Hourly charter tab — show the hourly rate + any hub positioning surcharge
   if (tab === 'hourly') {
-    pv.textContent = '$' + cls.hourly + '/hr';
-    if (noteEl) noteEl.textContent = '2-hour minimum';
+    pv.textContent = '$' + cls.hourly + (bkEs() ? '/hora' : '/hr');
+    if (noteEl) noteEl.textContent = bkEs() ? 'Mínimo 2 horas' : '2-hour minimum';
     pe.style.display = 'block';
     window._phlLastFare = { hourlyRate: cls.hourly, surcharge: 0, vehicle: cls.name, hourly: true };
     const hPickup = ((document.getElementById('pickup-input') || {}).value || '').trim();
@@ -4217,14 +4341,18 @@ async function _phlRefreshLivePricing() {
         if (seq !== _phlPriceSeq) return;
         const pos = phlComputePositioning(cls, posData);
         if (pos && pos.surcharge > 0) {
-          pv.textContent = '$' + cls.hourly + '/hr + $' + pos.surcharge;
-          if (noteEl) noteEl.textContent = '2-hour minimum · +$' + pos.surcharge +
+          pv.textContent = '$' + cls.hourly + (bkEs() ? '/hora' : '/hr') + ' + $' + pos.surcharge;
+          if (noteEl) noteEl.textContent = bkEs()
+            ? 'Mínimo 2 horas · +$' + pos.surcharge + ' de posicionamiento (' + pos.miles + ' mi desde la base de ' + pos.hub + ', más de ' + PHL_HUB_FREE_MILES + ' mi)'
+            : '2-hour minimum · +$' + pos.surcharge +
             ' positioning (' + pos.miles + ' mi from ' + pos.hub + ' hub, beyond ' + PHL_HUB_FREE_MILES + ' mi)';
           window._phlLastFare = { hourlyRate: cls.hourly, surcharge: pos.surcharge, vehicle: cls.name, hourly: true };
         }
       } catch (e) {
         if (seq !== _phlPriceSeq) return;
-        if (noteEl) noteEl.textContent = '2-hour minimum · hub positioning check unavailable — confirmed by phone';
+        if (noteEl) noteEl.textContent = bkEs()
+          ? 'Mínimo 2 horas · verificación de posicionamiento no disponible — se confirma por teléfono'
+          : '2-hour minimum · hub positioning check unavailable — confirmed by phone';
       }
     }
     return;
@@ -4233,14 +4361,14 @@ async function _phlRefreshLivePricing() {
   const pickup = ((document.getElementById('pickup-input') || {}).value || '').trim();
   const dropoff = ((document.getElementById('dropoff-input') || {}).value || '').trim();
   if (!pickup || !dropoff) {
-    pv.textContent = 'From $' + cls.flat;
-    if (noteEl) noteEl.textContent = 'Enter pickup & drop-off for your exact fare';
+    pv.textContent = (bkEs() ? 'Desde $' : 'From $') + cls.flat;
+    if (noteEl) noteEl.textContent = bkEs() ? 'Ingrese recogida y destino para su tarifa exacta' : 'Enter pickup & drop-off for your exact fare';
     pe.style.display = 'block';
     if (distEl) distEl.style.display = 'none';
     return;
   }
 
-  pv.innerHTML = '<span style="font-size:1rem;">Calculating…</span>';
+  pv.innerHTML = '<span style="font-size:1rem;">' + (bkEs() ? 'Calculando…' : 'Calculating…') + '</span>';
   if (noteEl) noteEl.textContent = '';
   pe.style.display = 'block';
   try {
@@ -4251,29 +4379,42 @@ async function _phlRefreshLivePricing() {
     ]);
     if (seq !== _phlPriceSeq) return; // stale response — a newer request superseded it
     if (distEl) {
-      distEl.textContent = '📍 Estimated distance: ' + d.miles + ' miles · ~' + d.minutes + ' min drive';
+      distEl.textContent = bkEs()
+        ? '📍 Distancia estimada: ' + d.miles + ' millas · ~' + d.minutes + ' min de viaje'
+        : '📍 Estimated distance: ' + d.miles + ' miles · ~' + d.minutes + ' min drive';
       distEl.style.display = 'block';
     }
     const fare = phlComputeFare(cls, d.miles, d.minutes);
     let total = fare.total;
     let note = fare.breakdown;
+    if (bkEs() && note) {
+      note = note
+        .replace('(trips over 40 min use a 2-hour minimum)', '(viajes de más de 40 min usan un mínimo de 2 horas)')
+        .replace(' first 20 mi + ', ' primeras 20 mi + ')
+        .replace('Flat rate (up to 20 mi)', 'Tarifa plana (hasta 20 mi)')
+        .replace('/hr', '/hora');
+    }
     if (posResult.ok) {
       const pos = phlComputePositioning(cls, posResult.data);
       if (pos && pos.surcharge > 0) {
         total += pos.surcharge;
-        note += ' + $' + pos.surcharge + ' positioning (' + pos.miles + ' mi from ' +
+        note += bkEs()
+          ? ' + $' + pos.surcharge + ' de posicionamiento (' + pos.miles + ' mi desde la base de ' + pos.hub + ', más de ' + PHL_HUB_FREE_MILES + ' mi)'
+          : ' + $' + pos.surcharge + ' positioning (' + pos.miles + ' mi from ' +
           pos.hub + ' hub, beyond ' + PHL_HUB_FREE_MILES + ' mi)';
       }
     } else {
-      note += ' · hub positioning check unavailable — confirmed by phone';
+      note += bkEs()
+        ? ' · verificación de posicionamiento no disponible — se confirma por teléfono'
+        : ' · hub positioning check unavailable — confirmed by phone';
     }
-    pv.textContent = 'Estimated fare: $' + total;
+    pv.textContent = (bkEs() ? 'Tarifa estimada: $' : 'Estimated fare: $') + total;
     if (noteEl) noteEl.textContent = note;
     window._phlLastFare = { total: total, miles: d.miles, minutes: d.minutes, vehicle: cls.name };
   } catch (e) {
     if (seq !== _phlPriceSeq) return;
-    pv.textContent = 'From $' + cls.flat;
-    if (noteEl) noteEl.textContent = 'Live distance unavailable — exact fare confirmed by phone';
+    pv.textContent = (bkEs() ? 'Desde $' : 'From $') + cls.flat;
+    if (noteEl) noteEl.textContent = bkEs() ? 'Distancia en vivo no disponible — tarifa exacta confirmada por teléfono' : 'Live distance unavailable — exact fare confirmed by phone';
     if (distEl) distEl.style.display = 'none';
   }
 }
@@ -4357,14 +4498,14 @@ function bkApplyLayout(mode) {
   zones.bar.forEach(id => { const el = document.getElementById(id); if (el) bar.appendChild(el); });
   const act = document.createElement('div');
   act.className = 'bk-bar-action';
-  act.innerHTML = '<button type="button" class="btn-book-full bk-view" onclick="bkToggle()">View options ↓</button>';
+  act.innerHTML = '<button type="button" class="btn-book-full bk-view" onclick="bkToggle()">' + (bkEs() ? 'Ver opciones ↓' : 'View options ↓') + '</button>';
   bar.appendChild(act);
   // Fill the expandable details panel
   zones.details.forEach(id => { const el = document.getElementById(id); if (el) details.appendChild(el); });
   const pe = document.getElementById('price-estimate'); if (pe) details.appendChild(pe);
   const sub = document.createElement('div');
   sub.className = 'bk-details-action';
-  sub.innerHTML = '<button class="btn-book-full" id="quote-btn" onclick="submitQuote()">Book My Ride</button>';
+  sub.innerHTML = '<button class="btn-book-full" id="quote-btn" onclick="submitQuote()">' + (bkEs() ? 'Reservar Mi Viaje' : 'Book My Ride') + '</button>';
   details.appendChild(sub);
   const qs = document.getElementById('quote-success'); if (qs) details.appendChild(qs);
   bkCollapse();
@@ -4394,7 +4535,8 @@ function bkCollapse() {
 
 function _bkSetViewLabel(expanded) {
   const b = document.querySelector('#bk-bar .bk-view');
-  if (b) b.textContent = expanded ? 'Hide options ↑' : 'View options ↓';
+  if (b) b.textContent = expanded ? (bkEs() ? 'Ocultar opciones ↑' : 'Hide options ↑')
+                                  : (bkEs() ? 'Ver opciones ↓'    : 'View options ↓');
 }
 
 function bkToggle() {
@@ -4453,7 +4595,7 @@ async function submitQuote() {
 
   const btn = document.getElementById('quote-btn');
   btn.disabled = true;
-  btn.textContent = 'Sending…';
+  btn.textContent = bkEs() ? 'Enviando…' : 'Sending…';
 
   /* If the customer just edited pickup/drop-off, a price recalculation may
      still be in flight (window._phlLastFare is nulled at its start). Flush any
@@ -4518,10 +4660,10 @@ async function submitQuote() {
   const qs = document.getElementById('quote-success');
   if (lf && fareText) {
     qs.innerHTML =
-      '<div style="color:#16a34a;font-weight:700;font-size:0.88rem;">✅ Request received!</div>' +
-      '<div style="color:#166534;font-size:1.15rem;font-weight:700;margin-top:6px;">Estimated fare: ' + fareText + '</div>' +
+      '<div style="color:#16a34a;font-weight:700;font-size:0.88rem;">' + (bkEs() ? '✅ ¡Solicitud recibida!' : '✅ Request received!') + '</div>' +
+      '<div style="color:#166534;font-size:1.15rem;font-weight:700;margin-top:6px;">' + (bkEs() ? 'Tarifa estimada: ' : 'Estimated fare: ') + fareText + '</div>' +
       '<div style="color:#166534;font-size:0.74rem;margin-top:3px;">' + fareDetail + '</div>' +
-      '<a href="https://customer.moovs.app/purple-heart-limo/request/new" onclick="if(typeof gtag===\'function\')gtag(\'event\',\'close_convert_lead\',{form_location:\'homepage_quote_success\'})" style="display:inline-block;margin-top:8px;padding:7px 18px;background:var(--purple);color:#fff;border-radius:8px;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;" target="_blank">Book Online Now →</a>';
+      '<a href="https://customer.moovs.app/purple-heart-limo/request/new" onclick="if(typeof gtag===\'function\')gtag(\'event\',\'close_convert_lead\',{form_location:\'homepage_quote_success\'})" style="display:inline-block;margin-top:8px;padding:7px 18px;background:var(--purple);color:#fff;border-radius:8px;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;" target="_blank">' + (bkEs() ? 'Reservar en Línea →' : 'Book Online Now →') + '</a>';
   }
   qs.style.display = 'block';
 }
