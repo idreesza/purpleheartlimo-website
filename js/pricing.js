@@ -4,7 +4,9 @@
    2-hour minimum at the class hourly rate (hours = max(2, ceil(minutes/60))).
    Hourly rates reuse the existing booking-page hourly rates.
    NOTE FOR OWNER: pax/bag capacities marked estimated:true are placeholders
-   from the spec defaults — confirm real capacities. */
+   from the spec defaults — confirm real capacities.
+   NOTE: fleet.html, rates.html and es/fleet.html render their visible price
+   labels from this table via /js/price-sync.js — edit rates HERE only. */
 window.PHL_CLASSES = [
   { id: 'luxury-suv',     name: 'Luxury SUV',     flat: 190, hourly: 179, pax: 6, bags: 5,
     vehicle: 'Cadillac Escalade',
