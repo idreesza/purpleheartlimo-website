@@ -17,6 +17,7 @@
 - [AI-readiness fixes](ai-readiness-fixes.md) — llms.txt & AI-bot robots already exist; headers go in netlify.toml not _headers; external prompts shipped WRONG phone — site truth is (833) 740-0700 / /booking.html.
 - [Theme is body-class gated](dark-theme-body-class.md) — light/dark gated by body classes (dark-theme/hdr-v2/home-active); purple hides in 4 CSS layers + JS hover fallbacks — grep constants list.
 - [Logo assets & typo-fix recipe](logo-assets.md) — header/footer/splash logo roles; fix generated-text typos via glyph transplant, never regeneration.
+- [Live price copy rules](price-span-coverage.md) — quote live-class prices only via data-phl spans; "flat-rate" wording needs data-phl-flat, NOT data-phl-from (min≠flat).
 - [Booking pricing rules](booking-pricing-rules.md) — canonical fare rules + class order/caps in js/pricing.js; booking.html must hard-sync; Google Maps APIs disabled → OSRM fallback serves /api/distance.
 - [Fleet marquee focus](fleet-marquee-focus.md) — picked ride-type centers/magnifies a car; never animate layout-affecting margin or getBoundingClientRect centering drifts.
 - [Netlify HTML optimizer](netlify-html-optimizer.md) — live HTML rewrites quotes + strips .html from hrefs; verify deploys with quote/extension-agnostic greps.
