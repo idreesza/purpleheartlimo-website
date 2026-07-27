@@ -813,14 +813,37 @@ a { text-decoration:none; color:inherit; }
   color:rgba(0,0,0,0.6); text-transform:none; letter-spacing:0.02em;
   font-size:0.82rem; background:transparent; font-weight:600;
 }
+/* ===== Per-tab accent "lighting" (gold / platinum / sapphire) ===== */
+#booking-widget {
+  --bk-accent:#C9A84C;
+  --bk-accent-soft:rgba(201,168,76,0.5);
+  --bk-accent-glow:rgba(201,168,76,0.26);
+  --bk-accent-ring:rgba(201,168,76,0.2);
+  --bk-accent-text:#fff;
+}
+#booking-widget.bk-accent-platinum {
+  --bk-accent:#9AA6B4;
+  --bk-accent-soft:rgba(154,166,180,0.6);
+  --bk-accent-glow:rgba(154,166,180,0.32);
+  --bk-accent-ring:rgba(154,166,180,0.26);
+  --bk-accent-text:#141c26;
+}
+#booking-widget.bk-accent-sapphire {
+  --bk-accent:#2456B8;
+  --bk-accent-soft:rgba(36,86,184,0.5);
+  --bk-accent-glow:rgba(36,86,184,0.26);
+  --bk-accent-ring:rgba(36,86,184,0.22);
+  --bk-accent-text:#fff;
+}
 /* The compact horizontal bar */
 #home-page .bk-bar,
 #es-home-page .bk-bar {
   display:flex; align-items:stretch;
-  background:rgba(255,255,255,0.9); border:1px solid rgba(0,0,0,0.08);
+  background:rgba(255,255,255,0.9); border:1px solid var(--bk-accent-soft, rgba(0,0,0,0.08));
   border-radius:16px; padding:6px;
   -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);
-  box-shadow:0 15px 40px rgba(0,0,0,0.1);
+  box-shadow:0 15px 40px rgba(0,0,0,0.1), 0 0 0 1px var(--bk-accent-glow, transparent), 0 0 26px var(--bk-accent-glow, transparent);
+  transition:border-color 0.5s ease, box-shadow 0.5s ease;
 }
 #home-page .bk-bar > div,
 #es-home-page .bk-bar > div {
@@ -924,7 +947,8 @@ a { text-decoration:none; color:inherit; }
 #es-home-page #booking-widget .bk-details {
   margin-top:10px; padding:22px 24px; border-radius:16px;
   background:rgba(255,255,255,0.9);
-  border:1px solid rgba(0,0,0,0.08);
+  border:1px solid var(--bk-accent-soft, rgba(0,0,0,0.08));
+  transition:border-color 0.5s ease;
   -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);
   text-align:left;
   grid-template-columns:repeat(3, 1fr); gap:14px 16px; align-content:start;
@@ -999,7 +1023,7 @@ a { text-decoration:none; color:inherit; }
 #es-home-page .bk-details .form-group input:focus,
 #es-home-page .bk-details .form-group select:focus,
 #es-home-page .bk-details .form-group textarea:focus {
-  border-color:var(--gold) !important; box-shadow:0 0 0 2px rgba(201,168,76,0.2) !important;
+  border-color:var(--bk-accent, var(--gold)) !important; box-shadow:0 0 0 2px var(--bk-accent-ring, rgba(201,168,76,0.2)) !important;
   background:rgba(255,255,255,1) !important;
 }
 #home-page .bk-details .csel-btn,
@@ -1012,7 +1036,7 @@ a { text-decoration:none; color:inherit; }
 #home-page .bk-details .csel-btn:focus,
 #es-home-page .bk-details .csel-btn.open,
 #es-home-page .bk-details .csel-btn:focus {
-  border-color:var(--gold) !important; box-shadow:0 0 0 2px rgba(201,168,76,0.2) !important;
+  border-color:var(--bk-accent, var(--gold)) !important; box-shadow:0 0 0 2px var(--bk-accent-ring, rgba(201,168,76,0.2)) !important;
   background:rgba(255,255,255,1) !important;
 }
 #home-page .bk-details .csel-list,
@@ -1042,6 +1066,14 @@ a { text-decoration:none; color:inherit; }
   #home-page .bk-bar > .form-row > .form-group:nth-child(2), #es-home-page .bk-bar > .form-row > .form-group:nth-child(2) { border-top:1px solid rgba(0,0,0,0.08); }
   #home-page .hero .booking-card .bk-bar .btn-book-full.bk-view, #es-home-page .hero .booking-card .bk-bar .btn-book-full.bk-view { width:100%; min-height:50px; margin-top:6px; }
   #home-page .bk-bar > .bk-bar-action, #es-home-page .bk-bar > .bk-bar-action { padding:6px 0 0; }
+  /* All 3 trip tabs fit the bar exactly — no horizontal scroll */
+  #home-page .hero .booking-card .trip-tabs,
+  #es-home-page .hero .booking-card .trip-tabs { overflow-x:visible; padding:4px; gap:3px; }
+  #home-page .hero .booking-card .trip-tab,
+  #es-home-page .hero .booking-card .trip-tab {
+    flex:1 1 0; min-width:0; padding:8px 2px;
+    font-size:clamp(0.6rem, 3vw, 0.78rem); letter-spacing:0; white-space:nowrap;
+  }
 }
 .hero .trust-icon { color:#C9A84C; }
 /* ===== Light Luxury buttons ===== */
@@ -1093,9 +1125,10 @@ a { text-decoration:none; color:inherit; }
 /* ===== HOME HERO booking card — Light luxury theme ===== */
 #home-page .hero .booking-card .trip-tab.active,
 #es-home-page .hero .booking-card .trip-tab.active {
-  background: var(--gold);
-  color:#fff;
-  box-shadow:0 2px 10px rgba(201,168,76,0.3);
+  background:var(--bk-accent, var(--gold));
+  color:var(--bk-accent-text, #fff);
+  box-shadow:0 2px 10px var(--bk-accent-glow, rgba(201,168,76,0.3));
+  transition:background 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
 }
 #home-page .hero .booking-card .btn-book-full,
 #es-home-page .hero .booking-card .btn-book-full {
@@ -3354,10 +3387,20 @@ function toggleFAQ(btn) {
 }
 
 // ===== TRIP TABS =====
+function bkApplyAccent(mode) {
+  const w = document.getElementById('booking-widget');
+  if (!w) return;
+  w.classList.remove('bk-accent-gold', 'bk-accent-platinum', 'bk-accent-sapphire');
+  w.classList.add(mode === 'hourly' ? 'bk-accent-sapphire'
+                : mode === 'pointtopoint' ? 'bk-accent-platinum'
+                : 'bk-accent-gold');
+}
+
 function setTab(btn, mode) {
   btn.closest('.trip-tabs').querySelectorAll('.trip-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
   window._quoteTab = mode;
+  bkApplyAccent(mode);
   // Clear any extra stops when leaving point-to-point
   const extraStops = document.getElementById('extra-stops-container');
   if (mode !== 'pointtopoint' && extraStops) { extraStops.innerHTML = ''; window._stopCount = 0; }
@@ -4246,6 +4289,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderVehicleDisplay();
   // Build the initial layout (Airport is the default tab)
   window._quoteTab = 'airport';
+  bkApplyAccent('airport');
   bkApplyLayout('airport');
 });
 
