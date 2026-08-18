@@ -1,0 +1,206 @@
+I need you to fix a set of SEO and technical issues on this site (purpleheartlimo.com, hosted on
+Replit). These were found in a source-level audit. Work through them in the order listed —
+CRITICAL first, then HIGH, MEDIUM, LOW. After each fix, show me a diff before moving to the next
+one so I can confirm it's correct. Do not change any visible page copy, layout, or design unless
+a task explicitly says to — these are technical/schema/metadata fixes, not content rewrites.
+
+=====================================================================
+CRITICAL — fix these first, they actively work against ranking for
+Dallas-Fort Worth (DFW), which is the top business priority
+=====================================================================
+
+C1. The site's core LocalBusiness JSON-LD schema is geo-anchored to Austin, not DFW.
+    - Find the LocalBusiness structured data on the homepage (search for
+      "application/ld+json" and "LocalBusiness" in the codebase — likely a shared
+      SEO/schema component or a per-page <script> block).
+    - Right now the homepage's LocalBusiness entity sets "address":
+      {"@type":"PostalAddress","addressLocality":"Austin", ...} even though this
+      entity is meant to represent the whole tri-metro company (Austin + Dallas-Fort
+      Worth + Houston).
+    - Fix: change the homepage's top-level entity to a neutral Organization type with
+      NO single addressLocality — use "areaServed" listing all three metros equally
+      instead of a PostalAddress locality. Then make sure each metro page
+      (/limo-service-austin-tx/, /limo-service-dallas-tx/ or equivalent, and the
+      Houston page) has its OWN separate LocalBusiness (or LimousineService)
+      JSON-LD entity, each correctly anchored to ITS OWN city in addressLocality.
+      The Austin and Dallas pages already do this correctly at the page level —
+      use that same pattern, just make sure the homepage itself stops claiming to
+      be a single Austin-anchored entity.
+    - Verify: after the fix, extract the JSON-LD from the homepage, the Dallas page,
+      and the Austin page. The homepage entity should have no single-city
+      addressLocality. The Dallas page entity should say "Dallas" (or Dallas-Fort
+      Worth). The Austin page entity should say "Austin."
+
+C2. www.purpleheartlimo.com has no valid SSL certificate — it's a dead end.
+    - Confirm the bug: curl -I https://www.purpleheartlimo.com/ currently fails the
+      TLS handshake. DNS shows www is a CNAME to the Replit app domain.
+    - Fix: configure the www subdomain so it either (a) has a valid TLS certificate
+      via Replit's custom domain / deployment settings, or (b) is redirected to the
+      non-www URL at the DNS/host level BEFORE any HTTPS handshake is attempted
+      (so it never depends on www having its own cert at all). Option (b) is simpler
+      and is the recommended fix — set up a domain-level 301 redirect from
+      www.purpleheartlimo.com to https://purpleheartlimo.com in the Replit deployment
+      / custom domain configuration, not in application code.
+    - Verify: curl -I https://www.purpleheartlimo.com/ should return a clean 301 (or
+      200) with no TLS error, and should land on https://purpleheartlimo.com/.
+
+C3. The Dallas-Fort Worth page's schema links to an Austin-branded Instagram account.
+    - Find the "sameAs" array in the LocalBusiness JSON-LD on the Dallas page (and
+      check the homepage and Houston page too). It currently includes
+      "https://www.instagram.com/austinlimousine" — this is wrong for any page other
+      than the actual Austin-branded account, if it's even correct there.
+    - Fix: either (a) confirm the business has a correctly-branded Purple Heart Limo
+      Instagram account and use that URL in "sameAs" on ALL pages, or (b) if no
+      correctly-branded account exists yet, remove the Instagram "sameAs" entry
+      entirely from the Dallas and Houston page schema until one exists. Do not
+      leave a DFW-targeting page pointing to an Austin-branded social profile.
+    - Verify: grep the whole codebase for "austinlimousine" and confirm it only
+      appears where it's actually correct (or nowhere, if removed).
+
+=====================================================================
+HIGH — fix within this pass, real ranking/trust drag
+=====================================================================
+
+H1. Homepage HTML is ~409KB — 10 to 18x larger than every other page — because it
+    contains 39 hidden duplicate-content <div id="...-page"> blocks (e.g.
+    id="about-page", id="contact-page", one per service page, Terms, Privacy, the
+    full Spanish homepage, and roughly 20 complete blog posts). This looks like
+    leftover markup from an earlier single-page-app version of the site, from before
+    /about.html, /contact.html, etc. existed as their own real, indexable pages.
+    - Search the homepage template/component for elements with id ending in "-page"
+      or a JS function called something like showPage() that toggles between them.
+    - Confirm each of those blocks' content is already fully and correctly served by
+      its own real URL (e.g. the "about-page" div's content should already exist at
+      /about.html with its own working page). Once confirmed, DELETE these hidden
+      duplicate blocks from the homepage's rendered HTML entirely. Also check if the
+      showPage() JS routing function and any related client-side routing code is now
+      dead code, and remove it if nothing else depends on it.
+    - Do NOT delete the real standalone pages (/about.html, /contact.html, etc.) —
+      only the hidden duplicate copies embedded inside the homepage.
+    - Verify: after the fix, fetch the homepage HTML and confirm its size drops by
+      roughly 80-90% (target: well under 100KB), and spot-check that /about.html,
+      /contact.html, /services.html, and a couple of blog posts still load correctly
+      and unchanged.
+
+H2. Sitemap.xml lists duplicate, non-canonical URLs for the same blog posts.
+    - At least these pairs exist (there may be more — check the whole sitemap):
+      /blog/dfw-airport-limo-guide AND /blog/dfw-airport-limo-guide.html
+      /blog/dfw-wedding-venues AND /blog/dfw-wedding-venues.html
+      /blog/dfw-quinceaneara-limo AND /blog/dfw-quinceaneara-limo.html
+      /blog/dfw-bachelorette-party AND /blog/dfw-bachelorette-party.html
+      Both versions currently return HTTP 200 and both correctly self-canonicalize
+      to the .html version, so this isn't causing duplicate indexing, but it's still
+      wrong for a sitemap to list non-canonical URLs.
+    - Fix: pick ONE canonical URL format going forward. Recommend using the
+      extensionless/clean-directory format (matching the site's newer pages) as the
+      standard — 301-redirect the old .html duplicate blog URLs to the extensionless
+      version, update the canonical tags accordingly, and regenerate sitemap.xml so
+      it lists ONLY the canonical URL for each page (no duplicate pairs anywhere).
+    - Verify: fetch sitemap.xml, confirm no URL appears twice for the same content,
+      and confirm the old .html URLs now 301-redirect to the new canonical ones
+      rather than serving 200 directly.
+
+H3. No named, linkable founder or staff identity anywhere on the site.
+    - This is a content task, not a code task, but I'm including it here for
+      completeness: add a real bio to the About page — name, military branch/rank if
+      the owner is comfortable disclosing it, years of relevant experience, a
+      professional photo, and (ideally) a LinkedIn URL added to the LocalBusiness
+      "founder" or "employee" schema and/or a Person schema block. Add short author
+      bylines to at least the top 10-15 highest-traffic blog posts.
+    - I'll provide the actual bio text and photo separately — for now, just build the
+      About page section/component and schema markup to support a named founder
+      block (Person schema with name, jobTitle, image, sameAs for LinkedIn), and
+      leave a clear placeholder for the content.
+
+H4. Factual contradiction: About page says "10+ Years of Service" while a trust
+    badge elsewhere says "Texan-Owned - Est. 2020" (which is only ~6 years as of now).
+    - Find both instances (search for "10+ Years" and "Est. 2020" / "Texan-Owned").
+    - Fix: I'll confirm the correct founding year separately. For now, just find and
+      list both locations in the code so I can tell you which number to keep, then
+      update both to match once I confirm.
+
+=====================================================================
+MEDIUM — fix after CRITICAL/HIGH are done and verified
+=====================================================================
+
+M2. Add individual Review schema objects (author, datePublished, reviewBody)
+    alongside the existing AggregateRating on pages that currently only have
+    AggregateRating (e.g. homepage, Testimonials page). Pull 5-10 real reviews from
+    the Testimonials page content to populate these. Note for context: this will NOT
+    produce a new star-rating rich snippet in Google Search (Google doesn't grant
+    that for reviews of your own business hosted on your own domain) — it's a
+    schema-completeness and semantic-trust improvement only.
+
+M3. No code change needed. The homepage's existing FAQPage schema (6 Q&A pairs) can
+    stay as-is — do not expand it further, since FAQ rich results were fully retired
+    by Google in May 2026 and it now has no SERP benefit either way.
+
+M4. BreadcrumbList schema is present on the Fleet, Locations, and Blog pages but
+    missing on the Austin, Dallas, About, Contact, and Testimonials pages.
+    - Fix: add the same BreadcrumbList JSON-LD pattern already used correctly on
+      Fleet/Locations/Blog to these five remaining page types, with the correct
+      breadcrumb trail for each (e.g. Home > Locations > Dallas).
+    - Verify: extract JSON-LD from all indexable page types and confirm
+      BreadcrumbList is present and correctly structured on every one.
+
+M5. The About page's meta description is cut off mid-sentence: currently reads
+    "...Serving Austin, Dallas-Fort Worth, and Houston with professional." Rewrite it
+    as a complete sentence under 155 characters, in the same voice as the other page
+    meta descriptions (e.g. mention flat-rate pricing, veteran-owned, and the phone
+    number if room allows).
+
+M6. The Fleet page's title tag is "Our Limo Fleet — Purple Limousine & Luxury
+    Vehicles | Purple Heart Limo Dallas" — inconsistent with the tri-metro brand
+    positioning used on every other page. Change it to something like "Our Limo
+    Fleet — Luxury Vehicles | Austin, DFW & Houston | Purple Heart Limo".
+
+M7. Homepage loads a third-party @emailjs/browser script from a CDN plus several
+    first-party scripts (pricing.js, nav-dropdown.js, price-sync.js) without defer or
+    async attributes. Add defer to all of these script tags on the homepage unless a
+    script is required to run synchronously before first paint (if any script breaks
+    with defer, tell me which one and why before leaving it un-deferred).
+
+=====================================================================
+LOW — polish, do these last
+=====================================================================
+
+L1. Homepage meta description is ~218 characters and will truncate in search
+    results. Trim it to 155 characters or fewer while keeping the strongest hooks
+    (flat-rate pricing, no surge, 4.9-star rating, phone number).
+
+L2. Add a Google Maps embed (or an areaServed-focused map graphic) to the Contact
+    page — none currently exists.
+
+L3. Going forward, use clean extensionless directory URLs for any new pages (this
+    is really just a continuation of the H2 fix — no separate action needed beyond
+    what H2 already covers, just don't introduce new .html-style URLs).
+
+L4. No code change needed right now — noting for a future content phase: only 6
+    URLs have Spanish (es) equivalents (booking, contact, fleet, 3 metro hub pages).
+    None of the 146 blog posts or DFW suburb pages do. This is a content opportunity
+    to revisit later, not a bug to fix now.
+
+=====================================================================
+FINAL VERIFICATION CHECKLIST — run through all of these after all fixes are done
+=====================================================================
+1. curl -I https://www.purpleheartlimo.com/  →  no TLS error, redirects cleanly to
+   the non-www HTTPS homepage
+2. Fetch homepage HTML, confirm file size is under ~100KB (was 409KB)
+3. Extract JSON-LD from homepage, Austin page, Dallas page — confirm homepage has
+   no single-city addressLocality, Austin page says Austin, Dallas page says Dallas
+4. grep codebase for "austinlimousine" — confirm it's either fully correct
+   everywhere it appears, or removed
+5. Fetch sitemap.xml — confirm no duplicate URL pairs for the same content
+6. Confirm /about.html, /contact.html, /services.html, and 3-4 blog posts still
+   load with unchanged visible content after the homepage cleanup (H1)
+7. Extract JSON-LD from Austin, Dallas, About, Contact, Testimonials pages —
+   confirm BreadcrumbList is present on all of them
+8. View source on the About page — meta description should be a complete sentence
+9. View source on the homepage — meta description should be under 155 characters
+10. View source on the Fleet page — title tag should mention all three metros, not
+    just Dallas
+
+Work through this in order, commit after each numbered item (or logical group) with
+a clear commit message referencing the issue code (e.g. "Fix C1: de-anchor homepage
+schema from Austin"), and show me the diff for each before moving on. Ask me before
+making any change that isn't explicitly covered above.
