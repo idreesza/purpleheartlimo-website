@@ -57,7 +57,7 @@ class Handler(SimpleHTTPRequestHandler):
                 self.send_header('Content-Length', str(len(body)))
                 SimpleHTTPRequestHandler.end_headers(self)
                 if self.command != 'HEAD':
-                    self.wfile.write(body)
+                    self._write_body(body)
                 return
             except Exception:
                 pass
@@ -83,6 +83,11 @@ class Handler(SimpleHTTPRequestHandler):
         if hit is None:
             return False
         to, status = hit
+        # Never redirect a URL to itself (e.g. /blog/foo/ matching the
+        # /blog/foo -> /blog/foo/ rule via the rstrip fallback) — that's an
+        # infinite 301 loop. Let the request fall through to normal serving.
+        if status == 301 and urllib.parse.urlparse(to).path == path:
+            return False
         if status == 410:
             self.send_response(410)
             SimpleHTTPRequestHandler.end_headers(self)
@@ -117,7 +122,7 @@ class Handler(SimpleHTTPRequestHandler):
             self.send_header('Content-Length', str(len(js.encode())))
             self.end_headers()
             if self.command != 'HEAD':
-                self.wfile.write(js.encode())
+                self._write_body(js.encode())
             return
 
         if self.path.startswith('/api/positioning'):
@@ -351,7 +356,13 @@ class Handler(SimpleHTTPRequestHandler):
         self.send_header('Content-Length', str(len(body)))
         self.end_headers()
         if self.command != 'HEAD':
-            self.wfile.write(body)
+            self._write_body(body)
+
+    def _write_body(self, data):
+        try:
+            self.wfile.write(data)
+        except (BrokenPipeError, ConnectionResetError):
+            pass  # client disconnected mid-response; not an error worth a traceback
 
     def log_message(self, format, *args):
         print(format % args)
