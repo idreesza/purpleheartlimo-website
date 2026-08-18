@@ -96,14 +96,6 @@
 
 # --- /es/ root (no Spanish home page exists) → primary Spanish landing ---
 # Dallas is the primary market (physical presence), so /es lands there.
-[[redirects]]
-  from = "/es"
-  to = "/es/limo-service-dallas-tx/"
-  status = 301
-[[redirects]]
-  from = "/es/"
-  to = "/es/limo-service-dallas-tx/"
-  status = 301
 
 # --- 404s where the actual page exists with a trailing slash ---
 [[redirects]]

@@ -1,8 +1,36 @@
 import os
 import json
+import tomllib
 import urllib.request
 import urllib.parse
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
+
+IS_PROD = bool(os.environ.get('REPLIT_DEPLOYMENT'))
+
+def _load_redirects():
+    """Load path-based redirect rules from netlify.toml (single source of
+    truth for legacy-slug 301s). Host-based rules (www) are handled in code;
+    status-200 rewrites are covered by the extensionless handler or native
+    /api endpoints; the /* -> /404.html catch-all is handled as a custom
+    error page."""
+    exact, prefixes = {}, []
+    try:
+        with open(os.path.join(os.path.dirname(__file__), 'netlify.toml'), 'rb') as f:
+            rules = tomllib.load(f).get('redirects', [])
+    except Exception as e:
+        print('WARNING: could not load netlify.toml redirects:', e)
+        return exact, prefixes
+    for r in rules:
+        frm, to, status = r.get('from', ''), r.get('to', ''), int(r.get('status', 301))
+        if frm.startswith('http') or status not in (301, 410) or frm == '/*':
+            continue
+        if frm.endswith('/*'):
+            prefixes.append((frm[:-1], to, status))  # keep trailing slash on prefix
+        else:
+            exact[frm] = (to, status)
+    return exact, prefixes
+
+REDIRECTS_EXACT, REDIRECT_PREFIXES = _load_redirects()
 
 class Handler(SimpleHTTPRequestHandler):
     def _www_redirect(self):
@@ -17,13 +45,57 @@ class Handler(SimpleHTTPRequestHandler):
             return True
         return False
 
+    def send_error(self, code, message=None, explain=None):
+        # Custom branded 404 page (parity with the old static deployment's
+        # /* -> /404.html rule).
+        if code == 404 and os.path.isfile('404.html'):
+            try:
+                with open('404.html', 'rb') as f:
+                    body = f.read()
+                self.send_response(404)
+                self.send_header('Content-Type', 'text/html; charset=utf-8')
+                self.send_header('Content-Length', str(len(body)))
+                SimpleHTTPRequestHandler.end_headers(self)
+                if self.command != 'HEAD':
+                    self.wfile.write(body)
+                return
+            except Exception:
+                pass
+        return SimpleHTTPRequestHandler.send_error(self, code, message, explain)
+
     def do_HEAD(self):
         if self._www_redirect():
             return
         return super().do_HEAD()
 
+    def _legacy_redirect(self):
+        """Legacy-slug 301s/410s ported from netlify.toml (the static
+        deployment's rewrites don't apply once a server handles requests)."""
+        parsed = urllib.parse.urlparse(self.path)
+        path, query = parsed.path, parsed.query
+        hit = REDIRECTS_EXACT.get(path) or (path != '/' and REDIRECTS_EXACT.get(path.rstrip('/'))) or None
+        if hit is None:
+            for prefix, to, status in REDIRECT_PREFIXES:
+                if path.startswith(prefix):
+                    hit = (to, status)
+                    break
+        if hit is None:
+            return False
+        to, status = hit
+        if status == 410:
+            self.send_response(410)
+            SimpleHTTPRequestHandler.end_headers(self)
+            return True
+        self.send_response(301)
+        self.send_header('Location', to + ('?' + query if query else ''))
+        self.send_header('Cache-Control', 'max-age=3600')
+        SimpleHTTPRequestHandler.end_headers(self)
+        return True
+
     def do_GET(self):
         if self._www_redirect():
+            return
+        if self._legacy_redirect():
             return
         if self.path == '/config.js':
             key = os.environ.get('AVIATIONSTACK_API_KEY', '')
@@ -88,9 +160,18 @@ class Handler(SimpleHTTPRequestHandler):
         return super().do_GET()
 
     def end_headers(self):
-        self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
-        self.send_header('Pragma', 'no-cache')
-        self.send_header('Expires', '0')
+        if IS_PROD:
+            # Production: cache static assets, always revalidate HTML.
+            p = urllib.parse.urlparse(self.path).path.lower()
+            if p.endswith(('.css', '.js', '.webp', '.png', '.jpg', '.jpeg', '.svg', '.ico', '.woff', '.woff2', '.mp4')):
+                self.send_header('Cache-Control', 'public, max-age=86400')
+            else:
+                self.send_header('Cache-Control', 'no-cache')
+        else:
+            # Dev preview: never cache, so edits show up on refresh.
+            self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            self.send_header('Pragma', 'no-cache')
+            self.send_header('Expires', '0')
         SimpleHTTPRequestHandler.end_headers(self)
 
     def _google_route(self, origin, destination):
@@ -266,6 +347,7 @@ class Handler(SimpleHTTPRequestHandler):
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    server = HTTPServer(('0.0.0.0', port), Handler)
-    print(f'Serving on port {port}')
+    server = ThreadingHTTPServer(('0.0.0.0', port), Handler)
+    print(f'Serving on port {port} ({"production" if IS_PROD else "dev"}; '
+          f'{len(REDIRECTS_EXACT)} exact + {len(REDIRECT_PREFIXES)} prefix redirects loaded)')
     server.serve_forever()
