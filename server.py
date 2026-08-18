@@ -5,7 +5,26 @@ import urllib.parse
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
 class Handler(SimpleHTTPRequestHandler):
+    def _www_redirect(self):
+        """301 www.purpleheartlimo.com -> purpleheartlimo.com, preserving
+        the full path + query string. Runs before any other routing."""
+        host = (self.headers.get('Host') or '').split(':')[0].strip().lower()
+        if host == 'www.purpleheartlimo.com':
+            self.send_response(301)
+            self.send_header('Location', 'https://purpleheartlimo.com' + self.path)
+            self.send_header('Cache-Control', 'max-age=3600')
+            SimpleHTTPRequestHandler.end_headers(self)
+            return True
+        return False
+
+    def do_HEAD(self):
+        if self._www_redirect():
+            return
+        return super().do_HEAD()
+
     def do_GET(self):
+        if self._www_redirect():
+            return
         if self.path == '/config.js':
             key = os.environ.get('AVIATIONSTACK_API_KEY', '')
             ejs_pub  = os.environ.get('EMAILJS_PUBLIC_KEY', '')
