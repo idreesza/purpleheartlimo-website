@@ -21,3 +21,9 @@ response header). It is NOT on Netlify and NOT on Hostinger anymore — verify w
 **How to apply:** any redirect/header change must be added to `.replit`
 `[[deployment.rewrites]]` (and optionally mirrored into netlify.toml → gen_htaccess
 for portability). Changes go live only after the user republishes the deployment.
+
+## Update (2026-08-17)
+Deployment config switched to **Autoscale** running `python3 server.py` (takes effect on next republish).
+- server.py now handles: www→apex 301 (Host header check, before all routing), legacy-slug 301/410s parsed from netlify.toml at startup, custom 404.html, env-aware cache headers (`REPLIT_DEPLOYMENT` ⇒ prod caching; dev stays no-store).
+- **Why:** static deploys can't 301 and never run server.py; user needed a server-level www redirect (DNS redirects can't do HTTPS).
+- **How to apply:** add/change redirects in netlify.toml (single source of truth) and restart/republish — do NOT add `.replit [[deployment.rewrites]]` anymore. Stale `/es → /es/limo-service-dallas-tx/` rules were removed when the real /es/ homepage shipped.

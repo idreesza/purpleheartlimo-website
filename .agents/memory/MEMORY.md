@@ -12,7 +12,7 @@
 - [Netlify redirect architecture](netlify-redirect-architecture.md) — redirects live in netlify.toml (NO _redirects/_public); rates.html & service-areas.html are LIVE, don't redirect them.
 - [Blog folder-post playbook](blog-folder-post-playbook.md) — folder posts need MANUAL inbound links (index card + sitemap + cross-links); FAQPage JSON-LD needs matching visible FAQ.
 - [es/ link repoint gotcha](es-link-repoint-gotcha.md) — blanket replacing /fleet.html→/es/ in es pages breaks the 🌐 English / lang-toggle links; exclude those + hreflang.
-- [Live deploy host reality](live-deploy-host.md) — live domain now serves from the Replit STATIC deployment; netlify.toml/.htaccess are ignored live; redirects = .replit [[deployment.rewrites]] (no 301s).
+- [Live deploy host reality](live-deploy-host.md) — deploy config is now AUTOSCALE running server.py (real 301s; redirects load FROM netlify.toml at startup); static rewrites obsolete after next republish.
 - [Stale SEO audit 404s](seo-audit-stale-404s.md) — SEMrush/GSC 404s here often crawled the pre-Netlify host; verify the file exists before "fixing" — usually a slug-mismatch redirect, not a missing page.
 - [AI-readiness fixes](ai-readiness-fixes.md) — llms.txt & AI-bot robots already exist; headers go in netlify.toml not _headers; external prompts shipped WRONG phone — site truth is (833) 740-0700 / /booking.html.
 - [Theme is body-class gated](dark-theme-body-class.md) — light/dark gated by body classes (dark-theme/hdr-v2/home-active); purple hides in 4 CSS layers + JS hover fallbacks — grep constants list.
