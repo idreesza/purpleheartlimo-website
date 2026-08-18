@@ -133,7 +133,7 @@ li strong{{color:#fff;}}
 </head>
 <body>
 <nav class="nav"><div class="ni">
-<a href="/" class="lw"><img src="/logo.webp" alt="Purple Heart Limo"><div><div class="lt">Purple Heart Limo</div><span class="ls">Texan Owned · Est. 2020</span></div></a>
+<a href="/" class="lw"><img src="/logo.webp" alt="Purple Heart Limo"><div><div class="lt">Purple Heart Limo</div><span class="ls">Texan Owned</span></div></a>
 <div class="nl"><a href="/">Home</a><a href="/fleet.html">Fleet</a><a href="/services.html">Services</a><a href="/blog/">Blog</a><a href="/contact.html">Contact</a></div>
 <a href="/booking.html" class="bb">Book Now</a>
 </div></nav>

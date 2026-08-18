@@ -425,7 +425,7 @@ DICT = {
     "Chat on WhatsApp": "Chatear en WhatsApp",
     "Call": "Llamar",
     # Common short
-    "Texan Owned · Est. 2020": "Dueño Tejano · Fundada 2020",
+    "Texan Owned": "Dueño Tejano",
     "Texan Owned · TX": "Dueño Tejano · TX",
     "Texan-Owned · Austin, TX": "Dueño Tejano · Austin, TX",
     "Texan-Owned · Dallas-Fort Worth, TX": "Dueño Tejano · Dallas-Fort Worth, TX",
