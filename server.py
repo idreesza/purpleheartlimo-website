@@ -64,9 +64,10 @@ class Handler(SimpleHTTPRequestHandler):
         return SimpleHTTPRequestHandler.send_error(self, code, message, explain)
 
     def do_HEAD(self):
-        if self._www_redirect():
-            return
-        return super().do_HEAD()
+        # HEAD must mirror GET exactly (same status + headers, no body), so
+        # it goes through the same routing; body writes are gated on
+        # self.command inside the handlers.
+        return self._route()
 
     def _legacy_redirect(self):
         """Legacy-slug 301s/410s ported from netlify.toml (the static
@@ -93,6 +94,10 @@ class Handler(SimpleHTTPRequestHandler):
         return True
 
     def do_GET(self):
+        return self._route()
+
+    def _route(self):
+        """Shared routing for GET and HEAD."""
         if self._www_redirect():
             return
         if self._legacy_redirect():
@@ -109,8 +114,10 @@ class Handler(SimpleHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-Type', 'application/javascript')
             self.send_header('Cache-Control', 'no-store')
+            self.send_header('Content-Length', str(len(js.encode())))
             self.end_headers()
-            self.wfile.write(js.encode())
+            if self.command != 'HEAD':
+                self.wfile.write(js.encode())
             return
 
         if self.path.startswith('/api/positioning'):
@@ -157,6 +164,8 @@ class Handler(SimpleHTTPRequestHandler):
             if not os.path.isfile(fs_path) and os.path.isfile(fs_path + '.html'):
                 self.path = clean + '.html'
 
+        if self.command == 'HEAD':
+            return super().do_HEAD()
         return super().do_GET()
 
     def end_headers(self):
@@ -339,8 +348,10 @@ class Handler(SimpleHTTPRequestHandler):
         self.send_header('Content-Type', 'application/json')
         self.send_header('Cache-Control', 'no-store')
         self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Content-Length', str(len(body)))
         self.end_headers()
-        self.wfile.write(body)
+        if self.command != 'HEAD':
+            self.wfile.write(body)
 
     def log_message(self, format, *args):
         print(format % args)
