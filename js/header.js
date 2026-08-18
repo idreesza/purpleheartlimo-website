@@ -4,7 +4,7 @@
    handled by js/nav-dropdown.js; the mobile menu by each page's
    toggleMenu(). */
 (function () {
-  var ES_PAGES = ['/fleet.html', '/booking.html', '/contact.html', '/limo-service-austin-tx/', '/limo-service-dallas-tx/', '/limo-service-houston-tx/'];
+  var ES_PAGES = ['/', '/fleet.html', '/booking.html', '/contact.html', '/limo-service-austin-tx/', '/limo-service-dallas-tx/', '/limo-service-houston-tx/'];
 
   function _altUrlForLang(targetLang) {
     var path = window.location.pathname;
