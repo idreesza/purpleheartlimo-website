@@ -5,7 +5,7 @@
 - [csel vs mask-image marquee](csel-marquee-stacking.md) — dropdown hid behind fleet strip; elevate `.csel.open` wrapper (not just list), clear `.open` on all close paths.
 - [Clear header is home-only](clear-header-home-only.md) — navbar is one global element; transparent treatment gated by body.home-active (home/es-home) or it breaks light pages.
 - [Dallas geo / map-pack strategy](dallas-geo-map-pack-strategy.md) — only physical presence is Richardson TX: can rank Dallas/DFW map pack, NOT Austin map pack; Austin is organic-only.
-- [hreflang reciprocity](hreflang-reciprocity.md) — homepage has no Spanish twin; never add an `es` hreflang to it until a real /es/ homepage exists.
+- [hreflang reciprocity](hreflang-reciprocity.md) — /es/ homepage now EXISTS (built from legacy es-home block); EN home ↔ /es/ hreflang are reciprocal — keep both in sync.
 - [Homepage scoping rules](homepage-dual-hero.md) — scope home-only styling to `#home-page`; `.hero` is shared by Spanish home and button classes are global across service pages.
 - [Semrush "only one internal link"](internal-link-audit.md) — it means INBOUND links; fix blog posts with scripts/add_related_links.py related blocks.
 - [Netlify clean-URL blog redirects](netlify-clean-url-redirects.md) — .html->extensionless needs force=true (existing files beat non-forced); keep scripts/data/*.json .html.
