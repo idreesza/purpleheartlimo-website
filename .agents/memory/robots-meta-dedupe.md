@@ -11,3 +11,9 @@ Every indexable page already has ONE full robots directive:
 **Why:** Google honors the most restrictive of conflicting robots metas, and SEO audits flag duplicates. Adding image-preview directives to a noindex page is pointless.
 
 **How to apply:** `rg -c 'name="robots"'` per file to find duplicates; the keeper is the long directive with max-image-preview.
+
+Any existing `noindex` directive is authoritative even when the filename is not `404` or `thank-you`; sitewide normalizers must preserve it and exclude that canonical URL from the sitemap.
+
+**Why:** inferring indexability only from filenames can silently expose private, duplicate, or utility pages.
+
+**How to apply:** determine indexability from the existing robots content first, with filename rules used only as a fallback for known utility pages.

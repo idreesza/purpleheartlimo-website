@@ -1,0 +1,8 @@
+.phl-mobile-call-bar{display:none}
+@media(max-width:768px){
+  body{padding-bottom:max(64px,calc(56px + env(safe-area-inset-bottom)))}
+  .phl-mobile-call-bar{position:fixed;z-index:2147483000;left:0;right:0;bottom:0;display:block;padding:8px 12px max(8px,env(safe-area-inset-bottom));background:#16051f;border-top:1px solid rgba(212,175,55,.45);box-shadow:0 -8px 24px rgba(0,0,0,.24)}
+  .phl-mobile-call-bar__link{display:flex;align-items:center;justify-content:center;min-height:46px;border-radius:10px;background:#d4af37;color:#120817!important;font:700 16px/1.2 Inter,Arial,sans-serif;text-decoration:none!important}
+  .phl-mobile-call-bar__link:focus-visible{outline:3px solid #fff;outline-offset:2px}
+  body:has(.mobile-bar) .phl-mobile-call-bar{display:none}
+}

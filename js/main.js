@@ -130,6 +130,7 @@ function initContactForm() {
 
       if (res.ok && data.success) {
         showAlert(alertSuccess, data.message || "✅ Request received! We'll call or text you within 5 minutes.");
+        if (window.PHLTrackLead) window.PHLTrackLead(form);
         form.reset();
         document.getElementById('cf-flight-row').style.display = 'none';
       } else {

@@ -156,7 +156,7 @@ document.getElementById('bookingForm').addEventListener('submit', async function
   try{
     const res=await fetch('/.netlify/functions/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     const json=await res.json();
-    if(res.ok&&json.success){ok.textContent="\\u2713 Booking request received! We'll confirm within 30 minutes. Check your email and phone.";ok.classList.add('show');this.reset();}
+    if(res.ok&&json.success){ok.textContent="\\u2713 Booking request received! We'll confirm within 30 minutes. Check your email and phone.";ok.classList.add('show');if(window.PHLTrackLead)window.PHLTrackLead(this);this.reset();}
     else{throw new Error(json.error||'Error');}
   }catch{err.textContent="Something went wrong. Please call us directly at %s.";err.classList.add('show');}
   finally{btn.textContent=orig;btn.disabled=false;}

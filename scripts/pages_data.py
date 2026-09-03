@@ -26,6 +26,8 @@ def build_pages(STD_WHY, AUSTIN_AREAS, DALLAS_AREAS):
         ("/dfw-airport-car-service/", "DFW Airport Car Service"),
         ("/dallas-wedding-transportation/", "Dallas Wedding Transportation"),
         ("/dallas-party-bus/", "Dallas Party Bus"),
+        ("/prom-limo-rental-dallas-tx/", "Dallas Prom Limo"),
+        ("/limo-service-addison-tx/", "Addison Limo Service"),
         ("/limo-service-dallas-tx/", "Dallas Limo Service"),
     ]
     dallas_cities = [
@@ -1072,6 +1074,111 @@ def build_pages(STD_WHY, AUSTIN_AREAS, DALLAS_AREAS):
             ("Can you handle Fort Worth weddings and large groups?", "Yes \u2014 stretch limousines, luxury SUVs, Sprinters and party buses for weddings, quincea\u00f1eras and group celebrations across Fort Worth and the Metroplex."),
         ],
         "related": rel(dallas_cities, "/limo-service-fort-worth-tx/") + [("/dallas-wedding-transportation/", "Dallas Wedding Transportation")],
+    })
+
+    # 21. Prom & special-event limo Dallas
+    pages.append({
+        "slug": "prom-limo-rental-dallas-tx",
+        "title": "Prom Limo Rental Dallas TX | Safe Group Rides | PHL",
+        "meta": "Prom limo rental in Dallas with professional chauffeurs, parent-ready trip plans, stretch limos, SUVs, Sprinters and party buses. Call for a flat-rate quote.",
+        "schema_name": "Purple Heart Limo — Prom Limo Rental Dallas",
+        "image": "stretch-limo.webp", "areas": DALLAS_AREAS,
+        "locality": "Dallas", "reviews": 214,
+        "hub_slug": DAL_HUB[0], "hub_name": DAL_HUB[1], "crumb": "Dallas Prom Limo",
+        "badge": "🎓 Prom & Special Events · Dallas-Fort Worth",
+        "h1_main": "Prom Limo Rental", "h1_em": "Dallas, TX",
+        "hero_p": "Safe, polished prom transportation across Dallas-Fort Worth with professional chauffeurs, confirmed pickup plans, and the right vehicle for couples or full groups. Choose a stretch limousine, luxury SUV, executive Sprinter, or party bus and get a clear quote before the big night.",
+        "stats": [("4.9★", "Average Rating"), ("24/7", "Reservations"), ("5–30", "Group Sizes"), ("$0", "Surge Fees")],
+        "svc_label": "Dallas Prom Transportation", "svc_title": "A Vehicle for Every Prom Group",
+        "svc_desc": "We match passenger count, formalwear comfort, photo plans, luggage, and after-prom stops to a confirmed vehicle.",
+        "cards": [
+            ("✨", "Stretch Limousine", "Classic prom arrival for couples and small groups with coordinated pickup timing."),
+            ("🚌", "Party Bus", "Keep larger friend groups together between photos, dinner, the venue, and home."),
+            ("🚐", "Executive Sprinter", "Comfortable group seating with easier entry, climate control, and room for formalwear."),
+            ("🚙", "Luxury SUV", "Discreet, polished transportation for couples, parents, and smaller groups."),
+            ("📸", "Photo & Dinner Stops", "Build planned stops into the itinerary without splitting the group between cars."),
+            ("🛡️", "Parent-Ready Plan", "Confirmed chauffeur, vehicle, pickup contacts, addresses, and return schedule."),
+        ],
+        "body": [
+            ("Prom Transportation Built Around Safety", [
+                "A Dallas prom night can involve school photos, dinner, the dance, an after-prom event, and several home addresses spread across the Metroplex. Purple Heart Limo turns that complicated evening into one confirmed transportation plan. Parents receive a professional point of contact, the vehicle and chauffeur are scheduled before the event, and the group stays together instead of relying on multiple teen drivers or last-minute rideshares.",
+                "Our team helps choose realistic pickup times around Dallas traffic and venue arrival windows. We serve schools and families in Dallas, Plano, Frisco, Addison, Arlington, Richardson, McKinney, Irving, Fort Worth, and surrounding DFW communities. Every quote is based on the actual itinerary, passenger count, vehicle, and reservation duration, with no rideshare-style surge pricing.",
+            ]),
+            ("Choosing the Right Prom Vehicle", [
+                "A stretch limousine works well for the traditional prom experience and elegant arrival photos. An executive Sprinter is often more practical for a larger group because passengers can enter more easily and formal clothing has more room. Party buses suit groups that want everyone together for multiple stops, while a Cadillac Escalade or similar luxury SUV is ideal for a couple or small party.",
+                "Passenger capacity is only one part of the decision. Tell us about dresses, jackets, photo props, coolers, and any items that need extra space. Browse the <a href=\"/fleet.html\">Purple Heart Limo fleet</a>, then call so we can confirm which vehicle best fits the group instead of squeezing the reservation into the wrong layout.",
+            ]),
+            ("Planning the Dallas Prom Itinerary", [
+                "The best prom schedules include complete addresses, one lead contact, enough time for group photos, a firm dinner reservation, the school venue's arrival instructions, and a clear return plan. If several families are involved, select one or two central pickup points to reduce delays. We can also plan an hourly charter when the group needs the vehicle to remain available through several stops.",
+                "Reserve early for April and May weekends because stretch limousines and party buses are limited. For other milestone events, explore our <a href=\"/dallas-party-bus/\">Dallas party bus service</a> and <a href=\"/dallas-wedding-transportation/\">Dallas wedding transportation</a>. Ready to plan? <a href=\"/booking.html\">Request a quote</a> or call <a href=\"tel:+18337400700\">(833) 740-0700</a>.",
+            ]),
+        ],
+        "form_title": "Request a Dallas Prom Limo Quote", "form_btn": "Plan Prom Transportation",
+        "service_opts": ["Prom", "Homecoming", "Graduation", "Quinceañera", "Birthday", "Other Special Event"],
+        "vehicle_opts": ["Stretch Limousine", "Luxury SUV", "Executive Sprinter", "Party Bus", "Executive Sedan"],
+        "pickup_ph": "School, home, or photo location in DFW", "city_val": "Dallas TX",
+        "why_title": "Why Dallas Families Choose Purple Heart", "why": STD_WHY,
+        "faq_title": "Dallas Prom Limo FAQ",
+        "faqs": [
+            ("How far ahead should we reserve a Dallas prom limo?", "Reserve as early as possible for April and May weekends because stretch limousines, Sprinters, and party buses are limited."),
+            ("Can parents receive the chauffeur and trip details?", "Yes. We confirm the reservation contact, vehicle, pickup plan, addresses, and schedule before service."),
+            ("Can the group stop for photos and dinner?", "Yes. Include every planned stop when requesting the quote so the itinerary and reservation time are accurate."),
+            ("Which vehicle is best for a prom group?", "It depends on passenger count and space needs. We offer stretch limousines, SUVs, Sprinters, and party buses."),
+        ],
+        "related": rel(dallas_related, "/prom-limo-rental-dallas-tx/") + [("/fleet.html", "View Our Fleet")],
+    })
+
+    # 22. Addison limo service
+    pages.append({
+        "slug": "limo-service-addison-tx",
+        "title": "Limo Service Addison TX | Airport & Event Rides | PHL",
+        "meta": "Limo service in Addison, TX for DFW and Love Field transfers, Restaurant Row, corporate travel, weddings and groups. Professional chauffeurs, 24/7 reservations.",
+        "schema_name": "Purple Heart Limo — Limo Service Addison TX",
+        "image": "luxsuv-escalade.webp",
+        "areas": ["Addison", "Dallas", "Richardson", "Plano", "Farmers Branch", "Carrollton"],
+        "locality": "Addison", "reviews": 132,
+        "hub_slug": DAL_HUB[0], "hub_name": DAL_HUB[1], "crumb": "Addison Limo Service",
+        "badge": "📍 Addison · North Dallas",
+        "h1_main": "Limo Service", "h1_em": "Addison, TX",
+        "hero_p": "Professional limo and black car service in Addison for airport transfers, Restaurant Row dinners, corporate meetings, weddings, and group events. Get a confirmed chauffeur, vehicle, and flat-rate quote with 24/7 reservation support.",
+        "stats": [("4.9★", "Average Rating"), ("DFW + DAL", "Airports"), ("24/7", "Reservations"), ("$0", "Surge Fees")],
+        "svc_label": "Addison Chauffeured Transportation", "svc_title": "Airport, Business & Event Service",
+        "svc_desc": "From Addison Airport and Restaurant Row to DFW, Love Field, and North Dallas offices, every trip is planned in advance.",
+        "cards": [
+            ("✈️", "DFW Airport Service", "Flight-monitored pickups and flat-rate transfers between Addison and DFW."),
+            ("🛬", "Love Field Transfers", "Prearranged car service to DAL with luggage-ready sedans and SUVs."),
+            ("🍽️", "Restaurant Row", "Dinner, celebration, and nightlife transportation without parking concerns."),
+            ("💼", "Corporate Travel", "Executive sedans and SUVs for Addison offices, hotels, and client pickups."),
+            ("💍", "Weddings & Events", "Limos, Sprinters, and group transportation for North Dallas venues."),
+            ("🚐", "Group Transportation", "Keep teams and families together with Sprinters and party buses."),
+        ],
+        "body": [
+            ("Addison's Professional Limo and Car Service", [
+                "Addison sits at the center of North Dallas business, dining, hotels, and event traffic. A short trip can still become unpredictable when the Tollway backs up, Restaurant Row fills for the evening, or a flight arrival changes. Purple Heart Limo provides prearranged Addison transportation with a professional chauffeur, a confirmed vehicle, and a schedule built around the real pickup and destination.",
+                "We serve Addison Circle, Belt Line Road, the Dallas North Tollway corridor, Addison Airport, local hotels, offices, and nearby communities including Farmers Branch, Carrollton, Richardson, Plano, and Dallas. Reservations are supported 24/7 for early flights, late dinners, executive travel, and special events.",
+            ]),
+            ("Addison Airport and Commercial Airport Transfers", [
+                "Travelers can reserve service between Addison and <a href=\"/dfw-airport-car-service/\">Dallas Fort Worth International Airport</a> or <a href=\"/car-service-dallas-love-field/\">Dallas Love Field</a>. We monitor commercial flight timing, select vehicles based on passengers and luggage, and provide pickup instructions before the trip. Private aviation passengers can also schedule direct transportation to or from Addison Airport.",
+                "A sedan suits one or two business travelers, while a luxury SUV adds luggage room for families and small groups. Executive Sprinters are available when a team needs to travel together. The quote is established from the itinerary rather than changing with app demand.",
+            ]),
+            ("Restaurant Row, Corporate Travel, and Events", [
+                "Addison's restaurants and hotels make it a natural meeting point for client dinners, birthdays, anniversaries, and nights out. Hourly service keeps the chauffeur available through multiple stops, while point-to-point service works for a defined pickup and return. Companies can use our <a href=\"/dallas-corporate-car-service/\">Dallas corporate car service</a> for executive arrivals, roadshows, group meetings, and recurring reservations.",
+                "For weddings and celebrations, we coordinate passenger counts, venue access, photo timing, and return transportation. Review <a href=\"/fleet.html\">sedans, SUVs, stretch limousines, Sprinters, and party buses</a>, then <a href=\"/booking.html\">request a quote</a>. For immediate planning help, call <a href=\"tel:+18337400700\">(833) 740-0700</a>.",
+            ]),
+        ],
+        "form_title": "Request Addison Limo Service", "form_btn": "Get an Addison Quote",
+        "service_opts": ["DFW Airport Transfer", "Love Field Transfer", "Addison Airport", "Corporate / Executive", "Restaurant / Night Out", "Wedding / Event", "Group Transportation"],
+        "vehicle_opts": ["Executive Sedan", "Luxury SUV", "Stretch Limousine", "Executive Sprinter", "Party Bus"],
+        "pickup_ph": "Addison Circle, hotel, office, or home", "city_val": "Addison TX",
+        "why_title": "Why Addison Riders Choose Purple Heart", "why": STD_WHY,
+        "faq_title": "Addison Limo Service FAQ",
+        "faqs": [
+            ("Do you provide Addison to DFW Airport car service?", "Yes. We offer 24/7, flight-monitored transfers between Addison and DFW in sedans, SUVs, and Sprinters."),
+            ("Do you serve Dallas Love Field from Addison?", "Yes. Love Field transfers are available with a confirmed vehicle and pickup plan."),
+            ("Can we book a limo for Addison Restaurant Row?", "Yes. Point-to-point or hourly service is available for dinners, celebrations, and nights out."),
+            ("What vehicles are available in Addison?", "Choose executive sedans, luxury SUVs, stretch limousines, Sprinters, or party buses based on the group and itinerary."),
+        ],
+        "related": rel(dallas_related, "/limo-service-addison-tx/") + [("/car-service-plano-tx/", "Plano Car Service"), ("/car-service-frisco-tx/", "Frisco Car Service")],
     })
 
     return pages
