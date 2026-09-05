@@ -120,6 +120,27 @@ h1,h2,h3{font-family:'Cormorant Garamond',serif;}a{text-decoration:none;color:in
 .why-card{background:var(--dark3);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.75rem;}
 .why-card h3{font-size:1.1rem;color:#fff;margin-bottom:0.5rem;}
 .why-card p{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.75;}
+.content-section{padding:5rem 5%;background:var(--dark);}
+.content-section.alt{background:var(--dark2);}
+.content-section .inner{max-width:1100px;margin:0 auto;}
+.content-copy{max-width:900px;margin:0 auto;color:rgba(255,255,255,0.62);font-size:0.96rem;line-height:1.85;}
+.content-copy p{margin:0 0 1rem;}
+.content-copy a{color:var(--gold);text-decoration:underline;text-underline-offset:3px;}
+.detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2rem;}
+.detail-card{background:var(--dark3);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:1.5rem;}
+.detail-card h3{font-size:1.25rem;color:#fff;margin-bottom:0.65rem;}
+.detail-card p,.detail-card li{color:rgba(255,255,255,0.55);font-size:0.88rem;line-height:1.7;}
+.detail-card ul{padding-left:1.1rem;margin-top:0.65rem;}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2rem;}
+.step{padding:1.4rem;border-left:2px solid var(--gold);background:rgba(255,255,255,0.03);}
+.step strong{display:block;color:var(--gold);font-size:0.78rem;letter-spacing:1px;text-transform:uppercase;margin-bottom:0.5rem;}
+.step p{color:rgba(255,255,255,0.58);font-size:0.87rem;line-height:1.65;}
+.faq-list{max-width:900px;margin:2rem auto 0;}
+.faq-list details{background:var(--dark3);border:1px solid rgba(255,255,255,0.08);border-radius:10px;margin-bottom:0.75rem;padding:1rem 1.2rem;}
+.faq-list summary{cursor:pointer;color:#fff;font-weight:600;font-size:0.98rem;}
+.faq-list p{color:rgba(255,255,255,0.58);font-size:0.9rem;line-height:1.75;padding-top:0.8rem;}
+@media(max-width:800px){.detail-grid{grid-template-columns:1fr;}.steps{grid-template-columns:1fr 1fr;}}
+@media(max-width:500px){.steps{grid-template-columns:1fr;}.content-section{padding:3.5rem 5%;}}
 footer{background:var(--dark2);border-top:1px solid rgba(255,255,255,0.07);padding:3rem 5% 1.5rem;}
 .footer-bottom{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
 .footer-bottom p{color:rgba(255,255,255,0.3);font-size:0.82rem;}
@@ -129,6 +150,7 @@ footer{background:var(--dark2);border-top:1px solid rgba(255,255,255,0.07);paddi
 </style>
 <link href="/css/global.css" rel="stylesheet"/>
 <link href="https://purpleheartlimo.com/limo-service-dallas-tx/" hreflang="en" rel="alternate"/><link href="https://purpleheartlimo.com/es/limo-service-dallas-tx/" hreflang="es" rel="alternate"/><link href="https://purpleheartlimo.com/limo-service-dallas-tx/" hreflang="x-default" rel="alternate"/><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://purpleheartlimo.com/"},{"@type":"ListItem","position":2,"name":"Dallas Limo Service","item":"https://purpleheartlimo.com/limo-service-dallas-tx/"}]}</script>
+<script id="dallas-faq-schema" type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What Dallas-Fort Worth areas do you serve?","acceptedAnswer":{"@type":"Answer","text":"Purple Heart Limo serves Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Grapevine, Southlake, McKinney, and surrounding DFW communities. Share your pickup and destination when requesting a quote so the trip can be confirmed."}},{"@type":"Question","name":"Can I book car service to DFW Airport or Dallas Love Field?","acceptedAnswer":{"@type":"Answer","text":"Yes. Request airport transportation for DFW or Dallas Love Field and include your flight details, terminal, passenger count, and luggage needs. The team can confirm the pickup plan with your reservation."}},{"@type":"Question","name":"Which vehicle should I choose for my group?","acceptedAnswer":{"@type":"Answer","text":"An executive sedan suits individual or small executive trips; an SUV adds room for passengers and bags. Stretch limousines, executive Sprinters, and party buses suit larger groups and celebrations. Include your group size and luggage in the request for a suitable recommendation."}},{"@type":"Question","name":"How is a Dallas limo service quote calculated?","acceptedAnswer":{"@type":"Answer","text":"A quote depends on the vehicle, pickup and drop-off locations, date and time, trip length, number of stops, and service type. Ask for the total quote before booking; the fleet and rates pages provide additional starting-price guidance."}},{"@type":"Question","name":"Can I arrange corporate or executive transportation?","acceptedAnswer":{"@type":"Answer","text":"Yes. Corporate and private car service can be requested for airport transfers, client pickups, meetings, roadshows, and multi-stop schedules. Provide the itinerary and passenger details so the right vehicle and timing can be arranged."}},{"@type":"Question","name":"Do you provide wedding and prom transportation?","acceptedAnswer":{"@type":"Answer","text":"Yes. Request transportation for weddings, proms, and other special occasions with the ceremony or event times, pickup locations, passenger count, and any planned stops. Availability and vehicle options are confirmed with the booking."}},{"@type":"Question","name":"How far ahead should I reserve a limo?","acceptedAnswer":{"@type":"Answer","text":"Reserve as early as possible for airport travel, weddings, proms, concerts, and busy weekends. Same-day availability may be limited, so call for time-sensitive requests."}}]}</script>
 <link rel="stylesheet" href="/css/sitewide-leads.css">
 </head>
 <body>
@@ -177,6 +199,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="svc-card"><span class="svc-icon">💍</span><h3>Weddings</h3><p>DFW venue coverage, full-day packages available</p></div>
 <div class="svc-card"><span class="svc-icon">🌙</span><h3>Uptown / Deep Ellum</h3><p>Safe, stylish group nights out in Dallas</p></div>
 <div class="svc-card"><span class="svc-icon">🛫</span><h3>Love Field</h3><p>Southwest &amp; American, same flat-rate service</p></div>
+</div>
+</div>
+</section>
+<section class="content-section" aria-labelledby="dallas-luxury-heading">
+<div class="inner">
+<div class="section-header"><span class="section-label">Private transportation, planned around you</span><h2 class="section-title" id="dallas-luxury-heading">Luxury Limo and Black Car Service in Dallas-Fort Worth</h2></div>
+<div class="content-copy">
+<p>When you search for a limo rental near me, you need more than a vehicle: you need a clear pickup plan, enough space for your party, and an easy way to reserve. Purple Heart Limo provides private transportation across the Dallas-Fort Worth area for airport runs, business travel, celebrations, and scheduled hourly service. Tell us where you are going, when you need to leave, and who is riding; we will help match the request to a practical vehicle option.</p>
+<p>Choose a black car or town car style ride when discretion and a polished arrival matter. Choose an SUV when luggage or a small group calls for more room. For occasions built around the ride itself, a stretch limousine, executive Sprinter, or party bus keeps the group together between stops. You can review the available <a href="/fleet.html">luxury vehicle fleet</a> before requesting your trip, then use the booking form below or call for help with timing and vehicle selection.</p>
+</div>
+<div class="detail-grid">
+<article class="detail-card"><h3>Airport car service</h3><p>Schedule a ride to or from DFW International or Dallas Love Field with flight details, terminal information, passenger count, and luggage notes. For airport-specific planning, see <a href="/dfw-airport-car-service/">DFW airport car service</a> or <a href="/car-service-dallas-love-field/">Love Field car service</a>.</p></article>
+<article class="detail-card"><h3>Executive &amp; corporate travel</h3><p>Private car service gives business travelers a focused way to move between the airport, office, hotel, meeting, or several appointments. Share your itinerary for an executive sedan, SUV, or group vehicle; learn more about <a href="/dallas-corporate-car-service/">Dallas corporate car service</a>.</p></article>
+<article class="detail-card"><h3>Events &amp; group rides</h3><p>Plan transportation for a wedding, prom, birthday, concert, game day, or night out without splitting the group into separate cars. A <a href="/dallas-wedding-transportation/">Dallas wedding transportation</a> request or <a href="/dallas-party-bus/">party bus inquiry</a> can include multiple pickup points and stops.</p></article>
 </div>
 </div>
 </section>
@@ -249,6 +285,50 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="why-card"><h3>✈️ DFW Flight Monitoring</h3><p>Automatic adjustment to your real flight arrival. Your driver is waiting before you reach baggage claim.</p></div>
 <div class="why-card"><h3>🏙️ Full Metroplex Coverage</h3><p>Dallas, Fort Worth, Plano, Frisco, Irving, Arlington, and all surrounding cities — one company, seamlessly.</p></div>
 </div>
+</div>
+</section>
+<section class="content-section alt" aria-labelledby="fleet-pricing-heading">
+<div class="inner">
+<div class="section-header"><span class="section-label">Choose the right ride</span><h2 class="section-title" id="fleet-pricing-heading">Fleet Options and Straightforward Quote Guidance</h2></div>
+<div class="content-copy">
+<p>Good transportation planning starts with the trip, not a one-size-fits-all package. An executive sedan is a natural fit for one to three passengers and a point-to-point airport or office trip. A luxury SUV offers additional seating and luggage capacity for families, colleagues, or VIP guests. For a larger wedding party, client group, prom group, or social outing, ask about a stretch limousine, executive Sprinter, Sprinter Jet, or party bus.</p>
+<p>Your quoted price is shaped by the vehicle requested, pickup and destination, date and time, trip duration, number of stops, and group requirements. That is why the most useful quote includes your complete itinerary instead of only a neighborhood name. Purple Heart Limo advertises flat-rate service without surge pricing; confirm the total and any trip details before you finalize the reservation. Visit <a href="/rates.html">rates and pricing</a> for starting-rate context, or send the details through the form for a trip-specific quote. Clear details up front help avoid last-minute changes to the vehicle or schedule.</p>
+</div>
+<div class="detail-grid">
+<article class="detail-card"><h3>For airport and business</h3><ul><li>Executive sedan for focused point-to-point travel</li><li>Luxury SUV for extra passengers or bags</li><li>Executive Sprinter for coordinated team arrivals</li></ul></article>
+<article class="detail-card"><h3>For milestone events</h3><ul><li>Stretch limousine for classic celebratory arrivals</li><li>Stretched SUV for groups that want more space</li><li>Discuss pickup windows and photo or venue timing early</li></ul></article>
+<article class="detail-card"><h3>For parties and groups</h3><ul><li>Party bus or Sprinter options keep guests together</li><li>Build a route around dinner, venues, or the event</li><li>Include every stop and estimated end time in your quote</li></ul></article>
+</div>
+</div>
+</section>
+<section class="content-section" aria-labelledby="service-area-heading">
+<div class="inner">
+<div class="section-header"><span class="section-label">Local DFW coverage</span><h2 class="section-title" id="service-area-heading">Limo Service Near You Across the Metroplex</h2></div>
+<div class="content-copy">
+<p>From Dallas neighborhoods and downtown hotels to Fort Worth venues and airport terminals, transportation needs often cross city lines. Purple Heart Limo serves Dallas-Fort Worth and surrounding communities including Arlington, Plano, Frisco, Irving, McKinney, Grapevine, and Southlake. If your pickup is outside the core Metroplex, ask when you request a quote; the exact route and availability can be confirmed before you book. A complete pickup address is especially helpful for hotels, event venues, gated communities, and airport-terminal pickups, where a simple meeting point can save time on the day of travel.</p>
+<p>Planning a local ride? Explore service information for <a href="/car-service-arlington-tx/">Arlington car service</a>, <a href="/car-service-plano-tx/">Plano car service</a>, <a href="/car-service-frisco-tx/">Frisco car service</a>, or <a href="/limo-service-fort-worth-tx/">Fort Worth limo service</a>. These pages make it easier to begin with the city or airport most relevant to your pickup. For a cross-Metroplex itinerary, list each stop in order and include the time you need to arrive; that information makes a more useful transportation request.</p>
+</div>
+<div class="steps" aria-label="How booking works">
+<div class="step"><strong>1. Send trip details</strong><p>Choose the service and vehicle, then add pickup, destination, date, time, passenger count, luggage, and stops.</p></div>
+<div class="step"><strong>2. Review your quote</strong><p>Confirm the vehicle fit, route, schedule, and quoted trip details with the team before reserving.</p></div>
+<div class="step"><strong>3. Receive confirmation</strong><p>After the request is accepted, keep your reservation details handy and share updates if the itinerary changes.</p></div>
+<div class="step"><strong>4. Ride with a plan</strong><p>Be ready at the confirmed pickup location and contact the team for time-sensitive changes or questions.</p></div>
+</div>
+</div>
+</section>
+<section class="content-section alt" id="faq" aria-labelledby="faq-heading">
+<div class="inner">
+<div class="section-header"><span class="section-label">Booking help</span><h2 class="section-title" id="faq-heading">Dallas Limo Service FAQs</h2><p class="section-desc">Answers to common questions before you request a Dallas-Fort Worth ride.</p></div>
+<div class="faq-list">
+<details><summary>What Dallas-Fort Worth areas do you serve?</summary><p>Purple Heart Limo serves Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Grapevine, Southlake, McKinney, and surrounding DFW communities. Share your pickup and destination when requesting a quote so the trip can be confirmed.</p></details>
+<details><summary>Can I book car service to DFW Airport or Dallas Love Field?</summary><p>Yes. Request airport transportation for DFW or Dallas Love Field and include your flight details, terminal, passenger count, and luggage needs. The team can confirm the pickup plan with your reservation.</p></details>
+<details><summary>Which vehicle should I choose for my group?</summary><p>An executive sedan suits individual or small executive trips; an SUV adds room for passengers and bags. Stretch limousines, executive Sprinters, and party buses suit larger groups and celebrations. Include your group size and luggage in the request for a suitable recommendation.</p></details>
+<details><summary>How is a Dallas limo service quote calculated?</summary><p>A quote depends on the vehicle, pickup and drop-off locations, date and time, trip length, number of stops, and service type. Ask for the total quote before booking; the fleet and rates pages provide additional starting-price guidance.</p></details>
+<details><summary>Can I arrange corporate or executive transportation?</summary><p>Yes. Corporate and private car service can be requested for airport transfers, client pickups, meetings, roadshows, and multi-stop schedules. Provide the itinerary and passenger details so the right vehicle and timing can be arranged.</p></details>
+<details><summary>Do you provide wedding and prom transportation?</summary><p>Yes. Request transportation for weddings, proms, and other special occasions with the ceremony or event times, pickup locations, passenger count, and any planned stops. Availability and vehicle options are confirmed with the booking.</p></details>
+<details><summary>How far ahead should I reserve a limo?</summary><p>Reserve as early as possible for airport travel, weddings, proms, concerts, and busy weekends. Same-day availability may be limited, so call for time-sensitive requests.</p></details>
+</div>
+<div class="hero-cta" style="justify-content:center;margin-top:2rem;"><a class="btn-gold" href="#book">Get a Dallas Limo Quote</a><a class="btn-call" href="tel:+18337400700">Call (833) 740-0700</a></div>
 </div>
 </section>
 <section style="background:var(--dark);padding:4rem 5%;">

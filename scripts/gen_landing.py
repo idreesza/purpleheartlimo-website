@@ -216,7 +216,6 @@ def schema_block(p):
             "address": {"@type": "PostalAddress", "addressLocality": p["locality"], "addressRegion": "TX", "addressCountry": "US"},
             "openingHoursSpecification": {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], "opens": "00:00", "closes": "23:59"},
             "priceRange": "$$",
-            "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": str(p["reviews"]), "bestRating": "5"},
             "sameAs": ["https://www.facebook.com/profile.php?id=61578479742416", "https://www.instagram.com/austinlimousine"],
         },
         {

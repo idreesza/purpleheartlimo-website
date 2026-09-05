@@ -14,6 +14,9 @@ import glob
 
 sys.path.insert(0, os.path.dirname(__file__))
 from blog_template import render
+from blog_addenda import BODY_ADDENDA
+import apply_sitewide_leads
+import seo_normalize
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "scripts", "data")
@@ -57,16 +60,17 @@ def build():
     sitemap_urls = []
     cards = {}
     for fname, p in posts:
+        body_html = p["body_html"] + BODY_ADDENDA.get(p["slug"], "")
         full = render(p)
         out = os.path.join(ROOT, p["path"])
         os.makedirs(os.path.dirname(out), exist_ok=True)
         with open(out, "w") as f:
             f.write(full)
-        wc = word_count(p["body_html"]) + sum(
+        wc = word_count(body_html) + sum(
             word_count(x["q"] + " " + x["a"]) for x in p["faqs"]
         )
         # internal links present in body
-        links = set(re.findall(r'href="([^"]+)"', p["body_html"]))
+        links = set(re.findall(r'href="([^"]+)"', body_html))
         main_hit = sum(1 for m in MAIN_PAGES if m != "/" and any(l == m or l.startswith(m) for l in links))
         # broken-link check across body + related
         check_urls = {l for l in links if l.startswith("/")}
@@ -109,6 +113,12 @@ def build():
                     p["card_tag"], p["card_title"], p["date_human"], p["read_time"],
                 )
                 f.write(card)
+
+    # A blog build is only complete after shared lead tracking, canonical
+    # metadata, schema normalization, sitemap generation, and the exact GA tag
+    # have been reapplied. Keeping this here makes a direct build idempotent.
+    apply_sitewide_leads.main()
+    seo_normalize.main()
 
     print("Built %d posts. Sitemap entries added: %d" % (len(posts), added))
     print("%-58s %6s %4s %5s %s" % ("path", "words", "faq", "links", "status"))

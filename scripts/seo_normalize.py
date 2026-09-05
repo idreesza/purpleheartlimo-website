@@ -18,6 +18,14 @@ TARGET_META = {
     "twitter:description", "twitter:image",
 }
 TARGET_OG = {"og:type", "og:url", "og:title", "og:description", "og:image", "og:locale"}
+NOINDEX_PATHS = {
+    "blog/limo-service-dfw-airport-complete-guide/index.html",
+    "blog/best-wedding-venues-in-dallas-dfw-limo-service/index.html",
+}
+INTERNAL_ALIASES = {
+    "/blog/limo-service-dfw-airport-complete-guide/": "/blog/dfw-airport-limo-guide.html",
+    "/blog/best-wedding-venues-in-dallas-dfw-limo-service/": "/blog/dfw-wedding-venues.html",
+}
 
 
 def files():
@@ -77,7 +85,7 @@ def is_noindex(source, path):
         if attr(tag, "name").lower() == "robots" and "noindex" in attr(tag, "content").lower():
             return True
     rel = path.relative_to(ROOT).as_posix().lower()
-    return rel == "404.html" or rel == "thank-you.html"
+    return rel in {"404.html", "thank-you.html", *NOINDEX_PATHS}
 
 
 def remove_business(source):
@@ -147,6 +155,8 @@ def business_graph():
 
 def normalize(source, path, title, desc):
     source = apply_google_tag.transform(source, path)
+    for old, new in INTERNAL_ALIASES.items():
+        source = source.replace(old, new)
     source = image_alts(remove_invalid_faq(remove_business(source)))
     noindex = is_noindex(source, path)
     url = canonical(path)

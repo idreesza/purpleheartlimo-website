@@ -12,6 +12,8 @@ A post dict has these keys:
 """
 import html as _html
 
+from blog_addenda import BODY_ADDENDA
+
 
 def _faq_jsonld(faqs):
     items = []
@@ -66,6 +68,7 @@ def render(post):
 
     t = TEMPLATE
     repl = {
+        "{{LANG}}": post.get("lang", "en"),
         "{{TITLE_TAG}}": post["title_tag"],
         "{{META_DESC}}": post["meta_desc"],
         "{{KEYWORDS}}": post["keywords"],
@@ -81,7 +84,7 @@ def render(post):
         "{{READ_TIME}}": post["read_time"],
         "{{HERO_IMG}}": post["hero_img"],
         "{{HERO_ALT}}": post["hero_alt"],
-        "{{BODY_HTML}}": post["body_html"],
+        "{{BODY_HTML}}": post["body_html"] + BODY_ADDENDA.get(post["slug"], ""),
         "{{FAQ_VISIBLE}}": _faq_visible(faq_heading, post["faqs"]),
         "{{RELATED_LIS}}": _related(post["related"]),
         "{{CTA_H3}}": post["cta_h3"],
@@ -93,7 +96,7 @@ def render(post):
 
 
 TEMPLATE = """<!DOCTYPE html>
-<html lang="en">
+<html lang="{{LANG}}">
 <head>
 <!-- Google Analytics 4 — Purple Heart Limo -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y469VZMYZT"></script>

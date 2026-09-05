@@ -29,6 +29,28 @@
   status = 301
   force  = true
 
+# Consolidate legacy blog articles that compete with stronger canonical guides.
+[[redirects]]
+  from   = "/blog/limo-service-dfw-airport-complete-guide"
+  to     = "/blog/dfw-airport-limo-guide.html"
+  status = 301
+  force  = true
+[[redirects]]
+  from   = "/blog/limo-service-dfw-airport-complete-guide/"
+  to     = "/blog/dfw-airport-limo-guide.html"
+  status = 301
+  force  = true
+[[redirects]]
+  from   = "/blog/best-wedding-venues-in-dallas-dfw-limo-service"
+  to     = "/blog/dfw-wedding-venues.html"
+  status = 301
+  force  = true
+[[redirects]]
+  from   = "/blog/best-wedding-venues-in-dallas-dfw-limo-service/"
+  to     = "/blog/dfw-wedding-venues.html"
+  status = 301
+  force  = true
+
 # ─────────────────────────────────────────────────────────────
 # 2. Redirect /thank-you to the HTML file
 # ─────────────────────────────────────────────────────────────
@@ -467,11 +489,6 @@
   status = 301
   force = true
 [[redirects]]
-  from = "/blog/dfw-airport-limo-guide.html"
-  to = "/blog/dfw-airport-limo-guide"
-  status = 301
-  force = true
-[[redirects]]
   from = "/blog/dfw-anniversary-dinner.html"
   to = "/blog/dfw-anniversary-dinner"
   status = 301
@@ -609,11 +626,6 @@
 [[redirects]]
   from = "/blog/dfw-valentines-day.html"
   to = "/blog/dfw-valentines-day"
-  status = 301
-  force = true
-[[redirects]]
-  from = "/blog/dfw-wedding-venues.html"
-  to = "/blog/dfw-wedding-venues"
   status = 301
   force = true
 [[redirects]]
@@ -785,10 +797,6 @@
   to = "/blog/best-things-to-do-in-dallas-texas-with-a-limo/"
   status = 301
 [[redirects]]
-  from = "/blog/best-wedding-venues-in-dallas-dfw-limo-service"
-  to = "/blog/best-wedding-venues-in-dallas-dfw-limo-service/"
-  status = 301
-[[redirects]]
   from = "/blog/comparing-purple-heart-limo-with-other-austin-limo-services"
   to = "/blog/comparing-purple-heart-limo-with-other-austin-limo-services/"
   status = 301
@@ -875,10 +883,6 @@
 [[redirects]]
   from = "/blog/limo-service-dallas-to-houston-tx"
   to = "/blog/limo-service-dallas-to-houston-tx/"
-  status = 301
-[[redirects]]
-  from = "/blog/limo-service-dfw-airport-complete-guide"
-  to = "/blog/limo-service-dfw-airport-complete-guide/"
   status = 301
 [[redirects]]
   from = "/blog/limo-service-from-dallas-to-austin"
