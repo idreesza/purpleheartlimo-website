@@ -4,7 +4,35 @@ These sections are kept separate from the compact JSON records so they remain
 readable and reviewable.  They are appended before each generated FAQ section.
 """
 
+BODY_REPLACEMENTS = {
+    "dfw-airport-limo-guide": [
+        (
+            "Dallas Fort Worth International is the third-busiest airport in the world, moving more than 80 million passengers a year across five terminals, so a smooth arrival is worth planning for.",
+            'DFW is one of the world\'s busiest airports and operates five terminals, so a smooth arrival is worth planning for. Passenger totals and airport rankings change; use the <a class="inline" href="https://www.dfwairport.com/guide" rel="noopener">official DFW Airport Guide</a> for current operating information.',
+        ),
+        (
+            "International arrivals almost always clear customs in <strong>Terminal D</strong>, even if your final connection used another terminal.",
+            "International arrival procedures and terminal assignments can change, so confirm the operating flight and follow current airport and airline directions rather than relying on a saved terminal assumption.",
+        ),
+        (
+            "DFW's entry plazas can back up at the toll gates during the 6–8 a.m. and 4–6 p.m. rushes, and TSA lines in Terminals A and C are heaviest on Monday mornings and Sunday evenings.",
+            'DFW roadway conditions and checkpoint demand change throughout the day. Review the airport\'s <a class="inline" href="https://www.dfwairport.com/security" rel="noopener">live security information</a>, the operating airline, and current traffic before setting the pickup time.',
+        ),
+    ],
+}
+
 BODY_ADDENDA = {
+    "dfw-airport-limo-guide": """
+<h2>Verify live DFW details before every trip</h2>
+<p><strong>Updated September 5, 2026.</strong> Airport procedures, airline assignments, construction routes, checkpoint hours, and pickup zones can change faster than a permanent guide. Use this article to organize the trip, then verify the live details with the source that controls them.</p>
+<ul>
+  <li><a class="inline" href="https://www.dfwairport.com/guide" rel="noopener">DFW Airport Guide</a> for terminal maps, construction notices, parking, accessibility, and airport services.</li>
+  <li><a class="inline" href="https://www.dfwairport.com/flights/" rel="noopener">Official DFW flight information</a> plus the operating airline for the current terminal, gate, and flight status.</li>
+  <li><a class="inline" href="https://www.dfwairport.com/security" rel="noopener">DFW security page</a> for current checkpoint locations, hours, and displayed wait times.</li>
+  <li><a class="inline" href="https://www.dfwairport.com/explore/transportation/transportation" rel="noopener">DFW ground transportation</a> for current transportation categories and airport pickup directions.</li>
+</ul>
+<p>Your reservation should include the operating flight number, a working mobile number, the exact destination, passenger count, luggage estimate, and any accessibility or child-restraint needs. After landing, collect checked bags and follow the driver's current message and airport signs to the authorized meeting point. Live airport instructions always take priority over a static terminal table or an old trip.</p>
+""",
     "tsa-precheck-dfw-guide": """
 <h2>Build a PreCheck-ready DFW departure plan</h2>
 <p>PreCheck works best when it is one verified part of a complete departure plan. Start with the reservation: the traveler name, date of birth, and Known Traveler Number should match the program record and airline booking. Complete check-in early enough to notice whether the TSA PreCheck indicator appears on the boarding pass. If it does not, contact the airline before joining a checkpoint line; airport security officers cannot repair an airline reservation.</p>

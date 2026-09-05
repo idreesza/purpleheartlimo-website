@@ -93,6 +93,35 @@ def remove_business(source):
                   "", source, flags=re.I | re.S)
 
 
+def normalize_fleet_schema(source, path):
+    """Reference one Organization from fleet Service items.
+
+    Repeating LocalBusiness as each fleet item's provider caused nine identical
+    missing-address errors. The fleet page describes services and vehicles, not
+    nine separate storefronts.
+    """
+    if path.relative_to(ROOT).as_posix() != "fleet.html":
+        return source
+
+    def repl(m):
+        try:
+            data = json.loads(m.group(3))
+        except json.JSONDecodeError:
+            return m.group(0)
+        if not (isinstance(data, dict) and data.get("@type") == "ItemList"
+                and data.get("name") == "Purple Heart Limo Fleet"):
+            return m.group(0)
+        for entry in data.get("itemListElement", []):
+            item = entry.get("item", {}) if isinstance(entry, dict) else {}
+            if isinstance(item, dict) and item.get("@type") == "Service":
+                item["provider"] = {"@id": BUSINESS_ID}
+        payload = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+        return m.group(1) + payload + "</script>"
+
+    return re.sub(r'(<script\b[^>]*\btype\s*=\s*(["\'])application/ld\+json\2[^>]*>)(.*?)</script\s*>',
+                  repl, source, flags=re.I | re.S)
+
+
 def remove_invalid_faq(source):
     visible = clean(re.sub(r"<(?:script|style)\b.*?</(?:script|style)\s*>", " ", source, flags=re.I | re.S)).casefold()
 
@@ -134,22 +163,29 @@ def image_alts(source):
     return re.sub(r"<img\b[^>]*>", repl, source, flags=re.I | re.S)
 
 
-def business_graph():
-    node = {
-        "@context": "https://schema.org",
-        "@graph": [{
+def business_graph(path):
+    areas = [
+        *[{"@type": "City", "name": x} for x in
+          ["Dallas", "Fort Worth", "Addison", "Frisco", "Plano", "Arlington"]],
+        {"@type": "Airport", "name": "Dallas Fort Worth International Airport", "iataCode": "DFW"},
+        {"@type": "Airport", "name": "Dallas Love Field", "iataCode": "DAL"},
+    ]
+    if path.relative_to(ROOT).as_posix() == "fleet.html":
+        item = {
+            "@type": "Organization", "@id": BUSINESS_ID,
+            "name": "Purple Heart Limo", "url": BASE + "/",
+            "telephone": "+18337400700", "logo": BASE + "/logo.webp",
+            "areaServed": areas,
+        }
+    else:
+        item = {
             "@type": "LimousineService", "@id": BUSINESS_ID,
             "name": "Purple Heart Limo", "url": BASE + "/",
             "telephone": "+18337400700", "priceRange": "$$",
             "openingHours": "Mo-Su 00:00-23:59",
-            "areaServed": [
-                *[{"@type": "City", "name": x} for x in
-                  ["Dallas", "Fort Worth", "Addison", "Frisco", "Plano", "Arlington"]],
-                {"@type": "Airport", "name": "Dallas Fort Worth International Airport", "iataCode": "DFW"},
-                {"@type": "Airport", "name": "Dallas Love Field", "iataCode": "DAL"},
-            ],
-        }],
-    }
+            "areaServed": areas,
+        }
+    node = {"@context": "https://schema.org", "@graph": [item]}
     return json.dumps(node, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 
 
@@ -157,7 +193,9 @@ def normalize(source, path, title, desc):
     source = apply_google_tag.transform(source, path)
     for old, new in INTERNAL_ALIASES.items():
         source = source.replace(old, new)
-    source = image_alts(remove_invalid_faq(remove_business(source)))
+    source = normalize_fleet_schema(
+        image_alts(remove_invalid_faq(remove_business(source))), path
+    )
     noindex = is_noindex(source, path)
     url = canonical(path)
 
@@ -190,7 +228,7 @@ def normalize(source, path, title, desc):
         f'<meta name="twitter:image" content="{image}">',
     ]
     if not noindex:
-        tags.append(f'<script id="seo-business-graph" type="application/ld+json">{business_graph()}</script>')
+        tags.append(f'<script id="seo-business-graph" type="application/ld+json">{business_graph(path)}</script>')
 
     marker = apply_google_tag.GOOGLE_TAG
     pos = source.find(marker)

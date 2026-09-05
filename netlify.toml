@@ -87,6 +87,22 @@
   to     = "/services.html"
   status = 301
 [[redirects]]
+  from   = "/services"
+  to     = "/services.html"
+  status = 301
+[[redirects]]
+  from   = "/cancellation-policy"
+  to     = "/cancellation-policy.html"
+  status = 301
+[[redirects]]
+  from   = "/es"
+  to     = "/es/"
+  status = 301
+[[redirects]]
+  from   = "/es/fleet"
+  to     = "/es/fleet.html"
+  status = 301
+[[redirects]]
   from   = "/rates.html"
   to     = "/fleet.html"
   status = 301
@@ -365,6 +381,10 @@
 # --- GSC "Not found (404)" batch 2026-05-29 (old AI posts → closest live article) ---
 [[redirects]]
   from = "/blog/comparing-limo-services-in-austin--what-sets-purple-heart-apart"
+  to = "/blog/comparing-purple-heart-limo-with-other-austin-limo-services/"
+  status = 301
+[[redirects]]
+  from = "/blog/comparing-luxury-transportation-options-in-austin--what-sets-us-apart"
   to = "/blog/comparing-purple-heart-limo-with-other-austin-limo-services/"
   status = 301
 # SEMrush 2026-06 audit: this exact slug was reported 404; the real article

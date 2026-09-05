@@ -794,7 +794,7 @@ def build_pages(STD_WHY, AUSTIN_AREAS, DALLAS_AREAS):
                 "As a veteran-owned company, we hold ourselves to a military standard of punctuality and presentation \u2014 ideal for executives, event guests and families who expect their ride to be the easy part of the day.",
             ]),
             ("Events at The Star & Beyond", [
-                "Frisco is built for events, and parking near The Star, Toyota Stadium or a PGA Frisco tournament can be a headache. We drop you at the entrance and pick you up after, so you skip the lots and the crowds. Book by the hour for multi-stop nights that include dinner at The Star District or drinks afterward.",
+                "Frisco is built for events, and parking near The Star, Toyota Stadium, Universal Kids Resort or a PGA Frisco tournament can be a headache. We drop you at the entrance and pick you up after, so you skip the lots and the crowds. Families can use our <a href=\"/blog/universal-kids-resort-frisco-family-guide/\">current Universal Kids Resort Frisco guide</a> to verify official park information and plan an airport-to-resort ride.",
             ]),
             ("Airport & Corporate Travel From Frisco", [
                 "We provide flight-monitored, flat-rate transfers from Frisco to both <a href=\"/dfw-airport-car-service/\">DFW International</a> and <a href=\"/car-service-dallas-love-field/\">Dallas Love Field</a>. For regular business travel, our <a href=\"/dallas-corporate-car-service/\">Dallas corporate car service</a> adds account billing and priority scheduling.",

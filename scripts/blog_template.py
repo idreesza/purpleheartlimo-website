@@ -11,8 +11,9 @@ A post dict has these keys:
   cta_h3, cta_p
 """
 import html as _html
+import json as _json
 
-from blog_addenda import BODY_ADDENDA
+from blog_addenda import BODY_ADDENDA, BODY_REPLACEMENTS
 
 
 def _faq_jsonld(faqs):
@@ -49,6 +50,23 @@ def _related(related):
     return "".join(lis)
 
 
+def _breadcrumb_jsonld(post):
+    if not post.get("breadcrumb_schema"):
+        return ""
+    node = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://purpleheartlimo.com/"},
+            {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://purpleheartlimo.com/blog/"},
+            {"@type": "ListItem", "position": 3, "name": post["breadcrumb_label"], "item": post["url"]},
+        ],
+    }
+    return '<script type="application/ld+json">%s</script>' % _json.dumps(
+        node, ensure_ascii=False, separators=(",", ":")
+    ).replace("</", "<\\/")
+
+
 def render(post):
     faq_heading = post.get("faq_heading", "Frequently Asked Questions")
     blogposting = (
@@ -66,6 +84,10 @@ def render(post):
         post["url"],
     )
 
+    body_html = post["body_html"]
+    for old, new in BODY_REPLACEMENTS.get(post["slug"], []):
+        body_html = body_html.replace(old, new)
+
     t = TEMPLATE
     repl = {
         "{{LANG}}": post.get("lang", "en"),
@@ -77,6 +99,7 @@ def render(post):
         "{{OG_DESC}}": post["og_desc"],
         "{{BLOGPOSTING_JSONLD}}": blogposting,
         "{{FAQ_JSONLD}}": _faq_jsonld(post["faqs"]),
+        "{{BREADCRUMB_JSONLD}}": _breadcrumb_jsonld(post),
         "{{BREADCRUMB_LABEL}}": post["breadcrumb_label"],
         "{{H1}}": post["h1"],
         "{{H1_EM}}": post["h1_em"],
@@ -84,7 +107,7 @@ def render(post):
         "{{READ_TIME}}": post["read_time"],
         "{{HERO_IMG}}": post["hero_img"],
         "{{HERO_ALT}}": post["hero_alt"],
-        "{{BODY_HTML}}": post["body_html"] + BODY_ADDENDA.get(post["slug"], ""),
+        "{{BODY_HTML}}": body_html + BODY_ADDENDA.get(post["slug"], ""),
         "{{FAQ_VISIBLE}}": _faq_visible(faq_heading, post["faqs"]),
         "{{RELATED_LIS}}": _related(post["related"]),
         "{{CTA_H3}}": post["cta_h3"],
@@ -117,7 +140,7 @@ TEMPLATE = """<!DOCTYPE html>
 <meta property="og:description" content="{{OG_DESC}}">
 <meta property="og:type" content="article">
 <script type="application/ld+json">{{BLOGPOSTING_JSONLD}}</script>
-<script type="application/ld+json">{{FAQ_JSONLD}}</script>
+<script type="application/ld+json">{{FAQ_JSONLD}}</script>{{BREADCRUMB_JSONLD}}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>

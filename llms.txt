@@ -96,7 +96,7 @@ Houston, Sugar Land, The Woodlands, Katy, Pearland, Conroe, Spring, Cypress, Lea
 ## Key blog posts
 
 - [DFW & 2026 FIFA World Cup limo guide](https://purpleheartlimo.com/blog/dfw-world-cup-2026)
-- [DFW Airport limo & car service guide](https://purpleheartlimo.com/blog/dfw-airport-limo-guide)
+- [DFW Airport limo & car service guide](https://purpleheartlimo.com/blog/dfw-airport-limo-guide.html)
 - [DFW rooftop bars guide](https://purpleheartlimo.com/blog/dfw-rooftop-bars)
 - [Uptown Dallas guide](https://purpleheartlimo.com/blog/uptown-dallas-guide)
 - [Dallas luxury hotels guide](https://purpleheartlimo.com/blog/dallas-hotels-guide)

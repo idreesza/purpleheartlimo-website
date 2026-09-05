@@ -13,13 +13,18 @@ DISCOUNT_LINE = "Mention this guide when you book and save up to <strong>$25</st
 def render(slug, title, og_title, description, keywords, h1, dek, hero_tag,
            location_label, body_html, faqs, breadcrumb_label,
            published="2026-05-27", read_time="9 min read",
-           geo_region="US-TX", geo_place="Texas", geo_pos="32.7767;-96.7970"):
+           geo_region="US-TX", geo_place="Texas", geo_pos="32.7767;-96.7970",
+           modified=None, cta_title="Save Up to $25 on Your First Ride",
+           cta_copy="Pair your trip with Purple Heart Limo's flat-rate, no-surge luxury chauffeur service. Mention this guide when you book and we'll take up to $25 off your first ride.",
+           cta_button="Book Your Ride →", date_display=None):
+    modified = modified or TODAY
+    date_display = date_display or published
     canon = f"{SITE}/blog/{slug}/"
     blogposting = {
         "@context":"https://schema.org","@type":"BlogPosting",
         "headline": h1[:110], "description": description[:300],
         "image": f"{SITE}/images/og-image.jpg",
-        "datePublished": published, "dateModified": TODAY,
+        "datePublished": published, "dateModified": modified,
         "author":{"@type":"Organization","name":"Purple Heart Limo","url":SITE},
         "publisher":{"@type":"Organization","name":"Purple Heart Limo",
                      "logo":{"@type":"ImageObject","url":f"{SITE}/logo.webp"}},
@@ -142,7 +147,7 @@ li strong{{color:#fff;}}
 <div class="bc"><a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; {breadcrumb_label}</div>
 <div class="tg">{hero_tag}</div>
 <h1>{h1}</h1>
-<div class="mt">Purple Heart Limo Team · {published} · {location_label} · {read_time}</div>
+<div class="mt">Purple Heart Limo Team · {date_display} · {location_label} · {read_time}</div>
 <p class="it">{dek}</p>
 </div></section>
 
@@ -150,9 +155,9 @@ li strong{{color:#fff;}}
 {body_html}
 
 <div class="ct">
-<h3>Save Up to $25 on Your First Ride</h3>
-<p>Pair your trip with Purple Heart Limo's flat-rate, no-surge luxury chauffeur service. Mention this guide when you book and we'll take up to $25 off your first ride.</p>
-<a href="/booking.html">Book Your Ride →</a>
+<h3>{cta_title}</h3>
+<p>{cta_copy}</p>
+<a href="/booking.html">{cta_button}</a>
 </div>
 
 <h2>Frequently Asked Questions</h2>
@@ -537,107 +542,85 @@ JSX_FAQS = [
 # POST 4 — UNIVERSAL KIDS RESORT FRISCO
 # ============================================================
 UNIVERSAL_BODY = """
-<p>Frisco, Texas — a city that's grown from 33,000 people in 2000 to nearly 240,000 today — is about to add the most ambitious family attraction in its history. <strong>Universal Kids Resort</strong> is a brand-new, ground-up theme park from Universal Destinations & Experiences, purpose-built for families with children ages 3 to 9. It's a different model from the Orlando and Hollywood parks: smaller in footprint, focused entirely on younger kids, and designed so that a four-year-old can enjoy everything in the park without a single "you must be this tall" disappointment.</p>
+<p><strong>Updated September 5, 2026:</strong> Universal Kids Resort is now open in Frisco, Texas. The park welcomed its first guests on July 1, 2026, and is Universal's first theme park designed specifically around families with young children. This guide replaces the pre-opening projections with current, official planning information.</p>
 
-<p>Here's what we know, what to expect when it opens, and how to plan a Universal Kids Resort family trip — including how Purple Heart Limo can carry you, the bags, and the car seats from DFW or Love Field straight to the resort door.</p>
+<p>The main park entrance is at <strong>1 Universal Parkway, Frisco, TX 75033</strong>. The official hotel entrance is at <strong>5700 Panther Creek Parkway, Frisco, TX 75033</strong>. Before traveling, verify tickets, operating hours, attraction requirements, and seasonal closures on the <a href="https://www.universalkidsresort.com/" style="color:#C9A84C" rel="noopener">official Universal Kids Resort website</a>.</p>
 
-<h2>What Is Universal Kids Resort?</h2>
-<p>Universal Kids Resort is being built on a 97-acre site in Frisco, just east of the Dallas North Tollway near Panther Creek Parkway. It will include:</p>
+<h2>What Families Will Find at Universal Kids Resort</h2>
+<p>The smaller-scale Frisco resort combines a theme park created for young children with a 300-room hotel. Universal's official information describes family-friendly attractions, shows, character encounters, interactive play, and places for families to rest together. The park welcomes guests of all ages, but the experience is intentionally right-sized for families with young children.</p>
+
+<p>There are seven officially announced lands:</p>
 <ul>
-<li><strong>A daytime theme park</strong> with multiple themed lands inspired by Universal's classic family-friendly IP — DreamWorks characters, Jurassic World favorites scaled for younger kids, and original characters created for the park</li>
-<li><strong>An on-site hotel</strong> with around 300 themed guest rooms — every room designed to extend the storytelling</li>
-<li><strong>Interactive land-based experiences</strong> instead of high-thrill coasters — meet-and-greets, walk-through immersive sets, kid-scaled rides, splash zones, and live shows</li>
-<li><strong>Restaurants and retail</strong> built into the themed lands</li>
+<li><strong>DreamWorks' Shrek's Swamp</strong></li>
+<li><strong>DreamWorks' Puss in Boots Del Mar</strong></li>
+<li><strong>Illumination's Minions vs. Minions: Bello Bay Club</strong></li>
+<li><strong>Jurassic World Adventure Camp</strong></li>
+<li><strong>DreamWorks' TrollsFest</strong></li>
+<li><strong>Nickelodeon's SpongeBob SquarePants Bikini Bottom</strong></li>
+<li><strong>Isle of Curiosity</strong></li>
+</ul>
+<p>Do not assume every attraction is unrestricted. Universal states that some rides and attractions have height, health, or safety requirements posted at their entrances. Review the official accessibility and attraction information for each member of the family instead of relying on an old preview article.</p>
+
+<h2>Tickets, Hours, and the Official Calendar</h2>
+<p>Tickets and passes are sold through Universal's <a href="https://www.universalkidsresort.com/en/us/tickets" style="color:#C9A84C" rel="noopener">official ticket page</a>. Prices, products, availability, and reservation rules can change, so this guide does not publish a permanent ticket-price table. Buy only after confirming the visit date and reading the current terms.</p>
+
+<p>Universal says the resort operates most of the year, with brief seasonal closures and schedule adjustments possible. Check the <a href="https://www.universalkidsresort.com/calendar-and-hours" style="color:#C9A84C" rel="noopener">official calendar and hours</a> shortly before the trip and again on the morning of the visit. A calendar screenshot from weeks earlier should not override a current park notice.</p>
+
+<h2>Where to Stay</h2>
+<p>The Universal Kids Resort Hotel places guests steps from the park and provides a dedicated entrance. Universal currently says Early Park Admission is offered to hotel guests with separate valid park admission, subject to change. Review the <a href="https://www.universalkidsresort.com/en/us/places-to-stay/universal-kids-resort-hotel" style="color:#C9A84C" rel="noopener">official hotel page</a> for room information, accessibility, and current benefits.</p>
+
+<p>Families staying elsewhere should compare the exact hotel address—not only the word “Frisco”—with the park entrance. Frisco, Plano, The Colony, and the Dallas North Tollway corridor cover a wide area. Confirm parking, check-in time, breakfast plans, and whether a hotel shuttle actually serves the resort before choosing a room.</p>
+
+<h2>How Long to Visit</h2>
+<p>A one-day visit may work for a family focused on a short list of lands and characters. A second day creates more room for naps, repeat attractions, weather changes, and the pace of younger children. The right duration depends on current hours, ticket type, height requirements, sensory needs, and how much rest the family needs. Build the day around the children rather than trying to complete every attraction.</p>
+
+<h2>What to Pack and Verify</h2>
+<ul>
+<li><strong>Tickets and identification:</strong> save the current confirmation where more than one adult can reach it.</li>
+<li><strong>Weather protection:</strong> check the forecast and bring suitable sun, rain, or cold-weather items.</li>
+<li><strong>Comfort supplies:</strong> pack medications, chargers, child essentials, and a change of clothing where they stay accessible.</li>
+<li><strong>Food and drinks:</strong> read Universal's current outside-food rules. The official FAQ lists specific permitted categories and limits.</li>
+<li><strong>Mobility and sensory needs:</strong> review current accessibility information before arriving and ask Universal directly about accommodations.</li>
+<li><strong>Attraction requirements:</strong> check posted height and safety rules rather than promising a child that every ride will be available.</li>
 </ul>
 
-<p>The whole resort is designed around one principle: <strong>nothing in the park is too tall, too scary, or too long for a 3-9 year old</strong>. That sounds simple, but it's the opposite of the trade-off most families make at Disney World or Universal Orlando, where huge stretches of those parks aren't appropriate for young kids and lots of "kid attractions" still come with 40" or 48" height minimums.</p>
+<h2>Transportation From DFW or Dallas Love Field</h2>
+<p>Families flying into North Texas can reach Frisco from either DFW International Airport or Dallas Love Field. Travel time varies with the arrival terminal, baggage, weather, construction, and Dallas-area traffic, so use a live route estimate rather than a fixed promise. The correct airport code and operating flight number should be included in every reservation.</p>
 
-<h2>When Does It Open?</h2>
-<p>Universal Kids Resort was publicly announced in January 2023. Construction has been underway since 2024. As of this writing, Universal has not announced a firm public opening date — projections have shifted, and the most reliable source for current timing is always <strong>universalkidsresort.com</strong> or Universal's official press releases. Plan to check the official site close to your trip dates.</p>
+<p>Before selecting a vehicle, count passengers, full-size bags, strollers, mobility equipment, and child-restraint needs separately. An SUV that fits the people may not fit the people plus every bag. Tell the transportation provider about child restraints before booking and confirm the available seat type, installation responsibility, and any charge in writing.</p>
 
-<h2>Why Frisco?</h2>
-<p>Frisco was a deliberate pick. Universal looked at every major metro in America and chose North Texas for three big reasons:</p>
-<ul>
-<li><strong>Population growth:</strong> DFW added more residents than any US metro 2020-2024, and Frisco itself is one of the fastest-growing cities in America</li>
-<li><strong>Family demographics:</strong> Frisco has one of the highest concentrations of school-age children of any major US city — the local target audience is enormous</li>
-<li><strong>Climate:</strong> Texas weather means longer outdoor-park season than the Northeast or Midwest, and the resort design will lean into shaded and indoor experiences for July and August</li>
-<li><strong>Infrastructure:</strong> The Dallas North Tollway, DFW International Airport, the Cowboys at The Star, the Rangers and Cowboys at Arlington — Frisco is becoming the family-tourism hub of Texas</li>
-</ul>
+<p>A prearranged chauffeur can remove the rental counter, toll-road decisions, parking search, and return-day rental process. A rental vehicle may still be the better fit for a family making many independent trips. Compare the complete trip—not just one displayed rate—including airport transfers, tolls, fuel, resort parking, luggage capacity, and the time required to collect and return a vehicle.</p>
 
-<h2>What to Plan For (When It Opens)</h2>
+<h2>A Practical Arrival-Day Plan</h2>
+<ol>
+<li>Confirm the operating flight, airport, hotel, and park dates.</li>
+<li>Buy tickets only through Universal's current official channel and save the confirmation.</li>
+<li>Choose a vehicle after counting people, bags, strollers, and required equipment.</li>
+<li>Share the hotel or park's complete street address instead of using only “Universal Frisco.”</li>
+<li>After landing, collect checked bags and follow the current airport pickup directions and driver message.</li>
+<li>Recheck park hours, weather, and operational notices before leaving the hotel.</li>
+</ol>
 
-<h3>Where to Stay</h3>
-<p>The on-property hotel will be the headline option — themed rooms, easy walk to the park entrance, early access perks expected (Universal does this in Orlando and Hollywood). For families who want more space or budget options, Frisco itself has hundreds of hotel rooms within 10-15 minutes of the resort. Top picks:</p>
-<ul>
-<li><strong>Omni Frisco at The Star</strong> — Cowboys-themed, walkable to Toyota Stadium</li>
-<li><strong>Omni PGA Frisco Resort & Spa</strong> — full resort with kids' pool and lazy river, 12 minutes away</li>
-<li><strong>Hilton Dallas/Plano Granite Park</strong> — large rooms, indoor pool, kid-friendly</li>
-<li><strong>Embassy Suites Dallas-Frisco</strong> — two-room suites perfect for families</li>
-</ul>
-
-<h3>How Long to Visit</h3>
-<p>Based on what Universal has shown of the park layout, families should plan <strong>2 full days minimum</strong> to see everything without rushing. Three days lets you spread out, swim at the hotel, and add a day at the nearby Frisco attractions (more on those below).</p>
-
-<h3>What to Pack</h3>
-<ul>
-<li><strong>Sun protection</strong> — Texas sun is no joke from April through October. Bring SPF 50, hats, sunglasses</li>
-<li><strong>Water shoes or sandals</strong> — splash zones are part of the park experience</li>
-<li><strong>A change of clothes per child</strong> — packed in the diaper bag, not back at the hotel</li>
-<li><strong>Light jacket</strong> if visiting November-March (Frisco gets actual winter)</li>
-<li><strong>Stroller</strong> — even for 5-7 year olds. The park is walkable but younger kids will hit a wall</li>
-<li><strong>Refillable water bottles</strong> — most modern parks have fill stations</li>
-</ul>
-
-<h2>The Best Frisco Family Itinerary</h2>
-<p>Even with Universal Kids Resort as your anchor, build in time for what makes Frisco itself amazing for families:</p>
-
-<h3>Day 1: Universal Kids Resort</h3>
-<p>Full day at the park. Stay until the evening show.</p>
-
-<h3>Day 2: Universal in the morning, The Star in the afternoon</h3>
-<p>Tour the Dallas Cowboys headquarters at The Star — even kids who don't know football love the field tours. Eat at the Cowboys Club restaurant or the food hall.</p>
-
-<h3>Day 3: Sci-Tec Discovery Center and Frisco Commons</h3>
-<p>The Sci-Tec Discovery Center is one of the best small science museums in Texas — hands-on for ages 3 and up. Frisco Commons Park has a great playground, a splash pad in summer, and the Frisco Heritage Museum next door.</p>
-
-<h3>Bonus Day Trip: Crayola Experience at Stonebriar</h3>
-<p>If you have an extra half-day, the Crayola Experience inside Stonebriar Centre is a hit with kids ages 3-10.</p>
-
-<h2>How Purple Heart Limo Helps Family Trips</h2>
-<p>Bringing kids to a theme park weekend is logistics-intensive. Strollers, car seats, snacks, multiple bags, and the absolute worst-case scenario of a 3-year-old falling asleep in a hot rental car parking lot. Purple Heart Limo solves the ground-transport piece:</p>
-
-<h3>Airport to Resort</h3>
-<p>We pick you up at DFW or Love Field with the car seats <strong>already installed</strong> (mention it when you book — no charge). One stop at baggage claim, into the vehicle, and we drive directly to your hotel. No rental car counter, no airport shuttle, no figuring out which carseat fits the rental.</p>
-
-<h3>Around Frisco</h3>
-<p>If you'd rather not deal with a rental at all, we can run you between the resort, restaurants, and other Frisco attractions on demand. Many families find this cheaper than a multi-day rental once you add up parking and toll fees.</p>
-
-<h3>Group/Multi-Family Trips</h3>
-<p>Our Mercedes Sprinter holds 14 passengers with luggage and is the ideal vehicle for extended-family or multi-family trips to the resort. Birthday parties, grandparents-and-grandkids weekends, all of it.</p>
-
-<h3>The Discount</h3>
-<p>Mention Universal Kids Resort when you book and we'll take up to <strong>$25 off</strong> your first ride. Car seats and booster seats included free with notice.</p>
-
-<div class="callout"><p><strong>Pro tip:</strong> Universal will likely sell timed-entry tickets that book up fast. Lock your dates first, lock your hotel second, lock your ground transport third. We can hold ride times up to 6 months out.</p></div>
+<div class="callout"><p><strong>Official information controls:</strong> Universal's <a href="https://www.universalkidsresort.com/en/us/information/faqs" style="color:#C9A84C" rel="noopener">current FAQ</a>, ticket page, calendar, and attraction notices should always override a permanent travel article. Use this guide to organize the journey, then verify the live details for your exact visit.</p></div>
 """
 
 UNIVERSAL_FAQS = [
-    ("When does Universal Kids Resort in Frisco open?",
-     "Universal has not announced a firm public opening date as of May 2026. Construction is ongoing on the 97-acre site in Frisco. The most reliable source for current timing is universalkidsresort.com or Universal Destinations' official press announcements — check close to your planned trip dates."),
-    ("What age range is Universal Kids Resort designed for?",
-     "The park is purpose-built for families with children ages 3 to 9. Unlike Universal Orlando or Disney World — where huge sections of the parks have height minimums or thrill levels inappropriate for young kids — every attraction at Universal Kids Resort is designed to be enjoyable for the youngest target guests."),
-    ("How big is Universal Kids Resort compared to Universal Orlando?",
-     "The Frisco site is 97 acres — much smaller than Universal Orlando's 1,000+ acres or Universal Studios Hollywood's 400+ acres. The smaller footprint is intentional: it's a one-park resort rather than a multi-park destination, and families can realistically see everything in 2 days without rushing."),
+    ("Is Universal Kids Resort in Frisco open?",
+     "Yes. Universal Kids Resort opened to the public on July 1, 2026. Check the official Universal Kids Resort calendar before visiting because hours and brief seasonal closures can change."),
+    ("Where is Universal Kids Resort?",
+     "The official main park and guest entrance is 1 Universal Parkway, Frisco, TX 75033. The Universal Kids Resort Hotel entrance is 5700 Panther Creek Parkway, Frisco, TX 75033."),
+    ("What age group is Universal Kids Resort designed for?",
+     "Universal describes the resort as designed for families with young children, while welcoming guests of all ages. Some attractions have height, health, or safety restrictions, so review current requirements before the visit."),
+    ("How many themed lands are at Universal Kids Resort?",
+     "Universal lists seven lands: Shrek's Swamp, Puss in Boots Del Mar, Minions vs. Minions: Bello Bay Club, Jurassic World Adventure Camp, TrollsFest, SpongeBob SquarePants Bikini Bottom, and the Isle of Curiosity."),
     ("Where should we stay when visiting Universal Kids Resort?",
-     "An on-site themed hotel (~300 rooms) is being built as part of the resort and will be the most convenient option once open. Off-site, top Frisco family hotels include Omni Frisco at The Star (Cowboys-themed), Omni PGA Frisco Resort & Spa (full resort with kids' pools), and Embassy Suites Dallas-Frisco (two-room suites)."),
+     "The 300-room Universal Kids Resort Hotel is next to the park and has a dedicated entrance. Compare current hotel benefits, availability, and terms on Universal's official hotel page before booking."),
     ("How far is Universal Kids Resort from DFW Airport?",
-     "Universal Kids Resort in Frisco is approximately 25-30 minutes from DFW International Airport, depending on traffic. From Dallas Love Field it's 30-40 minutes. Purple Heart Limo runs flat-rate transfers between either airport and any Frisco hotel."),
-    ("What other family attractions are near Universal Kids Resort?",
-     "Frisco has a deep bench of family attractions: The Star (Dallas Cowboys HQ tours), Sci-Tec Discovery Center, Frisco Commons splash pad, Crayola Experience at Stonebriar Centre, and Omni PGA Frisco's family pool complex. The whole metro adds Six Flags Over Texas, the Dallas Zoo, the Perot Museum, and Kalahari Round Rock (2 hours south)."),
+     "The drive varies with the DFW arrival terminal, weather, construction, and Dallas-area traffic. Check a live route for the exact travel date and leave additional time for baggage and airport pickup."),
     ("Will Universal Kids Resort be open year-round?",
-     "Yes — Universal has indicated the park will operate year-round, similar to their other US properties. North Texas weather supports a long outdoor season (March-November is generally pleasant), and indoor and shaded experiences are being designed for peak summer."),
-    ("Can Purple Heart Limo provide car seats for the trip?",
-     "Yes — we provide infant car seats, convertible car seats, and booster seats at no extra charge when you mention it at booking. Many families travel without their own car seats since we have them ready. Mention Universal Kids Resort when you book to save up to $25 on your first ride."),
+     "Universal says the resort operates most of the year and may have brief seasonal closures or schedule adjustments. Use the official calendar and hours page for the current date."),
+    ("How should families arrange airport transportation?",
+     "Provide the operating flight number, exact destination address, passenger count, bag count, stroller or mobility-equipment details, and any child-restraint needs before booking. Confirm vehicle capacity and restraint arrangements in writing."),
 ]
 
 # ============================================================
@@ -843,19 +826,24 @@ POSTS = [
     ),
     dict(
         slug="universal-kids-resort-frisco-family-guide",
-        title="Universal Kids Resort Frisco — Family Guide | PHL",
-        og_title="Universal Kids Resort Frisco — Complete Family Planning Guide",
-        description="Universal Kids Resort in Frisco, TX: everything we know about the new family theme park designed for kids ages 3-9. What to expect, where to stay, how to plan.",
+        title="Universal Kids Resort Frisco Guide | Purple Heart Limo",
+        og_title="Universal Kids Resort Frisco — Current Family Planning Guide",
+        description="Plan a Universal Kids Resort Frisco visit with current opening, lands, tickets, hotel, hours, airport transportation and official-source information.",
         keywords="Universal Kids Resort Frisco, Universal Frisco Texas, Universal theme park Texas, family theme park Dallas, Frisco family attractions, Universal Kids opening date, Frisco kids resort",
-        h1="Universal Kids Resort Frisco — The Complete Family Planning Guide",
-        dek="A purpose-built theme park for kids ages 3-9. Ninety-seven acres in Frisco, Texas. An on-site themed hotel. Zero 'you must be this tall' disappointments. Here's what we know, what to expect, and how to plan a family trip that works.",
+        h1="Universal Kids Resort Frisco — Current Family Planning Guide",
+        dek="Now open in Frisco: seven themed lands, a 300-room hotel, and a park designed for families with young children. Verify live tickets, hours, attraction requirements, and transportation before your visit.",
         hero_tag="Frisco Family Travel",
         location_label="Frisco, TX",
         body_html=UNIVERSAL_BODY, faqs=UNIVERSAL_FAQS,
         breadcrumb_label="Universal Kids Resort Frisco",
-        read_time="10 min read",
+        read_time="11 min read",
         geo_place="Frisco, Texas",
         geo_pos="33.1507;-96.8236",
+        modified="2026-09-05",
+        date_display="Updated 2026-09-05",
+        cta_title="Plan Your Frisco Family Transportation",
+        cta_copy="Share the flight, hotel or park address, passenger count, luggage, stroller, and child-restraint needs so we can quote the right vehicle and pickup plan.",
+        cta_button="Request a Ride",
     ),
     dict(
         slug="kalahari-round-rock-family-guide",
@@ -918,7 +906,7 @@ labels = {
     'dfw-resorts-mega-guide-2026': ('DFW · Resort Guide', 'The 18 Best DFW Resorts in 2026 — Complete Guide', 'May 27, 2026', '14 min read'),
     'vonlane-luxury-bus-texas-guide': ('Texas Partner · Vonlane', "Vonlane Texas Luxury Bus — Complete Rider's Guide", 'May 27, 2026', '11 min read'),
     'jsx-semi-private-flights-texas-guide': ('Texas Partner · JSX', "JSX Semi-Private Flights from Texas — Flyer's Guide", 'May 27, 2026', '12 min read'),
-    'universal-kids-resort-frisco-family-guide': ('Frisco · Family', 'Universal Kids Resort Frisco — Family Planning Guide', 'May 27, 2026', '10 min read'),
+    'universal-kids-resort-frisco-family-guide': ('Frisco · Family', 'Universal Kids Resort Frisco — Current Family Planning Guide', 'Updated Sep 5, 2026', '11 min read'),
     'kalahari-round-rock-family-guide': ('Round Rock · Family', 'Kalahari Round Rock — The Complete Austin Family Guide', 'May 27, 2026', '13 min read'),
 }
 for _, slug, _ in created:

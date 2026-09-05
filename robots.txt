@@ -1,8 +1,3 @@
-# AI Content Signals — declares how AI systems may use this content
-Content-Signal: ai-train=no
-Content-Signal: search=yes
-Content-Signal: ai-input=no
-
 User-agent: *
 Allow: /
 Allow: /llms.txt
