@@ -1,0 +1,1067 @@
+# Purple Heart Limo - SEO Geo AIO Master Prompt
+## DFW Limo Service + Airport Authority Content Generation System
+
+---
+
+## BUSINESS CONTEXT & TARGET MARKET
+
+**Business**: Purple Heart Limo - Premium luxury limousine and black car service
+**Primary Service Area**: Dallas-Fort Worth (DFW), Austin, Houston
+**Website**: purpleheartlimo.com
+**Current Market Position**: Targeting high-end corporate, airport, and event transportation
+
+**Primary Audience Personas**:
+1. **Business Travelers** - Need reliable airport transportation, corporate events
+2. **Event Planners** - Weddings, proms, bachelor/bachelorette parties, corporate events
+3. **Airport Commuters** - Regular DFW airport users seeking premium ground transportation
+4. **Information Seekers** - People researching TSA wait times, airport logistics, parking information
+
+---
+
+## KEYWORD CLUSTERING & CONTENT STRATEGY
+
+### CLUSTER 1: DIRECT LIMO SERVICE KEYWORDS (Transactional - HIGH PRIORITY)
+**Intent**: Users actively looking to book a limo service
+**Target**: Convert to bookings
+**Keywords** (Primary 50):
+- limo service near me
+- luxury limo service
+- limo rental near me
+- limo services near me
+- limo service dfw
+- limo service dallas
+- limo service fort worth
+- limo service arlington
+- limo rental dfw
+- luxury limousine service
+- premium car service
+- black car service near me
+- airport car service
+- corporate limo service
+- wedding limo service
+- party bus rental
+- limo for 10 people
+- luxury car rental dallas
+- limousine rental
+- town car service
+- premium transportation
+- executive car service
+- party limo
+- prom limo service
+- bachelor party limo
+- bachelorette party limo
+- luxury limo rental near me
+- affordable limo service
+- limo service arlington tx
+- limo service irving
+- limo service plano
+- car service to airport
+- airport limo service
+- dfw airport limo
+- corporate transportation
+- event limo service
+- concert limo
+- casino rides dallas
+- limousine company
+- professional limo service
+- reliable limo service
+- luxury transportation
+- private car service
+- vip transportation
+- executive transportation
+- limousine service near me
+- luxury limo services
+- best limo service
+- limo booking
+- online limo reservation
+- limos near me
+
+**Content Type**: Service Pages + Detailed Landing Pages
+**SEO Priority**: CRITICAL - These are money keywords
+
+---
+
+### CLUSTER 2: AIRPORT + TSA AUTHORITY KEYWORDS (Informational - MEDIUM-HIGH PRIORITY)
+**Intent**: Users researching TSA wait times, airport procedures, parking information
+**Strategy**: Become "airport authority" resource - capture traffic for informational queries and funnel to services
+**Keywords** (Primary 150+):
+
+**TSA PreCheck & Wait Times:**
+- tsa wait times dfw
+- dfw tsa wait times
+- tsa precheck dfw
+- tsa precheck dfw airport
+- dfw airport tsa precheck
+- tsa precheck dfw terminal c
+- tsa precheck dfw terminal a
+- tsa precheck dfw terminal b
+- tsa precheck dfw terminal d
+- dfw tsa
+- dfw tsa lines
+- tsa dfw airport
+- tsa wait time dfw
+- dfw security wait times
+- dfw airport security wait times
+- dfw airport security
+- security wait times dfw
+- dfw security lines
+- dfw security times
+- dfw security checkpoint
+- dfw tsa hours
+- tsa hours dfw
+- what time does tsa open at dfw
+- when does tsa open at dfw
+- tsa precheck locations dfw
+- tsa dfw hours
+- tsa lines at dfw
+- current security wait times dfw
+- dfw tsa wait times terminal c
+- dfw tsa wait times terminal e
+- clear dfw
+- does dfw have clear
+- dfw clear terminal
+- touchless precheck dfw
+- dfw tsa times
+- dfw security check
+- dfw security checkpoint
+- tsa precheck enrollment dfw
+- tsa precheck enrollment center dfw
+
+**Airport Logistics & Parking:**
+- dfw airport parking
+- dfw airport terminal map
+- love field airport parking
+- att stadium parking
+- at&t stadium parking map
+- at&t stadium lot locations
+- cowboys stadium parking
+- american airlines center parking
+- cotton bowl parking
+- state fair of texas parking
+- dfw airport pickup
+- dfw airport drop off
+- dallas love field cellphone lot
+- dfw airport ground transportation
+- airport shuttle dallas
+- shuttle service to dfw airport
+- how to get to at&t stadium
+- directions to at&t stadium
+- at&t stadium parking lot map
+
+**Content Type**: Blog Posts + Authority Guides + FAQ Pages + How-To Articles
+**SEO Priority**: HIGH - High traffic volume, builds domain authority, supports service conversions
+
+---
+
+### CLUSTER 3: LOCAL + GEO-SPECIFIC KEYWORDS (Local SEO - HIGH PRIORITY)
+**Intent**: Local searches for services in specific DFW areas
+**Strategy**: Geo-targeted landing pages + local SEO optimization
+**Keywords** (Geographic Modifiers):
+- limo service [city] (Dallas, Fort Worth, Arlington, Irving, Plano, Frisco, Grapevine, Lewisville, etc.)
+- limo rental [city]
+- luxury limo [city]
+- car service [city]
+- airport transportation [city]
+- [city] limo companies
+- [city] party bus rental
+- black car service [city]
+
+**Content Type**: Geo-Specific Landing Pages + GMB Optimization
+**SEO Priority**: HIGH - Local pack rankings + foot traffic
+
+---
+
+### CLUSTER 4: COMPETITOR KEYWORDS (Research-Based Content)
+**Intent**: Users comparing services or looking for alternatives
+**Keywords**:
+- prime limo
+- la raza car service
+- casino rides of dallas
+- island time transportation
+- best limo companies
+- luxury limo companies
+
+**Content Strategy**: Create comparative content that positions Purple Heart as superior
+
+---
+
+## CONTENT STRUCTURE & TEMPLATES
+
+### CONTENT TYPE 1: TRANSACTIONAL SERVICE PAGES
+**Purpose**: Direct conversions
+**URL Structure**: `/services/[service-name]`
+**Examples**: 
+- `/services/airport-limo-service`
+- `/services/wedding-limo-rental`
+- `/services/corporate-transportation`
+
+**Content Requirements**:
+- Word Count: 1,500-2,500 words
+- H1: Primary keyword (1 per page)
+- H2s: Feature/benefit based (4-6 H2s)
+- H3s: Supporting details (2-3 per H2)
+- Features Section: Bulleted list (5-8 key features)
+- Pricing Section: Transparent pricing info
+- FAQ Section: 5-8 FAQs with schema markup
+- CTA: Minimum 3 strategic CTAs (top, middle, bottom)
+- Image Alt Text: Every image must have descriptive alt text with keywords
+- Schema Markup: LocalBusiness, Service, Review
+- Internal Links: 5-8 links to related services/blog posts
+- Meta Description: 155-160 characters, includes primary keyword + CTA
+- Meta Title: 50-60 characters, primary keyword first
+
+**Content Sections**:
+1. Hero/Introduction (with primary keyword)
+2. Why Choose Purple Heart Limo (USP section)
+3. Service Features & Amenities
+4. Fleet Details (vehicle types available)
+5. Pricing & Packages
+6. Testimonials & Reviews
+7. FAQ with Schema Markup
+8. Service Coverage Area
+9. How to Book
+10. Call-to-Action Section
+
+**CTAs Required**:
+- "Book Now" (primary button)
+- "Get a Free Quote" 
+- "Call [XXX-XXX-XXXX]"
+- "WhatsApp/Text Us"
+
+---
+
+### CONTENT TYPE 2: INFORMATIONAL BLOG POSTS (Authority Building)
+**Purpose**: Organic traffic capture + domain authority
+**URL Structure**: `/blog/[keyword-focus]`
+**Examples**:
+- `/blog/dfw-tsa-wait-times-guide`
+- `/blog/dfw-airport-parking-guide`
+- `/blog/tsa-precheck-dfw-complete-guide`
+
+**Content Requirements**:
+- Word Count: 2,500-4,000 words (comprehensive guides)
+- H1: Keyword + value prop (1 per post)
+- H2s: Main section breaks (6-10 H2s)
+- H3s: Subsections with practical details (2-4 per H2)
+- Introduction: Hook + keyword placement (first 100 words)
+- Images: High quality, 3-5 relevant images with alt text
+- Schema Markup: Article, BreadcrumbList, FAQPage (if Q&A format)
+- Internal Links: 8-12 strategic links (mix of services + related blogs)
+- External Links: 2-3 authoritative sources (TSA.gov, DFW airport official)
+- Meta Description: 155-160 characters
+- Meta Title: 50-60 characters
+- Closing Section: Strong CTAs connecting to services
+- Reading Time: Display estimated reading time (450 words = ~2 min)
+
+**Blog Post Templates**:
+
+**Template A: "Complete Guide to [Topic]"**
+- Introduction
+- What is [Topic] (definition/context)
+- Key Details & Facts
+- How It Affects Travelers
+- Pro Tips & Best Practices
+- Comparison/Alternatives
+- FAQ Section
+- When You Might Need a Limo Service (CTA tie-in)
+- Conclusion + CTA
+
+**Template B: "Real-Time Updates & Guides"**
+- Current Status/Updates
+- Historical Data/Trends
+- Pro Tips for Travelers
+- Peak Times vs. Off-Peak
+- How to Avoid [Problem]
+- What to Bring/Prepare
+- When to Use Ground Transportation
+- FAQ
+- CTA to Book Service
+
+**Template C: "How-To & Logistics Guides"**
+- Step-by-Step Instructions
+- Common Mistakes to Avoid
+- Pro Tips from Experts
+- Required Documentation
+- Timing Guidelines
+- Alternative Options
+- FAQ Section
+- Why Professional Transportation Matters (CTA tie-in)
+
+---
+
+### CONTENT TYPE 3: FAQ PAGES (Featured Snippets + Schema)
+**Purpose**: Capture featured snippets + provide user value
+**URL Structure**: `/faq/[topic]` or `/[service]/faq`
+
+**Requirements**:
+- Minimum 8-12 Q&A pairs per FAQ page
+- Question format: Natural, conversational (how, what, why, when, where)
+- Answer format: 100-300 words, clear + actionable
+- Schema: FAQPage schema markup (with @context)
+- H2 for each question
+- Bold answer first sentence
+- Internal links in answers (1-2 per answer)
+- Mobile optimized (questions should be easily scannable)
+
+**FAQ Topics to Create**:
+- TSA PreCheck FAQs
+- DFW Airport FAQs
+- Limo Service FAQs
+- Booking & Payment FAQs
+- Airport Transportation FAQs
+- Wedding/Event Limo FAQs
+- Corporate Transportation FAQs
+
+**Question Examples**:
+- What are current TSA wait times at DFW?
+- How long does TSA PreCheck take at DFW?
+- Where is TSA PreCheck located at DFW Terminal C?
+- Do I need TSA PreCheck for domestic flights?
+- What's the difference between TSA PreCheck and CLEAR?
+- How do I get from DFW airport to downtown Dallas?
+- What parking options are available at DFW?
+- Why should I choose a limo service over ride-sharing?
+- How far in advance should I book a limo?
+
+---
+
+### CONTENT TYPE 4: LANDING PAGES (Conversion Optimized)
+**Purpose**: High-converting pages for paid + organic traffic
+**URL Structure**: `/limo-service-[location]` or `/[event]-limo-rental`
+
+**Requirements**:
+- Word Count: 1,200-2,000 words
+- Single keyword focus
+- Strong headline (H1) - benefit + keyword
+- Subheadline - supporting benefit
+- Hero CTA (above fold)
+- Problem/Solution structure
+- Social proof (testimonials, reviews, stats)
+- Visual hierarchy
+- Multiple CTAs (3-4 strategic placements)
+- Risk reversal (satisfaction guarantee, free quote)
+- Schema: LocalBusiness, Offer, Review
+- Meta Title: 50-60 chars
+- Meta Description: 155-160 chars
+
+**Landing Page Structure**:
+1. Hero Section (H1 + Strong CTA)
+2. Problem Statement
+3. Solution Introduction
+4. Why Purple Heart (USP)
+5. Services/Features Overview
+6. Social Proof (testimonials, reviews, stats)
+7. Specific Service Details
+8. Coverage Area (geo-specific)
+9. Pricing/Packages
+10. FAQ Section
+11. Strong Closing CTA
+12. Trust Signals (certifications, awards, partnerships)
+
+---
+
+## ON-PAGE SEO SPECIFICATIONS
+
+### Title Tags
+**Format**: `Primary Keyword | Brand Name - Value Prop`
+**Examples**:
+- `Luxury Limo Service Dallas-Fort Worth | Premium Airport Transportation`
+- `TSA Wait Times DFW | Real-Time Updates & Travel Guide`
+- `Wedding Limo Rental Dallas | Professional Chauffeur Service`
+
+**Requirements**:
+- 50-60 characters (optimal)
+- Include primary keyword (first position preferred)
+- Include brand name
+- Include USP/benefit
+- Avoid keyword stuffing
+- Unique for every page
+
+---
+
+### Meta Descriptions
+**Format**: `Hook + Primary Keyword + Benefit + CTA`
+**Examples**:
+- `Professional limo service in Dallas-Fort Worth. Premium airport transportation, wedding limos, corporate services. Book your luxury ride today.`
+- `Check real-time TSA wait times at DFW airport. Get PreCheck info, parking guides, and airport tips. Professional ground transportation included.`
+
+**Requirements**:
+- 155-160 characters (optimal)
+- Include primary keyword naturally
+- Include clear benefit/value
+- Include soft CTA
+- Every page unique
+- Accurately represent content
+
+---
+
+### Header Hierarchy
+**H1 (Only 1 per page)**:
+- Should include primary keyword
+- Should clearly communicate page purpose
+- Should be benefit-focused
+- Example: `"Premium Luxury Limo Service in Dallas-Fort Worth | Professional Airport & Event Transportation"`
+
+**H2 (4-10 per page depending on content type)**:
+- Organize main content sections
+- Include variations of primary keyword (LSI)
+- Should be scannable by topic
+- Example H2s for limo service page:
+  - `Why Choose Purple Heart Limo for Your DFW Transportation`
+  - `Our Premium Limousine Fleet`
+  - `Luxury Airport Limo Service`
+  - `Wedding & Event Limousine Rentals`
+  - `Corporate Transportation Services`
+  - `Book Your Limo in Just 60 Seconds`
+
+**H3 (2-4 per H2)**:
+- Support H2 topics with specific details
+- Use natural language, not keyword stuffing
+- Example: Under H2 "Our Premium Fleet", H3s could be:
+  - `Cadillac Escalade Limousines`
+  - `Mercedes-Benz S-Class Luxury Sedans`
+  - `Sprinter Van Group Transportation`
+
+---
+
+### Image Optimization
+**Alt Text Format**: `[Keyword] [Description] [Location] - Purple Heart Limo`
+**Examples**:
+- `luxury limousine dallas fort worth interior amenities`
+- `cadillac escalade limo service dfw airport`
+- `wedding limo rental dallas professional chauffeur`
+
+**Requirements**:
+- Descriptive, not keyword stuffed
+- Include location when relevant
+- Include service type
+- 125-155 characters
+- Every image must have alt text
+- File names should be descriptive too (not image-47.jpg)
+
+**Image Strategy**:
+- High quality photographs of fleet
+- Professional chauffeurs
+- Interior luxury details
+- Happy customers/testimonials
+- DFW airport/location specific imagery
+- Service in action images
+- Minimum 3 images per service page
+- Minimum 5-7 images per blog post
+- Optimize file size (<200KB ideally)
+
+---
+
+### Internal Linking Strategy
+
+**Linking Hierarchy**:
+1. **Service Pages** link to each other (contextually relevant services)
+2. **Blog posts** link to service pages (with natural anchor text)
+3. **Service pages** link to blog posts (authority + SEO)
+4. **FAQ pages** link to related services + blog posts
+5. **Homepage** links to primary service pages + top blog posts
+
+**Linking Anchor Text**:
+- Avoid: "Click here", "Read more" (generic)
+- Use: Descriptive, keyword-relevant anchors
+- Example: Instead of "Click here for limo service" use "Book premium airport limo service"
+- Ratio: 70% keyword-rich anchors, 30% branded/natural
+
+**Linking Targets**:
+- Service pages: Link to 5-8 related pages
+- Blog posts: Internal links in content (8-12 links)
+- FAQ pages: Link to related services in answers
+
+**Link Distribution**:
+```
+Service Pages
+  ├─ Link to 2-3 other relevant services
+  ├─ Link to 4-5 supporting blog posts
+  └─ Link to relevant FAQ pages
+
+Blog Posts
+  ├─ Link to 2-3 related blog posts
+  ├─ Link to 3-4 relevant services (natural placement)
+  └─ Link to relevant FAQ pages
+
+FAQ Pages
+  ├─ Link to 2-3 supporting blog posts
+  └─ Link to relevant services (in answers)
+
+Homepage
+  ├─ Link to top 5 services
+  └─ Link to top 3-5 blog posts
+```
+
+---
+
+## LOCAL SEO OPTIMIZATION
+
+### Google My Business Strategy
+**Primary GMB Profile**: Purple Heart Limo (DFW)
+
+**Content Requirements**:
+- Complete business information
+- Service areas: Dallas, Fort Worth, Arlington, Irving, Austin, Houston, and suburbs
+- Categories: Limousine Service, Car Rental, Transportation Service
+- 10+ High-quality photos (fleet, office, events, team)
+- Regular posts (2-3 per month minimum)
+- Respond to reviews (24-48 hour target)
+- Maintain 90%+ review rating
+
+**GMB Post Ideas**:
+- New vehicle additions
+- Seasonal promotions
+- Safety/TSA tips
+- Event season highlights
+- Testimonial features
+- Service area expansions
+
+### Local Keywords Strategy
+**Create geo-specific landing pages for**:
+Primary Markets:
+- Dallas, Fort Worth, Arlington, Irving, Plano, Lewisville, Denton
+
+Each city gets:
+- Service page: `/limo-service-[city]`
+- Variations: 
+  - `luxury limo service in [city]`
+  - `airport limo rental [city]`
+  - `wedding limo [city]`
+
+**Local Schema Markup**:
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Purple Heart Limo",
+  "image": "logo.png",
+  "description": "Premium luxury limo service in Dallas-Fort Worth",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "[Address]",
+    "addressLocality": "Dallas",
+    "addressRegion": "TX",
+    "postalCode": "[ZIP]",
+    "addressCountry": "US"
+  },
+  "telephone": "[Phone]",
+  "url": "https://purpleheartlimo.com",
+  "priceRange": "$$$",
+  "areaServed": ["Dallas", "Fort Worth", "Arlington", "Austin", "Houston"],
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": "Monday-Sunday",
+    "opens": "24 hours"
+  }
+}
+```
+
+---
+
+## SCHEMA MARKUP REQUIREMENTS
+
+### Required Schema Types (by content type)
+
+**Service Pages**:
+```
+- LocalBusiness
+- Service
+- Organization
+- Offer
+- AggregateRating/Review
+- BreadcrumbList
+```
+
+**Blog Posts**:
+```
+- Article
+- BreadcrumbList
+- Organization
+- NewsArticle (optional for timely content)
+```
+
+**FAQ Pages**:
+```
+- FAQPage
+- Question/Answer pairs
+- Organization
+```
+
+**Landing Pages**:
+```
+- LocalBusiness
+- Service
+- Offer
+- AggregateRating
+- BreadcrumbList
+```
+
+**Example FAQPage Schema**:
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What are current TSA wait times at DFW?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "[Answer content here - 100-300 words]"
+      }
+    }
+  ]
+}
+```
+
+---
+
+## CONTENT CALENDAR & PRIORITY
+
+### PHASE 1: FOUNDATION (Weeks 1-4)
+**Focus**: High-converting service pages + direct booking keywords
+
+**Content to Create**:
+1. Airport Limo Service (DFW)
+2. Wedding Limo Rental
+3. Corporate Transportation
+4. Party Bus / Party Limo
+5. Luxury Car Rental
+6. Geo Landing Pages (Dallas, Fort Worth, Arlington)
+
+**Target**: 6-8 pages, 1,500-2,500 words each
+
+---
+
+### PHASE 2: AUTHORITY BUILDING (Weeks 5-12)
+**Focus**: TSA/Airport informational content (domain authority + organic traffic)
+
+**Blog Posts to Create** (2-3 per week):
+1. "DFW TSA Wait Times Guide: Real-Time Updates & Pro Tips"
+2. "TSA PreCheck at DFW: Complete Guide to All Terminals"
+3. "DFW Airport Parking Guide: All Lots Explained"
+4. "How Long is TSA PreCheck at DFW? Wait Times & Times"
+5. "TSA PreCheck vs. CLEAR: What's Best for DFW Travelers?"
+6. "Dallas Love Field Airport: Complete Ground Transportation Guide"
+7. "DFW Airport Ground Transportation: All Options Explained"
+8. "Best Times to Travel Through DFW: Wait Time Analysis"
+9. "[Competitors] vs. Purple Heart Limo: Why We're Different"
+10. "How to Get from DFW to Downtown Dallas: Transportation Options"
+11. "AT&T Stadium Parking Guide: Lot Breakdown & Pro Tips"
+12. "American Airlines Center Parking: All Your Options"
+
+**Target**: 12+ blog posts, 2,500-4,000 words each
+
+---
+
+### PHASE 3: FAQ & CONVERSION (Weeks 13-16)
+**Focus**: Featured snippets + supporting conversions
+
+**FAQ Pages to Create**:
+1. TSA PreCheck FAQs
+2. DFW Airport FAQs
+3. Limo Service FAQs
+4. Booking & Payment FAQs
+5. Corporate Transportation FAQs
+6. Wedding/Event Limo FAQs
+7. Airport Ground Transportation FAQs
+
+**Target**: 7 comprehensive FAQ pages, 8-12 Q&As each
+
+---
+
+### PHASE 4: EXPANSION (Ongoing)
+**Focus**: Additional geo-specific content + seasonal updates
+
+**Ongoing Content**:
+- Monthly blog posts (current events, tips, guides)
+- Seasonal content (holiday transportation, event season)
+- Updated guides (TSA times, parking changes)
+- Competitive analysis posts
+- Customer testimonial features
+
+---
+
+## CALL-TO-ACTION (CTA) STRATEGY
+
+### Primary CTAs (Conversion)
+**Format & Copy**:
+1. **"Book Now"** - Primary CTA button (most aggressive)
+   - Color: Contrasting (orange, gold, purple)
+   - Placement: Hero, middle, footer
+   - Copy: "Book Your Limo Today"
+
+2. **"Get Free Quote"** - Lower commitment
+   - Placement: After service features
+   - Copy: "Get a Free No-Obligation Quote"
+
+3. **"Call Us"** - Phone booking
+   - Placement: Throughout (sticky header)
+   - Copy: "Call 1-XXX-XXX-XXXX for Immediate Booking"
+
+4. **"WhatsApp / Text"** - Mobile-friendly
+   - Placement: Sidebar, bottom of pages
+   - Copy: "Text Us for Quick Quote"
+
+### Secondary CTAs (Engagement)
+- "Read Our Blog"
+- "See Our Fleet"
+- "Check Out Reviews"
+- "Learn More About [Service]"
+- "View Testimonials"
+
+### Blog-Specific CTAs
+**End-of-article CTA structure**:
+1. Soft CTA: "Interested in learning more? Check out our [related service]"
+2. Hard CTA: "Ready to book? Get your free quote today - [BUTTON]"
+3. Alternative: "Need airport transportation? Let Purple Heart handle it - [BUTTON]"
+
+**CTA Copy Best Practices**:
+- Action-oriented verbs (Book, Get, Discover, Learn)
+- Benefit-focused ("Get a free quote")
+- Urgency when appropriate ("Book now - limited availability")
+- First-person value ("Save time with our service")
+- Clarity (avoid vague copy)
+
+---
+
+## TECHNICAL SEO SPECIFICATIONS
+
+### URL Structure
+**Format**: `purpleheartlimo.com/[category]/[keyword-focus]`
+
+**Examples**:
+- `/services/airport-limo-service`
+- `/services/wedding-limo-rental`
+- `/blog/dfw-tsa-wait-times-guide`
+- `/faq/tsa-precheck-dfw-faqs`
+- `/limo-service-dallas`
+
+**Requirements**:
+- Lowercase only
+- Use hyphens (not underscores)
+- Keep under 75 characters
+- Use 1-2 keywords
+- Avoid numbers/dates
+- Avoid parameters
+- Avoid "blog" category when possible
+
+### Site Speed Optimization
+- Page load target: <3 seconds (mobile <4 seconds)
+- Image optimization: Compress to <200KB
+- Lazy load images below fold
+- Minimize CSS/JS
+- Use CDN for static assets
+- Enable GZIP compression
+
+### Mobile Optimization
+- Responsive design (mobile-first)
+- Touch-friendly CTAs (minimum 48px)
+- Legible font sizes (16px+ body)
+- Fast load times (< 3 seconds mobile)
+- Viewport configuration
+- Mobile CTA placement (sticky header/footer)
+
+### Structured Data Checklist
+- [ ] LocalBusiness schema on all pages
+- [ ] Service schema on service pages
+- [ ] FAQPage schema on FAQ pages
+- [ ] Article schema on blog posts
+- [ ] BreadcrumbList on all pages
+- [ ] AggregateRating on pages with reviews
+- [ ] Schema validation (schema.org, Google SDTT)
+
+---
+
+## CONVERSION & ANALYTICS TRACKING
+
+### Event Tracking Setup
+**Track these user actions**:
+- Book Now button clicks
+- Quote form submissions
+- Phone call clicks
+- WhatsApp message clicks
+- FAQ accordion opens
+- Blog post reads (scroll depth)
+- Service page visits
+
+### Goals to Monitor
+1. Quote submissions
+2. Phone call conversions
+3. WhatsApp/text inquiries
+4. Online bookings
+5. Landing page conversions
+6. Form completions
+
+### Key Metrics
+- Organic traffic to each page
+- Click-through rate (SERP)
+- Bounce rate (by page type)
+- Conversion rate (by traffic source)
+- Cost per conversion (if running ads)
+- Keyword ranking positions
+
+---
+
+## CONTENT CREATION SPECIFICATIONS
+
+### Writing Style & Tone
+- **Professional yet approachable** - Expert but not stuffy
+- **Benefit-focused** - Always tie features to customer benefit
+- **Action-oriented** - Use strong verbs, clear directions
+- **Customer-centric** - Address pain points, provide solutions
+- **Credible** - Use specific details, avoid hype
+- **Concise** - Respect reader time, use short paragraphs
+- **SEO-natural** - Keywords must flow naturally, never forced
+
+### Content Quality Standards
+- Thorough research (5+ sources for blog posts)
+- Fact-checked (especially TSA/airport info)
+- Original (no plagiarism)
+- Current (updated info)
+- Comprehensive (answer the full question)
+- Well-structured (easy to scan)
+- Engaging (hooks, stories, examples)
+- Actionable (clear next steps)
+
+### Content Formatting
+- Short paragraphs (2-3 sentences max)
+- Bulleted lists for features/benefits
+- Bold key phrases (3-5 per section)
+- Subheadings to break up content
+- Numbered lists for steps/processes
+- Blockquotes for testimonials/stats
+- Whitespace for readability
+- Mobile-optimized formatting
+
+### Research Requirements
+- TSA/Airport data: Check official TSA.gov + DFW airport website
+- Current wait times: Verify sources are up-to-date
+- Competitor analysis: Check 3-5 competing sites
+- User intent: Understand what searchers actually want
+- SERP analysis: Study top 10 results for keyword
+- Local verification: Ensure DFW-specific accuracy
+
+---
+
+## COMPETITIVE ANALYSIS KEYWORDS
+
+**Monitor these competitors**:
+1. Prime Limo
+2. First Class Limo
+3. La Raza Car Service
+4. Casino Rides of Dallas
+5. Island Time Transportation
+
+**Analysis Points**:
+- What keywords are they targeting?
+- What content types are they using?
+- How are they structuring CTAs?
+- What are their service offerings?
+- How are they positioning themselves?
+- What gaps can Purple Heart fill?
+
+---
+
+## IMPLEMENTATION PRIORITY ORDER
+
+### Week 1-2: CRITICAL (Must Have)
+1. Airport Limo Service page (high commercial intent)
+2. Corporate Transportation page
+3. Wedding Limo Rental page
+4. DFW TSA wait times blog post
+5. Homepage optimization
+
+### Week 3-4: HIGH PRIORITY
+1. All geo-specific landing pages (6-8 pages)
+2. Party Limo/Bus page
+3. Luxury Car Rental page
+4. TSA PreCheck guide blog post
+5. Local GMB optimization
+
+### Week 5-8: MEDIUM PRIORITY
+1. Authority blog posts (8-10 posts)
+2. FAQ pages (5-7 pages)
+3. Airport parking guides
+4. Competitor comparison posts
+5. Service expansion pages
+
+### Week 9+: ONGOING
+1. Monthly blog updates
+2. Seasonal content
+3. Performance optimization
+4. Link building
+5. Review generation campaigns
+
+---
+
+## SUCCESS METRICS & KPIs
+
+### Ranking KPIs
+- Target: Page 1 rankings for 50+ keywords within 90 days
+- Target: Page 1 rankings for 150+ keywords within 6 months
+- Monitor: Keyword position changes weekly
+- Alert: Any ranking drops >5 positions
+
+### Traffic KPIs
+- Target: 50% increase in organic traffic within 90 days
+- Target: 150% increase in organic traffic within 6 months
+- Monitor: Traffic by page type (service vs. blog)
+- Baseline: Current organic traffic
+
+### Conversion KPIs
+- Target: 2-3% conversion rate on landing pages
+- Target: 5-10% conversion rate on high-intent pages
+- Monitor: Conversion rate by traffic source
+- Track: Quote submissions, phone calls, bookings
+
+### Engagement KPIs
+- Target: 2+ min average time on page (blog posts)
+- Target: 40%+ scroll depth on all pages
+- Monitor: Bounce rate by traffic source
+- Track: Page views per session
+
+---
+
+## RED FLAGS & QUALITY CONTROL
+
+### DO NOT PUBLISH content with:
+- ❌ Grammatical or spelling errors
+- ❌ Outdated information (especially TSA/airport data)
+- ❌ Keyword stuffing or unnatural keyword placement
+- ❌ Thin content (<1000 words without strategic reason)
+- ❌ Missing alt text on images
+- ❌ Broken internal links
+- ❌ Poor mobile formatting
+- ❌ Missing CTAs
+- ❌ No schema markup
+- ❌ Copied content (plagiarism)
+- ❌ Misleading titles/meta descriptions
+- ❌ Missing breadcrumbs
+- ❌ No internal linking strategy
+
+### QUALITY CHECKLIST (Before Publishing)
+- [ ] Keyword appears in H1, H2s, first 100 words, meta description
+- [ ] LSI keywords naturally incorporated (3-5 variations)
+- [ ] Word count meets minimum (check by content type)
+- [ ] All images have descriptive alt text
+- [ ] 5-8 internal links added (contextually relevant)
+- [ ] Meta title and description written and under character limit
+- [ ] Schema markup added and validated
+- [ ] Mobile formatting verified
+- [ ] CTAs placed strategically (minimum 2)
+- [ ] No spelling/grammar errors
+- [ ] Information is current and accurate
+- [ ] Page follows specified structure/template
+- [ ] External links to authoritative sources (2-3)
+- [ ] Breadcrumbs added
+
+---
+
+## ADVANCED OPTIMIZATION TACTICS
+
+### Featured Snippet Optimization
+**Target featured snippets with**:
+- FAQs (Answer featured snippets)
+- How-To (List featured snippets)
+- Definitions (Definition featured snippets)
+- Comparisons (Table featured snippets)
+
+**FAQ Example**:
+- Q: "What are TSA wait times at DFW?"
+- A: "Current TSA wait times at DFW average [X] minutes. Peak hours are typically [times]. You can check real-time updates on [link]. For expedited service, consider [CTA]."
+
+### Long-Tail Keyword Strategy
+**Create content for**:
+- 3-5 word keyword combinations (lower competition, high intent)
+- Question-based keywords ("How to", "What is", "Where to")
+- Feature-specific keywords ("Limo with hot tub", "Stretch Escalade limo")
+- Seasonal keywords ("Prom limo rental", "Wedding limo service spring")
+
+### Topical Cluster Strategy
+**Create pillar content** (main service pages) with cluster content (blog posts supporting each pillar):
+
+**Example Cluster**:
+- Pillar: "Airport Limo Service" → Links to:
+  - Blog: "DFW TSA Wait Times"
+  - Blog: "Best Times to Travel"
+  - Blog: "Ground Transportation Options"
+  - FAQ: "Airport Transportation FAQs"
+
+### User Intent Matching
+**Match content to user intent**:
+- **Informational** (blog posts) → Answer questions, provide value, build trust
+- **Transactional** (service pages) → Clear benefits, pricing, CTAs, booking options
+- **Navigational** (local pages) → Service areas, locations, contact info
+- **Commercial** (landing pages) → Comparison, reviews, risk reversal, social proof
+
+---
+
+## ONGOING MAINTENANCE & UPDATES
+
+### Monthly Tasks
+- Review analytics (traffic, conversions, bounce rate)
+- Update TSA wait time blog post (keep current)
+- Check keyword rankings (monitor top 50)
+- Respond to blog comments (if applicable)
+- Update GMB with new photos/posts
+- Check for broken links
+- Review competitor content
+
+### Quarterly Tasks
+- Deep analytics analysis (trends, opportunities)
+- Content audit (update thin/outdated content)
+- Keyword opportunity analysis (new keywords)
+- Backlink analysis (link building opportunities)
+- User behavior analysis (heatmaps, scrolling)
+- Conversion rate optimization (test CTAs)
+- Technical SEO audit (site health)
+
+### Semi-Annual Tasks
+- Comprehensive content audit (all pages)
+- Competitor analysis update
+- Keyword strategy review
+- Content calendar planning
+- New service/offering updates
+- Structural improvements
+- Design/UX updates
+
+---
+
+## ADDITIONAL RESOURCES & REFERENCES
+
+### Data Sources (Keep Updated)
+- TSA Wait Times: https://www.tsa.gov/wait-times
+- DFW Airport Info: https://www.dfwairport.com
+- Dallas Love Field: https://www.loveldfld.com
+- Google Trends: https://trends.google.com
+- SERPstat/SEMrush/Ahrefs (for keyword/competitor data)
+
+### Tools Needed
+- Google Analytics 4
+- Google Search Console
+- Google My Business
+- Schema markup validator
+- Mobile-friendly test tool
+- Page speed insights
+- Yoast SEO or Rank Math (if using WordPress)
+
+---
+
+## FINAL NOTES FOR CONTENT GENERATION
+
+**Remember**: Each piece of content should serve ONE primary purpose while supporting the overall business goal of converting traffic to limo bookings. Information content builds authority and trust → service pages convert to revenue.
+
+**Quality > Quantity**: It's better to publish 5 exceptional, thoroughly-researched, well-optimized articles than 20 thin, rushed articles.
+
+**Always ask**: "Will this content help a potential customer choose Purple Heart Limo?"
+
+**Test & Iterate**: Monitor performance and adjust strategy based on data (rankings, traffic, conversions).
+
+---
+
+**END OF SEO GEO AIO MASTER PROMPT**
+
+*Version 1.0 - Created for Purple Heart Limo DFW*
+*Last Updated: 2026-09-05*
