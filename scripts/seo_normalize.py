@@ -91,6 +91,86 @@ def repair_malformed_anchors(source):
     )
 
 
+def restore_nojs_stylesheet_fallbacks(source):
+    """Ensure every async stylesheet has a matching no-JS fallback."""
+    head_match = re.search(r"(<head\b[^>]*>)(.*?)(</head\s*>)", source, re.I | re.S)
+    if not head_match:
+        return source
+    head = head_match.group(2)
+    fallback_urls = set()
+    for block in re.findall(
+            r"<noscript\b[^>]*>.*?</noscript\s*>", head, re.I | re.S):
+        for link in re.findall(r"<link\b[^>]*>", block, re.I | re.S):
+            if "stylesheet" in attr(link, "rel").casefold().split():
+                fallback_urls.add(attr(link, "href"))
+
+    def link_repl(match):
+        link = match.group(0)
+        url = attr(link, "href")
+        if (attr(link, "media").casefold() != "print"
+                or "this.media='all'" not in attr(link, "onload")
+                or not url or url in fallback_urls):
+            return link
+        fallback_urls.add(url)
+        fallback = (
+            f'<noscript><link rel="stylesheet" '
+            f'href="{html.escape(url, quote=True)}"></noscript>'
+        )
+        return link + "\n" + fallback
+
+    head = re.sub(r"<link\b[^>]*>", link_repl, head, flags=re.I | re.S)
+    head = re.sub(r"\s*<noscript\b[^>]*>\s*</noscript\s*>", "", head,
+                  flags=re.I | re.S)
+    return source[:head_match.start(2)] + head + source[head_match.end(2):]
+
+
+def dedupe_asset_references(source):
+    """Keep the first load of each asset while preserving no-JS fallbacks."""
+    seen = set()
+    no_script_blocks = []
+
+    def protect_no_script(match):
+        no_script_blocks.append(match.group(0))
+        return f"<!-- seo-noscript-{len(no_script_blocks) - 1} -->"
+
+    source = re.sub(
+        r"<noscript\b[^>]*>.*?</noscript\s*>",
+        protect_no_script, source, flags=re.I | re.S,
+    )
+
+    def script_repl(match):
+        tag = match.group(0)
+        url = attr(tag, "src")
+        if not url:
+            return tag
+        key = ("script", url)
+        if key in seen:
+            return ""
+        seen.add(key)
+        return tag
+
+    def style_repl(match):
+        tag = match.group(0)
+        rel = attr(tag, "rel").casefold().split()
+        url = attr(tag, "href")
+        if "stylesheet" not in rel or not url:
+            return tag
+        key = ("stylesheet", url)
+        if key in seen:
+            return ""
+        seen.add(key)
+        return tag
+
+    source = re.sub(
+        r"<script\b[^>]*\bsrc\s*=\s*([\"']).*?\1[^>]*>\s*</script\s*>",
+        script_repl, source, flags=re.I | re.S,
+    )
+    source = re.sub(r"<link\b[^>]*>", style_repl, source, flags=re.I | re.S)
+    for index, block in enumerate(no_script_blocks):
+        source = source.replace(f"<!-- seo-noscript-{index} -->", block)
+    return source
+
+
 def attr(tag, name):
     m = re.search(r'\b' + re.escape(name) + r'\s*=\s*(["\'])(.*?)\1', tag, re.I | re.S)
     return html.unescape(m.group(2).strip()) if m else ""
@@ -227,7 +307,11 @@ def business_graph(path):
 
 
 def normalize(source, path, title, desc):
-    source = repair_malformed_anchors(apply_google_tag.transform(source, path))
+    source = dedupe_asset_references(
+        restore_nojs_stylesheet_fallbacks(
+            repair_malformed_anchors(apply_google_tag.transform(source, path))
+        )
+    )
     for old, new in INTERNAL_ALIASES.items():
         source = source.replace(old, new)
     source = normalize_fleet_schema(

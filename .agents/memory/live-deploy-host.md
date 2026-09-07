@@ -27,3 +27,13 @@ Deployment config switched to **Autoscale** running `python3 server.py` (takes e
 - server.py now handles: www→apex 301 (Host header check, before all routing), legacy-slug 301/410s parsed from netlify.toml at startup, custom 404.html, env-aware cache headers (`REPLIT_DEPLOYMENT` ⇒ prod caching; dev stays no-store).
 - **Why:** static deploys can't 301 and never run server.py; user needed a server-level www redirect (DNS redirects can't do HTTPS).
 - **How to apply:** add/change redirects in netlify.toml (single source of truth) and restart/republish — do NOT add `.replit [[deployment.rewrites]]` anymore. Stale `/es → /es/limo-service-dallas-tx/` rules were removed when the real /es/ homepage shipped.
+
+## Update (2026-09-06)
+Treat Autoscale `server.py` as the active response layer for compression and HTTP headers.
+
+**Why:** live headers showed that HTML/CSS/JS were uncompressed; manually declaring
+`Content-Encoding: gzip` in `netlify.toml` would be ignored by Replit and would corrupt
+uncompressed responses on any host that did apply it.
+
+**How to apply:** implement and verify content negotiation in the Python server, including
+`Vary: Accept-Encoding` for resolved directory indexes and explicit encoding opt-outs.

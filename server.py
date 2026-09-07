@@ -1,5 +1,9 @@
 import os
 import json
+import datetime
+import email.utils
+import gzip
+import io
 import tomllib
 import urllib.request
 import urllib.parse
@@ -33,6 +37,107 @@ def _load_redirects():
 REDIRECTS_EXACT, REDIRECT_PREFIXES = _load_redirects()
 
 class Handler(SimpleHTTPRequestHandler):
+    _gzip_cache = {}
+    _compressible_extensions = ('.html', '.css', '.js', '.json', '.xml', '.txt', '.svg')
+
+    def _encoding_quality(self, requested_encoding):
+        """Return the client's quality preference for a content encoding."""
+        explicit_quality = None
+        wildcard_quality = None
+        header = self.headers.get('Accept-Encoding')
+        if not header:
+            return 1.0 if requested_encoding == 'identity' else 0.0
+        for value in header.split(','):
+            parts = [part.strip() for part in value.split(';')]
+            encoding = parts[0].lower()
+            if encoding not in (requested_encoding, '*'):
+                continue
+            quality = 1.0
+            for parameter in parts[1:]:
+                if parameter.lower().startswith('q='):
+                    try:
+                        quality = float(parameter[2:])
+                    except ValueError:
+                        quality = 0.0
+            if encoding == requested_encoding:
+                explicit_quality = quality
+            else:
+                wildcard_quality = quality
+        if explicit_quality is not None:
+            return explicit_quality
+        if wildcard_quality is not None:
+            return wildcard_quality
+        return 1.0 if requested_encoding == 'identity' else 0.0
+
+    def send_head(self):
+        """Serve compressible static files with negotiated gzip encoding."""
+        path = self.translate_path(self.path)
+        if os.path.isdir(path):
+            if not urllib.parse.urlsplit(self.path).path.endswith('/'):
+                return super().send_head()
+            for filename in ('index.html', 'index.htm'):
+                candidate = os.path.join(path, filename)
+                if os.path.isfile(candidate):
+                    path = candidate
+                    break
+
+        compressible = (
+            os.path.isfile(path)
+            and path.lower().endswith(self._compressible_extensions)
+        )
+        self._vary_accept_encoding = compressible
+        if not compressible:
+            return super().send_head()
+        if self._encoding_quality('gzip') <= 0:
+            if self._encoding_quality('identity') <= 0:
+                self.send_response(406)
+                self.send_header('Content-Length', '0')
+                self.end_headers()
+                return None
+            return super().send_head()
+
+        try:
+            stat = os.stat(path)
+            if ('If-Modified-Since' in self.headers
+                    and 'If-None-Match' not in self.headers):
+                try:
+                    modified_since = email.utils.parsedate_to_datetime(
+                        self.headers['If-Modified-Since']
+                    )
+                except (TypeError, IndexError, OverflowError, ValueError):
+                    modified_since = None
+                if modified_since is not None:
+                    if modified_since.tzinfo is None:
+                        modified_since = modified_since.replace(
+                            tzinfo=datetime.timezone.utc
+                        )
+                    last_modified = datetime.datetime.fromtimestamp(
+                        stat.st_mtime, datetime.timezone.utc
+                    ).replace(microsecond=0)
+                    if last_modified <= modified_since:
+                        self.send_response(304)
+                        self.end_headers()
+                        return None
+
+            signature = (stat.st_mtime_ns, stat.st_size)
+            cached = self._gzip_cache.get(path)
+            if cached and cached[0] == signature:
+                body = cached[1]
+            else:
+                with open(path, 'rb') as source:
+                    body = gzip.compress(source.read(), compresslevel=6, mtime=0)
+                self._gzip_cache[path] = (signature, body)
+
+            self.send_response(200)
+            self.send_header('Content-Type', self.guess_type(path))
+            self.send_header('Content-Encoding', 'gzip')
+            self.send_header('Content-Length', str(len(body)))
+            self.send_header('Last-Modified', self.date_time_string(stat.st_mtime))
+            self.end_headers()
+            return io.BytesIO(body)
+        except OSError:
+            return super().send_head()
+
     def _www_redirect(self):
         """301 www.purpleheartlimo.com -> purpleheartlimo.com, preserving
         the full path + query string. Runs before any other routing."""
@@ -103,6 +208,7 @@ class Handler(SimpleHTTPRequestHandler):
 
     def _route(self):
         """Shared routing for GET and HEAD."""
+        self._vary_accept_encoding = False
         if self._www_redirect():
             return
         if self._legacy_redirect():
@@ -174,10 +280,12 @@ class Handler(SimpleHTTPRequestHandler):
         return super().do_GET()
 
     def end_headers(self):
+        path = urllib.parse.urlparse(self.path).path.lower()
+        if self._vary_accept_encoding:
+            self.send_header('Vary', 'Accept-Encoding')
         if IS_PROD:
             # Production: cache static assets, always revalidate HTML.
-            p = urllib.parse.urlparse(self.path).path.lower()
-            if p.endswith(('.css', '.js', '.webp', '.png', '.jpg', '.jpeg', '.svg', '.ico', '.woff', '.woff2', '.mp4')):
+            if path.endswith(('.css', '.js', '.webp', '.png', '.jpg', '.jpeg', '.svg', '.ico', '.woff', '.woff2', '.mp4')):
                 self.send_header('Cache-Control', 'public, max-age=86400')
             else:
                 self.send_header('Cache-Control', 'no-cache')
