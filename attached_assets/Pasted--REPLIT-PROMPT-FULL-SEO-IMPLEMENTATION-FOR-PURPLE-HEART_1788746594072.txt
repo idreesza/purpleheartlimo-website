@@ -1,0 +1,1056 @@
+# REPLIT PROMPT: FULL SEO IMPLEMENTATION FOR PURPLE HEART LIMO
+
+Copy this entire prompt and paste it into Replit Claude (or your Replit environment) to get comprehensive help implementing all SEO recommendations.
+
+---
+
+## 🎯 COMPREHENSIVE SEO IMPLEMENTATION PROMPT FOR REPLIT
+
+**Project:** Purple Heart Limo Website (purpleheartlimo.com)
+**Repository:** idreesza/purpleheartlimo-website
+**Deployment:** Netlify
+**Goal:** Implement full technical SEO fixes + content strategy to rank on Google for high-value keywords
+
+---
+
+### PART 1: CRITICAL TECHNICAL FIXES (DO FIRST)
+
+I've already identified 3 critical issues that need fixing:
+1. **One page returning 4XX status code** - Find and fix this broken page
+2. **One broken internal link** - Find and remove/redirect this broken link  
+3. **Sitemap.xml has redirect URLs** - Update sitemap to remove redirect URLs and replace with final destinations
+
+**Task:** Please help me:
+1. Search the codebase for any pages returning 404/4XX status
+2. Find broken internal links (links pointing to non-existent pages)
+3. Review and update the sitemap.xml file to remove redirects
+4. Verify all changes work correctly
+
+---
+
+### PART 2: PERFORMANCE OPTIMIZATION (COMPRESSION & MINIFICATION)
+
+**Current Status:** 409 performance issues detected
+- 267 uncompressed JavaScript/CSS files
+- 142 unminified JavaScript/CSS files  
+- 94 uncompressed pages
+- Site speed: ~40-50/100 Lighthouse score
+
+**Task:** Please help me implement:
+
+#### 2A. Enable Gzip Compression on Netlify:
+```
+In netlify.toml, add:
+[[headers]]
+  for = "/**"
+  [headers.values]
+    Content-Encoding = "gzip"
+    
+Also enable these compression settings:
+- Compress all CSS files
+- Compress all JavaScript files
+- Compress HTML pages
+```
+
+#### 2B. Minify All JavaScript Files:
+- Use a minifier (npm install -g minify or similar)
+- Minify all .js files in the project
+- Minify all CSS files
+- Update build process to automatically minify on deployment
+- Verify Lighthouse score improves to 65-75+
+
+#### 2C. Add Missing Canonical Tags:
+- Currently 6% of pages missing canonical tags
+- Add `<link rel="canonical" href="https://purpleheartlimo.com/[page-path]/" />` to every page's `<head>` section
+- Especially important for: services pages, vehicle pages, blog posts
+
+**Deliverables:**
+- [ ] netlify.toml updated with compression settings
+- [ ] All .js and .css files minified
+- [ ] Build process automated for minification
+- [ ] Canonical tags added to all pages
+- [ ] Lighthouse score test showing 65+ score
+- [ ] Gzip compression verified (test with checkgzipcompression.com)
+
+---
+
+### PART 3: NEW LANDING PAGES & CONTENT STRUCTURE
+
+#### 3A. Create `/airport-limo-rental` Landing Page
+
+**File:** `/airport-limo-rental/index.html` (or equivalent route)
+
+**Purpose:** Target "airport limo rental DFW" (1,200 monthly searches) - HIGH COMMERCIAL INTENT
+
+**Content Structure (1,200-1,500 words):**
+
+```
+HERO SECTION:
+- H1: "DFW Airport Limo Rental | Purple Heart Limo | On-Time, Every Time"
+- Subheading: "Professional, reliable airport transportation for Dallas-Fort Worth"
+- CTA Button: "Book Your Airport Limo Now"
+
+SECTION 1: WHY CHOOSE US FOR AIRPORT SERVICE
+- Reliability (on-time guarantee)
+- Professional drivers
+- No surge pricing (fixed rates)
+- Vehicle quality
+- Customer testimonials
+
+SECTION 2: SERVICE AREAS
+- DFW International Airport (Terminal A, B, C, D, E descriptions)
+- Love Field Airport (Dallas Love Field)
+- Fort Worth Alliance Airport
+- Area coverage: Dallas, Fort Worth, Arlington, Irving, Plano, etc.
+
+SECTION 3: VEHICLE OPTIONS & PRICING
+- Sedan/Town Car (1-3 passengers) - $XX
+- Escalade (4-6 passengers) - $XX
+- Stretch Limo (6-8 passengers) - $XX
+- Party Bus (10-14 passengers) - $XX
+- [Include photos of each]
+
+SECTION 4: BOOKING PROCESS
+Step 1: Select pickup location (airport terminal or address)
+Step 2: Choose date & time
+Step 3: Select vehicle
+Step 4: Review price
+Step 5: Confirm booking
+- Booking button prominent
+- Show estimated price upfront
+
+SECTION 5: WHAT TO EXPECT
+- Professional driver arrives early
+- Clean, luxury vehicle
+- Refreshments available
+- Phone charger & WiFi
+- Real-time tracking
+
+SECTION 6: FAQ FOR AIRPORT SERVICE
+- "Do you track my flight?"
+- "What if my flight is delayed?"
+- "How early should I book?"
+- "Do you pick up from all terminals?"
+- "What's your cancellation policy?"
+- "Is parking included?"
+- "Can I request a specific driver?"
+- "Are there extra fees?"
+
+SECTION 7: TESTIMONIALS
+- 3-5 real customer reviews about airport service
+
+SECTION 8: CTA BUTTON
+"Book Your DFW Airport Limo Today"
+```
+
+**SEO Requirements:**
+- Meta Title: "DFW Airport Limo Rental | Purple Heart Limo | Fixed Rates, On-Time Service"
+- Meta Description: "Professional airport limo rental at DFW. Reliable pickup from all terminals, luxury vehicles, fixed pricing. Book your airport transportation now!"
+- H1: "DFW Airport Limo Rental | On-Time, Every Time"
+- Internal Links: Homepage (1 link), Fleet pages (vehicle links), Pricing page, Booking page
+- Schema Markup: LocalBusiness, Service, AggregateRating
+
+---
+
+#### 3B. Create `/service-areas` Hub Page
+
+**Purpose:** Target 20+ geo-based keywords ("limo service [city]", "limo rental [city]")
+
+**Content Structure (2,000+ words):**
+
+```
+H1: "Limo Service Across Dallas-Fort Worth | Professional Transportation DFW"
+
+INTRO SECTION (300 words):
+- Overview of DFW limo service coverage
+- Why we serve multiple cities
+- Commitment to each area
+
+CITY PAGES (Each city ~250-300 words):
+
+1. DALLAS LIMO SERVICE
+   - "Professional Limo Service in Dallas"
+   - Why Dallas residents choose us
+   - Service areas within Dallas
+   - Fleet options available in Dallas
+   - CTA: "Book Limo in Dallas"
+   - Link to: Blog posts about Dallas, Dallas-specific photos
+
+2. ARLINGTON LIMO SERVICE
+   - Arlington limo service details
+   - Areas covered
+   - Popular trips (restaurants, venues, etc.)
+   - Fleet options
+   - CTA: "Book Limo in Arlington"
+
+3. FORT WORTH LIMO SERVICE
+   - Fort Worth coverage
+   - Stockyards, DT, key areas
+   - Fleet options
+   - CTA: "Book Limo in Fort Worth"
+
+4. PLANO LIMO SERVICE
+   - Corporate limo service info
+   - Business areas covered
+   - CTA: "Book Limo in Plano"
+
+5. IRVING LIMO SERVICE
+   - Irving service details
+   - CTA: "Book Limo in Irving"
+
+6. FRISCO LIMO SERVICE
+   - Frisco details
+   - CTA: "Book Limo in Frisco"
+
+7. ADDISON LIMO SERVICE
+   - Addison coverage
+   - CTA: "Book Limo in Addison"
+
+END SECTION:
+- "Can't find your city? Call us - we may still serve you!"
+- Phone number
+- Contact form
+```
+
+**SEO:**
+- Meta: "Professional Limo Service in Dallas-Fort Worth | Multiple Cities | Purple Heart Limo"
+- Internal Links: Each city links to relevant blog posts, fleet, booking page
+- Schema: MultiLocation schema markup
+
+---
+
+### PART 4: BLOG CONTENT STRATEGY
+
+**Create these 6 blog posts** (publish one per week for 6 weeks):
+
+#### Blog Post #1: "Wedding Limo Rental Dallas: Complete Planning Guide"
+
+**Keyword Targets:** "wedding limo rental Dallas", "limo rental wedding DFW", "wedding transportation Dallas"
+**Word Count:** 2,000-2,500 words
+
+**Outline:**
+```
+INTRO: Why hire wedding limo (luxury, reliability, memories, group transport)
+
+SECTION 1: WHEN TO BOOK (6-8 months before wedding)
+- Demand for popular dates
+- Best times to book
+- Seasonal pricing
+
+SECTION 2: FLEET OPTIONS FOR WEDDINGS
+- Lincoln Town Car (classic elegance)
+- Cadillac Escalade (modern luxury, larger group)
+- Stretch Limo (party atmosphere, champagne)
+- Party Bus (celebration, music, dancing)
+- [Include photos and capacity for each]
+
+SECTION 3: WEDDING PACKAGES & PRICING
+- Ceremony transportation
+- Reception transportation
+- Full day coverage
+- Package pricing examples
+
+SECTION 4: WHAT'S INCLUDED
+- Professional driver
+- Complimentary champagne
+- Flower decorations
+- Custom music playlist
+- Refreshments
+- Interior lighting options
+- Photo opportunities
+
+SECTION 5: THE BOOKING PROCESS
+- How to request quote
+- When to finalize
+- Day-of coordination
+- What to expect
+
+SECTION 6: WEDDING LIMO TIMELINE (Day-of)
+- Pickup times
+- Route planning
+- Contingencies
+- Driver communication
+
+SECTION 7: REAL WEDDING STORIES
+- 2-3 customer testimonials from couples
+
+SECTION 8: FAQ
+- "Can we decorate the limo?"
+- "Is champagne included?"
+- "What if we're running late?"
+- "Can we request a specific driver?"
+- "Cancellation policy?"
+- "What if vehicle breaks down?"
+
+CLOSING: CTA to "Book Your Wedding Limo" with button
+```
+
+**SEO:**
+- Meta Title: "Wedding Limo Rental Dallas | Luxury Transportation for Weddings"
+- Meta Description: "Complete wedding limo rental guide for Dallas couples. Fleet options, pricing, what's included, real testimonials. Book now!"
+- H1: "Wedding Limo Rental Dallas: Complete Planning Guide"
+- Internal Links: Fleet pages, pricing, testimonials, airport limo, corporate service
+- Schema: BlogPosting + AggregateRating (if you have reviews)
+
+---
+
+#### Blog Post #2: "DFW Airport Limo Service: The Traveler's Complete Guide"
+
+**Keyword Targets:** "airport limo service DFW", "DFW airport transportation", "luxury airport car service Dallas"
+**Word Count:** 2,000 words
+
+**Outline:**
+```
+INTRO: Stress-free airport travel with professional limo service
+
+SECTION 1: WHY CHOOSE LIMO OVER UBER/TAXI
+- Reliability & on-time guarantee
+- Luxury & professionalism
+- No surge pricing
+- Peace of mind
+- Comparison table: Limo vs. Uber vs. Taxi vs. Rental Car
+
+SECTION 2: AIRPORTS WE SERVICE
+- DFW International Airport (terminals, pricing)
+- Love Field Dallas
+- Fort Worth Alliance Airport
+- Detailed info for each airport
+
+SECTION 3: FLEET OPTIONS & PRICING
+- Sedan pricing for 1-3 passengers
+- Escalade for groups
+- Stretch limo for luxury
+- Pricing table
+
+SECTION 4: THE BOOKING PROCESS
+- How far in advance to book
+- What information you'll need
+- Confirmation details
+- Day-of expectations
+
+SECTION 5: WHAT TO EXPECT
+- Professional driver greeting
+- Vehicle quality
+- Amenities (WiFi, chargers, refreshments)
+- Real-time tracking
+- Communication
+
+SECTION 6: PRE-FLIGHT & POST-FLIGHT
+- Recommendations (book 24-48 hours before)
+- Flight tracking by driver
+- Delayed flight handling
+- Return airport pickup details
+
+SECTION 7: TESTIMONIALS FROM BUSINESS TRAVELERS
+- 3-4 reviews from business professionals
+
+SECTION 8: FAQ
+- "Do you track my flight?"
+- "What if flight is delayed?"
+- "How early should I arrive at airport?"
+- "Do you pick up from all terminals?"
+- "Cancellation policy?"
+- "Fixed pricing?"
+- "Can I request a specific driver?"
+
+CLOSING: Book airport limo CTA
+```
+
+**SEO:**
+- Meta Title: "DFW Airport Limo Service | Reliable, Luxury Transportation"
+- Meta Description: "Professional airport limo rental at DFW & Love Field. Fixed pricing, on-time service, luxury vehicles. Book reliable airport transportation."
+- H1: "DFW Airport Limo Service: The Traveler's Complete Guide"
+- Internal Links: Airport landing page, fleet, pricing, testimonials
+- Schema: FAQPage schema
+
+---
+
+#### Blog Post #3: "Bachelor & Bachelorette Party Limo Rental Dallas"
+
+**Keyword Targets:** "bachelor party limo Dallas", "bachelorette party limo rental", "party bus rental Dallas"
+**Word Count:** 1,800-2,000 words
+
+**Outline:**
+```
+INTRO: Unforgettable celebration with party limo/bus rental
+
+SECTION 1: LIMO VS PARTY BUS
+- Party Limo: Intimate, elegant, seated service
+- Party Bus: Open bar space, dancing, larger groups
+- Comparison chart
+- When to choose each
+
+SECTION 2: INSIDE A PARTY LIMO
+- Premium sound system
+- LED lighting
+- Bar service
+- Comfortable seating
+- Photography
+- [Include interior photos]
+
+SECTION 3: INSIDE A PARTY BUS
+- Full bar setup
+- Dance floor
+- LED lighting & effects
+- Premium speakers
+- Capacity (10-14 people)
+- Video screens
+- [Photos]
+
+SECTION 4: WHAT'S INCLUDED
+- Professional driver
+- Entertainment setup
+- Refreshments options
+- Pickup/dropoff
+- Safety features
+
+SECTION 5: PRICING & PACKAGES
+- Limo pricing by duration/vehicle
+- Party bus pricing
+- Group discounts
+- Add-on options
+
+SECTION 6: PLANNING YOUR PARTY
+- How to book
+- Group size considerations
+- Timeline recommendations
+- Itinerary planning help
+
+SECTION 7: PARTY NIGHT ITINERARY IDEAS
+- Restaurant/bar crawl route
+- Downtown Dallas venues
+- Timing recommendations
+- Safety tips
+
+SECTION 8: RULES & SAFETY
+- No outside alcohol (bring your own = what's allowed)
+- Responsible service
+- Driver safety protocols
+- What happens if...
+
+SECTION 9: REAL PARTY STORIES
+- Testimonials from groups
+- "One unforgettable night" case study
+
+SECTION 10: FAQ
+- "Can we bring our own alcohol?"
+- "How many people fit?"
+- "Is driver required to stay?"
+- "Can we customize the music?"
+- "Photo/video allowed?"
+- "Cancellation policy?"
+
+CLOSING: CTA "Book Your Party Limo Now"
+```
+
+**SEO:**
+- Meta Title: "Bachelor & Bachelorette Party Limo Rental Dallas | Party Bus Rental"
+- Meta Description: "Professional party limo and party bus rental in Dallas. Limo vs bus comparison, pricing, real testimonials. Book unforgettable celebration!"
+- H1: "Bachelor & Bachelorette Party Limo Rental Dallas"
+- Internal Links: Party bus fleet page, pricing, wedding limo blog
+- Schema: ReviewSchema (if reviews)
+
+---
+
+#### Blog Post #4: "Corporate Limo Service Dallas: Executive Transportation Done Right"
+
+**Keyword Targets:** "corporate limo service Dallas", "executive transportation DFW", "business limo rental"
+**Word Count:** 1,500-1,800 words
+
+**Outline:**
+```
+INTRO: Why executives choose professional limo service
+
+SECTION 1: WHY EXECUTIVE TRANSPORTATION MATTERS
+- Client impressions matter
+- Productivity (work in vehicle)
+- Reliability for meetings
+- Professional image
+
+SECTION 2: CORPORATE USE CASES
+- Client pickups from airport
+- Executive airport transportation
+- Board meetings & events
+- Company events
+- Corporate road shows
+- Team building events
+
+SECTION 3: FLEET FOR CORPORATE
+- Lincoln Town Car (1-3 executives)
+- Cadillac Escalade (4-6 executives)
+- Photos & amenities for each
+
+SECTION 4: AMENITIES & FEATURES
+- WiFi for work
+- Phone chargers
+- Spacious interior for files/laptops
+- Professional appearance
+- Punctuality guarantee
+- Discretion & confidentiality
+
+SECTION 5: RELIABILITY & PROFESSIONALISM
+- Background-checked drivers
+- Professional attire
+- On-time guarantee
+- Vehicle maintenance
+- Communication systems
+
+SECTION 6: CORPORATE ACCOUNTS & PRICING
+- How to setup account
+- Monthly billing option
+- Volume discounts
+- Dedicated account manager
+- Flexible scheduling
+
+SECTION 7: CASE STUDY
+- "How Company X Impressed Their VIP Client"
+- Real example of corporate limo value
+
+SECTION 8: TESTIMONIALS
+- Quotes from corporate clients
+- Industry leaders
+
+SECTION 9: FAQ
+- "Can we setup monthly billing?"
+- "Do you provide account managers?"
+- "Flexible scheduling?"
+- "Vehicle customization?"
+- "Confidentiality guaranteed?"
+- "Multi-city service?"
+
+CLOSING: "Setup Corporate Account"
+```
+
+**SEO:**
+- Meta Title: "Corporate Limo Service Dallas | Executive Transportation DFW"
+- Meta Description: "Professional corporate limo service for Dallas executives. Airport, clients, events. Monthly billing, dedicated account managers, on-time guarantee."
+- H1: "Corporate Limo Service Dallas: Executive Transportation Done Right"
+- Internal Links: Service areas, fleet, pricing, testimonials
+- Schema: Organization schema with service details
+
+---
+
+#### Blog Post #5: "Luxury Car Service Dallas: When You Need More Than a Regular Ride"
+
+**Keyword Targets:** "luxury car service Dallas", "premium limo rental", "high-end transportation DFW"
+**Word Count:** 1,500 words
+
+**Outline:**
+```
+INTRO: Special moments deserve luxury transportation
+
+SECTION 1: OCCASIONS FOR LUXURY SERVICE
+- Anniversaries
+- Marriage proposals
+- Promotions/celebrations
+- Special dates
+- Important events
+- Why limo makes it memorable
+
+SECTION 2: LUXURY FLEET SHOWCASE
+- Lincoln Town Car (classic elegance)
+- Cadillac Escalade (modern luxury)
+- Stretch Limo (premium experience)
+- Vehicle details & photos for each
+
+SECTION 3: AMENITIES & EXPERIENCES
+- Champagne & drinks
+- Rose petals
+- Custom music playlist
+- Interior lighting options
+- Photo opportunities
+- Personalization options
+
+SECTION 4: PRICING & PACKAGES
+- Hourly rates
+- Flat rates
+- Package deals
+- Add-on costs (champagne, flowers, etc.)
+
+SECTION 5: BOOKING YOUR LUXURY EXPERIENCE
+- How to request custom services
+- Advance notice needed
+- Coordination details
+
+SECTION 6: TESTIMONIALS
+- Engagement stories
+- Anniversary stories
+- Milestone celebrations
+- Romantic reviews
+
+SECTION 7: PHOTO GALLERY
+- Fleet photos
+- Interior shots
+- Happy customer moments
+
+SECTION 8: FAQ
+- "Can you arrange flowers/champagne?"
+- "Custom music playlist?"
+- "Photo opportunities?"
+- "Pricing for custom requests?"
+- "How much advance notice?"
+
+CLOSING: "Book Your Luxury Limo Experience"
+```
+
+**SEO:**
+- Meta Title: "Luxury Car Service Dallas | Premium Limo Rental DFW"
+- Meta Description: "Luxury limo service for special occasions in Dallas. Champagne, rose petals, custom music. Book unforgettable luxury transportation."
+- H1: "Luxury Car Service Dallas: Premium Transportation"
+- Internal Links: Fleet pages, pricing, testimonials, special occasions
+- Schema: ReviewSchema
+
+---
+
+#### Blog Post #6: "How to Choose the Right Limo Service in Dallas: Complete Buyer's Guide"
+
+**Keyword Targets:** "limo service Dallas", "best limo company DFW", "how to choose limo service"
+**Word Count:** 2,000-2,500 words (Comprehensive guide = high-value content)
+
+**Outline:**
+```
+INTRO: Not all limo services are created equal
+
+SECTION 1: RED FLAGS WHEN CHOOSING LIMO SERVICE
+- No clear pricing
+- Hidden fees
+- Bad reviews
+- No insurance information
+- Unprofessional website
+- No response time
+- New company with no history
+
+SECTION 2: QUESTIONS TO ASK
+- "Are you insured?"
+- "What's included in the price?"
+- "What's your cancellation policy?"
+- "Do you guarantee on-time arrival?"
+- "Can I see the vehicle in advance?"
+- "Who's the driver?" (experience, background check?)
+- "What if vehicle breaks down?"
+- "Do you have any complaints with BBB?"
+
+SECTION 3: FLEET QUALITY & MAINTENANCE
+- Vehicle age & condition
+- Regular maintenance logs
+- Cleanliness standards
+- Professional appearance
+- Why it matters
+
+SECTION 4: CUSTOMER REVIEWS & REPUTATION
+- Where to find real reviews (Google, Yelp, BBB)
+- What to look for in reviews
+- Red flags in reviews
+- How many reviews needed
+- Recency of reviews
+
+SECTION 5: PRICING TRANSPARENCY
+- Fixed vs. variable pricing
+- What's included upfront
+- No surprise charges
+- Price comparison
+- Discounts for regular customers
+
+SECTION 6: SPECIAL SERVICES TO LOOK FOR
+- Flight tracking
+- Last-minute bookings
+- Custom requests
+- Corporate accounts
+- Loyalty programs
+
+SECTION 7: WHY PURPLE HEART LIMO
+- Our story (veteran-owned)
+- Our commitment to service
+- Our difference
+- What sets us apart
+- Timeline: Founded when, serving how long, etc.
+
+SECTION 8: COMPARISON ANALYSIS
+- Purple Heart vs. competitor types (don't name names)
+- Feature comparison (pricing, vehicles, service, availability)
+- Why customers choose us
+- Testimonials supporting claims
+
+SECTION 9: CASE STUDY
+- Real example of good vs. bad limo service choice
+- How customer picked us
+- Results/satisfaction
+
+SECTION 10: FAQ
+- "How much should limo cost?"
+- "What's included?"
+- "Hidden fees?"
+- "How far in advance to book?"
+- "Can I see vehicle first?"
+- "Same-day bookings?"
+- "Emergency service?"
+
+CLOSING: "Start Your Limo Search Today"
+```
+
+**SEO:**
+- Meta Title: "How to Choose the Right Limo Service in Dallas | Buyer's Guide"
+- Meta Description: "Complete guide to choosing limo service in Dallas. Questions to ask, red flags, pricing, reviews. Find the perfect limo rental."
+- H1: "How to Choose the Right Limo Service in Dallas: Complete Buyer's Guide"
+- Internal Links: All service pages, fleet, pricing, testimonials, reviews
+- Schema: FAQPage + BreadcrumbList
+
+---
+
+### PART 5: FAQ PAGE
+
+**Create:** `/faq` or `/faqs`
+
+**Purpose:** Target question-based keywords + provide value to decision-making customers
+
+**Content (15-20 FAQs):**
+
+```
+H1: "Frequently Asked Questions | Purple Heart Limo"
+
+1. "How much does a limo cost in Dallas?"
+   - Answer: Price range by vehicle type, explains what affects pricing
+
+2. "What's included in limo rental?"
+   - Answer: Driver, vehicle, insurance, fuel, basic amenities, optional add-ons
+
+3. "Can I book a limo same-day?"
+   - Answer: Usually yes, depends on demand, no guarantee for peak times
+
+4. "What's your cancellation policy?"
+   - Answer: Clear policy (e.g., "Free cancellation up to 48 hours before")
+
+5. "Do you offer corporate accounts?"
+   - Answer: Yes, with monthly billing, account manager, volume discounts
+
+6. "Which airports do you service?"
+   - Answer: DFW International, Love Field, Fort Worth Alliance
+
+7. "Can I customize my limo?"
+   - Answer: Yes - champagne, flowers, music, decorations available
+
+8. "Are your drivers professional/background checked?"
+   - Answer: Yes, all drivers background checked, trained, uniformed
+
+9. "What payment methods do you accept?"
+   - Answer: Credit card, debit, corporate invoice, PayPal
+
+10. "How will I know my driver will find me?"
+    - Answer: Pre-trip communication, tracking, professional coordination
+
+11. "Do you offer last-minute bookings?"
+    - Answer: Yes, call us directly for urgent requests
+
+12. "What if my flight is delayed?"
+    - Answer: We track flights, no extra charge for delays
+
+13. "Can we bring our own alcohol?"
+    - Answer: Clear answer on policy
+
+14. "How many people fit in a limo?"
+    - Answer: By vehicle type with details
+
+15. "Do you offer discounts for large groups?"
+    - Answer: Yes, details on volume discounts
+
+16. "What's your on-time guarantee?"
+    - Answer: Our commitment and what happens if we're late
+
+17. "Can I request a specific driver?"
+    - Answer: Yes, based on availability
+
+18. "Is there a minimum rental period?"
+    - Answer: Clear policy
+
+19. "Do you do weddings/special events?"
+    - Answer: Yes, full details
+
+20. "How do I leave a review?"
+    - Answer: Links to Google, Yelp, etc.
+```
+
+**SEO:**
+- Meta Title: "FAQ | Purple Heart Limo | Common Questions Answered"
+- Meta Description: "Get answers to common questions about limo rental in Dallas. Pricing, policies, bookings, and more."
+- H1: "Frequently Asked Questions"
+- Schema: FAQPage schema (structured data for Google)
+- Internal Links: Service pages, fleet, pricing, contact
+
+---
+
+### PART 6: INTERNAL LINKING STRATEGY
+
+**Homepage should link to:**
+- `/airport-limo-rental` (prominent CTA)
+- `/service-areas` (geo expansion)
+- `/fleet` (vehicle showcase)
+- Blog posts (top 3)
+- `/pricing` or `/rates`
+- `/faq`
+- `/booking` or booking system
+
+**Every blog post should link to:**
+- Relevant vehicle/fleet pages
+- Related blog posts (creates internal linking web)
+- Service area pages
+- Pricing pages
+- Booking/contact
+
+**Example linking pattern for Wedding Limo blog:**
+- Wedding Limo Blog → Cadillac Escalade Fleet Page
+- Cadillac Page → Service Areas Page
+- Service Areas → Wedding Limo Blog (circular/web structure)
+- Wedding Limo → Pricing Page
+- Pricing → Wedding Packages Section
+
+**Landing pages should link to:**
+- Homepage
+- Fleet pages
+- Pricing
+- Blog posts related to topic
+- FAQ
+- Booking
+
+---
+
+### PART 7: SCHEMA MARKUP TO ADD
+
+**Add to homepage:**
+```html
+<!-- LocalBusiness Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "LocalBusiness",
+  "name": "Purple Heart Limo",
+  "image": "https://purpleheartlimo.com/images/logo.jpg",
+  "description": "Luxury limo rental service in Dallas-Fort Worth, DFW",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "YOUR_ADDRESS",
+    "addressLocality": "Dallas",
+    "addressRegion": "TX",
+    "postalCode": "YOUR_ZIP"
+  },
+  "telephone": "YOUR_PHONE",
+  "url": "https://purpleheartlimo.com",
+  "priceRange": "$$",
+  "sameAs": [
+    "https://www.facebook.com/YOUR_FB",
+    "https://www.instagram.com/YOUR_IG"
+  ]
+}
+</script>
+
+<!-- Aggregate Rating (if you have reviews) -->
+<script type="application/ld+json">
+{
+  "@type": "LocalBusiness",
+  "name": "Purple Heart Limo",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "127"
+  }
+}
+</script>
+```
+
+**Add to airport limo landing page:**
+```html
+<!-- Service Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Service",
+  "name": "Airport Limo Rental DFW",
+  "description": "Professional airport limo service at DFW and Love Field",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Purple Heart Limo"
+  },
+  "areaServed": ["Dallas", "Fort Worth", "Arlington", "Irving", "Plano"],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Limo Vehicles",
+    "itemListElement": [
+      {"@type": "Offer", "name": "Sedan", "price": "$45"},
+      {"@type": "Offer", "name": "Escalade", "price": "$65"}
+    ]
+  }
+}
+</script>
+```
+
+**Add to blog pages:**
+```html
+<!-- BlogPosting Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Blog Post Title",
+  "image": "IMAGE_URL",
+  "datePublished": "2026-09-15",
+  "author": {
+    "@type": "Organization",
+    "name": "Purple Heart Limo"
+  }
+}
+</script>
+```
+
+---
+
+### PART 8: FILE STRUCTURE & DEPLOYMENT
+
+**Create these new files:**
+```
+/airport-limo-rental/
+  index.html (or route equivalent)
+
+/service-areas/
+  index.html
+
+/faq/
+  index.html
+
+/blog/
+  wedding-limo-rental-dallas.html
+  dfw-airport-limo-service.html
+  bachelor-bachelorette-party-limo.html
+  corporate-limo-service-dallas.html
+  luxury-car-service-dallas.html
+  how-to-choose-limo-service.html
+```
+
+**Update these existing files:**
+- Homepage: Add links to new pages, update for "limo service Dallas" keyword
+- Sitemap.xml: Add all new pages
+- Navigation: Add links to new landing pages and FAQ
+- Fleet pages: Expand content (+400 words each)
+- Pricing page: Update with landing page specific pricing
+
+**Deployment:**
+1. Build locally and test
+2. Deploy to Netlify
+3. Submit sitemap to Google Search Console
+4. Monitor rankings in Semrush Position Tracking
+5. Check Lighthouse score (should be 65+ after compression/minification)
+
+---
+
+### PART 9: VERIFICATION & TESTING
+
+**Before deploying, verify:**
+- [ ] All links work (no 404s)
+- [ ] No broken internal links
+- [ ] Canonical tags on all pages
+- [ ] Meta titles & descriptions optimized
+- [ ] Schema markup validates (schema.org validator)
+- [ ] Images optimized and compressed
+- [ ] Mobile responsive design works
+- [ ] Forms/CTAs functional
+- [ ] Gzip compression enabled
+- [ ] Minified CSS/JS loaded
+- [ ] Lighthouse score 65+ (from 40-50 currently)
+- [ ] Sitemap valid and submitted to GSC
+
+**Testing tools:**
+- Google Lighthouse (built-in Chrome DevTools)
+- Mobile-Friendly Test (Google)
+- Schema.org Validator
+- checkgzipcompression.com (for compression)
+- Google Search Console (submit sitemap)
+- Semrush Site Audit (rerun after changes)
+
+---
+
+### PART 10: MONITORING & NEXT STEPS
+
+**After deployment (Week 1-2):**
+- Monitor for errors in Search Console
+- Check Lighthouse score
+- Monitor key landing pages
+- Test booking forms
+
+**After 30 days:**
+- Check rankings in Semrush Position Tracking
+- Look for new keywords ranking (#21-100)
+- Check organic traffic in Google Analytics
+- Compare to baseline (0.19% visibility, 2 top-10 keywords)
+
+**After 60 days:**
+- Full Semrush Site Audit rerun
+- Compare improvements
+- Adjust content based on rankings
+- Plan next wave of blog posts
+
+**Expected results by day 60:**
+- 5-8 keywords in top 10 (from current 2)
+- 50-100 monthly organic visits (from <1)
+- 2-3 organic bookings (from near 0)
+
+---
+
+## 📋 SUMMARY CHECKLIST
+
+### Technical Fixes (Do First):
+- [ ] Fix 4XX page
+- [ ] Fix broken internal link
+- [ ] Update sitemap.xml
+- [ ] Enable Gzip compression
+- [ ] Minify all JS/CSS files
+- [ ] Add canonical tags
+- [ ] Test Lighthouse score
+
+### Content Creation (Weeks 2-6):
+- [ ] Create /airport-limo-rental page
+- [ ] Create /service-areas page
+- [ ] Create /faq page
+- [ ] Write & publish Blog #1 (Wedding)
+- [ ] Write & publish Blog #2 (Airport)
+- [ ] Write & publish Blog #3 (Party)
+- [ ] Write & publish Blog #4 (Corporate)
+- [ ] Write & publish Blog #5 (Luxury)
+- [ ] Write & publish Blog #6 (Buyer's Guide)
+
+### SEO Enhancement:
+- [ ] Add schema markup to all pages
+- [ ] Implement internal linking strategy
+- [ ] Update sitemap & submit to GSC
+- [ ] Optimize homepage for target keywords
+- [ ] Add meta titles/descriptions
+- [ ] Enhance existing fleet/service pages
+
+### Verification:
+- [ ] Test all links
+- [ ] Validate schema markup
+- [ ] Check mobile responsiveness
+- [ ] Run Lighthouse audit
+- [ ] Test forms/CTAs
+- [ ] Verify compression & minification
+
+---
+
+## 🎯 EXPECTED OUTCOMES
+
+**Month 1-2:**
+- Rankings: 0 → 5-8 keywords in top 10
+- Traffic: <1 → 50-100 monthly visits
+- Bookings: 0 → 2-3 from organic
+
+**Month 3:**
+- Rankings: 30+ keywords in top 20
+- Traffic: 200-400 monthly visits
+- Bookings: 5-8 from organic
+
+**Month 6:**
+- Rankings: 80+ keywords in top 100, 20+ in top 10
+- Traffic: 1,500-2,500 monthly visits
+- Bookings: 20-30 from organic
+- Revenue impact: $4,000-$12,000/month additional
+
+---
+
+**This prompt covers everything from the technical audit and keyword strategy reports. Start with Part 1 (Technical Fixes), then move through each section in order. Good luck! 🚀**
