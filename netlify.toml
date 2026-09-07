@@ -103,17 +103,6 @@
   to     = "/es/fleet.html"
   status = 301
 [[redirects]]
-  from   = "/rates.html"
-  to     = "/fleet.html"
-  status = 301
-  force  = true
-[[redirects]]
-  from   = "/service-areas.html"
-  to     = "/locations/"
-  status = 301
-  force  = true
-
-[[redirects]]
   from   = "/html/head/title"
   to     = "/404.html"
   status = 410

@@ -6,6 +6,7 @@ import html
 import json
 import re
 import sys
+import tomllib
 
 import apply_google_tag
 
@@ -28,6 +29,22 @@ INTERNAL_ALIASES = {
 }
 
 
+def exact_redirects():
+    """Return local, exact permanent redirects from the deployment config."""
+    data = tomllib.loads((ROOT / "netlify.toml").read_text(encoding="utf-8"))
+    redirects = {}
+    for rule in data.get("redirects", []):
+        source = rule.get("from", "")
+        target = rule.get("to", "")
+        if (rule.get("status") == 301 and source.startswith("/")
+                and target.startswith("/") and not any(x in source for x in ("*", ":"))):
+            redirects[source] = target
+    return redirects
+
+
+EXACT_REDIRECTS = exact_redirects()
+
+
 def files():
     return sorted(p for p in ROOT.rglob("*.html")
                   if not any(x in EXCLUDED or x.startswith(".")
@@ -48,10 +65,30 @@ def clip(value, limit):
 def canonical(path):
     rel = path.relative_to(ROOT).as_posix()
     if rel == "index.html":
-        return BASE + "/"
-    if rel.endswith("/index.html"):
-        return BASE + "/" + rel[:-10]
-    return BASE + "/" + rel
+        url_path = "/"
+    elif rel.endswith("/index.html"):
+        url_path = "/" + rel[:-10]
+    else:
+        url_path = "/" + rel
+
+    seen = set()
+    while url_path not in seen:
+        seen.add(url_path)
+        source = url_path
+        if source not in EXACT_REDIRECTS and source != "/":
+            source = source.rstrip("/")
+        if source not in EXACT_REDIRECTS:
+            break
+        url_path = EXACT_REDIRECTS[source]
+    return BASE + url_path
+
+
+def repair_malformed_anchors(source):
+    """Repair a legacy Instagram anchor whose missing URL becomes an internal 404."""
+    return source.replace(
+        '<a aria-label="Instagram" href= rel="noopener"',
+        '<a aria-label="Instagram" href="https://www.instagram.com/austinlimousine" rel="noopener"',
+    )
 
 
 def attr(tag, name):
@@ -190,7 +227,7 @@ def business_graph(path):
 
 
 def normalize(source, path, title, desc):
-    source = apply_google_tag.transform(source, path)
+    source = repair_malformed_anchors(apply_google_tag.transform(source, path))
     for old, new in INTERNAL_ALIASES.items():
         source = source.replace(old, new)
     source = normalize_fleet_schema(
@@ -258,7 +295,9 @@ def collect():
 
 
 def sitemap_for(rows):
-    urls = [canonical(p) for p, source, _, _ in rows if not is_noindex(source, p)]
+    urls = list(dict.fromkeys(
+        canonical(p) for p, source, _, _ in rows if not is_noindex(source, p)
+    ))
     lines = ['<?xml version="1.0" encoding="UTF-8"?>',
              '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     lines += [f"  <url><loc>{html.escape(u)}</loc><changefreq>monthly</changefreq></url>" for u in urls]
