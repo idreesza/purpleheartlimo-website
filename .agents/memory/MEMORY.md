@@ -25,3 +25,4 @@
 - [Cowboys 2026 blog cluster](cowboys-blog-cluster.md) — Spanish post needs lang="es" re-patch after every build_blog.py run; "60-min free wait" claim is airport-only.
 - [Shared EN/ES booking widget](es-widget-shared-instance.md) — one #booking-widget moved between home/es-home by bkRelocate + bkSetLang; never duplicate it, extend BK_L10N.
 - [robots meta dedupe](robots-meta-dedupe.md) — all pages already carry full robots (index,follow,max-snippet,max-image-preview:large,max-video-preview); don't add a 2nd tag — merge/dedupe.
+- [Homepage loading](homepage-loading.md) — avoid timed brand intros that delay LCP; preserve immediate visitor tracking.

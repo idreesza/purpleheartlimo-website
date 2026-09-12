@@ -91,7 +91,9 @@
 
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
-<link as="image" href="/images/hero-jet-escalade.webp" rel="preload" fetchpriority="high"/>
+<!-- The header banner is the first visible branded image and the mobile LCP. -->
+<link as="image" href="/images/logo-banner-960.webp" imagesrcset="/images/logo-banner-480.webp 480w, /images/logo-banner-960.webp 960w" imagesizes="(max-width: 768px) 80vw, 465px" rel="preload" fetchpriority="high"/>
+<link as="image" href="/images/hero-jet-escalade.webp" rel="preload" fetchpriority="low"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" media="print" onload="this.media='all'" rel="stylesheet"/>
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap"></noscript>
 <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&amp;family=Poppins:wght@300;400;500;600;700;800&amp;family=Mulish:wght@700;800;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Playfair+Display:wght@500;600;700;800;900&amp;display=swap" media="print" onload="this.media='all'" rel="stylesheet"/>
@@ -1614,18 +1616,6 @@ footer {
 .field-error { display:none; font-size:0.72rem; color:#dc2626; font-weight:600; margin-top:4px; padding-left:2px; }
 .field-error.show { display:block; }
 .input-invalid { border-color:#dc2626 !important; background:rgba(220,38,38,0.04) !important; }
-/* Logo intro splash */
-#logo-intro { position:fixed; inset:0; z-index:99999; background:linear-gradient(180deg,#FDFBF6 0%,#F3EAD6 100%); display:flex; align-items:center; justify-content:center; opacity:1; transition:opacity .5s ease; }
-#logo-intro.fade { opacity:0; pointer-events:none; }
-#logo-intro img { width:min(64vw,420px); height:auto; display:block; opacity:0; transform:scale(.92); animation:introIn .6s ease forwards, introGlow 1.6s ease-in-out .4s infinite alternate; will-change:transform,filter; filter:drop-shadow(0 0 18px rgba(201,168,76,0.35)); }
-@keyframes introIn { to { opacity:1; transform:scale(1); } }
-@keyframes introGlow {
-  from { filter:drop-shadow(0 0 14px rgba(201,168,76,0.30)) drop-shadow(0 0 34px rgba(226,195,106,0.18)); }
-  to   { filter:drop-shadow(0 0 26px rgba(226,195,106,0.65)) drop-shadow(0 0 60px rgba(201,168,76,0.35)); }
-}
-#logo-intro::before { content:""; position:absolute; width:min(90vw,640px); aspect-ratio:1; border-radius:50%; background:radial-gradient(circle, rgba(226,195,106,0.35) 0%, rgba(226,195,106,0.12) 40%, transparent 70%); animation:introHalo 1.6s ease-in-out infinite alternate; }
-@keyframes introHalo { from { opacity:.55; transform:scale(.96); } to { opacity:1; transform:scale(1.05); } }
-body.intro-active .nav-logo-img { visibility:hidden; }
 /* Hide Home nav button while on the home page */
 body.home-active .nav-links > li.nav-home-li { display:none !important; }
 </style>
@@ -1636,9 +1626,232 @@ body.home-active .nav-links > li.nav-home-li { display:none !important; }
     if (window.emailjs) { emailjs.init({ publicKey: 'coK69SSFSbc1x8dc6' }); }
   });
 </script>
-<link href="/css/global.css" rel="stylesheet"/>
+<style data-inline-source="/css/global.css">
+.nav-logo-text{font-family:Mulish,Optima,Albertus,Trebuchet MS,sans-serif!important;text-transform:uppercase!important;letter-spacing:.18em!important;font-weight:800!important;font-size:1.05rem!important;color:#0a0a0a!important}.nav-links{gap:8px!important}.nav-links>li>a{background:#fff!important;border:1.5px solid rgba(201,168,76,.35)!important;border-radius:50px!important;padding:8px 18px!important;font-family:Poppins,Inter,sans-serif!important;font-size:.78rem!important;font-weight:600!important;color:#0a0a0a!important;letter-spacing:.02em!important;transition:all .2s ease!important;box-shadow:0 1px 4px #2d00450a!important}.nav-links>li>a:hover{background:linear-gradient(135deg,#c9a84c,#e2c36a)!important;border-color:#c9a84c!important;color:#0a0a0a!important;transform:translateY(-1px)!important;box-shadow:0 4px 14px #c9a84c59!important}.nav-links>li>a:after{display:none!important}.nav-phone{background:linear-gradient(135deg,#c9a84c,#e2c36a)!important;color:#0a0a0a!important;border-radius:50px!important;padding:9px 22px!important;font-family:Poppins,Inter,sans-serif!important;font-weight:700!important;font-size:.82rem!important;letter-spacing:.04em!important;display:inline-flex!important;align-items:center!important;gap:6px!important;box-shadow:0 4px 14px #c9a84c59!important;transition:all .2s ease!important;text-decoration:none!important;font-size:0!important}.nav-phone:before{content:"\1f4de  Call"!important;font-size:.82rem!important;font-weight:700!important;letter-spacing:.04em!important}.nav-phone:hover{transform:translateY(-1px)!important;box-shadow:0 6px 20px #c9a84c80!important;filter:brightness(1.05)!important}.nav-links .dropdown{position:relative!important}.nav-links .dropdown>a{position:relative!important}.nav-links .dropdown:hover .dropdown-menu{display:none!important}.nav-links .dropdown.open .dropdown-menu,.nav-links .dropdown:focus-within .dropdown-menu{display:block!important}.nav-links .dropdown.open>a{background:linear-gradient(135deg,#c9a84c,#e2c36a)!important;border-color:#c9a84c!important;box-shadow:0 4px 14px #c9a84c59!important}.nav-links .dropdown-menu{position:absolute!important;top:100%!important;left:0!important;margin-top:10px!important;min-width:240px!important;background:#fff!important;border:1px solid rgba(45,0,69,.08)!important;border-radius:14px!important;box-shadow:0 16px 48px #2d00452e!important;padding:8px!important;z-index:1000!important}.nav-links .dropdown-menu:before{content:""!important;position:absolute!important;top:-14px!important;left:0!important;right:0!important;height:14px!important;background:transparent!important}.nav-links .dropdown-menu a{display:flex!important;align-items:center!important;gap:10px!important;padding:11px 14px!important;border-radius:10px!important;font-family:Poppins,Inter,sans-serif!important;font-size:.86rem!important;font-weight:500!important;color:#0a0a0a!important;transition:all .15s ease!important;white-space:nowrap!important}.nav-links .dropdown-menu a:hover{background:#c9a84c1f!important;color:#a88a3a!important;transform:translate(2px)!important}
+
+/* ============================================================
+   DARK THEME — scoped to inner pages tagged body.dark-theme
+   (About, Contact, Fleet, Flight Tracker, Gallery, Reviews, Services)
+   ============================================================ */
+body.dark-theme{background:#0a0a0f!important;color:#fff!important}
+body.dark-theme .section,body.dark-theme .section-alt,body.dark-theme .section-inner,
+body.dark-theme main,body.dark-theme .container,body.dark-theme .hero,
+body.dark-theme .section-header,body.dark-theme .block{background:transparent!important}
+body.dark-theme h1,body.dark-theme h2,body.dark-theme h3,body.dark-theme h4,
+body.dark-theme h5,body.dark-theme h6{color:#fff!important}
+body.dark-theme p,body.dark-theme li,body.dark-theme td,body.dark-theme .review-text,
+body.dark-theme .feature-item p,body.dark-theme .promise-card p{color:rgba(255,255,255,.74)!important}
+body.dark-theme .stat-lbl,body.dark-theme .reviewer-meta,body.dark-theme .review-source,
+body.dark-theme .gallery-caption{color:rgba(255,255,255,.55)!important}
+body.dark-theme .card,body.dark-theme .feature-item,body.dark-theme .promise-card,
+body.dark-theme .veteran-card,body.dark-theme .review-card,body.dark-theme .contact-card,
+body.dark-theme .fleet-panel,body.dark-theme .panel,body.dark-theme .box,
+body.dark-theme [class*="-card"]{background:rgba(255,255,255,.05)!important;
+  border:1px solid rgba(255,255,255,.12)!important;color:#fff!important;box-shadow:none!important}
+body.dark-theme .feature-item h3,body.dark-theme .promise-card h4,
+body.dark-theme .card h3,body.dark-theme .card h4{color:#fff!important}
+body.dark-theme a{color:#a89fd4}
+body.dark-theme a:hover{color:#fff}
+body.dark-theme .btn-primary,body.dark-theme .btn-secondary,body.dark-theme .btn-white,
+body.dark-theme .nav-links a,body.dark-theme .nav-phone,body.dark-theme .nav-logo,
+body.dark-theme .footer-col a,body.dark-theme .footer-brand a,body.dark-theme .dropdown-menu a{color:inherit}
+body.dark-theme input,body.dark-theme select,body.dark-theme textarea{
+  background:rgba(255,255,255,.07)!important;color:#fff!important;border:1px solid rgba(255,255,255,.15)!important}
+body.dark-theme input::placeholder,body.dark-theme textarea::placeholder{color:rgba(255,255,255,.4)!important}
+body.dark-theme input:focus,body.dark-theme select:focus,body.dark-theme textarea:focus{
+  border-color:#534ab7!important;outline:none!important;box-shadow:0 0 0 2px rgba(83,74,183,.3)!important}
+body.dark-theme select option{background:#12121f;color:#fff}
+body.dark-theme table{background:transparent!important;color:#fff!important}
+body.dark-theme th{color:#a89fd4!important;border-color:rgba(255,255,255,.12)!important}
+body.dark-theme td{border-color:rgba(255,255,255,.08)!important}
+body.dark-theme tr:hover{background:rgba(255,255,255,.05)!important}
+body.dark-theme .stat-row{border-top-color:rgba(255,255,255,.12)!important}
+/* shared header on dark pages */
+body.dark-theme .navbar{background:rgba(10,10,15,.92)!important;
+  border-bottom:1px solid rgba(255,255,255,.08)!important;box-shadow:0 2px 24px rgba(0,0,0,.5)!important}
+body.dark-theme .nav-logo-text{color:#fff!important}
+body.dark-theme .nav-logo-sub{color:rgba(255,255,255,.55)!important}
+body.dark-theme .nav-links>li>a{background:rgba(255,255,255,.06)!important;
+  border:1px solid rgba(255,255,255,.16)!important;color:#fff!important;box-shadow:none!important}
+body.dark-theme .nav-links>li>a:hover,body.dark-theme .nav-links .dropdown.open>a{
+  background:#534ab7!important;border-color:#534ab7!important;color:#fff!important}
+body.dark-theme .nav-phone{background:linear-gradient(135deg,#534ab7,#6c63d4)!important;
+  color:#fff!important;box-shadow:0 4px 14px rgba(83,74,183,.4)!important}
+body.dark-theme .nav-phone:before{color:#fff!important}
+body.dark-theme .nav-phone:hover{filter:brightness(1.08)!important;box-shadow:0 6px 20px rgba(83,74,183,.55)!important}
+body.dark-theme .hamburger span{background:#fff!important}
+/* More/Company dropdown on dark pages */
+body.dark-theme .dropdown-menu{background:#12121f!important;
+  border:1px solid rgba(255,255,255,.12)!important;box-shadow:0 8px 32px rgba(0,0,0,.6)!important}
+body.dark-theme .dropdown-menu a{color:#fff!important}
+body.dark-theme .dropdown-menu a:hover{background:rgba(83,74,183,.25)!important;color:#fff!important}
+body.dark-theme .dropdown-menu .dd-section-static-title,body.dark-theme .dropdown-menu summary{color:#a89fd4!important}
+body.dark-theme .dropdown-menu details{border-top-color:rgba(255,255,255,.1)!important}
+body.dark-theme .page-hero{background:linear-gradient(160deg,#141020,#0a0a0f 55%,#141020)!important;border-bottom:1px solid rgba(255,255,255,.06)}
+body.dark-theme .page-hero h1{color:#fff!important}
+body.dark-theme .page-hero p{color:rgba(255,255,255,.7)!important}
+/* fleet.html dark overrides */
+body.dark-theme .fleet-showcase{background:transparent!important}
+body.dark-theme .fleet-stage{background:rgba(255,255,255,.03)!important;border-top-color:rgba(255,255,255,.08)!important;border-bottom-color:rgba(255,255,255,.08)!important}
+body.dark-theme .fleet-tab{background:rgba(255,255,255,.06)!important;border:1px solid rgba(255,255,255,.16)!important;color:rgba(255,255,255,.8)!important}
+body.dark-theme .fleet-tab:hover{border-color:#a89fd4!important;color:#fff!important}
+/* flight-tracker.html dark overrides */
+body.dark-theme .ft-hero{background:linear-gradient(160deg,#141020,#0a0a0f 55%,#141020)!important;border-bottom:1px solid rgba(255,255,255,.06)}
+body.dark-theme .ft-hero h1{color:#fff!important}
+body.dark-theme .ft-hero p{color:rgba(255,255,255,.7)!important}
+body.dark-theme .airports-section{background:transparent!important}
+
+@media(max-width:768px){.navbar .nav-cta .nav-phone{display:none!important}}
+
+/* ============================================================
+   HOMEPAGE ACCESSIBILITY — intentionally scoped to #home-page
+   and its adjacent footer so dark inner-page themes are unchanged.
+   ============================================================ */
+
+/* The light review/trust surfaces use a darker gold and gray that
+   retain the visual palette while meeting WCAG AA for small text. */
+#home-page .home-reviews .section-tag,
+#home-page .home-reviews .review-stars {
+  color:#6b5a12 !important;
+}
+#home-page .home-reviews .section-sub,
+#home-page .home-reviews .reviewer-info,
+#home-page .home-trust-strip .trust-strip-label,
+#home-page .home-trust-strip .trust-strip-note {
+  color:#5f5f5f !important;
+}
+
+/* Footer copy and legal links remain light on the dark surface. */
+#home-page + #main-footer .footer-description {
+  color:rgba(255,255,255,.75) !important;
+}
+#home-page + #main-footer .footer-bottom p,
+#home-page + #main-footer .footer-legal .footer-legal-link {
+  color:#c2c2c2 !important;
+}
+#home-page + #main-footer .footer-credit a {
+  color:#d4d4d4 !important;
+  opacity:1 !important;
+}
+
+/* Footer headings preserve the existing visual treatment after the
+   semantic column headings are promoted from h4 to h3. */
+#home-page + #main-footer .footer-col h3 {
+  font-family:'Inter',sans-serif;
+  font-size:.7rem;
+  font-weight:700;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:16px;
+}
+
+/* Footer links and icon controls have a comfortable 48px hit area,
+   with spacing retained between adjacent targets. */
+#home-page + #main-footer .footer-col > a {
+  display:flex !important;
+  align-items:center !important;
+  min-height:48px !important;
+  padding:8px 4px !important;
+  margin:4px 0 !important;
+}
+#home-page + #main-footer .footer-col h3 > a,
+#home-page + #main-footer .footer-col h4 > a {
+  display:inline-flex !important;
+  align-items:center !important;
+  min-height:48px !important;
+  padding:8px 4px !important;
+}
+#home-page + #main-footer .footer-brand > a,
+#home-page + #main-footer .footer-brand p > a {
+  display:inline-flex !important;
+  align-items:center !important;
+  min-height:48px !important;
+  padding:8px 0 !important;
+}
+#home-page + #main-footer .footer-brand > div a {
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-width:48px !important;
+  min-height:48px !important;
+}
+#home-page + #main-footer .footer-legal a {
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-width:48px !important;
+  min-height:48px !important;
+  padding:8px 6px !important;
+}
+#home-page + #main-footer .footer-credit > a {
+  display:inline-flex !important;
+  align-items:center !important;
+  min-height:48px !important;
+  padding:8px 6px !important;
+}
+#home-page + #main-footer .footer-language-link {
+  color:var(--gold) !important;
+}
+
+/* Remove the non-composited shimmer/background-position animation from
+   homepage CTAs while leaving the static gold gradients intact. */
+body.home-active #home-page .btn-primary,
+body.home-active #home-page .btn-secondary,
+body.home-active #home-page .btn-white,
+body.home-active .mobile-bar .m-book {
+  animation:none !important;
+  background-position:0 0 !important;
+  background-size:100% 100% !important;
+}
+
+/* The transparent home navbar changes state immediately rather than
+   animating shadow/border properties flagged by performance audits. */
+body.home-active .navbar,
+body.home-active .navbar.scrolled {
+  transition:none !important;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  body.home-active #home-page *,
+  body.home-active .navbar,
+  body.home-active .navbar *,
+  body.home-active .mobile-bar,
+  body.home-active .mobile-bar *,
+  body.home-active .floating-widgets *,
+  body.home-active .discount-cloud,
+  body.home-active .discount-cloud *,
+  body.home-active .discount-tab {
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+  body.home-active #home-page *,
+  body.home-active .navbar,
+  body.home-active .navbar *,
+  body.home-active .mobile-bar,
+  body.home-active .mobile-bar *,
+  body.home-active .floating-widgets *,
+  body.home-active .discount-cloud,
+  body.home-active .discount-cloud *,
+  body.home-active .discount-tab {
+    animation:none !important;
+  }
+}
+
+</style>
 <link href="https://purpleheartlimo.com/" hreflang="en" rel="alternate"/><link href="https://purpleheartlimo.com/es/" hreflang="es" rel="alternate"/><link href="https://purpleheartlimo.com/" hreflang="x-default" rel="alternate"/>
-<link rel="stylesheet" href="/css/sitewide-leads.css">
+<style data-inline-source="/css/sitewide-leads.css">
+.phl-mobile-call-bar{display:none}
+@media(max-width:768px){
+  body{padding-bottom:max(64px,calc(56px + env(safe-area-inset-bottom)))}
+  .phl-mobile-call-bar{position:fixed;z-index:2147483000;left:0;right:0;bottom:0;display:block;padding:8px 12px max(8px,env(safe-area-inset-bottom));background:#16051f;border-top:1px solid rgba(212,175,55,.45);box-shadow:0 -8px 24px rgba(0,0,0,.24)}
+  .phl-mobile-call-bar__link{display:flex;align-items:center;justify-content:center;min-height:46px;border-radius:10px;background:#d4af37;color:#120817!important;font:700 16px/1.2 Inter,Arial,sans-serif;text-decoration:none!important}
+  .phl-mobile-call-bar__link:focus-visible{outline:3px solid #fff;outline-offset:2px}
+  body:has(.mobile-bar) .phl-mobile-call-bar{display:none}
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -1648,7 +1861,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ===== NAVBAR ===== -->
 <nav class="navbar" id="navbar">
 <a class="nav-logo" href="/">
-<img alt="Purple Heart Limo" class="nav-logo-img" decoding="async" width="1416" height="320" src="/images/logo-banner.webp"/>
+<img alt="Purple Heart Limo" class="nav-logo-img" decoding="async" fetchpriority="high" loading="eager" width="960" height="217" src="/images/logo-banner-960.webp" srcset="/images/logo-banner-480.webp 480w, /images/logo-banner-960.webp 960w" sizes="(max-width: 768px) 80vw, 465px"/>
 </a>
 <ul class="nav-links">
 <li class="nav-home-li"><a href="/">Home</a></li>
@@ -1753,7 +1966,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ================================================================
      HOME PAGE
 ================================================================ -->
-<div class="page active" id="home-page">
+<main class="page active" id="home-page">
 <!-- Hero -->
 <section class="hero">
 <div class="hero-overlay" aria-hidden="true"></div>
@@ -1762,7 +1975,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- Booking Widget -->
 <div class="booking-card" id="booking-widget">
 <h1 class="bk-tagline">Luxury Rides. Premier Limo Service. Prime Limo Fleet.</h1>
-<h3 class="bk-sronly">Get an Instant Quote</h3>
+<h2 class="bk-sronly">Get an Instant Quote</h2>
 <div class="trip-tabs">
 <button class="trip-tab active" onclick="setTab(this,'airport')">✈ Airport</button>
 <button class="trip-tab" onclick="setTab(this,'pointtopoint')">→ Point to Point</button>
@@ -2032,7 +2245,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 </section>
 <!-- Reviews -->
-<section style="background:#FBFaf7; padding:80px 5%;">
+<section class="home-reviews" style="background:#FBFaf7; padding:80px 5%;">
 <div class="section-inner">
 <div class="text-center">
 <span class="section-tag" style="color:var(--gold);">What Riders Say</span>
@@ -2065,37 +2278,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 </section>
 <!-- Trust strip + CTA bar -->
-<div style="background:#FBFaf7;padding:60px 5% 40px;text-align:center;border-top:1px solid rgba(0,0,0,0.08);">
+<div class="home-trust-strip" style="background:#FBFaf7;padding:60px 5% 40px;text-align:center;border-top:1px solid rgba(0,0,0,0.08);">
 <div style="max-width:900px;margin:0 auto;">
 <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:32px;margin-bottom:40px;padding-bottom:36px;border-bottom:1px solid rgba(0,0,0,0.08);">
 <div style="text-align:center;">
 <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:1.9rem;color:#1a1a1a;font-weight:600;line-height:1;letter-spacing:-0.02em;">Texan-Owned</div>
-<div style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--gray);margin-top:4px;">Texan Owned</div>
+<div class="trust-strip-label" style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--gray);margin-top:4px;">Texan Owned</div>
 </div>
 <div style="width:1px;background:rgba(0,0,0,0.08);align-self:stretch;"></div>
 <div style="text-align:center;">
 <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:1.9rem;color:#1a1a1a;font-weight:600;line-height:1;letter-spacing:-0.02em;">Licensed &amp; Insured</div>
-<div style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--gray);margin-top:4px;">Fully Covered · Every Ride</div>
+<div class="trust-strip-label" style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--gray);margin-top:4px;">Fully Covered · Every Ride</div>
 </div>
 <div style="width:1px;background:rgba(0,0,0,0.08);align-self:stretch;"></div>
 <div style="text-align:center;">
 <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:1.9rem;color:#1a1a1a;font-weight:600;line-height:1;letter-spacing:-0.02em;">No Surge Pricing</div>
-<div style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--gray);margin-top:4px;">Flat Rates · Always Guaranteed</div>
+<div class="trust-strip-label" style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--gray);margin-top:4px;">Flat Rates · Always Guaranteed</div>
 </div>
 <div style="width:1px;background:rgba(0,0,0,0.08);align-self:stretch;"></div>
 <div style="text-align:center;">
 <div style="font-family:'Plus Jakarta Sans','Inter',sans-serif;font-size:1.9rem;color:#1a1a1a;font-weight:600;line-height:1;letter-spacing:-0.02em;">Confirmed in 5 Min</div>
-<div style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--gray);margin-top:4px;">24 / 7 · Austin · DFW · Houston</div>
+<div class="trust-strip-label" style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--gray);margin-top:4px;">24 / 7 · Austin · DFW · Houston</div>
 </div>
 </div>
-<p style="color:var(--gray);font-size:0.88rem;margin-bottom:20px;font-weight:500;">Luxury Rides · Premier Limo Service · Prime Limo Fleet · Anywhere in Texas.</p>
+<p class="trust-strip-note" style="color:var(--gray);font-size:0.88rem;margin-bottom:20px;font-weight:500;">Luxury Rides · Premier Limo Service · Prime Limo Fleet · Anywhere in Texas.</p>
 <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;">
 <a class="btn-primary" href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank">Book Online Now</a>
 <a class="btn-secondary" href="tel:+18337400700" style="color:#1a1a1a !important; border:1px solid #1a1a1a !important; background:transparent !important; box-shadow:none !important;">(833) 740-0700</a>
 </div>
 </div>
 </div>
-</div><!-- end home-page -->
+</main><!-- end home-page -->
 
 <!-- ================================================================
      FOOTER
@@ -2104,10 +2317,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="footer-grid">
 <div class="footer-brand">
 <a href="/" style="display:inline-flex;align-items:center;gap:10px;margin-bottom:14px;">
-<img alt="Purple Heart Limo" src="/logo.webp" style="width:40px;height:40px;object-fit:contain;border-radius:50%;background:rgba(255,255,255,0.1);" width="122" height="160"/>
+<img alt="Purple Heart Limo" decoding="async" loading="lazy" src="/images/logo-footer-80.webp" srcset="/images/logo-footer-80.webp 1x, /images/logo-footer-160.webp 2x" style="width:40px;height:40px;object-fit:contain;border-radius:50%;background:rgba(255,255,255,0.1);" width="40" height="40"/>
 <div style="font-family:'Playfair Display','Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;font-style:italic;line-height:1.1;background:linear-gradient(180deg,#F4DC95 0%,#D4AF37 50%,#AA7C11 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;filter:drop-shadow(0 1px 4px rgba(212,175,55,0.20));">Purple Heart Limo</div>
 </a>
-<p>Texan-owned luxury limousine &amp; black car service in Austin, Dallas-Fort Worth &amp; Houston, Texas. No surge pricing. Flat rates. Professional chauffeurs. The ride you deserve. 🎖️</p>
+<p class="footer-description">Texan-owned luxury limousine &amp; black car service in Austin, Dallas-Fort Worth &amp; Houston, Texas. No surge pricing. Flat rates. Professional chauffeurs. The ride you deserve. 🎖️</p>
 <p style="margin-top:14px;"><a href="tel:+18337400700" style="color:var(--gold);font-size:0.85rem;font-weight:600;">📞 (833) 740-0700</a></p>
 <p style="margin-top:4px;"><a href="mailto:info@purpleheartlimo.com" style="color:rgba(255,255,255,0.88);font-size:0.8rem;">info@purpleheartlimo.com</a></p>
 <div style="display:flex;gap:0.5rem;margin-top:1rem;">
@@ -2120,7 +2333,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 </div>
 <div class="footer-col">
-<h4>Services</h4>
+<h3>Services</h3>
 <a href="/services.html#airport">Airport Transfer</a>
 <a href="/services.html#weddings">Wedding Limo</a>
 <a href="/services.html#corporate">Corporate Travel</a>
@@ -2131,7 +2344,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a href="/services.html">World Cup 2026 ⚽</a>
 </div>
 <div class="footer-col">
-<h4>Airports</h4>
+<h3>Airports</h3>
 <a href="/limo-service-dallas-tx/#airport">DFW Airport Limo</a>
 <a href="/limo-service-dallas-tx/#airport">Dallas Love Field (DAL)</a>
 <a href="/limo-service-austin-tx/#airport">Austin-Bergstrom (AUS)</a>
@@ -2159,7 +2372,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <p>Katy · Missouri City</p>
 </div>
 <div class="footer-col">
-<h4>Company</h4>
+<h3>Company</h3>
 <a href="/about.html">About Us</a>
 <a href="/fleet.html">Our Fleet</a>
 <a href="/gallery.html">Photo Gallery</a>
@@ -2178,10 +2391,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="footer-bottom">
 <p>© 2026 Purple Heart Limo. All rights reserved. Texan-owned &amp; operated in Texas. 🎖️</p>
 <div class="footer-legal">
-<a href="/privacy-policy.html">Privacy</a>
-<a href="/terms-of-service.html">Terms</a>
-<a href="/locations/">Sitemap</a>
-<a href="/es/" style="color:var(--gold);">🇲🇽 Español</a>
+<a class="footer-legal-link" href="/privacy-policy.html">Privacy</a>
+<a class="footer-legal-link" href="/terms-of-service.html">Terms</a>
+<a class="footer-legal-link" href="/locations/">Sitemap</a>
+<a class="footer-language-link" href="/es/" style="color:var(--gold);">🇲🇽 Español</a>
 </div>
 </div>
 <div class="footer-credit" style="width:100%;text-align:center;margin-top:14px;">
@@ -3609,34 +3822,6 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- Remaining 13 blogs - compact but full SEO content -->
 
 <script defer="" src="/js/nav-dropdown.js"></script>
-<script>
-(function(){
-  try {
-    /* skip only when arriving from another page of this site */
-    if (document.referrer && new URL(document.referrer).host === location.host) return;
-  } catch(e) {}
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce) return;
-  var ov = document.createElement('div');
-  ov.id = 'logo-intro';
-  ov.setAttribute('aria-hidden','true');
-  var img = document.createElement('img');
-  img.src = '/images/logo-splash-new.webp';
-  img.alt = '';
-  ov.appendChild(img);
-  document.body.appendChild(ov);
-  function finish(){
-    if (ov.parentNode) ov.parentNode.removeChild(ov);
-  }
-  setTimeout(finish, 3500); /* fail-safe: overlay can never stay stuck */
-  setTimeout(function(){
-    try {
-      ov.classList.add('fade');
-      setTimeout(finish, 550);
-    } catch(e) { finish(); }
-  }, 2000); /* logo holds for 2s while the page loads behind it */
-})();
-</script>
 <script src="/js/price-sync.js" defer></script>
 <script src="/js/sitewide-leads.js" defer></script>
 <aside class="phl-mobile-call-bar" aria-label="Call Purple Heart Limo">

@@ -73,3 +73,140 @@ body.dark-theme .ft-hero p{color:rgba(255,255,255,.7)!important}
 body.dark-theme .airports-section{background:transparent!important}
 
 @media(max-width:768px){.navbar .nav-cta .nav-phone{display:none!important}}
+
+/* ============================================================
+   HOMEPAGE ACCESSIBILITY — intentionally scoped to #home-page
+   and its adjacent footer so dark inner-page themes are unchanged.
+   ============================================================ */
+
+/* The light review/trust surfaces use a darker gold and gray that
+   retain the visual palette while meeting WCAG AA for small text. */
+#home-page .home-reviews .section-tag,
+#home-page .home-reviews .review-stars {
+  color:#6b5a12 !important;
+}
+#home-page .home-reviews .section-sub,
+#home-page .home-reviews .reviewer-info,
+#home-page .home-trust-strip .trust-strip-label,
+#home-page .home-trust-strip .trust-strip-note {
+  color:#5f5f5f !important;
+}
+
+/* Footer copy and legal links remain light on the dark surface. */
+#home-page + #main-footer .footer-description {
+  color:rgba(255,255,255,.75) !important;
+}
+#home-page + #main-footer .footer-bottom p,
+#home-page + #main-footer .footer-legal .footer-legal-link {
+  color:#c2c2c2 !important;
+}
+#home-page + #main-footer .footer-credit a {
+  color:#d4d4d4 !important;
+  opacity:1 !important;
+}
+
+/* Footer headings preserve the existing visual treatment after the
+   semantic column headings are promoted from h4 to h3. */
+#home-page + #main-footer .footer-col h3 {
+  font-family:'Inter',sans-serif;
+  font-size:.7rem;
+  font-weight:700;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:16px;
+}
+
+/* Footer links and icon controls have a comfortable 48px hit area,
+   with spacing retained between adjacent targets. */
+#home-page + #main-footer .footer-col > a {
+  display:flex !important;
+  align-items:center !important;
+  min-height:48px !important;
+  padding:8px 4px !important;
+  margin:4px 0 !important;
+}
+#home-page + #main-footer .footer-col h3 > a,
+#home-page + #main-footer .footer-col h4 > a {
+  display:inline-flex !important;
+  align-items:center !important;
+  min-height:48px !important;
+  padding:8px 4px !important;
+}
+#home-page + #main-footer .footer-brand > a,
+#home-page + #main-footer .footer-brand p > a {
+  display:inline-flex !important;
+  align-items:center !important;
+  min-height:48px !important;
+  padding:8px 0 !important;
+}
+#home-page + #main-footer .footer-brand > div a {
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-width:48px !important;
+  min-height:48px !important;
+}
+#home-page + #main-footer .footer-legal a {
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-width:48px !important;
+  min-height:48px !important;
+  padding:8px 6px !important;
+}
+#home-page + #main-footer .footer-credit > a {
+  display:inline-flex !important;
+  align-items:center !important;
+  min-height:48px !important;
+  padding:8px 6px !important;
+}
+#home-page + #main-footer .footer-language-link {
+  color:var(--gold) !important;
+}
+
+/* Remove the non-composited shimmer/background-position animation from
+   homepage CTAs while leaving the static gold gradients intact. */
+body.home-active #home-page .btn-primary,
+body.home-active #home-page .btn-secondary,
+body.home-active #home-page .btn-white,
+body.home-active .mobile-bar .m-book {
+  animation:none !important;
+  background-position:0 0 !important;
+  background-size:100% 100% !important;
+}
+
+/* The transparent home navbar changes state immediately rather than
+   animating shadow/border properties flagged by performance audits. */
+body.home-active .navbar,
+body.home-active .navbar.scrolled {
+  transition:none !important;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  body.home-active #home-page *,
+  body.home-active .navbar,
+  body.home-active .navbar *,
+  body.home-active .mobile-bar,
+  body.home-active .mobile-bar *,
+  body.home-active .floating-widgets *,
+  body.home-active .discount-cloud,
+  body.home-active .discount-cloud *,
+  body.home-active .discount-tab {
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+  body.home-active #home-page *,
+  body.home-active .navbar,
+  body.home-active .navbar *,
+  body.home-active .mobile-bar,
+  body.home-active .mobile-bar *,
+  body.home-active .floating-widgets *,
+  body.home-active .discount-cloud,
+  body.home-active .discount-cloud *,
+  body.home-active .discount-tab {
+    animation:none !important;
+  }
+}

@@ -9,6 +9,7 @@ import sys
 import tomllib
 
 import apply_google_tag
+import inline_homepage_css
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = "https://purpleheartlimo.com"
@@ -312,6 +313,7 @@ def normalize(source, path, title, desc):
             repair_malformed_anchors(apply_google_tag.transform(source, path))
         )
     )
+    source = inline_homepage_css.inline_styles(source, path)
     for old, new in INTERNAL_ALIASES.items():
         source = source.replace(old, new)
     source = normalize_fleet_schema(

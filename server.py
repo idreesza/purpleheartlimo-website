@@ -281,7 +281,7 @@ class Handler(SimpleHTTPRequestHandler):
 
     def end_headers(self):
         path = urllib.parse.urlparse(self.path).path.lower()
-        if self._vary_accept_encoding:
+        if getattr(self, '_vary_accept_encoding', False):
             self.send_header('Vary', 'Accept-Encoding')
         if IS_PROD:
             # Production: cache static assets, always revalidate HTML.
