@@ -1,0 +1,242 @@
+Background and foreground colors do not have a sufficient contrast ratio.
+Low-contrast text is difficult or impossible for many users to read. Learn how to provide sufficient color contrast.
+Failing Elements
+WHAT RIDERS SAY
+<span class="section-tag" style="color:var(--gold);">
+WHAT RIDERS SAY Trusted by Riders Across Texas A selection of testimonials fro…
+<section style="background:#FBFaf7; padding:80px 5%;">
+A selection of testimonials from our customers in Austin, Dallas and Houston.
+<p class="section-sub" style="color:var(--gray);">
+WHAT RIDERS SAY Trusted by Riders Across Texas A selection of testimonials fro…
+<section style="background:#FBFaf7; padding:80px 5%;">
+Airport Transfer · Dallas, TX
+<div class="reviewer-info" style="color:var(--gray);">
+★★★★★ "My flight was delayed 2 hours and the driver was still there with a sig…
+<div class="review-card" style="background: rgb(255, 255, 255); border: 1px solid rgba(0, 0, 0, 0.08);">
+Wedding · Plano, TX
+<div class="reviewer-info" style="color:var(--gray);">
+★★★★★ "Used Purple Heart for our wedding and they absolutely nailed it. Vehicl…
+<div class="review-card" style="background: rgb(255, 255, 255); border: 1px solid rgba(0, 0, 0, 0.08);">
+Corporate Account · Fort Worth, TX
+<div class="reviewer-info" style="color:var(--gray);">
+★★★★★ "Our corporate account has been with Purple Heart for over a year. Every…
+<div class="review-card" style="background: rgb(255, 255, 255); border: 1px solid rgba(0, 0, 0, 0.08);">
+TEXAN OWNED
+<div style="font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;">
+Texan-Owned TEXAN OWNED Licensed & Insured FULLY COVERED · EVERY RIDE No Surge …
+<div style="background: rgb(251, 250, 247); padding: 60px 5% 40px; text-align: center;">
+FULLY COVERED · EVERY RIDE
+<div style="font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;">
+Texan-Owned TEXAN OWNED Licensed & Insured FULLY COVERED · EVERY RIDE No Surge …
+<div style="background: rgb(251, 250, 247); padding: 60px 5% 40px; text-align: center;">
+FLAT RATES · ALWAYS GUARANTEED
+<div style="font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;">
+Texan-Owned TEXAN OWNED Licensed & Insured FULLY COVERED · EVERY RIDE No Surge …
+<div style="background: rgb(251, 250, 247); padding: 60px 5% 40px; text-align: center;">
+24 / 7 · AUSTIN · DFW · HOUSTON
+<div style="font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;">
+Texan-Owned TEXAN OWNED Licensed & Insured FULLY COVERED · EVERY RIDE No Surge …
+<div style="background: rgb(251, 250, 247); padding: 60px 5% 40px; text-align: center;">
+Luxury Rides · Premier Limo Service · Prime Limo Fleet · Anywhere in Texas.
+<p style="color:var(--gray);font-size:0.88rem;margin-bottom:20px;font-weight:500;">
+Texan-Owned TEXAN OWNED Licensed & Insured FULLY COVERED · EVERY RIDE No Surge …
+<div style="background: rgb(251, 250, 247); padding: 60px 5% 40px; text-align: center;">
+© 2026 Purple Heart Limo. All rights reserved. Texan-owned & operated in Texas.…
+<p>
+Purple Heart Limo Texan-owned luxury limousine & black car service in Austin, …
+<footer id="main-footer">
+Privacy
+<a href="/privacy-policy.html">
+Purple Heart Limo Texan-owned luxury limousine & black car service in Austin, …
+<footer id="main-footer">
+Terms
+<a href="/terms-of-service.html">
+Purple Heart Limo Texan-owned luxury limousine & black car service in Austin, …
+<footer id="main-footer">
+Sitemap
+<a href="/locations/">
+Purple Heart Limo Texan-owned luxury limousine & black car service in Austin, …
+<footer id="main-footer">
+Website by Koala Social
+<a href="https://koalas.social" target="_blank" rel="nofollow noopener" style="display: inline-flex; align-items: center; gap: 7px; font-size: 0.78rem;">
+Purple Heart Limo Texan-owned luxury limousine & black car service in Austin, …
+<footer id="main-footer">
+These are opportunities to improve the legibility of your content.
+Best practices
+Touch targets do not have sufficient size or spacing.
+Touch targets with sufficient size and spacing help users who may have difficulty targeting small controls to activate the targets. Learn more about touch targets.
+Failing Elements
+Airport Transfer
+<a href="/services.html#airport">
+Wedding Limo
+<a href="/services.html#weddings">
+Wedding Limo
+<a href="/services.html#weddings">
+Airport Transfer
+<a href="/services.html#airport">
+Corporate Travel
+<a href="/services.html#corporate">
+Corporate Travel
+<a href="/services.html#corporate">
+Wedding Limo
+<a href="/services.html#weddings">
+Prom & Graduation
+<a href="/services.html#events">
+Prom & Graduation
+<a href="/services.html#events">
+Corporate Travel
+<a href="/services.html#corporate">
+Night Out & Party
+<a href="/services.html#nightout">
+Night Out & Party
+<a href="/services.html#nightout">
+Prom & Graduation
+<a href="/services.html#events">
+Hourly Service
+<a href="/services.html#charter">
+Hourly Service
+<a href="/services.html#charter">
+Night Out & Party
+<a href="/services.html#nightout">
+Game Day & Sports
+<a href="/services.html#sports">
+Game Day & Sports
+<a href="/services.html#sports">
+Hourly Service
+<a href="/services.html#charter">
+World Cup 2026 ⚽
+<a href="/services.html">
+World Cup 2026 ⚽
+<a href="/services.html">
+Game Day & Sports
+<a href="/services.html#sports">
+DFW Airport Limo
+<a href="/limo-service-dallas-tx/#airport">
+Dallas Love Field (DAL)
+<a href="/limo-service-dallas-tx/#airport">
+Dallas Love Field (DAL)
+<a href="/limo-service-dallas-tx/#airport">
+DFW Airport Limo
+<a href="/limo-service-dallas-tx/#airport">
+Austin-Bergstrom (AUS)
+<a href="/limo-service-austin-tx/#airport">
+Austin-Bergstrom (AUS)
+<a href="/limo-service-austin-tx/#airport">
+Dallas Love Field (DAL)
+<a href="/limo-service-dallas-tx/#airport">
+IAH Airport Limo
+<a href="/limo-service-houston-tx/#airport">
+IAH Airport Limo
+<a href="/limo-service-houston-tx/#airport">
+Austin-Bergstrom (AUS)
+<a href="/limo-service-austin-tx/#airport">
+Hobby Airport (HOU)
+<a href="/limo-service-houston-tx/#airport">
+Hobby Airport (HOU)
+<a href="/limo-service-houston-tx/#airport">
+IAH Airport Limo
+<a href="/limo-service-houston-tx/#airport">
+✈ Live Flight Tracker
+<a href="/flight-tracker.html" style="color:var(--gold);">
+✈ Live Flight Tracker
+<a href="/flight-tracker.html" style="color:var(--gold);">
+Hobby Airport (HOU)
+<a href="/limo-service-houston-tx/#airport">
+Austin Limo Service
+<a href="/limo-service-austin-tx/">
+Dallas-Fort Worth Limo
+<a href="/limo-service-dallas-tx/">
+Dallas-Fort Worth Limo
+<a href="/limo-service-dallas-tx/">
+Austin Limo Service
+<a href="/limo-service-austin-tx/">
+Houston Limo Service
+<a href="/limo-service-houston-tx/">
+Houston Limo Service
+<a href="/limo-service-houston-tx/">
+Dallas-Fort Worth Limo
+<a href="/limo-service-dallas-tx/">
+All Service Areas →
+<a href="/locations/">
+All Service Areas →
+<a href="/locations/">
+Houston Limo Service
+<a href="/limo-service-houston-tx/">
+About Us
+<a href="/about.html">
+Our Fleet
+<a href="/fleet.html">
+Our Fleet
+<a href="/fleet.html">
+About Us
+<a href="/about.html">
+Photo Gallery
+<a href="/gallery.html">
+Photo Gallery
+<a href="/gallery.html">
+Our Fleet
+<a href="/fleet.html">
+Testimonials
+<a href="/testimonials.html">
+Testimonials
+<a href="/testimonials.html">
+Photo Gallery
+<a href="/gallery.html">
+Blog
+<a href="/blog/">
+Blog
+<a href="/blog/">
+Testimonials
+<a href="/testimonials.html">
+FAQ
+<a href="/faq.html">
+FAQ
+<a href="/faq.html">
+Blog
+<a href="/blog/">
+Reviews
+<a href="/testimonials.html">
+Reviews
+<a href="/testimonials.html">
+FAQ
+<a href="/faq.html">
+Military Discount
+<a href="/military-discount.html">
+Military Discount
+<a href="/military-discount.html">
+Reviews
+<a href="/testimonials.html">
+Contact & Book
+<a href="/contact.html">
+Contact & Book
+<a href="/contact.html">
+Military Discount
+<a href="/military-discount.html">
+Privacy Policy
+<a href="/privacy-policy.html">
+Terms of Service
+<a href="/terms-of-service.html">
+Terms of Service
+<a href="/terms-of-service.html">
+Privacy Policy
+<a href="/privacy-policy.html">
+Cancellation Policy
+<a href="/cancellation-policy.html">
+Cancellation Policy
+<a href="/cancellation-policy.html">
+Terms of Service
+<a href="/terms-of-service.html">
+Document does not have a main landmark.
+One main landmark helps screen reader users navigate a web page. Learn more about landmarks.
+Failing Elements
+html
+<html lang="en">
+These items highlight common accessibility best practices.
+Navigation
+Heading elements are not in a sequentially-descending order
+Properly ordered headings that do not skip levels convey the semantic structure of the page, making it easier to navigate and understand when using assistive technologies. Learn more about heading order.
+Failing Elements
+Get an Instant Quote
+<h3 class="bk-sronly">
+SERVICES
+<h4>
