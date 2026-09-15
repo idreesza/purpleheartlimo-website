@@ -1,0 +1,35 @@
+Please resolve all Google Search Console indexing, routing, canonicalization, and technical SEO issues for purpleheartlimo.com.
+
+### ISSUES TO RECTIFY
+1. "Duplicate, Google chose different canonical than user": Google is detecting duplicate content versions because `.html` URLs (e.g., `/blog/dfw-family-activities.html`) exist alongside clean slug URLs (e.g., `/blog/dfw-family-activities`).
+2. "Crawled - currently not indexed": Pages are being crawled but ignored due to non-canonical duplicates, missing meta descriptions, or improper self-referencing canonical tags.
+3. "Blocked by robots.txt": Legitimate blog and core pages are blocked from crawling or incorrectly formatted.
+4. "Not found (404)": Primary pages and legacy blog links are throwing 404 errors during Googlebot crawls.
+5. Inconsistent URL Structures: Mixed presence of `.html` extensions, `www` vs non-`www` hostnames, double hyphens (`--`), and trailing dashes in slugs.
+
+---
+
+### ACTION PLAN FOR REPLIT
+
+#### 1. Standardize Canonical URLs & Remove `.html` Extensions
+- Strip `.html` extensions: Convert all routes to clean URLs (e.g., `/blog/dfw-family-activities` instead of `/blog/dfw-family-activities.html`).
+- Implement 301 Permanent Redirects: Automatically redirect any incoming request ending in `.html` to its clean URL version.
+- Enforce Single Domain: 301 redirect all `www.purpleheartlimo.com` traffic directly to `https://purpleheartlimo.com`.
+- Dynamic Canonical Tags: Set a dynamic `<link rel="canonical" href="https://purpleheartlimo.com{clean_path}">` tag in the `<head>` of every page. Ensure it ALWAYS points to the clean, non-`.html` URL version.
+
+#### 2. Slug Sanitization & Route Fixes
+- Update slug creation logic so consecutive dashes (`--`) and trailing dashes (`-`) are cleanly stripped.
+- Add 301 redirects mapping non-standard legacy slugs (e.g., `...in-austin--what-sets-us-apart`) to their cleaned canonical equivalents.
+- Audit all core routes (`/about-us`, `/contact-us`, `/blog/:slug`) in the application router (React Router/wouter/Express) to ensure they render properly instead of returning 404s.
+
+#### 3. robots.txt Configuration
+- Ensure `robots.txt` explicitly allows search engines to crawl all blog posts and main pages:
+  ```txt
+  User-agent: *
+  Allow: /blog/
+  Allow: /es/
+  Disallow: /cdn-cgi/
+  Disallow: /*?q=
+  Disallow: /*?p=
+
+  Sitemap: [https://purpleheartlimo.com/sitemap.xml](https://purpleheartlimo.com/sitemap.xml)
