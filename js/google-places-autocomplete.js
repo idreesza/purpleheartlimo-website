@@ -39,7 +39,7 @@
     var es = isSpanish();
     var copy = {
       loading: es ? 'Cargando sugerencias de direcciones de Google…' : 'Loading Google address suggestions…',
-      ready: es ? 'Escribe una dirección para ver sugerencias de Google.' : 'Start typing to see Google address suggestions.',
+      ready: '',
       unavailable: es
         ? 'La búsqueda de direcciones de Google no está disponible. Puede ingresar la dirección manualmente.'
         : 'Google address search is unavailable. You can enter the address manually.',
