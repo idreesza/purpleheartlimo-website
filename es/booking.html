@@ -345,26 +345,15 @@ html { scroll-behavior:smooth; }
 }
 @media(max-width:900px) { .search-row.is-hourly { grid-template-columns:1fr 1fr 1fr; } .search-row.is-hourly .search-btn { grid-column:1/-1; } }
 @media(max-width:580px) { .search-row.is-hourly { grid-template-columns:1fr 1fr; } }
-.vehicle-reveal:not(.has-selection) .veh-viewport { overflow:visible; }
-.vehicle-reveal:not(.has-selection) .veh-track { flex-wrap:wrap; transform:none !important; }
-.vehicle-reveal:not(.has-selection) .veh-slide { flex:0 0 calc((100% - 36px) / 3); }
-.vehicle-reveal:not(.has-selection) .veh-nav { display:none; }
+.vehicle-reveal:not(.is-collapsed):not(.is-expanded) .veh-viewport { overflow:visible; }
+.vehicle-reveal:not(.is-collapsed):not(.is-expanded) .veh-track { flex-wrap:wrap; transform:none !important; }
+.vehicle-reveal:not(.is-collapsed):not(.is-expanded) .veh-slide { flex:0 0 calc((100% - 36px) / 3); }
+.vehicle-reveal:not(.is-collapsed):not(.is-expanded) .veh-nav { display:none; }
 .veh-details-toggle { margin:18px auto 0; display:block; border:1px solid rgba(201,168,76,.55); background:transparent; color:var(--pk-mid); border-radius:8px; padding:9px 18px; font:600 .78rem Inter,sans-serif; cursor:pointer; }
 .veh-details-toggle:hover, .veh-details-toggle:focus-visible { background:var(--pk-dim); }
 .veh-expanded-details { max-width:520px; margin:16px auto 0; }
-.has-selection .veh-viewport { overflow:hidden; }
-.has-selection .veh-track { flex-wrap:nowrap; }
-.has-selection .veh-slide { flex:0 0 100%; }
-.has-selection .veh-nav { display:flex; }
-.has-selection .veh-card.compact { display:flex; align-items:center; min-height:132px; border-color:var(--pk); box-shadow:0 8px 28px rgba(45,0,69,.12); }
-.has-selection .veh-card.compact .veh-img { width:220px; height:132px; flex:0 0 220px; }
-.has-selection .veh-card.compact .veh-body { padding:18px 22px; }
-.has-selection .veh-card.compact .veh-desc, .has-selection .veh-card.compact .veh-caps,
-.has-selection .veh-card.compact .veh-features, .has-selection .veh-card.compact .veh-price-row,
-.has-selection .veh-card.compact .selected-badge { display:none; }
-.has-selection .veh-card.compact .veh-name { font-size:1.35rem; }
-.has-selection .veh-expanded-details .veh-card { cursor:default; }
-.has-selection .veh-expanded-details .veh-card:hover { transform:none; }
+.vehicle-reveal.is-expanded .veh-expanded-details .veh-card { cursor:default; }
+.vehicle-reveal.is-expanded .veh-expanded-details .veh-card:hover { transform:none; }
 .smoke-overlay { position:fixed; inset:0; z-index:2147483000; pointer-events:none; opacity:0; overflow:hidden; background:rgba(242,240,246,.18); }
 .smoke-overlay.is-running { animation:smokeOverlayFade 2s ease-in-out both; }
 .smoke-overlay::before, .smoke-overlay::after { content:""; position:absolute; top:-12%; bottom:-12%; width:72%; opacity:0; filter:blur(20px); background:radial-gradient(ellipse at center,rgba(245,243,248,.98) 0%,rgba(219,214,230,.82) 30%,rgba(255,255,255,.2) 64%,transparent 76%); }
@@ -383,12 +372,7 @@ html { scroll-behavior:smooth; }
 #mdlPriceSub { font-size:.78rem; }
 @media(max-width:767px) {
   .search-row.is-hourly { grid-template-columns:1fr 1fr; }
-  .vehicle-reveal:not(.has-selection) .veh-slide { flex-basis:100%; }
-  .has-selection .veh-carousel { padding:0; }
-  .has-selection .veh-nav { display:none; }
-  .has-selection .veh-card.compact { display:block; min-height:0; }
-  .has-selection .veh-card.compact .veh-img { width:100%; height:220px; }
-  .has-selection .veh-card.compact .veh-body { display:none; }
+  .vehicle-reveal:not(.is-collapsed):not(.is-expanded) .veh-slide { flex-basis:100%; }
   .veh-expanded-details { max-width:none; }
 }
 @media(prefers-reduced-motion:reduce) {
@@ -397,8 +381,8 @@ html { scroll-behavior:smooth; }
 }
 /* FINAL v3 presentation layer */
 .booking-hero{height:clamp(380px,52vw,620px);min-height:380px;padding:0;background:#24112d;isolation:isolate}.booking-hero::before{display:none}.booking-hero .car-carousel{position:absolute;inset:0;max-width:none;border-radius:0;box-shadow:none;background:#24112d}.booking-hero .car-slide{aspect-ratio:auto;height:100%;background:#24112d}.booking-hero .car-slide img{object-position:center;filter:brightness(.58) saturate(.9)}.booking-hero .car-carousel::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(25,9,35,.78),rgba(25,9,35,.04) 40%,rgba(25,9,35,.78))}.hero-copy{position:absolute;z-index:6;left:clamp(22px,6vw,100px);right:clamp(22px,6vw,100px);margin:0;color:#fff;text-shadow:0 3px 18px rgba(20,4,27,.65)}.hero-copy-top{top:clamp(92px,12vw,145px)}.hero-copy-bottom{bottom:clamp(30px,5vw,62px);font:600 clamp(.76rem,1.4vw,1rem)/1.45 Urbanist,sans-serif;letter-spacing:.08em;text-transform:uppercase;max-width:820px}.booking-hero h1{max-width:760px;margin:0;font-size:clamp(2.4rem,6vw,5.3rem);color:#fff}.booking-hero h1 .hl{color:#f5d77d}.booking-hero .eyebrow{color:#24112d;background:#f5d77d;box-shadow:none}.booking-hero .car-caption{z-index:7;bottom:28px;left:auto;right:6%;transform:none;background:rgba(255,255,255,.9)}.booking-hero .car-nav{z-index:8;width:54px;height:54px;background:rgba(255,255,255,.9)}.booking-hero .car-dots{position:absolute;z-index:8;bottom:28px;left:50%;transform:translateX(-50%);margin:0}.hero-features{position:relative;z-index:10;max-width:1260px;margin:-34px auto 0;padding:0 5%}.mini-stats{margin:0;gap:12px}.mini-stat-card{aspect-ratio:1;border-radius:3px;padding:12px;background:#fffdf7;border:1px solid rgba(201,168,76,.3);box-shadow:0 15px 30px rgba(45,0,69,.13)}.mini-stat-icon{background:#f8efd3}.mini-stat-val{font-size:clamp(.73rem,1.4vw,1rem)}.mini-stat-lbl{font-size:clamp(.52rem,1vw,.68rem)}
-.veh-carousel{padding:0 72px}.veh-viewport{overflow-x:auto;scroll-behavior:smooth;scrollbar-color:var(--pk) #eee7dc;scrollbar-width:auto;padding-bottom:14px}.veh-track{gap:20px;transform:none!important}.vehicle-reveal:not(.has-selection) .veh-viewport{overflow-x:auto}.vehicle-reveal:not(.has-selection) .veh-track{flex-wrap:nowrap}.vehicle-reveal:not(.has-selection) .veh-slide{flex:0 0 calc((100% - 40px)/3)}.vehicle-reveal:not(.has-selection) .veh-nav{display:flex;width:62px;height:62px;font-size:3.2rem;font-weight:900;background:#2d0045;color:#f7d979;border:3px solid #f7d979}.veh-nav.prev{left:0}.veh-nav.next{right:0}.has-selection .veh-carousel{padding:0 72px}.has-selection .veh-viewport{overflow-x:auto}.has-selection .veh-track{flex-wrap:nowrap;gap:12px}.has-selection .veh-slide{flex:0 0 calc((100% - 36px)/4)}.has-selection .veh-card.compact{display:block;min-height:0}.has-selection .veh-card.compact .veh-img{width:100%;height:42px}.has-selection .veh-card.compact .veh-body{display:none}.has-selection .veh-card.compact .selected-badge{display:block;font-size:.46rem;top:4px;right:4px;padding:2px 4px}.has-selection .veh-nav{display:flex;width:54px;height:54px;font-size:2.7rem;font-weight:900}.veh-details-toggle,.veh-change-toggle{margin:18px 8px 0;border:1px solid rgba(201,168,76,.7);background:#2d0045;color:#f8df8a;border-radius:4px;padding:11px 19px;font:700 .76rem Urbanist,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}.veh-change-toggle{background:#fff;color:#2d0045}.veh-expanded-details{display:none!important}@media(max-width:767px){.booking-hero{height:440px}.hero-copy-top{top:100px}.booking-hero h1{font-size:clamp(2.2rem,11vw,3.5rem)}.hero-copy-bottom{bottom:30px;font-size:.67rem;letter-spacing:.055em}.booking-hero .car-caption{display:none}.booking-hero .car-dots{bottom:16px}.booking-hero .car-nav{width:42px;height:42px}.hero-features{margin:-16px auto 0;padding:0 10px}.mini-stats{gap:5px}.mini-stat-card{padding:6px 2px}.mini-stat-icon{width:28px;height:28px;font-size:.85rem}.veh-carousel,.has-selection .veh-carousel{padding:0 46px}.vehicle-reveal:not(.has-selection) .veh-slide{flex:0 0 86%}.vehicle-reveal:not(.has-selection) .veh-nav{display:flex}.has-selection .veh-slide{flex:0 0 100%}.has-selection .veh-card.compact .veh-img{height:210px}.has-selection .veh-nav{display:none}.veh-details-toggle,.veh-change-toggle{width:calc(50% - 10px);margin:14px 3px 0;padding:10px 4px}.choose-section{padding-top:2.5rem}}
- .has-selection.rides-expanded .veh-slide{flex-basis:calc((100% - 40px)/3)}
+.veh-carousel{padding:0 72px}.veh-viewport{overflow-x:auto;scroll-behavior:smooth;scrollbar-color:var(--pk) #eee7dc;scrollbar-width:auto;padding-bottom:14px}.veh-track{gap:20px;transform:none!important}.vehicle-reveal:not(.is-collapsed):not(.is-expanded) .veh-viewport{overflow-x:auto}.vehicle-reveal:not(.is-collapsed):not(.is-expanded) .veh-track{flex-wrap:nowrap}.vehicle-reveal:not(.is-collapsed):not(.is-expanded) .veh-slide,.vehicle-reveal.is-expanded .veh-slide{flex:0 0 calc((100% - 40px)/3)}.vehicle-reveal:not(.is-collapsed):not(.is-expanded) .veh-nav{display:flex;width:62px;height:62px;font-size:3.2rem;font-weight:900;background:#2d0045;color:#f7d979;border:3px solid #f7d979}.veh-nav.prev{left:0}.veh-nav.next{right:0}.vehicle-reveal.is-collapsed .veh-carousel{padding:0 72px}.vehicle-reveal.is-collapsed .veh-viewport{overflow-x:auto}.vehicle-reveal.is-collapsed .veh-track{flex-wrap:nowrap;gap:12px}.vehicle-reveal.is-collapsed .veh-slide.is-selected{flex:0 0 calc((100% - 40px)/3)}.vehicle-reveal.is-collapsed .veh-slide.is-thumbnail{flex:0 0 calc((100% - 40px)/12)}.vehicle-reveal.is-collapsed .veh-card.compact{display:block;min-height:0}.vehicle-reveal.is-collapsed .veh-slide.is-thumbnail .veh-img{width:100%;height:42px}.vehicle-reveal.is-collapsed .veh-slide.is-thumbnail .veh-body{display:none}.vehicle-reveal.is-collapsed .veh-slide.is-selected .veh-img{width:100%;height:168px}.vehicle-reveal.is-collapsed .veh-slide.is-selected .veh-body{display:block}.veh-details-toggle{margin:18px auto 0;border:1px solid rgba(201,168,76,.7);background:#2d0045;color:#f8df8a;border-radius:999px;padding:11px 19px;font:700 .76rem Urbanist,sans-serif;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}.veh-expanded-details{display:none!important}@media(max-width:767px){.booking-hero{height:440px}.hero-copy-top{top:100px}.booking-hero h1{font-size:clamp(2.2rem,11vw,3.5rem)}.hero-copy-bottom{bottom:30px;font-size:.67rem;letter-spacing:.055em}.booking-hero .car-caption{display:none}.booking-hero .car-dots{bottom:16px}.booking-hero .car-nav{width:42px;height:42px}.hero-features{margin:-16px auto 0;padding:0 10px}.mini-stats{gap:5px}.mini-stat-card{padding:6px 2px}.mini-stat-icon{width:28px;height:28px;font-size:.85rem}.veh-carousel{padding:0}.vehicle-reveal:not(.is-collapsed):not(.is-expanded) .veh-slide,.vehicle-reveal.is-expanded .veh-slide{flex:0 0 100%;width:100%;min-width:100%}.vehicle-reveal.is-collapsed .veh-slide.is-selected{flex:0 0 100%;width:100%;min-width:100%}.vehicle-reveal.is-collapsed .veh-slide.is-thumbnail{flex:0 0 25%;width:25%;min-width:0}.vehicle-reveal.is-collapsed .veh-slide.is-selected .veh-img{height:168px}.vehicle-reveal.is-collapsed .veh-slide.is-thumbnail .veh-img{height:42px}.vehicle-reveal.is-collapsed .veh-nav{display:flex}.veh-details-toggle{width:fit-content;margin:14px auto;padding:10px 18px}.choose-section{padding-top:2.5rem}}
+  .vehicle-reveal.is-expanded .veh-slide{flex-basis:calc((100% - 40px)/3)}
 </style>
 <link href="/css/global.css" rel="stylesheet"/>
 <link rel="stylesheet" href="/css/booking-modal-editor.css"/>
@@ -406,19 +390,25 @@ html { scroll-behavior:smooth; }
 /* Salvaguardas FINAL v3: después de los estilos globales compartidos. */
 @media(max-width:767px){
   .hero-copy-top{top:88px!important}.booking-hero h1{font-size:clamp(1.85rem,9.25vw,2.45rem)!important;line-height:1.04!important;letter-spacing:-.025em}
-  .hero-copy-bottom{bottom:35px!important;font-size:clamp(.57rem,2.55vw,.68rem)!important;line-height:1.35!important}
+  .booking-hero .hero-copy-bottom{display:none!important}
+  .booking-hero{height:clamp(300px,90vw,380px)!important;min-height:0!important}
+  .booking-hero .car-track,.booking-hero .car-slide{height:100%!important}
+  .booking-hero .car-slide img{width:100%;height:100%!important;object-fit:cover}
   .svc-tabs{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;width:100%!important;overflow:visible!important}
   .svc-tab{min-width:0!important;padding:8px 3px!important;font-size:clamp(.65rem,3.1vw,.78rem)!important}
 }
-@media(min-width:768px){.has-selection .veh-slide{flex-basis:calc((100% - 132px)/12)!important}.has-selection.rides-expanded .veh-slide{flex-basis:calc((100% - 40px)/3)!important}}
-.has-selection .veh-card.compact .selected-badge{display:none!important}
-.has-selection .veh-card.compact.selected .selected-badge{display:block!important}
+/* Vehicle geometry is owned by the shared state-class presentation layer. */
 .vehicle-reveal.smoke-in::before,.vehicle-reveal.smoke-in::after{animation:none!important}
 .hero-features{margin:24px auto 0!important;padding:0 16px!important;max-width:100%!important}
 .hero-features .mini-stats{display:flex!important;flex-wrap:nowrap!important;gap:12px!important;overflow-x:auto;max-width:100%;width:max-content;margin:0 auto!important;padding:0 0 16px;justify-content:flex-start!important}
 .hero-features .mini-stat-card{box-sizing:border-box;flex:0 0 1.5in!important;width:1.5in!important;height:1.5in!important;min-width:1.5in!important;min-height:1.5in!important;max-width:1.5in!important;max-height:1.5in!important;padding:12px 8px!important;aspect-ratio:1/1!important}
 .hero-features .mini-stat-val{font-size:16px!important}
 .hero-features .mini-stat-lbl{font-size:12px!important}
+@media(max-width:767px){
+  /* La hoja compartida controla la geometría variable de las tarjetas. */
+  .vehicle-reveal .veh-nav.prev{left:8px}
+  .vehicle-reveal .veh-nav.next{right:8px}
+}
 </style>
 <link href="https://purpleheartlimo.com/booking.html" hreflang="en" rel="alternate"/><link href="https://purpleheartlimo.com/es/booking.html" hreflang="es" rel="alternate"/><link href="https://purpleheartlimo.com/booking.html" hreflang="x-default" rel="alternate"/>
 <link rel="stylesheet" href="/css/sitewide-leads.css">
@@ -817,7 +807,16 @@ window.__PHLBookingPage = {
   get estimate(){ return _lastEstimate; }
 };
 
-function getPrice(v){return v['img'+curSvc]||v.imgairport;}
+function getPrice(v){
+  const cls=v&&v.cls&&window.phlGetClass?window.phlGetClass(v.cls):null;
+  if(cls) return curSvc==='hourly'?cls.hourly:cls.flat;
+  return v&&((v['img'+curSvc]||v.imgairport));
+}
+function vehiclePriceMarkup(v){
+  const price=getPrice(v);
+  const sub=curSvc==='hourly'?'tarifa por hora':'tarifa plana · hasta 20 mi';
+  return `<div class="veh-price-row"><div><div class="veh-price">Desde $${price}</div><div class="veh-price-sub">${sub}</div></div>${v.note?`<span style="background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);color:#C9A84C;padding:3px 8px;border-radius:50px;font-size:0.65rem;font-weight:700;">${v.note}</span>`:''}</div>`;
+}
 
 function renderVehicles(){
   const g=document.getElementById('vehiclesGrid');
@@ -832,10 +831,7 @@ function renderVehicles(){
           <div class="veh-cap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>${v.pax} pasajeros</div>
           <div class="veh-cap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2"/></svg>${v.lug} maletas</div>
         </div>
-        <div class="veh-price-row">
-          <div><div class="veh-price">Desde $${getPrice(v)}</div><div class="veh-price-sub">tarifa plana · hasta 20 mi</div></div>
-          ${v.note?`<span style="background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);color:#C9A84C;padding:3px 8px;border-radius:50px;font-size:0.65rem;font-weight:700;">${v.note}</span>`:''}
-        </div>
+        ${vehiclePriceMarkup(v)}
         <ul class="veh-features">${(v.features||[]).map(f=>`<li>${f}</li>`).join('')}</ul>
         ${v.minHrs?`<div style="margin-top:8px;font-size:0.68rem;color:#8a8a8a;font-style:italic;display:flex;align-items:center;gap:4px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Puede aplicarse un mínimo de horas</div>`:''}
       </div>
@@ -1235,27 +1231,8 @@ renderVehicles();
 const _origRenderVehicles = renderVehicles;
 renderVehicles = function(){ _origRenderVehicles(); if(typeof updateVehCarousel==='function') setTimeout(updateVehCarousel, 0); };
 
-// Vehicle carousel nav
-let vehIdx = 0;
-const vehTrack = document.getElementById('vehiclesGrid');
-const vehPrev = document.getElementById('vehPrev');
-const vehNext = document.getElementById('vehNext');
-function visibleCount(){ const w = window.innerWidth; if(w<=600) return 1; if(w<=900) return 2; return 3; }
-function updateVehCarousel(){
-  const vc = visibleCount();
-  const maxIdx = Math.max(0, VEHICLES.length - vc);
-  if(vehIdx > maxIdx) vehIdx = maxIdx;
-  const slide = vehTrack.querySelector('.veh-slide');
-  if(!slide) return;
-  const slideW = slide.getBoundingClientRect().width + 18;
-  vehTrack.style.transform = `translateX(${-vehIdx * slideW}px)`;
-  vehPrev.disabled = vehIdx <= 0;
-  vehNext.disabled = vehIdx >= maxIdx;
-}
-vehPrev.addEventListener('click', ()=>{ vehIdx = Math.max(0, vehIdx-1); updateVehCarousel(); });
-vehNext.addEventListener('click', ()=>{ vehIdx = Math.min(VEHICLES.length-visibleCount(), vehIdx+1); updateVehCarousel(); });
-window.addEventListener('resize', updateVehCarousel);
-setTimeout(updateVehCarousel, 50);
+// La capa final de interacción controla la navegación del carrusel.
+function updateVehCarousel(){}
 
 // Estimate triggers
 ['pickupInput','dropoffInput'].forEach(id=>{
@@ -1401,7 +1378,7 @@ document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAu
   'use strict';
   const copy = {
     selected: 'SELECCIONADO', select: 'Seleccionar', details: 'Expandir detalles',
-    change: 'Cambiar vehículo / ver vehículos', vehicleSelected: 'seleccionado',
+    vehicleSelected: 'seleccionado',
     noVehicle: 'Aún no has seleccionado un vehículo',
     serviceAirport: '✈ Servicio de aeropuerto', serviceOneway: '🗺 Punto a punto',
     serviceHourly: '⏱ Servicio por hora', finalPrice: 'Precio final',
@@ -1443,6 +1420,7 @@ document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAu
       <div class="veh-img"><img src="${v.img}" alt="${v.name}" loading="lazy"></div>
       <div class="veh-body"><div class="veh-name">${v.name}</div><div class="veh-desc">${v.desc}</div>
         <div class="veh-caps"><div class="veh-cap">♙ ${v.pax} pasajeros</div><div class="veh-cap">▣ ${v.lug} maletas</div></div>
+        ${vehiclePriceMarkup(v)}
         <ul class="veh-features">${(v.features || []).map(f => `<li>${f}</li>`).join('')}</ul>
         ${v.minHrs ? '<div style="margin-top:8px;font-size:.68rem;color:#8a8a8a;font-style:italic;">◷ Puede aplicarse un mínimo de horas</div>' : ''}
       </div>
@@ -1451,7 +1429,7 @@ document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAu
   function compactCard(v) {
     return `<button type="button" class="veh-card compact selected" role="radio" aria-checked="true" aria-label="${v.name} seleccionado" onclick="selectVehicle('${v.id}')">
       <div class="selected-badge">✓ ${copy.selected}</div><div class="veh-img"><img src="${v.img}" alt="${v.name}"></div>
-      <div class="veh-body"><div class="veh-name">${v.name}</div><div class="veh-desc">Seleccionado</div></div>
+      <div class="veh-body"><div class="veh-name">${v.name}</div><div class="veh-desc">Seleccionado</div>${vehiclePriceMarkup(v)}</div>
     </button>`;
   }
   function refreshExpanded() {
@@ -1462,7 +1440,6 @@ document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAu
     expandedDetails.hidden = !expanded;
   }
   function renderBookingVehicles() {
-    vehicleSection.classList.toggle('has-selection', !!selVeh);
     if (!selVeh) {
       vehiclesGrid.innerHTML = VEHICLES.map(v => `<div class="veh-slide">${fullCard(v)}</div>`).join('');
       detailsToggle.hidden = true; detailsToggle.setAttribute('aria-expanded', 'false');
@@ -1472,7 +1449,6 @@ document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAu
     if (!selected) return;
     vehiclesGrid.innerHTML = `<div class="veh-slide">${compactCard(selected)}</div>`;
     detailsToggle.hidden = false;
-    detailsToggle.textContent = window.innerWidth < 768 ? copy.change : copy.details;
     detailsToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
     refreshExpanded();
   }
@@ -1490,30 +1466,6 @@ document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAu
     detailsStage.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
   window.selectVehicle = selectVehicle;
-  detailsToggle?.addEventListener('click', function () {
-    if (!selVeh) return;
-    expanded = !expanded;
-    detailsToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-    refreshExpanded();
-    if (expanded) expandedDetails.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  });
-  function updateCompactCarousel() {
-    if (!selVeh) return;
-    const mobile = window.innerWidth < 768;
-    if (mobile !== lastMobile) { lastMobile = mobile; renderBookingVehicles(); }
-    else if (detailsToggle) detailsToggle.textContent = mobile ? copy.change : copy.details;
-  }
-  updateVehCarousel = updateCompactCarousel;
-  window.updateVehCarousel = updateCompactCarousel;
-  function moveCompact(direction) {
-    if (!selVeh || window.innerWidth < 768) return;
-    const current = VEHICLES.findIndex(v => v.id === selVeh);
-    selectVehicle(VEHICLES[(current + direction + VEHICLES.length) % VEHICLES.length].id);
-  }
-  document.getElementById('vehPrev')?.addEventListener('click', () => moveCompact(-1));
-  document.getElementById('vehNext')?.addEventListener('click', () => moveCompact(1));
-  window.addEventListener('resize', updateCompactCarousel);
-
   function setHourlyFields() {
     const hourly = curSvc === 'hourly';
     document.querySelector('.search-row')?.classList.toggle('is-hourly', hourly);
@@ -1538,7 +1490,7 @@ document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAu
     [vehicleSection, detailsStage].forEach(el => {
       if (!el) return;
       el.hidden = true; el.setAttribute('aria-hidden', 'true');
-      el.classList.remove('is-ready', 'is-active', 'smoke-in', 'has-selection', 'vehicle-fade-in');
+      el.classList.remove('is-ready', 'is-active', 'smoke-in', 'vehicle-fade-in');
     });
     document.getElementById('selVehicleText').textContent = copy.noVehicle;
     const panel = document.getElementById('estPanel');
@@ -1794,21 +1746,145 @@ document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAu
 </script>
 <script defer="" src="/js/nav-dropdown.js"></script>
 <script src="/js/sitewide-leads.js" defer></script>
+<script src="/js/booking-vehicle-state.js"></script>
 <script>
 /* FINAL v3 vehicle interaction: capa progresiva única. */
 (function () {
   const section=document.getElementById('vehicleSection'), grid=document.getElementById('vehiclesGrid');
-  const toggle=document.getElementById('vehDetailsToggle');
+  const toggleNode=document.getElementById('vehDetailsToggle');
   const viewport=section&&section.querySelector('.veh-viewport'), details=document.getElementById('detailsStage');
-  if(!section||!grid||!toggle||!viewport)return;
+  if(!section||!grid||!toggleNode||!viewport)return;
+  const toggle=toggleNode.cloneNode(true);
+  toggleNode.replaceWith(toggle);
+  window.__PHLFinalVehicleLayer=true;
   let expanded=false;
-  const card=(v,compact)=>`<div class="veh-slide"><button type="button" class="veh-card${selVeh===v.id?' selected':''}${compact?' compact':''}" role="radio" aria-checked="${selVeh===v.id}" aria-label="Seleccionar ${v.name}" onclick="selectVehicle('${v.id}')"><div class="selected-badge">SELECCIONADO</div><div class="veh-img"><img src="${v.img}" alt="${v.name}" loading="lazy"></div><div class="veh-body"><div class="veh-name">${v.name}</div><div class="veh-desc">${v.desc}</div><div class="veh-caps"><div class="veh-cap">${v.pax} pasajeros</div><div class="veh-cap">${v.lug} maletas</div></div><ul class="veh-features">${(v.features||[]).map(f=>`<li>${f}</li>`).join('')}</ul></div></button></div>`;
-  function render(){const selected=VEHICLES.find(v=>v.id===selVeh);section.classList.toggle('has-selection',!!selected);section.classList.toggle('rides-expanded',!!selected&&expanded);if(!selected){grid.innerHTML=VEHICLES.map(v=>card(v,false)).join('');toggle.hidden=true;toggle.setAttribute('aria-expanded','false');return;}grid.innerHTML=expanded?VEHICLES.map(v=>card(v,false)).join(''):card(selected,true);toggle.hidden=false;toggle.textContent=expanded?'Contraer vehículos':'Expandir vehículos';toggle.setAttribute('aria-expanded',String(expanded));viewport.scrollLeft=0;}
+  let lastMobile=window.innerWidth<768;
+  const mobile=()=>window.innerWidth<768;
+  const card=(v,size)=>{
+    const selected=selVeh===v.id;
+    const thumbnail=size==='thumbnail';
+    const compact=size==='selected-collapsed'||thumbnail;
+    const slideClass=selected?'is-selected':(thumbnail?'is-thumbnail':'is-full');
+    const cardClass=`veh-card${selected?' selected':''}${compact?' compact':''}`;
+    return `<div class="veh-slide ${slideClass}" data-vehicle-id="${v.id}" data-slide-size="${size}"><button type="button" class="${cardClass}" role="radio" aria-checked="${selected}" aria-label="Seleccionar ${v.name}" onclick="selectVehicle('${v.id}')"><div class="selected-badge">SELECCIONADO</div><div class="veh-img"><img src="${v.img}" alt="${v.name}" loading="lazy"></div><div class="veh-body"><div class="veh-name">${v.name}</div><div class="veh-desc">${compact?'Seleccionado':v.desc}</div><div class="veh-caps"><div class="veh-cap">${v.pax} pasajeros</div><div class="veh-cap">${v.lug} maletas</div></div>${vehiclePriceMarkup(v)}<ul class="veh-features">${(v.features||[]).map(f=>`<li>${f}</li>`).join('')}</ul></div></button></div>`;
+  };
+  function jumpTo(left){
+    const previous=viewport.style.scrollBehavior;
+    viewport.style.scrollBehavior='auto';
+    viewport.scrollLeft=Math.max(0,left);
+    viewport.style.scrollBehavior=previous;
+  }
+  function scrollSelectedIntoView(){
+    if(expanded)return;
+    const selectedId=selVeh;
+    requestAnimationFrame(()=>{
+      if(expanded||selectedId!==selVeh)return;
+      const slide=grid.querySelector('.veh-slide.is-selected');
+      if(!slide)return;
+      const trackLeft=grid.getBoundingClientRect().left;
+      const slideLeft=slide.getBoundingClientRect().left;
+      const target=window.PHLVehicleState.selectedScrollTarget(slideLeft,trackLeft);
+      jumpTo(target);
+    });
+  }
+  function render(){
+    const selected=VEHICLES.find(v=>v.id===selVeh);
+    section.classList.toggle('is-collapsed',!!selected&&!expanded);
+    section.classList.toggle('is-expanded',!!selected&&expanded);
+    jumpTo(viewport.scrollLeft);
+    if(!selected){
+      expanded=false;
+      section.classList.remove('is-collapsed','is-expanded');
+      grid.innerHTML=VEHICLES.map(v=>card(v,'full')).join('');
+      toggle.hidden=true;
+      toggle.setAttribute('aria-expanded','false');
+      return;
+    }
+    const presentation=window.PHLVehicleState.vehiclePresentation(VEHICLES,selVeh,expanded);
+    grid.innerHTML=presentation.cards.map(item=>{
+      const vehicle=VEHICLES.find(v=>v.id===item.id);
+      const size=presentation.mode==='collapsed'
+        ? (item.selected?'selected-collapsed':'thumbnail') : 'full';
+      return card(vehicle,size);
+    }).join('');
+    toggle.hidden=false;
+    toggle.textContent=expanded?'Contraer vehículos':'Expandir vehículos';
+    toggle.setAttribute('aria-expanded',String(expanded));
+    scrollSelectedIntoView();
+  }
+  function chooseVehicle(id){
+    if(!VEHICLES.some(v=>v.id===id))return;
+    const hadSelection=!!selVeh;
+    selVeh=id;expanded=false;
+    const v=VEHICLES.find(x=>x.id===id),text=document.getElementById('selVehicleText');
+    if(text)text.textContent=`${v.name} seleccionado`;
+    render();
+    if(typeof updateEstimate==='function')updateEstimate();
+    if(details){
+      details.hidden=false;details.setAttribute('aria-hidden','false');
+      requestAnimationFrame(()=>details.classList.add('is-ready','is-active'));
+      if(!hadSelection)details.scrollIntoView({behavior:'smooth',block:'start'});
+    }
+  }
   window.renderVehicles=render;renderVehicles=render;
-  window.selectVehicle=selectVehicle=function(id){if(!VEHICLES.some(v=>v.id===id))return;selVeh=id;expanded=false;const v=VEHICLES.find(x=>x.id===id),text=document.getElementById('selVehicleText');if(text)text.textContent=`${v.name} seleccionado`;render();if(typeof updateEstimate==='function')updateEstimate();details.hidden=false;details.setAttribute('aria-hidden','false');requestAnimationFrame(()=>details.classList.add('is-ready','is-active'));details.scrollIntoView({behavior:'smooth',block:'start'});};
-  toggle.onclick=()=>{if(!selVeh)return;expanded=!expanded;render();if(expanded)viewport.scrollIntoView({behavior:'smooth',block:'nearest'});};
-  ['vehPrev','vehNext'].forEach((id,index)=>{const old=document.getElementById(id),fresh=old.cloneNode(true);old.replaceWith(fresh);fresh.addEventListener('click',()=>viewport.scrollBy({left:(index?1:-1)*Math.max(260,viewport.clientWidth*.72),behavior:'smooth'}));});
-  window.addEventListener('resize',render);render();
+  window.updateVehCarousel=updateVehCarousel=render;
+  renderBookingVehicles=render;
+  window.selectVehicle=selectVehicle=chooseVehicle;
+  toggle.onclick=()=>{
+    if(!selVeh)return;
+    expanded=window.PHLVehicleState.toggleExpanded({selectedId:selVeh,expanded}).expanded;
+    render();
+    if(expanded)viewport.scrollIntoView({behavior:'smooth',block:'nearest'});
+  };
+  ['vehPrev','vehNext'].forEach((id,index)=>{
+    const old=document.getElementById(id),fresh=old.cloneNode(true);
+    old.replaceWith(fresh);
+    fresh.addEventListener('click',()=>{
+      const direction=index?1:-1;
+      if(selVeh&&!expanded){
+        const current=VEHICLES.findIndex(v=>v.id===selVeh);
+        const next=window.PHLVehicleState.nextVehicleIndex(current,VEHICLES.length,direction);
+        chooseVehicle(VEHICLES[next].id);
+        return;
+      }
+      viewport.scrollBy({left:direction*Math.max(260,viewport.clientWidth*.72),behavior:'smooth'});
+    });
+  });
+  let touchStartX=0,touchStartY=0;
+  viewport.addEventListener('touchstart',event=>{
+    const touch=event.touches[0];
+    if(touch){touchStartX=touch.clientX;touchStartY=touch.clientY;}
+  },{passive:true});
+  viewport.addEventListener('touchend',event=>{
+    const touch=event.changedTouches[0];
+    if(!touch||!mobile()||expanded||!selVeh)return;
+    const dx=touch.clientX-touchStartX,dy=touch.clientY-touchStartY;
+    if(Math.abs(dx)<40||Math.abs(dy)>=Math.abs(dx))return;
+    const direction=dx<0?1:-1;
+    const current=VEHICLES.findIndex(v=>v.id===selVeh);
+    const next=window.PHLVehicleState.nextVehicleIndex(current,VEHICLES.length,direction);
+    chooseVehicle(VEHICLES[next].id);
+  },{passive:true});
+  let layoutFrame=0;
+  const syncVehicleLayout=()=>{
+    if(layoutFrame)return;
+    layoutFrame=requestAnimationFrame(()=>{
+      layoutFrame=0;
+      const isMobile=mobile();
+      if(isMobile!==lastMobile){
+        lastMobile=isMobile;
+        render();
+      }else if(selVeh&&!expanded){
+        scrollSelectedIntoView();
+      }
+    });
+  };
+  window.addEventListener('resize',syncVehicleLayout);
+  if(typeof ResizeObserver==='function'){
+    const layoutObserver=new ResizeObserver(syncVehicleLayout);
+    layoutObserver.observe(viewport);
+  }
+  render();
 }());
 </script>
 <script src="/js/booking-modal-editor-core.js"></script>

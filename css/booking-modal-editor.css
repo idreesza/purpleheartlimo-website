@@ -136,18 +136,16 @@ body.booking-modal-open {
   margin-bottom: 0;
 }
 .vehicle-reveal .veh-details-toggle {
-  display: block !important;
+  display: block;
   width: fit-content;
   min-width: 172px;
-  margin: 18px auto 0 !important;
-  border-radius: 999px !important;
+  margin: 18px auto 0;
+  border-radius: 999px;
   text-align: center;
 }
-.vehicle-reveal.has-selection:not(.rides-expanded) .veh-nav {
-  display: none !important;
-}
-.vehicle-reveal.has-selection.rides-expanded .veh-nav {
-  display: flex !important;
+.vehicle-reveal.is-collapsed .veh-nav,
+.vehicle-reveal.is-expanded .veh-nav {
+  display: flex;
 }
 @media (max-width: 640px) {
   .modal-bg {
@@ -170,7 +168,150 @@ body.booking-modal-open {
   .booking-editor-grid .booking-editor-full {
     grid-column: auto;
   }
-  .vehicle-reveal.has-selection.rides-expanded .veh-nav {
+  .vehicle-reveal.is-expanded .veh-nav,
+  .vehicle-reveal.is-collapsed .veh-nav {
     display: flex !important;
+  }
+}
+
+/*
+ * Canonical vehicle presentation layer. The page scripts only toggle
+ * is-collapsed/is-expanded and mark the selected slide; this stylesheet owns
+ * the variable-width geometry for both booking locales.
+ */
+.vehicle-reveal .veh-carousel {
+  padding: 0 72px;
+}
+.vehicle-reveal .veh-viewport {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+  scrollbar-color: var(--pk) #eee7dc;
+  scrollbar-width: auto;
+  padding-bottom: 14px;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.vehicle-reveal .veh-track {
+  flex-wrap: nowrap;
+  gap: 20px;
+  transform: none;
+}
+.vehicle-reveal:not(.is-collapsed):not(.is-expanded) .veh-slide,
+.vehicle-reveal.is-expanded .veh-slide {
+  flex: 0 0 calc((100% - 40px) / 3);
+  min-width: 0;
+}
+.vehicle-reveal.is-collapsed .veh-slide {
+  min-width: 0;
+}
+.vehicle-reveal.is-collapsed .veh-track {
+  gap: 20px;
+}
+.vehicle-reveal.is-collapsed .veh-slide.is-selected {
+  flex: 0 0 calc((100% - 40px) / 3);
+}
+.vehicle-reveal.is-collapsed .veh-slide.is-thumbnail {
+  flex: 0 0 calc((100% - 40px) / 12);
+}
+.vehicle-reveal.is-collapsed .veh-slide.is-selected .veh-card.compact {
+  display: block;
+  min-height: 0;
+  border-color: var(--pk);
+  box-shadow: 0 8px 28px rgba(45,0,69,.12);
+}
+.vehicle-reveal.is-collapsed .veh-slide.is-selected .veh-card.compact .veh-img {
+  width: 100%;
+  height: 168px;
+}
+.vehicle-reveal.is-collapsed .veh-slide.is-selected .veh-card.compact .veh-body {
+  display: block;
+  padding: 8px 12px 10px;
+}
+.vehicle-reveal.is-collapsed .veh-slide.is-selected .veh-card.compact .veh-name,
+.vehicle-reveal.is-collapsed .veh-slide.is-selected .veh-card.compact .veh-desc,
+.vehicle-reveal.is-collapsed .veh-slide.is-selected .veh-card.compact .veh-caps,
+.vehicle-reveal.is-collapsed .veh-slide.is-selected .veh-card.compact .veh-features,
+.vehicle-reveal.is-collapsed .veh-slide.is-selected .veh-card.compact [data-vehicle-note] {
+  display: none;
+}
+.vehicle-reveal.is-collapsed .veh-slide.is-selected .veh-card.compact .veh-price-row {
+  display: flex;
+}
+.vehicle-reveal.is-collapsed .veh-slide.is-thumbnail .veh-card.compact {
+  display: block;
+  min-height: 0;
+}
+.vehicle-reveal.is-collapsed .veh-slide.is-thumbnail .veh-card.compact .veh-img {
+  width: 100%;
+  height: 42px;
+}
+.vehicle-reveal.is-collapsed .veh-slide.is-thumbnail .veh-card.compact .veh-body {
+  display: none;
+}
+.vehicle-reveal.is-collapsed .veh-slide.is-thumbnail .veh-card.compact .selected-badge {
+  display: none;
+}
+.vehicle-reveal.is-collapsed .veh-slide.is-selected .veh-card.compact .selected-badge {
+  display: block;
+  font-size: .46rem;
+  top: 4px;
+  right: 4px;
+  padding: 2px 4px;
+}
+.vehicle-reveal.is-expanded .veh-slide .veh-card:hover {
+  transform: none;
+}
+.vehicle-reveal .veh-nav.prev {
+  left: 0;
+}
+.vehicle-reveal .veh-nav.next {
+  right: 0;
+}
+.vehicle-reveal:not(.is-collapsed):not(.is-expanded) .veh-nav {
+  display: flex;
+}
+
+@media (max-width: 767px) {
+  .vehicle-reveal .veh-carousel {
+    padding: 0;
+  }
+  .vehicle-reveal.is-collapsed .veh-carousel {
+    padding: 0;
+  }
+  .vehicle-reveal .veh-viewport {
+    touch-action: pan-x pan-y;
+  }
+  .vehicle-reveal .veh-track {
+    gap: 12px;
+  }
+  .vehicle-reveal:not(.is-collapsed):not(.is-expanded) .veh-slide,
+  .vehicle-reveal.is-expanded .veh-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 100%;
+    scroll-snap-align: start;
+  }
+  .vehicle-reveal.is-collapsed .veh-slide.is-selected {
+    flex: 0 0 100%;
+    width: 100%;
+    scroll-snap-align: start;
+  }
+  .vehicle-reveal.is-collapsed .veh-slide.is-thumbnail {
+    flex: 0 0 25%;
+    width: 25%;
+    scroll-snap-align: start;
+  }
+  .vehicle-reveal.is-collapsed .veh-slide.is-selected .veh-card.compact .veh-img {
+    height: 168px;
+  }
+  .vehicle-reveal.is-collapsed .veh-slide.is-thumbnail .veh-card.compact .veh-img {
+    height: 42px;
+  }
+  .vehicle-reveal .veh-nav.prev {
+    left: 8px;
+  }
+  .vehicle-reveal .veh-nav.next {
+    right: 8px;
   }
 }

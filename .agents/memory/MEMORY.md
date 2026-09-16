@@ -22,6 +22,7 @@
 - [Booking pricing rules](booking-pricing-rules.md) — canonical fare rules + class order/caps in js/pricing.js; booking.html must hard-sync; Google Maps APIs disabled → OSRM fallback serves /api/distance.
 - [Hourly quote policy](hourly-quote-policy.md) — same existing rates at both hubs; new duration formula is hourly-only; failed Google hub check requires a manual quote.
 - [Fleet marquee focus](fleet-marquee-focus.md) — picked ride-type centers/magnifies a car; never animate layout-affecting margin or getBoundingClientRect centering drifts.
+- [Booking carousel event ownership](booking-carousel-events.md) — remove legacy listeners when replacing controls; competing toggle/scroll handlers can cancel the visible interaction.
 - [Netlify HTML optimizer](netlify-html-optimizer.md) — live HTML rewrites quotes + strips .html from hrefs; verify deploys with quote/extension-agnostic greps.
 - [Hostinger .htaccess port](hostinger-htaccess-port.md) — Hostinger=Apache ignores netlify.toml; .htaccess is GENERATED from it via scripts/gen_htaccess.py; :slug→capture group, functions not portable.
 - [Cowboys 2026 blog cluster](cowboys-blog-cluster.md) — Spanish post needs lang="es" re-patch after every build_blog.py run; "60-min free wait" claim is airport-only.
