@@ -401,6 +401,7 @@ html { scroll-behavior:smooth; }
  .has-selection.rides-expanded .veh-slide{flex-basis:calc((100% - 40px)/3)}
 </style>
 <link href="/css/global.css" rel="stylesheet"/>
+<link rel="stylesheet" href="/css/booking-modal-editor.css"/>
 <style id="booking-v3-hotfix">
 /* Salvaguardas FINAL v3: después de los estilos globales compartidos. */
 @media(max-width:767px){
@@ -628,7 +629,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <div class="alert alert-success" id="alertSuccess"></div>
 <div class="alert alert-error" id="alertError"></div>
-<button class="btn-submit" id="submitBtn" type="button" onclick="openEstimateModal()">Obtener una Cotización</button>
+<button class="btn-submit" id="submitBtn" type="button" onclick="openEstimateModal()">Obtener una cotización</button>
 <div class="moovs-cta" id="moovsLink">
 <a href="https://customer.moovs.app/purple-heart-limo/new/info" target="_blank" rel="noopener noreferrer">Reservar por Moovs</a>
 </div>
@@ -650,46 +651,60 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <button aria-label="Siguiente" class="veh-nav next" id="vehNext" type="button">›</button>
 </div>
 <button class="veh-details-toggle" id="vehDetailsToggle" type="button" hidden aria-expanded="false">Expandir vehículos</button>
-<button class="veh-change-toggle" id="vehChangeToggle" type="button" hidden>Cambiar vehículo</button>
 <div class="veh-expanded-details" id="vehExpandedDetails" hidden></div>
 </section>
 <!-- Confirmation modal -->
-<div class="modal-bg" id="confirmModal">
-<div class="modal">
+<div class="modal-bg" id="confirmModal" aria-hidden="true">
+<div class="modal booking-editor-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDescription">
 <div class="modal-head">
-<h3>Confirma tu solicitud de viaje</h3>
-<p>Revisa los datos. Nuestro representante confirmará el precio final.</p>
+<h3 id="modalTitle">Confirma tu solicitud de viaje</h3>
+<p id="modalDescription">Edita todos los detalles antes de enviar. Nuestro representante confirmará el precio final.</p>
 </div>
 <div class="modal-body">
 <div id="mdlMissingWarn" style="display:none; background:#fef2f2; border:1.5px solid #dc2626; color:#991b1b; padding:10px 14px; border-radius:10px; font-size:0.82rem; margin-bottom:14px; line-height:1.45;"></div>
+<form class="booking-editor-form" id="bookingModalForm" novalidate>
+<div class="modal-section booking-editor-section">
+<h4>Detalles del viaje</h4>
+<div class="booking-editor-grid">
+<div class="booking-editor-field"><label for="mdlEditService">Servicio</label><select id="mdlEditService" required><option value="airport">✈ Traslado al aeropuerto</option><option value="oneway">📍 Punto a punto</option><option value="hourly">⏱ Por hora</option></select></div>
+<div class="booking-editor-field"><label for="mdlEditVehicle">Vehículo</label><select id="mdlEditVehicle" required></select></div>
+<div class="booking-editor-field booking-editor-full"><label for="mdlEditPickup">Dirección de recogida</label><input id="mdlEditPickup" autocomplete="off" required type="text"/></div>
+<div class="booking-editor-field booking-editor-full" id="mdlEditDropoffField"><label for="mdlEditDropoff">Dirección de destino</label><input id="mdlEditDropoff" autocomplete="off" required type="text"/></div>
+<div class="booking-editor-field"><label for="mdlEditDate">Fecha</label><input id="mdlEditDate" required type="date"/></div>
+<div class="booking-editor-field"><label>Hora</label><div class="booking-editor-time"><select aria-label="Hora" id="mdlEditHour" required></select><select aria-label="Minutos" id="mdlEditMinute" required></select><select aria-label="AM o PM" id="mdlEditAmpm" required></select></div></div>
+<div class="booking-editor-field booking-editor-full" id="mdlEditHourlyWindow" hidden><label>Fin del servicio por hora</label><div class="booking-editor-grid"><div class="booking-editor-field"><label for="mdlEditEndDate">Fecha de fin</label><input id="mdlEditEndDate" type="date"/></div><div class="booking-editor-field"><label for="mdlEditEndTime">Hora de fin</label><input id="mdlEditEndTime" type="time"/></div></div></div>
+</div>
+</div>
+<div class="modal-section booking-editor-section" id="mdlEditStopsSection">
+<h4>Paradas <span class="opt-label">(opcional)</span></h4>
+<div class="booking-editor-stops" id="mdlEditStops"></div>
+<button class="booking-editor-add-stop" id="mdlEditAddStop" type="button">+ Añadir parada</button>
+</div>
+<div class="modal-section booking-editor-section">
+<h4>Datos de contacto</h4>
+<div class="booking-editor-grid">
+<div class="booking-editor-field"><label for="mdlEditFirstName">Nombre</label><input id="mdlEditFirstName" autocomplete="given-name" required type="text"/></div>
+<div class="booking-editor-field"><label for="mdlEditLastName">Apellido</label><input id="mdlEditLastName" autocomplete="family-name" required type="text"/></div>
+<div class="booking-editor-field"><label for="mdlEditPhone">Teléfono</label><input id="mdlEditPhone" autocomplete="tel" required type="tel"/></div>
+<div class="booking-editor-field"><label for="mdlEditEmail">Correo <span class="opt-label">(opcional)</span></label><input id="mdlEditEmail" autocomplete="email" type="email"/></div>
+<div class="booking-editor-field booking-editor-full"><label for="mdlEditPassengers">Pasajeros</label><select id="mdlEditPassengers"></select></div>
+<div class="booking-editor-field booking-editor-full"><label for="mdlEditFlight">Vuelo <span class="opt-label">(opcional)</span></label><input id="mdlEditFlight" autocomplete="off" type="text"/></div>
+<div class="booking-editor-field booking-editor-full"><label for="mdlEditRequests">Solicitudes especiales <span class="opt-label">(opcional)</span></label><textarea id="mdlEditRequests"></textarea></div>
+</div>
+</div>
 <div class="modal-section">
 <div class="modal-est">
-<div class="est-num" id="mdlPrice">$—</div>
+<div class="est-num" id="mdlPrice" aria-live="polite">$—</div>
 <div class="est-sub" id="mdlPriceSub">Precio final — nuestro representante lo confirmará</div>
 </div>
 </div>
-<div class="modal-section">
-<h4>Viaje</h4>
-<div class="modal-row"><span class="lbl">Servicio</span><span class="val" id="mdlSvc">—</span></div>
-<div class="modal-row"><span class="lbl">Vehículo</span><span class="val" id="mdlVeh">—</span></div>
-<div class="modal-row"><span class="lbl">Recogida</span><span class="val" id="mdlPickup">—</span></div>
-<div class="modal-row"><span class="lbl">Destino</span><span class="val" id="mdlDropoff">—</span></div>
-<div class="modal-row"><span class="lbl">Fecha / hora</span><span class="val" id="mdlWhen">—</span></div>
-<div class="modal-row" id="mdlDistRow"><span class="lbl">Distancia</span><span class="val" id="mdlDist">—</span></div>
-<div class="modal-row" id="mdlDurRow"><span class="lbl">Duración aprox.</span><span class="val" id="mdlDur">—</span></div>
-<div class="modal-row"><span class="lbl">Pasajeros</span><span class="val" id="mdlPax">—</span></div>
-</div>
-<div class="modal-section">
-<h4>Contacto</h4>
-<div class="modal-row"><span class="lbl">Nombre</span><span class="val" id="mdlName">—</span></div>
-<div class="modal-row"><span class="lbl">Teléfono</span><span class="val" id="mdlPhone">—</span></div>
-</div>
 <p class="est-note">Nuestro representante te llamará pronto para confirmar la reserva y finalizar el precio.</p>
+</form>
 </div>
 <div class="modal-submit-error" id="modalSubmitError" role="alert"></div>
 <div class="modal-cta">
-<button class="btn-cancel" onclick="closeModal()" type="button">Editar datos</button>
-<button class="btn-confirm" id="mdlConfirm" onclick="confirmAndSend()" type="button">Reservar mi viaje</button>
+<button class="btn-cancel" id="mdlCancel" type="button">Cancelar</button>
+<button class="btn-confirm" id="mdlConfirm" type="button">Obtener una cotización</button>
 </div>
 </div>
 </div>
@@ -793,6 +808,14 @@ const VEHICLES=[
 
 let curSvc='airport';
 let selVeh=null;
+window.__PHLBookingPage = {
+  get service(){ return curSvc; },
+  set service(value){ curSvc=value; },
+  get selectedVehicle(){ return selVeh; },
+  set selectedVehicle(value){ selVeh=value; },
+  get vehicles(){ return VEHICLES; },
+  get estimate(){ return _lastEstimate; }
+};
 
 function getPrice(v){return v['img'+curSvc]||v.imgairport;}
 
@@ -848,7 +871,6 @@ function resetBookingStages(){
   document.querySelectorAll('.fg.field-warn').forEach(el=>el.classList.remove('field-warn'));
   const modalError=document.getElementById('modalSubmitError');
   if(modalError){ modalError.classList.remove('show'); modalError.textContent=''; }
-  document.getElementById('confirmModal')?.classList.remove('show');
   document.getElementById('moovsLink').style.display='';
   renderVehicles();
 }
@@ -1133,7 +1155,7 @@ async function confirmAndSend(){
     const message='Corrige los datos de contacto obligatorios antes de enviar tu solicitud.';
     if(modalError){ modalError.textContent=message; modalError.classList.add('show'); }
     pageError.textContent=message; pageError.classList.add('show');
-    btn.disabled=false; btn.textContent='Reservar mi viaje';
+    btn.disabled=false; btn.textContent='Obtener una cotización';
     return;
   }
   const name=[document.getElementById('fname').value.trim(),document.getElementById('lname').value.trim()].filter(Boolean).join(' ');
@@ -1202,7 +1224,7 @@ async function confirmAndSend(){
     if(modalError){ modalError.textContent=message; modalError.classList.add('show'); }
     pageError.textContent=message; pageError.classList.add('show');
   }finally{
-    btn.disabled=false; btn.textContent='Reservar mi viaje';
+    btn.disabled=false; btn.textContent='Obtener una cotización';
   }
 }
 
@@ -1390,7 +1412,7 @@ document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAu
     tripMissing: 'Completa la recogida, el destino, la fecha y la hora antes de buscar tu viaje.',
     contactDetails: 'Introduce tu nombre, apellido y teléfono antes de solicitar una cotización.',
     quoteGeneric: 'Nuestro representante confirmará contigo el precio final.',
-    sending: 'Enviando…', confirm: 'Reservar mi viaje',
+    sending: 'Enviando…', confirm: 'Obtener una cotización',
     sent: '✅ <strong>¡Solicitud recibida!</strong> Nuestro representante te llamará pronto para confirmar tu reserva.',
     requestError: 'No pudimos aceptar la solicitud. Tus datos siguen aquí. Inténtalo de nuevo o llama al (833) 740-0700.'
   };
@@ -1522,7 +1544,6 @@ document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAu
     const panel = document.getElementById('estPanel');
     if (panel) { panel.style.display = 'none'; document.getElementById('estPrice').textContent = '—'; document.getElementById('estMeta').textContent = copy.chooseVehicle; }
     ['alertSuccess', 'alertError'].forEach(id => { const el = document.getElementById(id); if (el) { el.classList.remove('show'); el.textContent = ''; } });
-    document.getElementById('confirmModal')?.classList.remove('show');
     const moovs = document.getElementById('moovsLink'); if (moovs) moovs.style.display = '';
     renderBookingVehicles();
   }
@@ -1777,21 +1798,21 @@ document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAu
 /* FINAL v3 vehicle interaction: capa progresiva única. */
 (function () {
   const section=document.getElementById('vehicleSection'), grid=document.getElementById('vehiclesGrid');
-  const toggle=document.getElementById('vehDetailsToggle'), change=document.getElementById('vehChangeToggle');
+  const toggle=document.getElementById('vehDetailsToggle');
   const viewport=section&&section.querySelector('.veh-viewport'), details=document.getElementById('detailsStage');
-  if(!section||!grid||!toggle||!change||!viewport)return;
-  let expanded=false,browsing=false,mobileCompact=false;
-  const mobile=()=>window.innerWidth<768;
+  if(!section||!grid||!toggle||!viewport)return;
+  let expanded=false;
   const card=(v,compact)=>`<div class="veh-slide"><button type="button" class="veh-card${selVeh===v.id?' selected':''}${compact?' compact':''}" role="radio" aria-checked="${selVeh===v.id}" aria-label="Seleccionar ${v.name}" onclick="selectVehicle('${v.id}')"><div class="selected-badge">SELECCIONADO</div><div class="veh-img"><img src="${v.img}" alt="${v.name}" loading="lazy"></div><div class="veh-body"><div class="veh-name">${v.name}</div><div class="veh-desc">${v.desc}</div><div class="veh-caps"><div class="veh-cap">${v.pax} pasajeros</div><div class="veh-cap">${v.lug} maletas</div></div><ul class="veh-features">${(v.features||[]).map(f=>`<li>${f}</li>`).join('')}</ul></div></button></div>`;
-  function render(){const selected=VEHICLES.find(v=>v.id===selVeh);section.classList.toggle('has-selection',!!selected&&!browsing);section.classList.toggle('rides-expanded',expanded||browsing);if(!selected||browsing){grid.innerHTML=VEHICLES.map(v=>card(v,false)).join('');toggle.hidden=!selected;change.hidden=!selected;toggle.textContent=mobile()?'Compactar viaje':'Contraer vehículos';change.textContent='Volver al vehículo seleccionado';return;}if(mobile()){grid.innerHTML=card(selected,mobileCompact);toggle.textContent=mobileCompact?'Ver detalles':'Compactar viaje';change.textContent='Cambiar vehículo';}else{grid.innerHTML=VEHICLES.map(v=>card(v,!expanded)).join('');toggle.textContent=expanded?'Contraer vehículos':'Expandir vehículos';change.textContent='Cambiar vehículo';}toggle.hidden=false;change.hidden=false;toggle.setAttribute('aria-expanded',String(expanded||!mobileCompact));}
+  function render(){const selected=VEHICLES.find(v=>v.id===selVeh);section.classList.toggle('has-selection',!!selected);section.classList.toggle('rides-expanded',!!selected&&expanded);if(!selected){grid.innerHTML=VEHICLES.map(v=>card(v,false)).join('');toggle.hidden=true;toggle.setAttribute('aria-expanded','false');return;}grid.innerHTML=expanded?VEHICLES.map(v=>card(v,false)).join(''):card(selected,true);toggle.hidden=false;toggle.textContent=expanded?'Contraer vehículos':'Expandir vehículos';toggle.setAttribute('aria-expanded',String(expanded));viewport.scrollLeft=0;}
   window.renderVehicles=render;renderVehicles=render;
-  window.selectVehicle=selectVehicle=function(id){if(!VEHICLES.some(v=>v.id===id))return;selVeh=id;browsing=false;expanded=false;mobileCompact=false;const v=VEHICLES.find(x=>x.id===id),text=document.getElementById('selVehicleText');if(text)text.textContent=`${v.name} seleccionado`;render();if(typeof updateEstimate==='function')updateEstimate();details.hidden=false;details.setAttribute('aria-hidden','false');requestAnimationFrame(()=>details.classList.add('is-ready','is-active'));details.scrollIntoView({behavior:'smooth',block:'start'});};
-  toggle.onclick=()=>{if(!selVeh)return;if(browsing)browsing=false;else if(mobile())mobileCompact=!mobileCompact;else expanded=!expanded;render();};
-  change.onclick=()=>{browsing=true;expanded=true;mobileCompact=false;render();viewport.scrollIntoView({behavior:'smooth',block:'nearest'});};
+  window.selectVehicle=selectVehicle=function(id){if(!VEHICLES.some(v=>v.id===id))return;selVeh=id;expanded=false;const v=VEHICLES.find(x=>x.id===id),text=document.getElementById('selVehicleText');if(text)text.textContent=`${v.name} seleccionado`;render();if(typeof updateEstimate==='function')updateEstimate();details.hidden=false;details.setAttribute('aria-hidden','false');requestAnimationFrame(()=>details.classList.add('is-ready','is-active'));details.scrollIntoView({behavior:'smooth',block:'start'});};
+  toggle.onclick=()=>{if(!selVeh)return;expanded=!expanded;render();if(expanded)viewport.scrollIntoView({behavior:'smooth',block:'nearest'});};
   ['vehPrev','vehNext'].forEach((id,index)=>{const old=document.getElementById(id),fresh=old.cloneNode(true);old.replaceWith(fresh);fresh.addEventListener('click',()=>viewport.scrollBy({left:(index?1:-1)*Math.max(260,viewport.clientWidth*.72),behavior:'smooth'}));});
   window.addEventListener('resize',render);render();
 }());
 </script>
+<script src="/js/booking-modal-editor-core.js"></script>
+<script src="/js/booking-modal-editor.js"></script>
 <aside class="phl-mobile-call-bar" aria-label="Call Purple Heart Limo">
   <a class="phl-mobile-call-bar__link" href="tel:+18337400700">Call now: (833) 740-0700</a>
 </aside>

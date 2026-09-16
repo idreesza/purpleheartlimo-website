@@ -1,0 +1,176 @@
+/* Shared editable review modal for the English and Spanish booking pages. */
+.booking-editor-modal {
+  max-width: 760px;
+  max-height: min(92vh, 900px);
+  overscroll-behavior: contain;
+}
+body.booking-modal-open {
+  overflow: hidden;
+}
+.booking-editor-modal .modal-head {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #fff;
+}
+.booking-editor-form {
+  display: grid;
+  gap: 16px;
+}
+.booking-editor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.booking-editor-grid .booking-editor-full {
+  grid-column: 1 / -1;
+}
+.booking-editor-modal .booking-editor-field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+}
+.booking-editor-modal .booking-editor-field > label,
+.booking-editor-modal .booking-editor-section > h4 {
+  color: var(--pk);
+  font-size: .64rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.booking-editor-modal .booking-editor-field input,
+.booking-editor-modal .booking-editor-field select,
+.booking-editor-modal .booking-editor-field textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  border: 1.5px solid var(--border-c);
+  border-radius: 8px;
+  background: var(--bg2);
+  color: var(--text-c);
+  padding: 10px 12px;
+  font: inherit;
+  outline: none;
+}
+.booking-editor-modal .booking-editor-field textarea {
+  min-height: 74px;
+  resize: vertical;
+}
+.booking-editor-modal .booking-editor-field input:focus,
+.booking-editor-modal .booking-editor-field select:focus,
+.booking-editor-modal .booking-editor-field textarea:focus {
+  border-color: var(--pk);
+  box-shadow: 0 0 0 3px rgba(201,168,76,.15);
+}
+.booking-editor-modal .booking-editor-section {
+  margin: 0;
+  padding: 0;
+}
+.booking-editor-modal .booking-editor-section > h4 {
+  margin: 0 0 10px;
+}
+.booking-editor-time {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.25fr;
+  gap: 8px;
+}
+.booking-editor-stops {
+  display: grid;
+  gap: 8px;
+}
+.booking-editor-stop {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+.booking-editor-stop-remove {
+  width: 38px;
+  border: 1.5px solid rgba(201,168,76,.45);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--pk-mid);
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+.booking-editor-stop-remove:hover,
+.booking-editor-stop-remove:focus-visible {
+  background: var(--pk-dim);
+}
+.booking-editor-add-stop {
+  justify-self: start;
+  border: 1.5px dashed rgba(201,168,76,.55);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--pk-mid);
+  cursor: pointer;
+  padding: 7px 11px;
+  font: 600 .78rem Inter, sans-serif;
+}
+.booking-editor-add-stop:hover,
+.booking-editor-add-stop:focus-visible {
+  background: var(--pk-dim);
+}
+.booking-editor-help {
+  margin: 0;
+  color: var(--gray-c);
+  font-size: .73rem;
+  line-height: 1.45;
+}
+.booking-editor-modal .modal-cta {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  background: #fff;
+  border-top: 1px solid var(--border-c);
+}
+.booking-editor-modal .modal-cta button:focus-visible,
+.booking-editor-modal button:focus-visible {
+  outline: 3px solid #2d0045;
+  outline-offset: 2px;
+}
+.booking-editor-modal .modal-editor-estimate {
+  margin: 0;
+}
+.booking-editor-modal .modal-submit-error {
+  margin-bottom: 0;
+}
+.vehicle-reveal .veh-details-toggle {
+  display: block !important;
+  width: fit-content;
+  min-width: 172px;
+  margin: 18px auto 0 !important;
+  border-radius: 999px !important;
+  text-align: center;
+}
+.vehicle-reveal.has-selection:not(.rides-expanded) .veh-nav {
+  display: none !important;
+}
+.vehicle-reveal.has-selection.rides-expanded .veh-nav {
+  display: flex !important;
+}
+@media (max-width: 640px) {
+  .modal-bg {
+    align-items: flex-start;
+    padding: 10px;
+  }
+  .booking-editor-modal {
+    max-height: calc(100vh - 20px);
+    border-radius: 14px;
+  }
+  .booking-editor-modal .modal-head,
+  .booking-editor-modal .modal-body,
+  .booking-editor-modal .modal-cta {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .booking-editor-grid {
+    grid-template-columns: 1fr;
+  }
+  .booking-editor-grid .booking-editor-full {
+    grid-column: auto;
+  }
+  .vehicle-reveal.has-selection.rides-expanded .veh-nav {
+    display: flex !important;
+  }
+}
