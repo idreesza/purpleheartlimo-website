@@ -26,3 +26,4 @@
 - [Shared EN/ES booking widget](es-widget-shared-instance.md) — one #booking-widget moved between home/es-home by bkRelocate + bkSetLang; never duplicate it, extend BK_L10N.
 - [robots meta dedupe](robots-meta-dedupe.md) — all pages already carry full robots (index,follow,max-snippet,max-image-preview:large,max-video-preview); don't add a 2nd tag — merge/dedupe.
 - [Homepage loading](homepage-loading.md) — avoid timed brand intros that delay LCP; preserve immediate visitor tracking.
+- [Google autocomplete](google-autocomplete.md) — browser-only Places credential, single lazy loader, and actual RPC authorization checks; keep routing/pricing separate.

@@ -1622,6 +1622,7 @@ body.home-active .nav-links > li.nav-home-li { display:none !important; }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
 <script src="js/pricing.js" defer></script>
+<script src="/js/google-places-autocomplete.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function(){
     if (window.emailjs) { emailjs.init({ publicKey: 'coK69SSFSbc1x8dc6' }); }
@@ -2592,9 +2593,14 @@ function addQuoteStop() {
   const div = document.createElement('div');
   div.className = 'form-group';
   div.id = `stop-group-${_stopCount}`;
-  div.innerHTML = `<label style="display:flex;justify-content:space-between;align-items:center;">${label} <button type="button" onclick="removeQuoteStop(${_stopCount})" style="background:none;border:none;cursor:pointer;font-size:0.75rem;color:#9ca3af;padding:0;font-weight:600;letter-spacing:0.05em;">${bkEs() ? '× Quitar' : '× Remove'}</button></label><input type="text" id="stop-input-${_stopCount}" placeholder="${bkEs() ? 'Dirección...' : 'Address...'}" autocomplete="off" style="width:100%;">`;
+  div.innerHTML = `<label style="display:flex;justify-content:space-between;align-items:center;">${label} <button type="button" onclick="removeQuoteStop(${_stopCount})" style="background:none;border:none;cursor:pointer;font-size:0.75rem;color:#9ca3af;padding:0;font-weight:600;letter-spacing:0.05em;">${bkEs() ? '× Quitar' : '× Remove'}</button></label><input type="text" id="stop-input-${_stopCount}" placeholder="${bkEs() ? 'Dirección...' : 'Address...'}" autocomplete="off" style="width:100%;"><ul class="stop-google-ac" id="stop-ac-${_stopCount}" role="listbox"></ul>`;
   container.appendChild(div);
-  if (typeof initNominatimAutocomplete === 'function') initNominatimAutocomplete(`stop-input-${_stopCount}`);
+  if (typeof initGooglePlacesAutocomplete === 'function') {
+    initGooglePlacesAutocomplete(`stop-input-${_stopCount}`, {
+      dropdown: `stop-ac-${_stopCount}`,
+      restrict: true, pickupId: 'pickup-input'
+    });
+  }
 }
 
 function removeQuoteStop(n) {
@@ -3109,99 +3115,6 @@ function initCarousels() {
       imgs[current].classList.add('active');
     }, 4000);
   });
-}
-
-// ===== OSM/NOMINATIM AUTOCOMPLETE =====
-// Bounding box covering Texas + Oklahoma: lon_min,lat_max,lon_max,lat_min
-const NOMINATIM_TXOK_VIEWBOX = '-106.65,37.05,-93.50,25.80';
-function _nominatimMiles(lat1, lon1, lat2, lon2) {
-  const R = 3958.8, toRad = x => x * Math.PI / 180;
-  const dLat = toRad(lat2 - lat1), dLon = toRad(lon2 - lon1);
-  const s = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon/2)**2;
-  return 2 * R * Math.asin(Math.sqrt(s));
-}
-// opts (English home hero only): { restrict:true } limits results to TX/OK;
-// { pickupId } sorts results closest to the chosen pickup first.
-function initNominatimAutocomplete(inputId, opts) {
-  opts = opts || {};
-  const restrictTxOk = !!opts.restrict;
-  const pickupId = opts.pickupId || null;
-  const input = document.getElementById(inputId);
-  if (!input) return;
-  // Dark dropdown only for the home booking form (scope: #home-page).
-  // Other forms (Spanish hero, contact) keep the original light dropdown.
-  const dark = (inputId === 'pickup-input' || inputId === 'dropoff-input' || inputId.indexOf('stop-input-') === 0);
-  let list = document.createElement('ul');
-  list.className = 'nominatim-list';
-  list.style.cssText = dark
-    ? 'position:fixed;z-index:2147483600;background:#1a1a2e;border:1px solid rgba(255,255,255,0.15);border-radius:0 0 8px 8px;list-style:none;margin:0;padding:0;min-width:280px;max-height:280px;overflow-y:auto;box-shadow:0 12px 32px rgba(0,0,0,0.5);display:none;'
-    : 'position:fixed;z-index:2147483600;background:#fff;border:1.5px solid rgba(45,0,69,0.18);border-radius:10px;list-style:none;margin:0;padding:0;max-height:280px;overflow-y:auto;box-shadow:0 12px 32px rgba(0,0,0,0.28);display:none;';
-  document.body.appendChild(list);
-  const positionList = () => {
-    const r = input.getBoundingClientRect();
-    // Anchor the dropdown's top-left flush to the field's bottom-left (no gap).
-    list.style.top = r.bottom + 'px';
-    list.style.left = r.left + 'px';
-    list.style.width = r.width + 'px';
-  };
-  window.addEventListener('scroll', () => { if (list.style.display === 'block') positionList(); }, true);
-  window.addEventListener('resize', () => { if (list.style.display === 'block') positionList(); });
-  let debounce;
-  input.addEventListener('input', () => {
-    clearTimeout(debounce);
-    const q = input.value.trim();
-    if (q.length < 3) { list.style.display = 'none'; return; }
-    debounce = setTimeout(async () => {
-      try {
-        const url = restrictTxOk
-          ? `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&countrycodes=us&limit=12&addressdetails=1&viewbox=${NOMINATIM_TXOK_VIEWBOX}&bounded=1`
-          : `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&countrycodes=us&limit=6&addressdetails=1`;
-        const res = await fetch(url, {headers:{'Accept-Language':'en'}});
-        let data = await res.json();
-        if (restrictTxOk) {
-          // Restrict strictly to Texas & Oklahoma
-          data = data.filter(p => {
-            const st = p.address && p.address.state;
-            return st === 'Texas' || st === 'Oklahoma';
-          });
-          // Show addresses closest to the pickup location first
-          if (pickupId) {
-            const pk = document.getElementById(pickupId);
-            if (pk && pk.dataset.lat && pk.dataset.lon) {
-              const plat = parseFloat(pk.dataset.lat), plon = parseFloat(pk.dataset.lon);
-              data.sort((x, y) =>
-                _nominatimMiles(plat, plon, parseFloat(x.lat), parseFloat(x.lon)) -
-                _nominatimMiles(plat, plon, parseFloat(y.lat), parseFloat(y.lon)));
-            }
-          }
-          data = data.slice(0, 6);
-        }
-        list.innerHTML = '';
-        if (!data.length) { list.style.display = 'none'; return; }
-        data.forEach(place => {
-          const li = document.createElement('li');
-          li.style.cssText = dark
-            ? 'padding:10px 14px;cursor:pointer;font-size:0.82rem;color:rgba(255,255,255,0.92);border-bottom:1px solid rgba(255,255,255,0.08);white-space:normal;line-height:1.4;'
-            : 'padding:10px 14px;cursor:pointer;font-size:0.82rem;color:#333;border-bottom:1px solid rgba(45,0,69,0.06);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
-          li.textContent = place.display_name;
-          li.title = place.display_name;
-          li.addEventListener('mousedown', e => {
-            e.preventDefault();
-            input.value = place.display_name;
-            input.dataset.lat = place.lat;
-            input.dataset.lon = place.lon;
-            list.style.display = 'none';
-          });
-          li.addEventListener('mouseover', () => li.style.background = dark ? 'rgba(201,168,76,0.35)' : '#faf5e6');
-          li.addEventListener('mouseout', () => li.style.background = '');
-          list.appendChild(li);
-        });
-        positionList();
-        list.style.display = 'block';
-      } catch(e) { list.style.display = 'none'; }
-    }, 350);
-  });
-  input.addEventListener('blur', () => setTimeout(() => list.style.display = 'none', 200));
 }
 
 // ===== DISCOUNT CLOUD WIDGET =====
@@ -3803,12 +3716,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Set minimum date to today for date pickers
   const today = new Date().toISOString().split('T')[0];
   document.querySelectorAll('input[type="date"]').forEach(el => el.min = today);
-  // Init Nominatim autocomplete on all address fields
-  // English home hero: restrict to TX/OK + sort closest to pickup first
-  initNominatimAutocomplete('pickup-input', { restrict:true });
-  initNominatimAutocomplete('dropoff-input', { restrict:true, pickupId:'pickup-input' });
-  // Other forms keep their original (US-wide) autocomplete behavior
-  ['cf-pickup','cf-dropoff','es-pickup','es-dropoff'].forEach(id => initNominatimAutocomplete(id));
+  // Initialize the shared Places API (New) helper on all address fields.
+  // Home trip fields stay restricted to the TX/OK service region; contact
+  // fields use a US-wide request with a Texas/OK location bias.
+  initGooglePlacesAutocomplete('pickup-input', { restrict:true });
+  initGooglePlacesAutocomplete('dropoff-input', { restrict:true, pickupId:'pickup-input' });
+  ['cf-pickup','cf-dropoff','es-pickup','es-dropoff'].forEach(id =>
+    initGooglePlacesAutocomplete(id)
+  );
   // Discount cloud does not auto-open — users can click the side tab if they want it.
 });
 </script>

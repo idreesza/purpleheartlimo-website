@@ -231,6 +231,15 @@ class Handler(SimpleHTTPRequestHandler):
                 self._write_body(js.encode())
             return
 
+        if self.path == '/api/google-maps-browser-key':
+            # This is deliberately the only endpoint that exposes the
+            # restricted browser key.  Keep the server-side Routes API key
+            # out of this response and do not include the key in diagnostics.
+            browser_key = os.environ.get('GOOGLE_MAPS_BROWSER_API_KEY', '').strip()
+            if not browser_key:
+                return self._json({'error': 'Google Maps address search unavailable'}, 503)
+            return self._json({'key': browser_key})
+
         if self.path.startswith('/api/positioning'):
             # Hub positioning: pick the anchor hub for a trip and return the
             # real driving distance/time from that hub to the far end.
