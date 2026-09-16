@@ -4,12 +4,281 @@ import datetime
 import email.utils
 import gzip
 import io
+import html
+import re
 import tomllib
 import urllib.request
 import urllib.parse
+from concurrent.futures import ThreadPoolExecutor
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 
 IS_PROD = bool(os.environ.get('REPLIT_DEPLOYMENT'))
+
+# The static site was originally deployed with a Netlify function at this
+# path.  Autoscale runs this Python server instead, so keep the browser
+# contract while routing the notification through the same SendGrid account.
+CONTACT_PATHS = frozenset(('/.netlify/functions/contact', '/api/contact'))
+CONTACT_MAX_BYTES = 64 * 1024
+CONTACT_BUSINESS_EMAIL = 'info@purpleheartlimo.com'
+CONTACT_FROM_EMAIL = 'noreply@purpleheartlimo.com'
+CONTACT_BUSINESS_NAME = 'Purple Heart Limo'
+CONTACT_OWNER_PHONE = '2544355877'
+CONTACT_SMS_GATEWAYS = (
+    f'{CONTACT_OWNER_PHONE}@txt.att.net',
+    f'{CONTACT_OWNER_PHONE}@vtext.com',
+    f'{CONTACT_OWNER_PHONE}@tmomail.net',
+    f'{CONTACT_OWNER_PHONE}@messaging.sprintpcs.com',
+)
+
+
+def _contact_text(value, limit=4000):
+    """Normalize untrusted contact fields without ever exposing credentials."""
+    if value is None:
+        return ''
+    if not isinstance(value, (str, int, float)):
+        return ''
+    return str(value).strip()[:limit]
+
+
+def _contact_header(value, limit=180):
+    """Keep user values safe when interpolated into mail headers."""
+    return re.sub(r'[\r\n]+', ' ', _contact_text(value, limit)).strip()
+
+
+def _contact_result(body, status=200):
+    return {'body': body, 'status': status}
+
+
+def _sendgrid_email(*, to, from_email, from_name, reply_to=None, subject='',
+                    text='', html_body='', api_key=None, opener=None):
+    """Send one message through SendGrid using only the configured API key.
+
+    ``opener`` is injectable so route tests can use a controlled transport and
+    never send a real message.  Production uses urllib's HTTPS opener.
+    """
+    key = api_key or os.environ.get('SENDGRID_API_KEY', '').strip()
+    if not key:
+        raise RuntimeError('SENDGRID_API_KEY is missing')
+
+    payload = json.dumps({
+        'personalizations': [{'to': [{'email': to}]}],
+        'from': {'email': from_email, 'name': from_name or CONTACT_BUSINESS_NAME},
+        **({'reply_to': {'email': reply_to}} if reply_to else {}),
+        'subject': _contact_header(subject),
+        'content': [
+            {'type': 'text/plain', 'value': text},
+            {'type': 'text/html', 'value': html_body},
+        ],
+    }).encode('utf-8')
+    request = urllib.request.Request(
+        'https://api.sendgrid.com/v3/mail/send',
+        data=payload,
+        method='POST',
+        headers={
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {key}',
+            'Content-Length': str(len(payload)),
+        },
+    )
+    transport = opener or urllib.request.urlopen
+    with transport(request, timeout=12) as response:
+        status = getattr(response, 'status', None)
+        if status is None:
+            status = response.getcode()
+        response.read()
+    if not 200 <= status < 300:
+        raise RuntimeError(f'SendGrid returned HTTP {status}')
+
+
+def _contact_messages(data):
+    """Build the notification, SMS, and customer acknowledgement payloads."""
+    name = _contact_text(data.get('name'), 200)
+    email = _contact_text(data.get('email'), 320)
+    phone = _contact_text(data.get('phone'), 80)
+    service = _contact_text(data.get('service'), 160)
+    date = _contact_text(data.get('date'), 80)
+    time = _contact_text(data.get('time'), 80)
+    vehicle = _contact_text(data.get('vehicle'), 160)
+    passengers = _contact_text(data.get('passengers'), 80)
+    pickup = _contact_text(data.get('pickup'), 500)
+    dropoff = _contact_text(data.get('dropoff'), 500)
+    flight_number = _contact_text(data.get('flightNumber'), 80)
+    airline = _contact_text(data.get('airline'), 100)
+    message = _contact_text(data.get('message'), 8000)
+    service_or_general = service or 'General'
+    submitted = datetime.datetime.now(
+        datetime.timezone.utc
+    ).astimezone(datetime.timezone(datetime.timedelta(hours=-5))).strftime(
+        '%m/%d/%Y, %I:%M:%S %p'
+    )
+
+    esc = lambda value: html.escape(str(value), quote=True)
+    rows = ''.join(
+        f'<div class="field"><div class="label">{label}</div>'
+        f'<div class="value">{esc(value)}</div></div>'
+        for label, value in (
+            ('Name', name),
+            ('Phone', phone or 'Not provided'),
+            ('Email', email or 'Not provided'),
+            ('Service', service_or_general),
+            ('Vehicle', vehicle or 'Not specified'),
+            ('Passengers', passengers or 'Not specified'),
+            ('Date', date or 'Not specified'),
+            ('Pickup Time', time or 'Not specified'),
+            ('Pickup', pickup or 'Not specified'),
+            ('Drop-off', dropoff or 'Not specified'),
+            ('Flight No.', flight_number or 'Not provided'),
+            ('Airline', airline or 'Not provided'),
+        )
+    )
+    html_body = f'''<!DOCTYPE html><html><head><meta charset="UTF-8"><style>
+body{{font-family:Arial,sans-serif;background:#f4f1f8;margin:0;padding:0;}}
+.wrapper{{max-width:620px;margin:0 auto;padding:2rem;}}
+.header{{background:linear-gradient(135deg,#2D0045,#5b0080);padding:2rem;border-radius:12px 12px 0 0;text-align:center;}}
+.header h1{{color:#fff;margin:0;font-size:1.4rem;}}
+.header p{{color:rgba(255,255,255,.7);margin:.5rem 0 0;font-size:.88rem;}}
+.body{{background:#fff;padding:2rem;border:1px solid rgba(45,0,69,.12);}}
+.field{{margin-bottom:.85rem;padding-bottom:.85rem;border-bottom:1px solid #f0ebf8;}}
+.label{{font-size:.72rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#C9A84C;margin-bottom:3px;}}
+.value{{font-size:.95rem;color:#1a0028;}}
+.msg-box{{background:#f8f4ff;border-left:4px solid #2D0045;border-radius:0 8px 8px 0;padding:1rem;color:#333;font-size:.9rem;line-height:1.7;white-space:pre-wrap;margin-top:1rem;}}
+.footer{{background:#2D0045;padding:1.25rem 2rem;border-radius:0 0 12px 12px;text-align:center;font-size:.78rem;color:rgba(255,255,255,.55);}}
+</style></head><body><div class="wrapper">
+<div class="header"><h1>📋 New Booking Inquiry</h1>
+<p>Submitted {esc(submitted)} CT via purpleheartlimo.com</p></div>
+<div class="body">{rows}
+{f'<div class="label" style="margin-top:1rem;">Additional Notes</div><div class="msg-box">{esc(message)}</div>' if message else ''}
+</div><div class="footer">Purple Heart Limo &bull; (833) 740-0700 &bull; info@purpleheartlimo.com &bull; Veteran-Owned TX</div>
+</div></body></html>'''
+    plain_text = '\n'.join(filter(
+        lambda line: line != '',
+        (
+            f'New Booking Inquiry — {CONTACT_BUSINESS_NAME}',
+            '=' * 45,
+            f'Name:       {name}',
+            f'Phone:      {phone or "Not provided"}',
+            f'Email:      {email or "Not provided"}',
+            f'Service:    {service or "Not specified"}',
+            f'Vehicle:    {vehicle or "Not specified"}',
+            f'Passengers: {passengers or "Not specified"}',
+            f'Date:       {date or "Not specified"}',
+            f'Time:       {time or "Not specified"}',
+            f'Pickup:     {pickup or "Not specified"}',
+            f'Drop-off:   {dropoff or "Not specified"}',
+            f'Flight No.: {flight_number or "Not provided"}',
+            f'Airline:    {airline or "Not provided"}',
+            f'\nNotes:\n{message}' if message else '',
+            '',
+            '=' * 45,
+            f'Submitted: {submitted} CT',
+        )
+    ))
+    sms_text = '\n'.join(filter(
+        None,
+        (
+            '📋 NEW RIDE REQUEST',
+            f'From: {name} | {phone or "no phone"}',
+            f'Service: {service_or_general}',
+            f'Vehicle: {vehicle}' if vehicle else '',
+            f'Pickup: {pickup or "not given"}',
+            f'Drop-off: {dropoff}' if dropoff else '',
+            f'Date: {date} @ {time}' if date else '',
+            f'Flight: {flight_number}' + (f' ({airline})' if airline else '') if flight_number else '',
+            f'Reply: {phone or email or "see email"}',
+            '— PurpleHeartLimo.com',
+        )
+    ))
+    customer_text = (
+        f'Hi {name},\n\nThank you! We received your {service_or_general} request '
+        'and will call or text you within 5 minutes with your exact flat rate.\n\n'
+        'Need us now? Call (833) 740-0700\n\nPurple Heart Limo\ninfo@purpleheartlimo.com'
+    )
+    customer_html = (
+        f'<p>We received your <strong>{esc(service_or_general)}</strong> request '
+        'and will call or text you within <strong>5 minutes</strong> with your exact flat rate.</p>'
+    )
+    return {
+        'business': {
+            'to': os.environ.get('NOTIFY_EMAIL', CONTACT_BUSINESS_EMAIL).strip() or CONTACT_BUSINESS_EMAIL,
+            'from_email': CONTACT_FROM_EMAIL,
+            'from_name': f'{CONTACT_BUSINESS_NAME} Website',
+            'reply_to': email or None,
+            'subject': f'📋 New Ride Request: {service_or_general} — {name}',
+            'text': plain_text,
+            'html_body': html_body,
+        },
+        'sms': {
+            'from_email': CONTACT_FROM_EMAIL,
+            'from_name': CONTACT_BUSINESS_NAME,
+            'subject': f'New Ride: {name}',
+            'text': sms_text,
+            'html_body': f'<pre style="font-family:monospace;font-size:13px;">{esc(sms_text)}</pre>',
+        },
+        'customer': {
+            'to': email,
+            'from_email': CONTACT_FROM_EMAIL,
+            'from_name': CONTACT_BUSINESS_NAME,
+            'subject': f'We Got Your Request — {CONTACT_BUSINESS_NAME}',
+            'text': customer_text,
+            'html_body': customer_html,
+        },
+    }
+
+
+def _process_contact(data, send_email=None, api_key=None):
+    """Validate and deliver one contact request.
+
+    ``send_email`` is intentionally injectable for deterministic tests.  No
+    success response is returned unless the primary business notification was
+    accepted by the transport.
+    """
+    if not isinstance(data, dict):
+        return _contact_result({'error': 'Invalid request body'}, 400)
+    # Preserve the existing forms' quiet honeypot behavior: discard bots
+    # without sending a message, but do not reveal the spam check to them.
+    if any(_contact_text(data.get(field)) for field in ('website', 'bk-website', 'company', 'fax')):
+        return _contact_result({
+            'success': True,
+            'message': "Thank you! We'll call or text you within 5 minutes with your exact rate.",
+        })
+    name = _contact_text(data.get('name'), 200)
+    email = _contact_text(data.get('email'), 320)
+    if not name:
+        return _contact_result({'error': 'Missing required field: name'}, 400)
+    if email and not re.fullmatch(r'[^\s@]+@[^\s@]+\.[^\s@]+', email):
+        return _contact_result({'error': 'Invalid email address'}, 400)
+
+    key = api_key if api_key is not None else os.environ.get('SENDGRID_API_KEY', '').strip()
+    if not key:
+        return _contact_result({
+            'error': 'Booking service is not configured: SENDGRID_API_KEY is missing.',
+        }, 503)
+
+    messages = _contact_messages(data)
+    sender = send_email or _sendgrid_email
+    try:
+        sender(api_key=key, **messages['business'])
+        # SMS gateway failures must not turn a confirmed business notification
+        # into a customer-facing failure.
+        def send_sms(gateway):
+            try:
+                sender(api_key=key, to=gateway, **messages['sms'])
+            except Exception:
+                return False
+            return True
+        with ThreadPoolExecutor(max_workers=len(CONTACT_SMS_GATEWAYS)) as pool:
+            list(pool.map(send_sms, CONTACT_SMS_GATEWAYS))
+        if email:
+            sender(api_key=key, **messages['customer'])
+    except Exception:
+        # Deliberately omit provider details and credentials from logs/body.
+        return _contact_result({
+            'error': 'Failed to send. Please call (833) 740-0700.',
+        }, 502)
+    return _contact_result({
+        'success': True,
+        'message': "Thank you! We'll call or text you within 5 minutes with your exact rate.",
+    })
 
 def _load_redirects():
     """Load path-based redirect rules from netlify.toml (single source of
@@ -172,7 +441,58 @@ class Handler(SimpleHTTPRequestHandler):
         # HEAD must mirror GET exactly (same status + headers, no body), so
         # it goes through the same routing; body writes are gated on
         # self.command inside the handlers.
+        if urllib.parse.urlsplit(self.path).path in CONTACT_PATHS:
+            self._json({'error': 'Method not allowed'}, 405,
+                       extra_headers=self._contact_headers())
+            return
         return self._route()
+
+    def do_OPTIONS(self):
+        path = urllib.parse.urlsplit(self.path).path
+        if path in CONTACT_PATHS:
+            self.send_response(204)
+            self.send_header('Access-Control-Allow-Origin', '*')
+            self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+            self.send_header('Access-Control-Allow-Methods', 'POST, OPTIONS')
+            self.send_header('Content-Length', '0')
+            self.end_headers()
+            return
+        self.send_error(405, 'Method not allowed')
+
+    def do_POST(self):
+        path = urllib.parse.urlsplit(self.path).path
+        if path not in CONTACT_PATHS:
+            self.send_error(404, 'Not found')
+            return
+        content_length = self.headers.get('Content-Length')
+        try:
+            length = int(content_length) if content_length is not None else 0
+        except ValueError:
+            self._json({'error': 'Invalid Content-Length'}, 400,
+                       extra_headers=self._contact_headers())
+            return
+        if length < 0 or length > CONTACT_MAX_BYTES:
+            self._json({'error': 'Request body is too large'}, 413,
+                       extra_headers=self._contact_headers())
+            return
+        raw = self.rfile.read(length)
+        try:
+            payload = json.loads(raw.decode('utf-8') or '{}')
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            self._json({'error': 'Invalid request body'}, 400,
+                       extra_headers=self._contact_headers())
+            return
+        result = _process_contact(payload)
+        self._json(result['body'], result['status'],
+                   extra_headers=self._contact_headers())
+
+    @staticmethod
+    def _contact_headers():
+        return {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        }
 
     def _legacy_redirect(self):
         """Legacy-slug 301s/410s ported from netlify.toml (the static
@@ -204,6 +524,10 @@ class Handler(SimpleHTTPRequestHandler):
         return True
 
     def do_GET(self):
+        if urllib.parse.urlsplit(self.path).path in CONTACT_PATHS:
+            self._json({'error': 'Method not allowed'}, 405,
+                       extra_headers=self._contact_headers())
+            return
         return self._route()
 
     def _route(self):
@@ -501,12 +825,16 @@ class Handler(SimpleHTTPRequestHandler):
         except Exception:
             return None
 
-    def _json(self, obj, status=200):
+    def _json(self, obj, status=200, extra_headers=None):
         body = json.dumps(obj).encode()
         self.send_response(status)
         self.send_header('Content-Type', 'application/json')
         self.send_header('Cache-Control', 'no-store')
         self.send_header('Access-Control-Allow-Origin', '*')
+        for name, value in (extra_headers or {}).items():
+            if name.lower() == 'access-control-allow-origin':
+                continue
+            self.send_header(name, value)
         self.send_header('Content-Length', str(len(body)))
         self.end_headers()
         if self.command != 'HEAD':

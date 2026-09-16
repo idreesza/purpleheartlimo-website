@@ -332,6 +332,41 @@ body { background: var(--bg); color: var(--text-c); }
 .moovs-cta a { display: inline-block; background: var(--bg2); border: 1.5px solid var(--pk); color: var(--pk); padding: 10px 26px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.04em; transition: all 0.2s; }
 .moovs-cta a:hover { background: var(--pk); color: #0a0a0a; }
 
+/* Progressive booking stages */
+html { scroll-behavior:smooth; }
+.booking-stage { transition:opacity .45s ease, transform .45s ease, max-height .6s ease, margin .6s ease, padding .6s ease; }
+/* Keep gated stages out of the layout until the trip has been validated.
+   Do not replace the native [hidden] behavior with display:block: several
+   shared stylesheets use !important and can otherwise leak the cards into
+   the initial trip-only view. */
+.booking-stage[hidden] { display:none !important; }
+.booking-stage.is-ready { opacity:1; transform:none; max-height:2400px; }
+.trip-stage { position:relative; }
+.trip-stage.is-active .search-widget { border-color:var(--pk); box-shadow:0 0 0 4px rgba(201,168,76,.12),0 10px 30px rgba(45,0,69,.08); }
+.trip-error { display:none; margin:12px 0 0; color:#a52a2a; font-size:.8rem; font-weight:600; }
+.trip-error.show { display:block; }
+.vehicle-reveal { position:relative; overflow:hidden; }
+.vehicle-reveal::before,.vehicle-reveal::after { content:""; position:absolute; z-index:4; top:0; bottom:0; width:64%; pointer-events:none; opacity:0; background:radial-gradient(ellipse at center,rgba(242,240,246,.94) 0%,rgba(224,218,231,.7) 27%,rgba(255,255,255,.18) 62%,transparent 74%); filter:blur(16px); }
+.vehicle-reveal::before { left:-48%; }
+.vehicle-reveal::after { right:-48%; }
+.vehicle-reveal.smoke-in::before { animation:smokeFromLeft 3.5s cubic-bezier(.2,.7,.2,1) both; }
+.vehicle-reveal.smoke-in::after { animation:smokeFromRight 3.5s cubic-bezier(.2,.7,.2,1) both; }
+.vehicle-reveal .veh-carousel { opacity:1; }
+.vehicle-reveal.smoke-in .veh-carousel { opacity:0; animation:vehicleCardsAfterSmoke .45s ease 3.05s forwards; }
+@keyframes vehicleCardsAfterSmoke { to { opacity:1; } }
+@keyframes smokeFromLeft { 0%{opacity:0;transform:translateX(-20%) scale(.75)} 15%{opacity:.9} 56%{opacity:.68;transform:translateX(95%) scale(1.28)} 100%{opacity:0;transform:translateX(185%) scale(1.5)} }
+@keyframes smokeFromRight { 0%{opacity:0;transform:translateX(20%) scale(.75)} 15%{opacity:.9} 56%{opacity:.68;transform:translateX(-95%) scale(1.28)} 100%{opacity:0;transform:translateX(-185%) scale(1.5)} }
+.details-horizontal.is-active .details-card { border-color:var(--pk); box-shadow:0 0 0 5px rgba(201,168,76,.14),0 14px 38px rgba(45,0,69,.1); animation:detailsPulse 2s ease 1; }
+@keyframes detailsPulse { 0%,100%{transform:none} 45%{transform:translateY(-3px)} }
+.veh-card { text-align:left; width:100%; font:inherit; }
+.veh-card:focus-visible,.search-btn:focus-visible,.btn-submit:focus-visible,.moovs-cta a:focus-visible { outline:3px solid #2D0045; outline-offset:3px; }
+.booking-partner-note { display:none; margin:8px 0 0; color:var(--gray-c); font-size:.72rem; }
+.details-horizontal.is-active .moovs-cta,.details-horizontal.is-active .booking-partner-note { display:block; }
+.modal-submit-error { display:none; margin:0 28px 16px; padding:10px 14px; border:1px solid rgba(220,38,38,.25); border-radius:9px; background:rgba(220,38,38,.06); color:#b42318; font-size:.82rem; line-height:1.5; }
+.modal-submit-error.show { display:block; }
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; scroll-behavior:auto !important; } }
+@media (prefers-reduced-motion:reduce) { .vehicle-reveal.smoke-in .veh-carousel { animation-delay:0s; opacity:1; } }
+
 /* Trust bar */
 .trust-bar { border-top: 1.5px solid rgba(45,0,69,0.07); padding: 2rem 5%; background: var(--bg2); }
 .trust-inner { max-width: 900px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; }
@@ -340,10 +375,6 @@ body { background: var(--bg); color: var(--text-c); }
 
 @media(max-width:768px){ .form-row{grid-template-columns:1fr;} }
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script>
-  (function(){ emailjs.init({ publicKey: 'coK69SSFSbc1x8dc6' }); })();
-</script>
 <link href="/css/global.css" rel="stylesheet"/>
   <link rel="stylesheet" href="/css/header.css">
 <link href="https://purpleheartlimo.com/booking.html" hreflang="en" rel="alternate"/><link href="https://purpleheartlimo.com/es/booking.html" hreflang="es" rel="alternate"/><link href="https://purpleheartlimo.com/booking.html" hreflang="x-default" rel="alternate"/>
@@ -458,7 +489,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 </section>
 <!-- ===== TRIP SEARCH (full-width, below hero) ===== -->
-<section class="below-hero">
+<section class="below-hero trip-stage is-active" id="tripStage">
 <div class="search-widget">
 <div class="svc-tabs" id="svcTabs">
 <button class="svc-tab active" data-svc="airport">✈ Airport</button>
@@ -508,7 +539,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="cdd-list"></div>
 </div>
 </div>
-<button class="search-btn" id="searchBtn" onclick="scrollToVehicles()">
+<button class="search-btn" id="searchBtn" type="button" onclick="scrollToVehicles()">
 <svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
           Find Ride
         </button>
@@ -530,9 +561,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </button>
 </div>
 </div>
+<p class="trip-error" id="tripError" role="alert">Please complete pickup, drop-off, date, and time before finding your ride.</p>
 </section>
 <!-- ===== YOUR DETAILS (moved up, horizontal layout) ===== -->
-<div class="details-horizontal">
+<div class="details-horizontal booking-stage" id="detailsStage" hidden aria-hidden="true">
+<form id="bookingDetailsForm" novalidate>
 <div class="details-card">
 <div class="details-head">
 <h2>Your Details</h2>
@@ -542,9 +575,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 </div>
 <div class="form-row wide">
-<div class="fg"><label>Full Name <span style="color:var(--pk)">*</span></label><input autocomplete="name" id="fname" placeholder="John Smith" type="text"/></div>
+<div class="fg"><label for="fname">First Name <span style="color:var(--pk)">*</span></label><input autocomplete="given-name" id="fname" name="first_name" placeholder="Jordan" required aria-required="true" type="text"/></div>
+<div class="fg"><label for="lname">Last Name <span style="color:var(--pk)">*</span></label><input autocomplete="family-name" id="lname" name="last_name" placeholder="Smith" required aria-required="true" type="text"/></div>
 <input id="bk-website" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;height:0;width:0;opacity:0;pointer-events:none;"/>
-<div class="fg"><label>Phone <span style="color:var(--pk)">*</span></label><input autocomplete="tel" id="fphone" placeholder="(555) 000-0000" type="tel"/></div>
+<div class="fg"><label for="fphone">Phone <span style="color:var(--pk)">*</span></label><input autocomplete="tel" id="fphone" name="phone" placeholder="(555) 000-0000" required aria-required="true" type="tel"/></div>
 <div class="fg">
 <label>Passengers</label>
 <div class="cdd" data-value="" id="paxCdd" style="background:var(--bg2);border:1.5px solid var(--border-c);border-radius:8px;padding:11px 32px 11px 14px;">
@@ -553,10 +587,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="cdd-list"></div>
 </div>
 </div>
-<div class="fg"><label>Email <span class="opt-label">(optional)</span></label><input autocomplete="email" id="femail" placeholder="you@email.com" type="email"/></div>
+<div class="fg"><label for="femail">Email <span class="opt-label">(optional)</span></label><input autocomplete="email" id="femail" name="email" placeholder="you@email.com" type="email"/></div>
 </div>
 <div class="form-row single">
-<div class="fg"><label>Special Requests <span class="opt-label">(optional)</span></label><textarea id="fmessage" placeholder="Decorations, stops, accessibility needs, anything else…"></textarea></div>
+<div class="fg"><label for="fmessage">Special Requests <span class="opt-label">(optional)</span></label><textarea id="fmessage" name="message" placeholder="Decorations, stops, accessibility needs, anything else…"></textarea></div>
 </div>
 <div class="est-panel" id="estPanel" style="display:none;">
 <div class="est-head">
@@ -568,13 +602,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <div class="alert alert-success" id="alertSuccess"></div>
 <div class="alert alert-error" id="alertError"></div>
-<button class="btn-submit" id="submitBtn" onclick="openEstimateModal()">🚗 Book My Ride</button>
+<button class="btn-submit" id="submitBtn" type="button" onclick="openEstimateModal()">Get a Quote</button>
 <div class="moovs-cta" id="moovsLink">
-<a href="https://customer.moovs.app/purple-heart-limo/request/new" onclick="if(typeof gtag==='function')gtag('event','close_convert_lead',{form_location:'booking_page_success'})" target="_blank">Or book instantly online via our booking portal →</a>
+<a href="https://customer.moovs.app/purple-heart-limo/new/info" onclick="if(typeof gtag==='function')gtag('event','close_convert_lead',{form_location:'booking_page'})" target="_blank" rel="noopener noreferrer">Book Thru Moovs</a>
 </div>
+<p class="booking-partner-note">our trusted booking partner</p>
 </div>
+</form>
 </div>
-<section class="choose-section" id="vehicleSection">
+<section class="choose-section booking-stage vehicle-reveal" id="vehicleSection" hidden aria-hidden="true">
 <div class="choose-header">
 <div>
 <h2>Choose Your Experience</h2>
@@ -621,6 +657,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <p class="est-note">Our representative will call you shortly to confirm your reservation and finalize the price.</p>
 </div>
+<div class="modal-submit-error" id="modalSubmitError" role="alert"></div>
 <div class="modal-cta">
 <button class="btn-cancel" onclick="closeModal()" type="button">Edit Details</button>
 <button class="btn-confirm" id="mdlConfirm" onclick="confirmAndSend()" type="button">Book My Ride</button>
@@ -731,16 +768,16 @@ const VEHICLES=[
 ];
 
 let curSvc='airport';
-let selVeh='suv';
+let selVeh=null;
 
 function getPrice(v){return v['img'+curSvc]||v.imgairport;}
 
 function renderVehicles(){
   const g=document.getElementById('vehiclesGrid');
   g.innerHTML=VEHICLES.map(v=>`
-    <div class="veh-slide"><div class="veh-card${selVeh===v.id?' selected':''}" onclick="selectVehicle('${v.id}')">
+    <div class="veh-slide"><button type="button" class="veh-card${selVeh===v.id?' selected':''}" role="radio" aria-checked="${selVeh===v.id}" aria-label="Select ${v.name}" onclick="selectVehicle('${v.id}')">
       <div class="selected-badge">✓ SELECTED</div>
-      <div class="veh-img"><img src="${v.img}" alt="${v.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=400&q=60&auto=format'"></div>
+      <div class="veh-img"><img src="${v.img}" alt="${v.name}" loading="lazy"></div>
       <div class="veh-body">
         <div class="veh-name">${v.name}</div>
         <div class="veh-desc">${v.desc}</div>
@@ -755,7 +792,7 @@ function renderVehicles(){
         <ul class="veh-features">${(v.features||[]).map(f=>`<li>${f}</li>`).join('')}</ul>
         ${v.minHrs?`<div style="margin-top:8px;font-size:0.68rem;color:#8a8a8a;font-style:italic;display:flex;align-items:center;gap:4px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Minimum hours may apply</div>`:''}
       </div>
-    </div></div>`).join('');
+    </button></div>`).join('');
 }
 
 function selectVehicle(id){
@@ -764,10 +801,58 @@ function selectVehicle(id){
   document.getElementById('selVehicleText').textContent=v?`${v.name} selected — From $${getPrice(v)} flat rate`:'No vehicle selected';
   renderVehicles();
   if(typeof updateEstimate==='function') updateEstimate();
-  document.querySelector('.details-horizontal').scrollIntoView({behavior:'smooth',block:'start'});
+  const details=document.getElementById('detailsStage');
+  details.hidden=false; details.setAttribute('aria-hidden','false');
+  requestAnimationFrame(()=>details.classList.add('is-ready','is-active'));
+  details.scrollIntoView({behavior:'smooth',block:'start'});
+  setTimeout(()=>document.getElementById('fname').focus({preventScroll:true}),600);
 }
 
-function scrollToVehicles(){document.getElementById('vehicleSection').scrollIntoView({behavior:'smooth'});}
+function tripIsComplete(){
+  const pickup=document.getElementById('pickupInput').value.trim();
+  const dropoff=document.getElementById('dropoffInput').value.trim();
+  return !!(pickup && (curSvc==='hourly'||dropoff) && document.getElementById('dateInput').value && document.getElementById('timeHour').value && document.getElementById('timeMin').value);
+}
+function resetBookingStages(){
+  clearTimeout(_estDebounce); _estDebounce=null;
+  selVeh=null; _lastEstimate=null; _estimateVersion++;
+  const vehicle=document.getElementById('vehicleSection'),details=document.getElementById('detailsStage');
+  [vehicle,details].forEach(el=>{el.hidden=true;el.setAttribute('aria-hidden','true');el.classList.remove('is-ready','is-active','smoke-in');});
+  document.getElementById('selVehicleText').textContent='No vehicle selected yet — pick one below';
+  const panel=document.getElementById('estPanel');
+  if(panel){
+    panel.style.display='none';
+    document.getElementById('estPrice').textContent='—';
+    document.getElementById('estMeta').textContent='Pick a vehicle and enter pickup & drop-off to see your estimate.';
+  }
+  ['alertSuccess','alertError'].forEach(id=>{
+    const alert=document.getElementById(id);
+    if(alert){ alert.classList.remove('show'); alert.textContent=''; }
+  });
+  document.querySelectorAll('.fg.field-warn').forEach(el=>el.classList.remove('field-warn'));
+  const modalError=document.getElementById('modalSubmitError');
+  if(modalError){ modalError.classList.remove('show'); modalError.textContent=''; }
+  document.getElementById('confirmModal')?.classList.remove('show');
+  document.getElementById('moovsLink').style.display='';
+  renderVehicles();
+}
+function scrollToVehicles(){
+  const error=document.getElementById('tripError');
+  if(!error.dataset.message) error.dataset.message=error.textContent;
+  if(!tripIsComplete()){
+    error.textContent=error.dataset.message;
+    error.setAttribute('aria-hidden','false');
+    error.classList.add('show');
+    document.getElementById('pickupInput').focus();
+    return;
+  }
+  error.classList.remove('show');
+  error.textContent='';
+  error.setAttribute('aria-hidden','true');
+  const vehicle=document.getElementById('vehicleSection');
+  vehicle.hidden=false;vehicle.setAttribute('aria-hidden','false');
+  requestAnimationFrame(()=>{vehicle.classList.add('is-ready','smoke-in');vehicle.scrollIntoView({behavior:'smooth',block:'start'});});
+}
 
 // Service type tabs
 document.getElementById('svcTabs').addEventListener('click',e=>{
@@ -776,6 +861,7 @@ document.getElementById('svcTabs').addEventListener('click',e=>{
   document.querySelectorAll('.svc-tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
   curSvc=btn.dataset.svc;
+  resetBookingStages();
   const labels={airport:'✈ Airport Pricing',oneway:'🗺 Point-to-Point',hourly:'⏱ Hourly Rate'};
   document.getElementById('priceModeLabel').textContent=labels[curSvc]||'Pricing';
   document.getElementById('flightRow').classList.toggle('show',curSvc==='airport');
@@ -797,6 +883,8 @@ document.getElementById('svcTabs').addEventListener('click',e=>{
   }
   renderVehicles();
 });
+['pickupInput','dropoffInput','dateInput','timeHour','timeMin','timeAmpm'].forEach(id=>document.getElementById(id).addEventListener('change',resetBookingStages));
+['pickupInput','dropoffInput'].forEach(id=>document.getElementById(id).addEventListener('input',resetBookingStages));
 
 // ── Shared Places API (New) autocomplete ─────────────────────
 // Reuse the existing dropdown nodes so booking IDs and layout contracts
@@ -849,6 +937,7 @@ const RETURN_BASE = 'Carrollton, TX';
 let _estCache = {};
 let _estDebounce = null;
 let _lastEstimate = null;
+let _estimateVersion = 0;
 
 /* Hub positioning — shared rules from js/pricing.js (window.phlFetchPositioning
    / window.phlComputePositioning / window.PHL_HUB_FREE_MILES). */
@@ -902,6 +991,7 @@ function computePrice(v, totalMiles, totalMinutes){
 }
 
 async function updateEstimate(){
+  const estimateVersion=_estimateVersion;
   const pickup = document.getElementById('pickupInput').value.trim();
   const dropoff = document.getElementById('dropoffInput').value.trim();
   const panel = document.getElementById('estPanel');
@@ -958,12 +1048,14 @@ async function updateEstimate(){
       posNote = `<br><span style="font-size:0.7rem;opacity:0.85;">Hub positioning check unavailable — confirmed by phone.</span>`;
       breakdown += ' · hub positioning check unavailable — confirmed by phone';
     }
+    if(estimateVersion!==_estimateVersion) return;
     priceEl.textContent = `$${total}`;
     metaEl.innerHTML = `<strong>${v.name}</strong> · ${breakdown}<br>` +
       `Total distance: <strong>${totalMiles.toFixed(1)} mi</strong> · Est. drive time: <strong>${totalMinutes} min</strong><br>` +
       legs.map(l=>`<span style="font-size:0.7rem;opacity:0.85;">• ${l}</span>`).join('<br>') + posNote;
     _lastEstimate = { total, totalMiles, totalMinutes, breakdown, vehicle: v.name };
   } catch(e){
+    if(estimateVersion!==_estimateVersion) return;
     priceEl.textContent='—';
     metaEl.innerHTML = `Couldn't calculate distance automatically. <span style="color:#dc2626;">${e.message||'Please call (833) 740-0700 for a quote.'}</span>`;
     _lastEstimate = null;
@@ -977,35 +1069,38 @@ function scheduleEstimate(){
 
 // ===== Estimate / Confirmation Modal =====
 function openEstimateModal(){
-  const name=document.getElementById('fname').value.trim();
+  const name=[document.getElementById('fname').value.trim(),document.getElementById('lname').value.trim()].filter(Boolean).join(' ');
   const phone=document.getElementById('fphone').value.trim();
   const err=document.getElementById('alertError');
   const succ=document.getElementById('alertSuccess');
   [succ,err].forEach(e=>{e.classList.remove('show');e.textContent='';});
   // Clear previous warnings
   document.querySelectorAll('.fg.field-warn').forEach(el=>el.classList.remove('field-warn'));
-  // Vehicle is the only hard requirement
+  // A vehicle must be selected before the review step.
   if(!selVeh){err.textContent='Please select a vehicle first.';err.classList.add('show');document.getElementById('vehicleSection').scrollIntoView({behavior:'smooth',block:'start'});return;}
-  // Soft-warn missing fields (red highlight, still allow submit)
-  const warnIfEmpty=(elId,val)=>{ if(!val){ const el=document.getElementById(elId); if(el) el.closest('.fg')?.classList.add('field-warn'); return true; } return false; };
+  // Use native required semantics and stop before review/submission when
+  // contact details are incomplete. Values remain in place for correction.
+  const detailsForm=document.getElementById('bookingDetailsForm');
+  const requiredFields=['fname','lname','fphone'].map(id=>document.getElementById(id));
+  const firstMissing=requiredFields.find(field=>!(field.value||'').trim());
+  if(firstMissing){
+    firstMissing.focus();
+    firstMissing.reportValidity();
+    err.textContent='Please enter your first name, last name, and phone number before requesting a quote.';
+    err.classList.add('show');
+    return;
+  }
+  if(detailsForm && !detailsForm.checkValidity()){
+    detailsForm.reportValidity();
+    err.textContent='Please correct the highlighted contact details before requesting a quote.';
+    err.classList.add('show');
+    return;
+  }
   const pickup=document.getElementById('pickupInput').value.trim();
   const dropoffRaw = curSvc==='hourly' ? '' : document.getElementById('dropoffInput').value.trim();
-  const missing=[];
-  if(warnIfEmpty('fname',name)) missing.push('Name');
-  if(warnIfEmpty('fphone',phone)) missing.push('Phone');
-  if(warnIfEmpty('pickupInput',pickup)) missing.push('Pickup');
-  if(curSvc!=='hourly' && warnIfEmpty('dropoffInput',dropoffRaw)) missing.push('Drop-off');
   const dropoff = curSvc==='hourly' ? '(Hourly — see stops)' : dropoffRaw;
-  // Show banner warning in modal if any are missing (but proceed)
   const warnBanner = document.getElementById('mdlMissingWarn');
-  if(warnBanner){
-    if(missing.length){
-      warnBanner.style.display='block';
-      warnBanner.innerHTML = `⚠ Missing: <strong>${missing.join(', ')}</strong>. You can still submit — our representative will reach out to gather these details.`;
-    } else {
-      warnBanner.style.display='none';
-    }
-  }
+  if(warnBanner) warnBanner.style.display='none';
   const hour=document.getElementById('timeHour').value||'--';
   const min=document.getElementById('timeMin').value||'--';
   const ampm=document.getElementById('timeAmpm').value||'AM';
@@ -1038,19 +1133,22 @@ function closeModal(){ document.getElementById('confirmModal').classList.remove(
 document.getElementById('confirmModal').addEventListener('click', e=>{ if(e.target.id==='confirmModal') closeModal(); });
 
 async function confirmAndSend(){
-  /* Honeypot — bots fill hidden fields; silently pretend success */
-  if((document.getElementById('bk-website')?.value||'').trim()){
-    closeModal();
-    const hp=document.getElementById('alertSuccess');
-    hp.innerHTML='✅ <strong>Request received!</strong> Our representative will call you shortly.';
-    hp.classList.add('show');
+  const btn=document.getElementById('mdlConfirm');
+  const modalError=document.getElementById('modalSubmitError');
+  const pageError=document.getElementById('alertError');
+  btn.disabled=true; btn.textContent='Sending…';
+  if(modalError){ modalError.classList.remove('show'); modalError.textContent=''; }
+  pageError.classList.remove('show'); pageError.textContent='';
+  const detailsForm=document.getElementById('bookingDetailsForm');
+  if(detailsForm && !detailsForm.checkValidity()){
+    detailsForm.reportValidity();
+    const message='Please correct the required contact details before submitting your request.';
+    if(modalError){ modalError.textContent=message; modalError.classList.add('show'); }
+    pageError.textContent=message; pageError.classList.add('show');
+    btn.disabled=false; btn.textContent='Book My Ride';
     return;
   }
-  const btn=document.getElementById('mdlConfirm');
-  btn.disabled=true; btn.textContent='Sending…';
-  /* GA4: quote/booking request submitted */
-  if(typeof gtag==='function') gtag('event','quote_request_submit',{ form_location:'booking_page', service_type:curSvc });
-  const name=document.getElementById('fname').value.trim();
+  const name=[document.getElementById('fname').value.trim(),document.getElementById('lname').value.trim()].filter(Boolean).join(' ');
   const phone=document.getElementById('fphone').value.trim();
   const email=document.getElementById('femail').value.trim();
   const pickup=document.getElementById('pickupInput').value;
@@ -1076,28 +1174,52 @@ async function confirmAndSend(){
     `ESTIMATED PRICE: ${estStr}\n\n` +
     `MESSAGE: ${msg||'—'}`;
   try{
-    await emailjs.send('service_53lh00r', 'template_xwek3ac', {
-      from_name: name, from_email: email || 'no-email@provided.com', reply_to: email || '',
-      name, phone, email: email||'—',
-      service: curSvc, vehicle: veh, passengers: pax||'—',
-      pickup: pickup||'—', dropoff: dropoff||'—', stops: stopsStr,
-      date: date||'—', time: `${hour}:${min} ${ampm}`,
-      flight: flight||'—', message: msg||'—',
-      estimate: estStr,
-      source: 'Booking Page', full_summary: fullSummary
+    // Use the site's real Netlify contact contract. A request is successful
+    // only when the server acknowledges it; never turn a network/API error
+    // into a false "Request received" message.
+    const response=await fetch('/.netlify/functions/contact',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        name, phone, email:email||'',
+        service:curSvc, vehicle:veh, passengers:pax||'',
+        pickup:pickup||'', dropoff:dropoff||'',
+        date:date||'', time:`${hour}:${min} ${ampm}`,
+        flightNumber:flight||'',
+        message:msg ? `${msg}\n\n${fullSummary}` : fullSummary,
+        estimate:estStr,
+        website:document.getElementById('bk-website')?.value||'',
+        source:'Booking Page'
+      })
     });
-    /* GA4: lead validated & delivered to backend */
-    if(typeof gtag==='function') gtag('event','qualify_lead',{ form_location:'booking_page', service_type:curSvc, vehicle: veh });
-  }catch(e){ /* still show success */ }
-  closeModal();
-  const succ=document.getElementById('alertSuccess');
-  succ.innerHTML = _lastEstimate
-    ? `✅ <strong>Request received!</strong> Estimated fare: <strong>$${_lastEstimate.total}</strong> — ${_lastEstimate.totalMiles.toFixed(1)} mi · ~${_lastEstimate.totalMinutes} min (${_lastEstimate.breakdown}).`
-    : '✅ <strong>Request received!</strong> Our representative will call you shortly to confirm your reservation and finalize the price.';
-  succ.classList.add('show');
-  document.getElementById('moovsLink').style.display='block';
-  btn.disabled=false; btn.textContent='Book My Ride';
-  document.getElementById('submitBtn').scrollIntoView({behavior:'smooth',block:'center'});
+    let result={};
+    try{ result=await response.json(); }catch(_e){}
+    if(!response.ok || !result.success){
+      throw new Error(result.error||`Booking service returned HTTP ${response.status}.`);
+    }
+    /* GA4: request was accepted by the backend */
+    if(typeof gtag==='function'){
+      gtag('event','quote_request_submit',{ form_location:'booking_page', service_type:curSvc });
+      gtag('event','qualify_lead',{ form_location:'booking_page', service_type:curSvc, vehicle:veh });
+    }
+    closeModal();
+    const succ=document.getElementById('alertSuccess');
+    succ.innerHTML = _lastEstimate
+      ? `✅ <strong>Request received!</strong> Estimated fare: <strong>$${_lastEstimate.total}</strong> — ${_lastEstimate.totalMiles.toFixed(1)} mi · ~${_lastEstimate.totalMinutes} min (${_lastEstimate.breakdown}).`
+      : '✅ <strong>Request received!</strong> Our representative will call you shortly to confirm your reservation and finalize the price.';
+    succ.classList.add('show');
+    document.getElementById('moovsLink').style.display='block';
+    document.getElementById('submitBtn').scrollIntoView({behavior:'smooth',block:'center'});
+  }catch(e){
+    const reason=e instanceof TypeError
+      ? 'We could not reach the booking service.'
+      : (e.message||'The booking service could not accept the request.');
+    const message=`${reason} Your details are still here. Please try again or call (833) 740-0700.`;
+    if(modalError){ modalError.textContent=message; modalError.classList.add('show'); }
+    pageError.textContent=message; pageError.classList.add('show');
+  }finally{
+    btn.disabled=false; btn.textContent='Book My Ride';
+  }
 }
 
 // Init
@@ -1167,6 +1289,7 @@ function setupCdd(id, options, placeholder){
     root.dataset.value = v;
     list.querySelectorAll('.cdd-opt').forEach(x=>x.classList.toggle('sel', x.dataset.v===v));
     root.classList.remove('open');
+    input.dispatchEvent(new Event('change'));
   });
 }
 setupCdd('hourCdd', ['1','2','3','4','5','6','7','8','9','10','11','12'], '--');
@@ -1227,6 +1350,7 @@ datePanel.addEventListener('click', e=>{
   const mm = String(dateSel.getMonth()+1).padStart(2,'0');
   const dd = String(dateSel.getDate()).padStart(2,'0');
   dateInput.value = `${yy}-${mm}-${dd}`;
+  dateInput.dispatchEvent(new Event('change'));
   dateLabel.textContent = `${mm}/${dd}/${yy}`;
   dateLabel.classList.remove('cdate-placeholder');
   dateCdd.classList.remove('open');

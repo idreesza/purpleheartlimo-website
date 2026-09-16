@@ -1,5 +1,6 @@
 - [global.css !important overrides](global-css-important-overrides.md) — global.css loads after inline CSS w/ !important; beat it with higher-specificity inline selector (e.g. `.navbar .nav-links>li>a`) + !important.
 - [Booking form contract](booking-form-contract.md) — on-page forms use first_name/pickup_address but contact fn needs name/pickup; must map before POST or bookings 400 silently.
+- [Booking delivery verification](booking-delivery.md) — confirm real transport acceptance on Python; UI confirmation and mocked browser success alone do not prove delivery.
 - [csel bar dropdown detach](csel-bar-dropdown-detach.md) — open .bk-bar time/AMPM lists move to <body>; style via .csel-list[data-owner], NOT an .bk-bar/#home-page ancestor selector.
 - [backdrop-filter traps fixed](backdrop-filter-fixed-trap.md) — .bk-bar backdrop-filter makes position:fixed resolve against the bar; append bar dropdowns/overlays to <body>.
 - [csel vs mask-image marquee](csel-marquee-stacking.md) — dropdown hid behind fleet strip; elevate `.csel.open` wrapper (not just list), clear `.open` on all close paths.
