@@ -45,6 +45,7 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&amp;family=Cinzel:wght@500;600;700&amp;family=Poppins:wght@300;400;500;600;700;800&amp;family=Mulish:wght@700;800;900&amp;display=swap"></noscript>
 <link href="/css/page.css" rel="stylesheet"/>
 <script src="/js/google-places-autocomplete.js"></script>
+<script src="/js/booking-email.js"></script>
 <style>
 /* Booking page — light theme */
 :root {
@@ -1392,6 +1393,7 @@ document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAu
   let estimateToken = 0;
   let smokeTimer = null;
   let revealToken = 0;
+   let bookingSendInFlight = false;
   if (tripStage && vehicleSection && detailsStage) tripStage.parentNode.insertBefore(vehicleSection, detailsStage);
 
   function serviceText() {
@@ -1718,6 +1720,14 @@ document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAu
     const btn = document.getElementById('mdlConfirm'), modalError = document.getElementById('modalSubmitError'), pageError = document.getElementById('alertError');
     const form = document.getElementById('bookingDetailsForm');
     if (form && !form.checkValidity()) { form.reportValidity(); const message = 'Corrige los datos obligatorios antes de enviar tu solicitud.'; modalError.textContent = message; modalError.classList.add('show'); pageError.textContent = message; pageError.classList.add('show'); return; }
+    if (bookingSendInFlight) return;
+    if ((document.getElementById('bk-website')?.value || '').trim()) {
+      const message = copy.requestError;
+      modalError.textContent = message; modalError.classList.add('show');
+      pageError.textContent = message; pageError.classList.add('show');
+      return;
+    }
+    bookingSendInFlight = true;
     btn.disabled = true; btn.textContent = copy.sending; modalError.classList.remove('show'); pageError.classList.remove('show');
     const name = [document.getElementById('fname').value.trim(), document.getElementById('lname').value.trim()].filter(Boolean).join(' ');
     const phone = document.getElementById('fphone').value.trim(), email = document.getElementById('femail').value.trim();
@@ -1726,22 +1736,23 @@ document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAu
     const endDate = document.getElementById('hourEndDate')?.value || '', endTime = document.getElementById('hourEndTime')?.value || '';
     const flight = document.getElementById('flightInput').value, pax = document.getElementById('fpax').value, message = document.getElementById('fmessage').value;
     const vehicle = VEHICLES.find(v => v.id === selVeh)?.name || '—', stops = getStops();
+    const stopsText = stops.length ? stops.join(' → ') : '—';
     const internalEstimate = _lastEstimate && _lastEstimate.available && Number.isFinite(_lastEstimate.total) ? `$${_lastEstimate.total} (${_lastEstimate.totalMiles || 0} mi · ${_lastEstimate.totalMinutes || 0} min)` : copy.contactQuote;
-    const fullSummary = `=== SOLICITUD DE RESERVA ===\nNOMBRE: ${name}\nTELÉFONO: ${phone}\nCORREO: ${email || '—'}\n\nSERVICIO: ${curSvc}\nVEHÍCULO: ${vehicle}\nPASAJEROS: ${pax || '—'}\n\nRECOGIDA: ${pickup || '—'}\nDESTINO: ${dropoff || '—'}\nPARADAS: ${stops.length ? stops.join(' → ') : '—'}\n\nFECHA: ${date || '—'}\nHORA: ${hour}:${min} ${ampm}\nFECHA DE FIN: ${endDate || '—'}\nHORA DE FIN: ${endTime || '—'}\nVUELO: ${flight || '—'}\n\nESTIMACIÓN: ${internalEstimate}\nMENSAJE: ${message || '—'}`;
+    const fullSummary = `=== SOLICITUD DE RESERVA ===\nNOMBRE: ${name}\nTELÉFONO: ${phone}\nCORREO: ${email || '—'}\n\nSERVICIO: ${curSvc}\nVEHÍCULO: ${vehicle}\nPASAJEROS: ${pax || '—'}\n\nRECOGIDA: ${pickup || '—'}\nDESTINO: ${dropoff || '—'}\nPARADAS: ${stopsText}\n\nFECHA: ${date || '—'}\nHORA: ${hour}:${min} ${ampm}\nFECHA DE FIN: ${endDate || '—'}\nHORA DE FIN: ${endTime || '—'}\nVUELO: ${flight || '—'}\n\nCOTIZACIÓN: ${internalEstimate}\nSOLICITUDES ESPECIALES: ${message || '—'}`;
     try {
-      const response = await fetch('/.netlify/functions/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
-        name, phone, email: email || '', service: curSvc, vehicle, passengers: pax || '', pickup: pickup || '', dropoff: dropoff || '', stops,
-        date: date || '', time: `${hour}:${min} ${ampm}`, endDate, endTime, flightNumber: flight || '',
-        message: message ? `${message}\n\n${fullSummary}` : fullSummary, estimate: internalEstimate,
-        website: document.getElementById('bk-website')?.value || '', source: 'Booking Page'
-      }) });
-      let result = {}; try { result = await response.json(); } catch (_) {}
-      if (!response.ok || !result.success) throw new Error('booking service');
+      const templateParams = window.PHLBookingEmail.buildTemplateParams({
+        name, phone, email, service: curSvc, vehicle, passengers: pax,
+        pickup, dropoff, date, time: `${hour}:${min} ${ampm}`, flight,
+        notes: fullSummary, stops: stopsText, endDate, endTime,
+        quote: internalEstimate, specialRequests: message, source: 'Booking Page'
+      });
+      await window.PHLBookingEmail.sendBookingEmail(templateParams);
       if (typeof gtag === 'function') { gtag('event', 'quote_request_submit', { form_location: 'booking_page', service_type: curSvc }); gtag('event', 'qualify_lead', { form_location: 'booking_page', service_type: curSvc, vehicle }); }
       closeModal(); const success = document.getElementById('alertSuccess'); success.innerHTML = copy.sent; success.classList.add('show'); document.getElementById('moovsLink').style.display = 'block'; document.getElementById('submitBtn').scrollIntoView({ behavior: 'smooth', block: 'center' });
     } catch (_) {
       modalError.textContent = copy.requestError; modalError.classList.add('show'); pageError.textContent = copy.requestError; pageError.classList.add('show');
-    } finally { btn.disabled = false; btn.textContent = copy.confirm; }
+    }
+    bookingSendInFlight = false; btn.disabled = false; btn.textContent = copy.confirm;
   };
   window.confirmAndSend = confirmAndSend;
   renderBookingVehicles();
