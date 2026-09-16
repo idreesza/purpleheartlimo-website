@@ -111,10 +111,36 @@ window.phlComputePositioning = function (cls, pos) {
 
 window.phlFetchDistance = (function () {
   var cache = {};
+  function coordinatesForAddress(address) {
+    if (typeof document === 'undefined') return null;
+    var fields = document.querySelectorAll('input');
+    for (var i = 0; i < fields.length; i++) {
+      var field = fields[i];
+      if ((field.value || '').trim() !== address) continue;
+      var lat = Number(field.dataset && field.dataset.lat);
+      var lon = Number(field.dataset && field.dataset.lon);
+      if (Number.isFinite(lat) && Number.isFinite(lon)) {
+        return { lat: lat, lon: lon };
+      }
+    }
+    return null;
+  }
   return async function (origin, destination) {
-    var k = origin + '|' + destination;
+    var originPoint = coordinatesForAddress(origin);
+    var destinationPoint = coordinatesForAddress(destination);
+    var k = JSON.stringify([origin, destination, originPoint, destinationPoint]);
     if (cache[k]) return cache[k];
-    var r = await fetch('/api/distance?origin=' + encodeURIComponent(origin) + '&destination=' + encodeURIComponent(destination));
+    var url = '/api/distance?origin=' + encodeURIComponent(origin) +
+      '&destination=' + encodeURIComponent(destination);
+    if (originPoint) {
+      url += '&originLat=' + encodeURIComponent(originPoint.lat) +
+        '&originLon=' + encodeURIComponent(originPoint.lon);
+    }
+    if (destinationPoint) {
+      url += '&destinationLat=' + encodeURIComponent(destinationPoint.lat) +
+        '&destinationLon=' + encodeURIComponent(destinationPoint.lon);
+    }
+    var r = await fetch(url);
     var d = {};
     try { d = await r.json(); } catch (e) {}
     if (!r.ok || d.error) throw new Error(d.error || 'distance unavailable');

@@ -32,8 +32,57 @@ class GooglePlacesIntegrationTests(unittest.TestCase):
         self.assertEqual(self.helper.count("https://maps.googleapis.com/maps/api/js?"), 1)
         self.assertIn("Google Maps authentication failed", self.helper)
         self.assertIn("Google Maps library unavailable", self.helper)
+        self.assertIn("suppressNextInput", self.helper)
         self.assertNotIn("google.maps.places.Autocomplete", self.helper)
         self.assertNotIn("nominatim.openstreetmap.org", self.helper)
+
+    def test_selected_coordinates_are_forwarded_to_route_calculators(self):
+        pricing = (ROOT / "js/pricing.js").read_text()
+        netlify_distance = (ROOT / "netlify/functions/distance.js").read_text()
+        self.assertIn("originLat", pricing)
+        self.assertIn("destinationLat", pricing)
+        self.assertIn("originLat", self.server)
+        self.assertIn("'location':", self.server)
+        self.assertIn("originLat", netlify_distance)
+        self.assertIn("routePoint(origin, originPoint)", netlify_distance)
+
+    def test_google_route_uses_lat_lng_when_places_coords_are_available(self):
+        class FakeResponse:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self):
+                return b'{"routes":[{"distanceMeters":1609,"duration":"60s"}]}'
+
+        requests = []
+
+        def fake_urlopen(request, timeout=12):
+            requests.append(request)
+            return FakeResponse()
+
+        with patch.dict(os.environ, {"GOOGLE_MAPS_API_KEY": "test-route-key"}):
+            with patch("server.urllib.request.urlopen", side_effect=fake_urlopen):
+                result = Handler._google_route(
+                    object.__new__(Handler),
+                    "formatted pickup",
+                    "formatted dropoff",
+                    (32.7767, -96.7970),
+                    (30.2672, -97.7431),
+                )
+
+        payload = json.loads(requests[0].data.decode())
+        self.assertEqual(
+            payload["origin"]["location"]["latLng"],
+            {"latitude": 32.7767, "longitude": -96.7970},
+        )
+        self.assertEqual(
+            payload["destination"]["location"]["latLng"],
+            {"latitude": 30.2672, "longitude": -97.7431},
+        )
+        self.assertEqual(result["miles"], 1.0)
 
     def test_no_competing_maps_javascript_loader_in_pages(self):
         page_files = list(ROOT.rglob("*.html"))

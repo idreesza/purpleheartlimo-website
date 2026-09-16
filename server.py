@@ -265,11 +265,24 @@ class Handler(SimpleHTTPRequestHandler):
                 destination = params.get('destination', [''])[0]
                 if not (origin and destination):
                     return self._json({'error': 'missing params'}, 400)
-                result = self._google_route(origin, destination)
+                def query_point(lat_name, lon_name):
+                    try:
+                        lat = float(params.get(lat_name, [''])[0])
+                        lon = float(params.get(lon_name, [''])[0])
+                    except (TypeError, ValueError):
+                        return None
+                    if not (-90 <= lat <= 90 and -180 <= lon <= 180):
+                        return None
+                    return (lat, lon)
+                origin_point = query_point('originLat', 'originLon')
+                destination_point = query_point('destinationLat', 'destinationLon')
+                result = self._google_route(origin, destination, origin_point, destination_point)
                 if result is None:
                     # Google Routes API unavailable (not enabled on the
                     # project yet) — fall back to free OpenStreetMap routing.
-                    result = self._osrm_route(origin, destination)
+                    result = self._osrm_route(
+                        origin, destination, origin_point, destination_point
+                    )
                 if result is None:
                     return self._json({'error': 'no_route'}, 400)
                 return self._json(result)
@@ -305,15 +318,30 @@ class Handler(SimpleHTTPRequestHandler):
             self.send_header('Expires', '0')
         SimpleHTTPRequestHandler.end_headers(self)
 
-    def _google_route(self, origin, destination):
+    @staticmethod
+    def _route_point(address, coordinates):
+        if coordinates:
+            lat, lon = coordinates
+            return {
+                'location': {
+                    'latLng': {
+                        'latitude': lat,
+                        'longitude': lon,
+                    }
+                }
+            }
+        return {'address': address}
+
+    def _google_route(self, origin, destination, origin_coordinates=None,
+                      destination_coordinates=None):
         gkey = os.environ.get('GOOGLE_MAPS_API_KEY', '')
         if not gkey:
             return None
         try:
             url = 'https://routes.googleapis.com/directions/v2:computeRoutes'
             body = json.dumps({
-                'origin': {'address': origin},
-                'destination': {'address': destination},
+                'origin': self._route_point(origin, origin_coordinates),
+                'destination': self._route_point(destination, destination_coordinates),
                 'travelMode': 'DRIVE',
                 'routingPreference': 'TRAFFIC_AWARE',
                 'units': 'IMPERIAL',
@@ -436,10 +464,19 @@ class Handler(SimpleHTTPRequestHandler):
         Handler._geo_cache[q] = result
         return result
 
-    def _osrm_route(self, origin, destination):
+    def _osrm_route(self, origin, destination, origin_coordinates=None,
+                    destination_coordinates=None):
         try:
-            a = self._geocode(origin)
-            b = self._geocode(destination)
+            # Query coordinates arrive as (latitude, longitude), while
+            # Nominatim and OSRM use (longitude, latitude).
+            a = (
+                (origin_coordinates[1], origin_coordinates[0])
+                if origin_coordinates else self._geocode(origin)
+            )
+            b = (
+                (destination_coordinates[1], destination_coordinates[0])
+                if destination_coordinates else self._geocode(destination)
+            )
             if not a or not b:
                 return None
             url = (f'https://router.project-osrm.org/route/v1/driving/'

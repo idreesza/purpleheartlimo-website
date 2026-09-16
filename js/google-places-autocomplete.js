@@ -430,6 +430,7 @@
       instance.selectedValue = instance.input.value;
       instance.sessionToken = null;
       setStatus(instance, '', false);
+      instance.suppressNextInput = true;
       instance.input.dispatchEvent(new Event('input', { bubbles: true }));
       instance.input.dispatchEvent(new Event('change', { bubbles: true }));
     } catch (error) {
@@ -438,6 +439,7 @@
       instance.sessionToken = null;
       clearCoordinates(instance);
       setStatus(instance, message('details'), true);
+      instance.suppressNextInput = true;
       instance.input.dispatchEvent(new Event('input', { bubbles: true }));
       instance.input.dispatchEvent(new Event('change', { bubbles: true }));
     }
@@ -501,7 +503,8 @@
       timer: null,
       activeIndex: -1,
       predictions: [],
-      selectedValue: ''
+      selectedValue: '',
+      suppressNextInput: false
     };
     instances.set(input, instance);
     input.setAttribute('aria-autocomplete', 'list');
@@ -520,6 +523,18 @@
     });
 
     input.addEventListener('input', function () {
+      // Selecting a prediction dispatches an input event for the page's
+      // pricing listeners. Do not treat that programmatic notification as
+      // freshly typed text, or it immediately reopens the suggestion search.
+      if (instance.suppressNextInput) {
+        instance.suppressNextInput = false;
+        clearTimeout(instance.timer);
+        instance.sequence++;
+        instance.activeIndex = -1;
+        instance.predictions = [];
+        hideList(instance);
+        return;
+      }
       var value = input.value.trim();
       if (instance.selectedValue && value !== instance.selectedValue) clearCoordinates(instance);
       clearTimeout(instance.timer);

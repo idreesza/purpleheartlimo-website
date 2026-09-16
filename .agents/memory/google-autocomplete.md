@@ -7,3 +7,9 @@ Use Places API (New) with a website-restricted browser key, separate from any se
 **Why:** The user requested Google address suggestions only, not changes to mileage or fare calculation. Browser keys are necessarily visible to visitors; website/API restrictions provide protection. Duplicate Maps library loading caused runtime conflicts during integration testing.
 
 **How to apply:** Preserve existing pricing and manual entry if Google denies requests. A successful Maps JavaScript bootstrap does not establish Places authorization: verify the actual autocomplete RPC and a selected address with coordinates. Never log keyed URLs or credential values while diagnosing authorization.
+
+Pass selected Places coordinates through to routing, rather than geocoding the formatted address again.
+
+**Why:** Google-formatted airport addresses can fail Nominatim lookup despite a valid Places selection, causing a false no-route error. Routing can still use OSRM without enabling Google Routes.
+
+**How to apply:** Clear stale coordinates when a user manually edits an address; retain selected coordinates for pickup, destination, and additional stops. Keep fare rules unchanged.

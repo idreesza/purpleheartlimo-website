@@ -860,10 +860,25 @@ function vehClass(v){
   return (v.cls && window.phlGetClass(v.cls)) || { flat: getPrice(v), hourly: v.imghourly };
 }
 
+function selectedCoordinates(address){
+  const fields = document.querySelectorAll('input');
+  for(const field of fields){
+    if((field.value || '').trim() !== address) continue;
+    const lat = Number(field.dataset.lat);
+    const lon = Number(field.dataset.lon);
+    if(Number.isFinite(lat) && Number.isFinite(lon)) return {lat, lon};
+  }
+  return null;
+}
 async function fetchDistance(origin, destination){
-  const k = origin + '|' + destination;
+  const originPoint = selectedCoordinates(origin);
+  const destinationPoint = selectedCoordinates(destination);
+  const k = JSON.stringify([origin, destination, originPoint, destinationPoint]);
   if(_estCache[k]) return _estCache[k];
-  const r = await fetch(`/api/distance?origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}`);
+  let url = `/api/distance?origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}`;
+  if(originPoint) url += `&originLat=${encodeURIComponent(originPoint.lat)}&originLon=${encodeURIComponent(originPoint.lon)}`;
+  if(destinationPoint) url += `&destinationLat=${encodeURIComponent(destinationPoint.lat)}&destinationLon=${encodeURIComponent(destinationPoint.lon)}`;
+  const r = await fetch(url);
   let d = {};
   try { d = await r.json(); } catch(e){}
   if(!r.ok || d.error){

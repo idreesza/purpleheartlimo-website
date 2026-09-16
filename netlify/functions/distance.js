@@ -34,7 +34,7 @@ function getJson(urlStr, extraHeaders) {
 
 // Fallback when the Google Routes API is not enabled on the project:
 // free OpenStreetMap geocoding (Nominatim) + routing (OSRM).
-async function osrmRoute(origin, destination) {
+async function osrmRoute(origin, destination, originPoint, destinationPoint) {
   async function geocode(q) {
     const r = await getJson(
       'https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=us&q=' +
@@ -45,8 +45,10 @@ async function osrmRoute(origin, destination) {
     if (!data.length) return null;
     return [data[0].lon, data[0].lat];
   }
-  const a = await geocode(origin);
-  const b = await geocode(destination);
+  // Query coordinates use latitude/longitude; OSRM paths use longitude,
+  // latitude. Avoid re-geocoding Places selections when coordinates exist.
+  const a = originPoint ? [String(originPoint.lon), String(originPoint.lat)] : await geocode(origin);
+  const b = destinationPoint ? [String(destinationPoint.lon), String(destinationPoint.lat)] : await geocode(destination);
   if (!a || !b) return null;
   const r = await getJson(
     `https://router.project-osrm.org/route/v1/driving/${a[0]},${a[1]};${b[0]},${b[1]}?overview=false`
@@ -63,6 +65,24 @@ async function osrmRoute(origin, destination) {
     minutes: Math.round(seconds / 60),
     source: 'osrm',
   };
+}
+
+function queryPoint(params, latName, lonName) {
+  const latRaw = params[latName];
+  const lonRaw = params[lonName];
+  if (latRaw === undefined || lonRaw === undefined ||
+      String(latRaw).trim() === '' || String(lonRaw).trim() === '') return null;
+  const lat = Number(latRaw);
+  const lon = Number(lonRaw);
+  if (!Number.isFinite(lat) || !Number.isFinite(lon) ||
+      lat < -90 || lat > 90 || lon < -180 || lon > 180) return null;
+  return { lat, lon };
+}
+
+function routePoint(address, point) {
+  return point
+    ? { location: { latLng: { latitude: point.lat, longitude: point.lon } } }
+    : { address };
 }
 
 function postJson(urlObj, payload, extraHeaders) {
@@ -114,6 +134,8 @@ exports.handler = async (event) => {
   const params = event.queryStringParameters || {};
   const origin = params.origin || '';
   const destination = params.destination || '';
+  const originPoint = queryPoint(params, 'originLat', 'originLon');
+  const destinationPoint = queryPoint(params, 'destinationLat', 'destinationLon');
   const gkey = process.env.GOOGLE_MAPS_API_KEY || '';
 
   if (!origin || !destination) {
@@ -126,7 +148,7 @@ exports.handler = async (event) => {
 
   if (!gkey) {
     try {
-      const alt = await osrmRoute(origin, destination);
+      const alt = await osrmRoute(origin, destination, originPoint, destinationPoint);
       if (alt) return { statusCode: 200, headers, body: JSON.stringify(alt) };
     } catch (e) {}
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'missing key' }) };
@@ -137,8 +159,8 @@ exports.handler = async (event) => {
     const resp = await postJson(
       url,
       {
-        origin: { address: origin },
-        destination: { address: destination },
+        origin: routePoint(origin, originPoint),
+        destination: routePoint(destination, destinationPoint),
         travelMode: 'DRIVE',
         routingPreference: 'TRAFFIC_AWARE',
         units: 'IMPERIAL',
@@ -153,7 +175,7 @@ exports.handler = async (event) => {
       // Google Routes API rejected the call (e.g. API not enabled) —
       // fall back to free OpenStreetMap routing so live pricing still works.
       try {
-        const alt = await osrmRoute(origin, destination);
+        const alt = await osrmRoute(origin, destination, originPoint, destinationPoint);
         if (alt) return { statusCode: 200, headers, body: JSON.stringify(alt) };
       } catch (e) {}
       return {
@@ -167,7 +189,7 @@ exports.handler = async (event) => {
     const routes = data.routes || [];
     if (!routes.length) {
       try {
-        const alt = await osrmRoute(origin, destination);
+        const alt = await osrmRoute(origin, destination, originPoint, destinationPoint);
         if (alt) return { statusCode: 200, headers, body: JSON.stringify(alt) };
       } catch (e) {}
       return { statusCode: 400, headers, body: JSON.stringify({ error: 'no_route' }) };
