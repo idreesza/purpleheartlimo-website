@@ -1,0 +1,186 @@
+Purple Heart Limo Booking Page Enhancement - FINAL v3
+Project Overview
+
+Complete redesign of booking page with hero section, overlaid text, squared feature cards, smoke reveal, horizontal scrollable car selection, and smart hub-based pricing.
+
+1. Form Label Update
+Change all instances of "HOUR" to "TIME" in Trip Details form (English & Spanish)
+2. Hub Configuration (Backend Only)
+Austin Hub: 3100 Esperanza Crossing, Austin, TX 78758
+Dallas Hub: 777 S Central Expy, Richardson, TX 75080
+3. Hero Section Layout
+
+Hero Section Container:
+
+Full-width banner with auto-rotating car images (same rotation as current)
+Background: Swapping car pictures on loop
+
+Overlaid Text - Title (Fixed at Top):
+
+Text: "Book Your Luxury Ride Across Texas"
+Position: Overlaid on top of swapping car images
+Stay fixed (does not move with car rotation)
+Styling: Large, bold, high contrast, readable over images
+
+Overlaid Text - Subtitle (Fixed at Bottom):
+
+Text: "Austin · Dallas-Fort Worth · Houston · 24/7 availability · Real-time flight tracking"
+Position: Overlaid at bottom of swapping car images
+Stay fixed (does not move with car rotation)
+Styling: Medium size, clear, readable over images
+4. Feature Cards Section
+
+Below Hero Section:
+
+Display 4 feature cards in one horizontal line
+Card layout: Squared cards (1:1 aspect ratio, equal width & height)
+Equal spacing between cards
+Cards show:
+5 min / Confirmation
+✈️ / Free Flight tracking
+💰 / Flat rate No surge ever
+🕐 / 24/7 365 days
+
+Responsive:
+
+Desktop: 4 cards in one line, full size
+Mobile (< 768px): 4 cards stay horizontal, smaller to fit screen width
+No stacking, no vertical layout
+5. Booking Flow Structure
+Hero Section - Auto-rotating car images with overlaid text
+Feature Cards - 4 squared cards in horizontal line
+Trip Details Form - Pickup, dropoff, date, time (label: TIME)
+[SMOKE REVEAL] - 2 second animation after "Find Ride"
+Choose Your Experience - Car selection (horizontal scrollable)
+Your Details - Customer information
+6. Smoke Reveal Animation
+Trigger: User clicks "Find Ride"
+Duration: 2 seconds
+Fade in → hold → fade out
+After: Fade-in car selection section
+7. Car Selection - "Choose Your Experience"
+
+Initial Display (After Smoke Clears):
+
+Show 3 car cards in one horizontal line (full size)
+Each card: Image + details below
+Arrow buttons (← →) on both sides - LARGE, BOLD, OBVIOUS
+Horizontal scrollbar below cards
+Customer scrolls to browse entire collection
+
+After Car Selection:
+
+All 3 car cards compress to 25% of previous size
+Cards remain visible and scrollable
+Add "Expand Rides" button below or next to compacted cars
+
+When Customer Clicks "Expand Rides":
+
+All car cards expand back to full size
+Show full details under each card
+Still scrollable with arrow buttons
+Can select different car or click "Expand Rides" to compact again
+
+Mobile:
+
+Show only selected car (full size with details)
+"Expand Rides" button compacts to image only
+8. Smart Hub Selection & Dynamic Pricing
+
+Distance Calculation:
+
+Extract pickup address from Trip Details
+Google Maps Distance Matrix API:
+Calculate distance to Austin Hub
+Calculate distance to Dallas Hub
+Use closer hub for pricing
+
+Price Calculation:
+
+Final Price = Car Class Base Price × Hours (rounded UP)
+Round UP duration to next full hour
+Show ONLY final price (no breakdown)
+
+Price Updates When:
+
+Pickup/dropoff address changes
+Date or time changes
+Different car selected
+9. Section Transitions
+
+After Trip Details → Smoke:
+
+Smoke animation (2 sec)
+Car selection fades in
+
+After Car Selection → Customer Details:
+
+"Your Details" fades in (1-2 sec)
+10. Implementation Checklist
+
+HTML:
+
+ Create hero section with auto-rotating car images
+ Overlay title text at top (fixed position over images)
+ Overlay subtitle text at bottom (fixed position over images)
+ Create 4 squared feature cards in horizontal line
+ Move car selection section between Trip Details and Your Details
+ Create horizontal scrollable car container
+ Add left (←) and right (→) arrow buttons (obvious)
+ Add "Expand Rides" toggle button
+
+CSS:
+
+ Hero section full-width with auto-rotating background images
+ Overlay text: Position absolute/fixed over hero images
+ Title text: Top position, readable contrast
+ Subtitle text: Bottom position, readable contrast
+ Feature cards: Squared (1:1 ratio), 4 in one line
+ Feature cards: Equal spacing, responsive sizing
+ Mobile: Feature cards scale down but stay horizontal
+ Car selection horizontal scroll container
+ 3 cars visible at a time
+ Compact state: Cards at 25% size
+ Expanded state: Full size with details
+ Arrow button styling (LARGE, BOLD, OBVIOUS)
+ Smoke animation (2 sec fade)
+ Fade-in animations
+
+JavaScript:
+
+ Hero car image auto-rotation (current logic)
+ Overlay text stays fixed over rotating images
+ Smoke animation trigger on "Find Ride" submit
+ Car carousel scroll with arrow buttons
+ Car selection state tracking
+ Toggle compact ↔ expanded on "Expand Rides"
+ Google Maps Distance Matrix API integration
+ Price calculation and display (no breakdown)
+ Mobile responsive logic
+ Fade-in section transitions
+
+API:
+
+ Google Maps Distance Matrix API in Replit Secrets
+11. Visual Flow
+┌─────────────────────────────────────────┐
+│  "Book Your Luxury Ride Across Texas"   │ ← Fixed overlay
+│                                         │
+│   [HERO: Swapping Car Images]           │
+│                                         │
+│ "Austin · Dallas-Fort Worth · Houston   │ ← Fixed overlay
+│  · 24/7 availability · Flight tracking" │
+└─────────────────────────────────────────┘
+
+[Squared Card] [Squared Card] [Squared Card] [Squared Card]
+
+        [TRIP DETAILS FORM]
+               ↓
+        [SMOKE ANIMATION]
+               ↓
+    ← [Car 1] [Car 2] [Car 3] →
+               ↓
+    ← [Tiny Cars] →
+    [EXPAND RIDES]
+               ↓
+        [YOUR DETAILS FORM]
