@@ -404,8 +404,6 @@ html { scroll-behavior:smooth; }
 <style id="booking-v3-hotfix">
 /* Salvaguardas FINAL v3: después de los estilos globales compartidos. */
 @media(max-width:767px){
-  .hero-features .mini-stats{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:4px!important}
-  .hero-features .mini-stat-card{aspect-ratio:1/1!important;min-width:0!important;min-height:0!important;padding:5px 1px!important}
   .hero-copy-top{top:88px!important}.booking-hero h1{font-size:clamp(1.85rem,9.25vw,2.45rem)!important;line-height:1.04!important;letter-spacing:-.025em}
   .hero-copy-bottom{bottom:35px!important;font-size:clamp(.57rem,2.55vw,.68rem)!important;line-height:1.35!important}
   .svc-tabs{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;width:100%!important;overflow:visible!important}
@@ -415,6 +413,11 @@ html { scroll-behavior:smooth; }
 .has-selection .veh-card.compact .selected-badge{display:none!important}
 .has-selection .veh-card.compact.selected .selected-badge{display:block!important}
 .vehicle-reveal.smoke-in::before,.vehicle-reveal.smoke-in::after{animation:none!important}
+.hero-features{margin:24px auto 0!important;padding:0 16px!important;max-width:100%!important}
+.hero-features .mini-stats{display:flex!important;flex-wrap:nowrap!important;gap:12px!important;overflow-x:auto;max-width:100%;width:max-content;margin:0 auto!important;padding:0 0 16px;justify-content:flex-start!important}
+.hero-features .mini-stat-card{box-sizing:border-box;flex:0 0 1.5in!important;width:1.5in!important;height:1.5in!important;min-width:1.5in!important;min-height:1.5in!important;max-width:1.5in!important;max-height:1.5in!important;padding:12px 8px!important;aspect-ratio:1/1!important}
+.hero-features .mini-stat-val{font-size:16px!important}
+.hero-features .mini-stat-lbl{font-size:12px!important}
 </style>
 <link href="https://purpleheartlimo.com/booking.html" hreflang="en" rel="alternate"/><link href="https://purpleheartlimo.com/es/booking.html" hreflang="es" rel="alternate"/><link href="https://purpleheartlimo.com/booking.html" hreflang="x-default" rel="alternate"/>
 <link rel="stylesheet" href="/css/sitewide-leads.css">
