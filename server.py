@@ -5,10 +5,15 @@ import email.utils
 import gzip
 import io
 import html
+import math
+import posixpath
 import re
+import threading
+import time
 import tomllib
 import urllib.request
 import urllib.parse
+from collections import OrderedDict
 from concurrent.futures import ThreadPoolExecutor
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 
@@ -29,6 +34,201 @@ CONTACT_SMS_GATEWAYS = (
     f'{CONTACT_OWNER_PHONE}@tmomail.net',
     f'{CONTACT_OWNER_PHONE}@messaging.sprintpcs.com',
 )
+
+# Hourly estimates are intentionally gated on a real Google driving-distance
+# result.  These are server-only values: the hourly endpoint returns only an
+# availability flag, and the static-file guard below prevents this source from
+# being downloaded by a browser.
+HOURLY_HUBS = (
+    ('austin', '3100 Esperanza Crossing, Austin, TX 78758'),
+    ('dallas', '777 S Central Expy, Richardson, TX 75080'),
+)
+HOURLY_HUB_PATH = '/api/hourly-hub'
+HOURLY_HUB_CACHE_MAX_ENTRIES = 256
+HOURLY_HUB_CACHE_TTL_SECONDS = 300
+HOURLY_HUB_FAILURE_TTL_SECONDS = 15
+HOURLY_HUB_MAX_PICKUP_LENGTH = 500
+HOURLY_HUB_CACHE_MISS = object()
+
+
+class _BoundedTTLCache:
+    """Small thread-safe TTL cache used for hourly hub checks.
+
+    Successful selections live longer than failures.  Keeping failures for a
+    short period avoids a thundering herd while allowing a temporarily
+    unavailable provider to recover quickly.  Values are internal hub IDs (or
+    ``None`` for a failed check), never API response details.
+    """
+
+    def __init__(self, max_entries, success_ttl, failure_ttl, clock=None):
+        self.max_entries = max(1, int(max_entries))
+        self.success_ttl = max(0, float(success_ttl))
+        self.failure_ttl = max(0, float(failure_ttl))
+        self._clock = clock or time.monotonic
+        self._entries = OrderedDict()
+        self._lock = threading.RLock()
+
+    def get(self, key, default=HOURLY_HUB_CACHE_MISS):
+        with self._lock:
+            entry = self._entries.get(key)
+            if entry is None:
+                return default
+            expires, value = entry
+            if expires <= self._clock():
+                self._entries.pop(key, None)
+                return default
+            self._entries.move_to_end(key)
+            return value
+
+    def set(self, key, value):
+        ttl = self.success_ttl if value is not None else self.failure_ttl
+        with self._lock:
+            self._entries[key] = (self._clock() + ttl, value)
+            self._entries.move_to_end(key)
+            while len(self._entries) > self.max_entries:
+                self._entries.popitem(last=False)
+
+    def clear(self):
+        with self._lock:
+            self._entries.clear()
+
+    def __len__(self):
+        with self._lock:
+            return len(self._entries)
+
+
+def _normalize_hourly_request(pickup, lat=None, lon=None):
+    """Validate and normalize the public hourly-hub query.
+
+    Address whitespace/case and equivalent decimal coordinate spellings map
+    to one cache key.  Coordinates are optional, but must be supplied as a
+    complete finite latitude/longitude pair when present.
+    """
+    if not isinstance(pickup, str):
+        raise ValueError('pickup is required')
+    address = re.sub(r'\s+', ' ', pickup).strip()
+    if not address:
+        raise ValueError('pickup is required')
+    if len(address) > HOURLY_HUB_MAX_PICKUP_LENGTH:
+        raise ValueError('pickup is too long')
+
+    supplied_coordinates = lat is not None or lon is not None
+    coordinates = None
+    if supplied_coordinates:
+        if lat in (None, '') or lon in (None, ''):
+            raise ValueError('lat and lon must be supplied together')
+        try:
+            latitude = float(lat)
+            longitude = float(lon)
+        except (TypeError, ValueError):
+            raise ValueError('invalid coordinates') from None
+        if (
+            not math.isfinite(latitude)
+            or not math.isfinite(longitude)
+            or not -90 <= latitude <= 90
+            or not -180 <= longitude <= 180
+        ):
+            raise ValueError('invalid coordinates')
+        # Eight decimal places preserve sub-meter-level address precision
+        # while making 30, 30.0, and 30.00000000 one cache coordinate.
+        latitude = 0.0 if latitude == 0 else latitude
+        longitude = 0.0 if longitude == 0 else longitude
+        coordinates = (latitude, longitude)
+
+    normalized_coordinates = (
+        None
+        if coordinates is None
+        else tuple(f'{value:.8f}' for value in coordinates)
+    )
+    key = (address.casefold(), normalized_coordinates)
+    return address, coordinates, key
+
+
+def _google_hourly_distances(pickup, coordinates):
+    """Return the two Google driving distances, or ``None`` on any failure.
+
+    This uses the server-side Distance Matrix REST endpoint only.  In
+    particular, it never reads the referrer-restricted browser key and never
+    falls back to OSRM for an hourly availability decision.
+    """
+    api_key = os.environ.get('GOOGLE_MAPS_API_KEY', '').strip()
+    if not api_key:
+        return None
+
+    origin = (
+        f'{coordinates[0]},{coordinates[1]}'
+        if coordinates is not None
+        else pickup
+    )
+    destinations = '|'.join(address for _, address in HOURLY_HUBS)
+    params = urllib.parse.urlencode({
+        'origins': origin,
+        'destinations': destinations,
+        'mode': 'driving',
+        'units': 'imperial',
+        'key': api_key,
+    })
+    request = urllib.request.Request(
+        'https://maps.googleapis.com/maps/api/distancematrix/json?' + params,
+        headers={
+            'Accept': 'application/json',
+            'User-Agent': 'PurpleHeartLimo/1.0 (purpleheartlimo.com)',
+        },
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=12) as response:
+            status = getattr(response, 'status', None)
+            if status is None:
+                getcode = getattr(response, 'getcode', None)
+                status = getcode() if getcode else None
+            if status is not None and not 200 <= status < 300:
+                return None
+            raw = response.read()
+            if isinstance(raw, bytes):
+                raw = raw.decode('utf-8')
+            payload = json.loads(raw)
+    except Exception:
+        # Deliberately keep provider errors and credentials out of both the
+        # response and logs.  The caller turns this into contact-us behavior.
+        return None
+
+    if not isinstance(payload, dict) or payload.get('status') != 'OK':
+        return None
+    rows = payload.get('rows')
+    if not isinstance(rows, list) or not rows:
+        return None
+    elements = rows[0].get('elements') if isinstance(rows[0], dict) else None
+    if not isinstance(elements, list) or len(elements) < len(HOURLY_HUBS):
+        return None
+
+    distances = []
+    for element in elements[:len(HOURLY_HUBS)]:
+        if not isinstance(element, dict) or element.get('status') != 'OK':
+            return None
+        distance = element.get('distance')
+        value = distance.get('value') if isinstance(distance, dict) else None
+        if isinstance(value, bool):
+            return None
+        try:
+            value = float(value)
+        except (TypeError, ValueError):
+            return None
+        if not math.isfinite(value) or value < 0:
+            return None
+        distances.append(value)
+    return distances
+
+
+def _select_hourly_hub(pickup, coordinates):
+    """Select the nearest configured hub internally, without exposing it."""
+    distances = _google_hourly_distances(pickup, coordinates)
+    if (
+        not isinstance(distances, (list, tuple))
+        or len(distances) < len(HOURLY_HUBS)
+    ):
+        return None
+    nearest_index = min(range(len(distances)), key=distances.__getitem__)
+    return HOURLY_HUBS[nearest_index][0]
 
 
 def _contact_text(value, limit=4000):
@@ -308,6 +508,11 @@ REDIRECTS_EXACT, REDIRECT_PREFIXES = _load_redirects()
 class Handler(SimpleHTTPRequestHandler):
     _gzip_cache = {}
     _compressible_extensions = ('.html', '.css', '.js', '.json', '.xml', '.txt', '.svg')
+    _hourly_hub_cache = _BoundedTTLCache(
+        HOURLY_HUB_CACHE_MAX_ENTRIES,
+        HOURLY_HUB_CACHE_TTL_SECONDS,
+        HOURLY_HUB_FAILURE_TTL_SECONDS,
+    )
 
     def _encoding_quality(self, requested_encoding):
         """Return the client's quality preference for a content encoding."""
@@ -533,6 +738,10 @@ class Handler(SimpleHTTPRequestHandler):
     def _route(self):
         """Shared routing for GET and HEAD."""
         self._vary_accept_encoding = False
+        request_path = urllib.parse.urlsplit(self.path).path
+        if self._private_static_path(request_path):
+            self.send_error(404, 'Not found')
+            return
         if self._www_redirect():
             return
         if self._legacy_redirect():
@@ -563,6 +772,9 @@ class Handler(SimpleHTTPRequestHandler):
             if not browser_key:
                 return self._json({'error': 'Google Maps address search unavailable'}, 503)
             return self._json({'key': browser_key})
+
+        if request_path == HOURLY_HUB_PATH:
+            return self._hourly_hub_route()
 
         if self.path.startswith('/api/positioning'):
             # Hub positioning: pick the anchor hub for a trip and return the
@@ -624,6 +836,72 @@ class Handler(SimpleHTTPRequestHandler):
         if self.command == 'HEAD':
             return super().do_HEAD()
         return super().do_GET()
+
+    @staticmethod
+    def _private_static_path(path):
+        """Keep Python/config/source files out of the static document root.
+
+        The workspace is also the deployment public directory.  Restrict only
+        source/document paths that are not browser assets, rather than denying
+        the whole attached-assets tree and breaking images used by the site.
+        """
+        try:
+            decoded = urllib.parse.unquote(path)
+            normalized = posixpath.normpath('/' + decoded.lstrip('/'))
+        except (TypeError, ValueError):
+            return True
+        lower = normalized.lower()
+        if (
+            lower == '/server.py'
+            or lower.endswith('/server.py')
+            or lower.endswith(('.py', '.pyc', '.pyo'))
+            or lower == '/.replit'
+            or lower == '/netlify.toml'
+            or lower.startswith('/.git/')
+            or lower == '/.git'
+            or lower == '/scripts'
+            or lower.startswith('/scripts/')
+        ):
+            return True
+        # Briefs and other source documents under attached_assets can contain
+        # backend-only configuration. Image/video/archive assets remain public.
+        if lower.startswith('/attached_assets/'):
+            extension = os.path.splitext(lower)[1]
+            if extension in (
+                '.txt', '.md', '.json', '.toml', '.yaml', '.yml', '.csv',
+                '.py', '.js', '.ts', '.css', '.html',
+            ):
+                return True
+        return False
+
+    def _hourly_hub_route(self):
+        """Handle the intentionally minimal hourly availability contract."""
+        params = urllib.parse.parse_qs(
+            urllib.parse.urlsplit(self.path).query,
+            keep_blank_values=True,
+        )
+        pickup = params.get('pickup', [None])[0]
+        lat = params.get('lat', [None])[0]
+        lon = params.get('lon', [None])[0]
+        try:
+            address, coordinates, cache_key = _normalize_hourly_request(
+                pickup, lat, lon
+            )
+        except ValueError as error:
+            # Validation details are safe; no provider response or address
+            # data is echoed back to the browser.
+            return self._json({'error': str(error)}, 400)
+
+        selected = self._hourly_hub_cache.get(cache_key)
+        if selected is HOURLY_HUB_CACHE_MISS:
+            try:
+                selected = _select_hourly_hub(address, coordinates)
+            except Exception:
+                # Provider failures must produce contact-us behavior, never a
+                # guessed/default hourly price and never a diagnostic leak.
+                selected = None
+            self._hourly_hub_cache.set(cache_key, selected)
+        return self._json({'available': selected is not None})
 
     def end_headers(self):
         path = urllib.parse.urlparse(self.path).path.lower()

@@ -329,6 +329,71 @@ html { scroll-behavior:smooth; }
 .trust-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--pk); flex-shrink: 0; }
 
 @media(max-width:768px){ .form-row{grid-template-columns:1fr;} }
+
+/* Mejoras del flujo: fecha/hora final por hora, selección compacta y
+   transición bilateral a pantalla completa entre Viaje y Vehículos. */
+.hourly-end-field[hidden], .veh-details-toggle[hidden], .veh-expanded-details[hidden] { display:none !important; }
+.hourly-end-field { min-width:0; }
+.hourly-end-field input { width:100%; min-width:150px; background:none; border:0; outline:0; color:var(--text-c); font:inherit; padding:3px 14px 10px; }
+.hourly-end-field input:focus { outline:2px solid rgba(201,168,76,.45); outline-offset:-2px; border-radius:5px; }
+.hourly-end-field input[type="time"] { min-width:125px; }
+.search-row.is-hourly { grid-template-columns:minmax(0,1.25fr) minmax(0,1.25fr) 112px 74px 74px 74px minmax(150px,1fr) minmax(120px,1fr) minmax(104px,auto); }
+@media (min-width:901px) and (max-width:1160px) {
+  .search-row.is-hourly { grid-template-columns:minmax(0,1.4fr) minmax(0,1.4fr) 108px 72px 72px 72px; }
+  .search-row.is-hourly .hourly-end-field, .search-row.is-hourly .search-btn { grid-column:span 2; }
+}
+@media(max-width:900px) { .search-row.is-hourly { grid-template-columns:1fr 1fr 1fr; } .search-row.is-hourly .search-btn { grid-column:1/-1; } }
+@media(max-width:580px) { .search-row.is-hourly { grid-template-columns:1fr 1fr; } }
+.vehicle-reveal:not(.has-selection) .veh-viewport { overflow:visible; }
+.vehicle-reveal:not(.has-selection) .veh-track { flex-wrap:wrap; transform:none !important; }
+.vehicle-reveal:not(.has-selection) .veh-slide { flex:0 0 calc((100% - 36px) / 3); }
+.vehicle-reveal:not(.has-selection) .veh-nav { display:none; }
+.veh-details-toggle { margin:18px auto 0; display:block; border:1px solid rgba(201,168,76,.55); background:transparent; color:var(--pk-mid); border-radius:8px; padding:9px 18px; font:600 .78rem Inter,sans-serif; cursor:pointer; }
+.veh-details-toggle:hover, .veh-details-toggle:focus-visible { background:var(--pk-dim); }
+.veh-expanded-details { max-width:520px; margin:16px auto 0; }
+.has-selection .veh-viewport { overflow:hidden; }
+.has-selection .veh-track { flex-wrap:nowrap; }
+.has-selection .veh-slide { flex:0 0 100%; }
+.has-selection .veh-nav { display:flex; }
+.has-selection .veh-card.compact { display:flex; align-items:center; min-height:132px; border-color:var(--pk); box-shadow:0 8px 28px rgba(45,0,69,.12); }
+.has-selection .veh-card.compact .veh-img { width:220px; height:132px; flex:0 0 220px; }
+.has-selection .veh-card.compact .veh-body { padding:18px 22px; }
+.has-selection .veh-card.compact .veh-desc, .has-selection .veh-card.compact .veh-caps,
+.has-selection .veh-card.compact .veh-features, .has-selection .veh-card.compact .veh-price-row,
+.has-selection .veh-card.compact .selected-badge { display:none; }
+.has-selection .veh-card.compact .veh-name { font-size:1.35rem; }
+.has-selection .veh-expanded-details .veh-card { cursor:default; }
+.has-selection .veh-expanded-details .veh-card:hover { transform:none; }
+.smoke-overlay { position:fixed; inset:0; z-index:2147483000; pointer-events:none; opacity:0; overflow:hidden; background:rgba(242,240,246,.18); }
+.smoke-overlay.is-running { animation:smokeOverlayFade 2s ease-in-out both; }
+.smoke-overlay::before, .smoke-overlay::after { content:""; position:absolute; top:-12%; bottom:-12%; width:72%; opacity:0; filter:blur(20px); background:radial-gradient(ellipse at center,rgba(245,243,248,.98) 0%,rgba(219,214,230,.82) 30%,rgba(255,255,255,.2) 64%,transparent 76%); }
+.smoke-overlay::before { left:-42%; }
+.smoke-overlay::after { right:-42%; }
+.smoke-overlay.is-running::before { animation:smokeBilateralLeft 2s ease-in-out both; }
+.smoke-overlay.is-running::after { animation:smokeBilateralRight 2s ease-in-out both; }
+@keyframes smokeOverlayFade { 0%,100%{opacity:0} 18%,72%{opacity:1} }
+@keyframes smokeBilateralLeft { 0%{opacity:0;transform:translateX(-12%) scale(.72)} 18%{opacity:.95} 52%{opacity:.8;transform:translateX(75%) scale(1.16)} 78%{opacity:.3} 100%{opacity:0;transform:translateX(175%) scale(1.45)} }
+@keyframes smokeBilateralRight { 0%{opacity:0;transform:translateX(12%) scale(.72)} 18%{opacity:.95} 52%{opacity:.8;transform:translateX(-75%) scale(1.16)} 78%{opacity:.3} 100%{opacity:0;transform:translateX(-175%) scale(1.45)} }
+.vehicle-reveal.vehicle-fade-in { animation:vehicleFadeIn 1.2s ease both; }
+@keyframes vehicleFadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
+.details-horizontal.is-ready { animation:detailsFadeIn 1.2s ease both; }
+@keyframes detailsFadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
+#mdlDistRow, #mdlDurRow { display:none; }
+#mdlPriceSub { font-size:.78rem; }
+@media(max-width:767px) {
+  .search-row.is-hourly { grid-template-columns:1fr 1fr; }
+  .vehicle-reveal:not(.has-selection) .veh-slide { flex-basis:100%; }
+  .has-selection .veh-carousel { padding:0; }
+  .has-selection .veh-nav { display:none; }
+  .has-selection .veh-card.compact { display:block; min-height:0; }
+  .has-selection .veh-card.compact .veh-img { width:100%; height:220px; }
+  .has-selection .veh-card.compact .veh-body { display:none; }
+  .veh-expanded-details { max-width:none; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .smoke-overlay.is-running, .smoke-overlay.is-running::before, .smoke-overlay.is-running::after,
+  .vehicle-reveal.vehicle-fade-in { animation:none !important; }
+}
 </style>
 <link href="/css/global.css" rel="stylesheet"/>
 <link href="https://purpleheartlimo.com/booking.html" hreflang="en" rel="alternate"/><link href="https://purpleheartlimo.com/es/booking.html" hreflang="es" rel="alternate"/><link href="https://purpleheartlimo.com/booking.html" hreflang="x-default" rel="alternate"/>
@@ -481,6 +546,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="cdd-list"></div>
 </div>
 </div>
+<div class="sf hourly-end-field" id="hourEndDateSf" hidden>
+<label for="hourEndDate">Fecha de fin</label>
+<input id="hourEndDate" type="date" autocomplete="off"/>
+</div>
+<div class="sf hourly-end-field" id="hourEndTimeSf" hidden>
+<label for="hourEndTime">Hora de fin</label>
+<input id="hourEndTime" type="time" autocomplete="off"/>
+</div>
 <button class="search-btn" id="searchBtn" type="button" onclick="scrollToVehicles()">
 <svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
           Buscar viaje
@@ -505,7 +578,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <p class="trip-error" id="tripError" role="alert">Completa la recogida, el destino, la fecha y la hora antes de buscar tu viaje.</p>
 </section>
-<!-- ===== YOUR DETAILS (moved up, horizontal layout) ===== -->
+<!-- ===== TUS DATOS (flujo permanente Viaje → Vehículos → Datos) ===== -->
 <div class="details-horizontal booking-stage" id="detailsStage" hidden aria-hidden="true">
 <form id="bookingDetailsForm" novalidate>
 <div class="details-card">
@@ -535,11 +608,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <div class="est-panel" id="estPanel" style="display:none;">
 <div class="est-head">
-<span class="est-label">💰 Precio estimado</span>
+<span class="est-label">💰 Precio final</span>
 <span class="est-price" id="estPrice">—</span>
 </div>
 <div class="est-meta" id="estMeta">Elige un vehículo e introduce el origen y destino para ver tu estimación.</div>
-<div class="est-note">* El precio final puede variar según el tráfico, la espera, las paradas adicionales, los peajes y las solicitudes especiales. Nuestro representante confirmará la tarifa exacta.</div>
+<div class="est-note">Nuestro representante confirmará contigo el precio final.</div>
 </div>
 <div class="alert alert-success" id="alertSuccess"></div>
 <div class="alert alert-error" id="alertError"></div>
@@ -557,13 +630,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <h2>Elige tu experiencia</h2>
 <p>Selecciona un vehículo — el precio se actualiza según el tipo de servicio.</p>
 </div>
-<div class="price-mode-label" id="priceModeLabel">✈ Tarifas de aeropuerto</div>
+<div class="price-mode-label" id="priceModeLabel">✈ Servicio de aeropuerto</div>
 </div>
 <div class="veh-carousel">
 <button aria-label="Anterior" class="veh-nav prev" id="vehPrev" type="button">‹</button>
 <div class="veh-viewport"><div class="veh-track" id="vehiclesGrid"></div></div>
 <button aria-label="Siguiente" class="veh-nav next" id="vehNext" type="button">›</button>
 </div>
+<button class="veh-details-toggle" id="vehDetailsToggle" type="button" hidden aria-expanded="false">Expandir detalles</button>
+<div class="veh-expanded-details" id="vehExpandedDetails" hidden></div>
 </section>
 <!-- Confirmation modal -->
 <div class="modal-bg" id="confirmModal">
@@ -577,7 +652,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="modal-section">
 <div class="modal-est">
 <div class="est-num" id="mdlPrice">$—</div>
-<div class="est-sub" id="mdlPriceSub">Total estimado — el precio real puede variar</div>
+<div class="est-sub" id="mdlPriceSub">Precio final — nuestro representante lo confirmará</div>
 </div>
 </div>
 <div class="modal-section">
@@ -587,8 +662,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="modal-row"><span class="lbl">Recogida</span><span class="val" id="mdlPickup">—</span></div>
 <div class="modal-row"><span class="lbl">Destino</span><span class="val" id="mdlDropoff">—</span></div>
 <div class="modal-row"><span class="lbl">Fecha / hora</span><span class="val" id="mdlWhen">—</span></div>
-<div class="modal-row"><span class="lbl">Distancia</span><span class="val" id="mdlDist">—</span></div>
-<div class="modal-row"><span class="lbl">Duración aprox.</span><span class="val" id="mdlDur">—</span></div>
+<div class="modal-row" id="mdlDistRow"><span class="lbl">Distancia</span><span class="val" id="mdlDist">—</span></div>
+<div class="modal-row" id="mdlDurRow"><span class="lbl">Duración aprox.</span><span class="val" id="mdlDur">—</span></div>
 <div class="modal-row"><span class="lbl">Pasajeros</span><span class="val" id="mdlPax">—</span></div>
 </div>
 <div class="modal-section">
@@ -686,15 +761,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a class="m-wa" href="https://wa.me/18337400700" target="_blank" rel="nofollow noopener">💬 WhatsApp</a>
 <a class="m-book" href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank">Reservar un Viaje</a>
 </div>
+<script src="/js/pricing.js"></script>
 <script>
 function toggleMenu(){const m=document.getElementById('mobile-menu');const b=document.getElementById('hamburger');const open=m.style.display!=='block';m.style.display=open?'block':'none';if(b)b.setAttribute('aria-expanded',open?'true':'false');}
 
 // Vehicle data
 const VEHICLES=[
-  {id:'sedan',name:'Sedán ejecutivo',desc:'Cadillac CTS — viajes individuales y de negocios',pax:3,lug:2,imgairport:129,imgoneway:129,imghourly:119,img:'/images/sedan-cadillac.webp',note:'',features:['Interior de cuero · climatización','Agua embotellada de cortesía','Chófer profesional · traje y corbata','WiFi gratis · cargadores para teléfono']},
-  {id:'luxsedan',name:'Sedán de lujo',desc:'Mercedes Clase S — categoría ejecutiva premium',pax:2,lug:2,imgairport:269,imgoneway:229,imghourly:229,img:'/images/sclass.webp',note:'Premium',features:['Confort superior de Mercedes-Benz','División de privacidad · clima trasero','Cuero premium · iluminación ambiental','Transporte VIP y ejecutivo']},
-  {id:'execsuv',name:'SUV ejecutivo',desc:'GMC Yukon Denali — grupos pequeños y familias',pax:6,lug:6,imgairport:159,imgoneway:149,imghourly:149,img:'/images/suv-yukon.webp',note:'',features:['Hasta 6 pasajeros · 6 maletas grandes','Amplio espacio en 3 filas','Ventanas tintadas · privacidad','Ideal para familias y aeropuertos']},
-  {id:'suv',name:'SUV de lujo',desc:'Cadillac Escalade — viajes de lujo en grupo',pax:6,lug:6,imgairport:189,imgoneway:179,imghourly:179,img:'/images/luxsuv-escalade.webp',note:'',features:['Acabado premium Escalade Platinum','Asientos tipo capitán · entretenimiento trasero','Hasta 6 pasajeros con lujo','Ideal para grupos VIP']},
+  {id:'sedan',cls:'business-sedan',name:'Sedán ejecutivo',desc:'Cadillac CTS — viajes individuales y de negocios',pax:3,lug:2,imgairport:120,imgoneway:120,imghourly:119,img:'/images/sedan-cadillac.webp',note:'',features:['Interior de cuero · climatización','Agua embotellada de cortesía','Chófer profesional · traje y corbata','WiFi gratis · cargadores para teléfono']},
+  {id:'luxsedan',cls:'luxury-sedan',name:'Sedán de lujo',desc:'Mercedes Clase S — categoría ejecutiva premium',pax:3,lug:2,imgairport:190,imgoneway:190,imghourly:229,img:'/images/sclass.webp',note:'Premium',features:['Confort superior de Mercedes-Benz','División de privacidad · clima trasero','Cuero premium · iluminación ambiental','Transporte VIP y ejecutivo']},
+  {id:'execsuv',cls:'business-suv',name:'SUV ejecutivo',desc:'GMC Yukon Denali — grupos pequeños y familias',pax:6,lug:5,imgairport:150,imgoneway:150,imghourly:149,img:'/images/suv-yukon.webp',note:'',features:['Hasta 6 pasajeros · 5 maletas grandes','Amplio espacio en 3 filas','Ventanas tintadas · privacidad','Ideal para familias y aeropuertos']},
+  {id:'suv',cls:'luxury-suv',name:'SUV de lujo',desc:'Cadillac Escalade — viajes de lujo en grupo',pax:6,lug:5,imgairport:190,imgoneway:190,imghourly:179,img:'/images/luxsuv-escalade.webp',note:'',features:['Acabado premium Escalade Platinum','Asientos tipo capitán · entretenimiento trasero','Hasta 6 pasajeros con lujo','Ideal para grupos VIP']},
   {id:'stretch',name:'Limusina alargada',desc:'Lincoln Town Car alargado — bodas y celebraciones',pax:8,lug:2,imgairport:179,imgoneway:169,imghourly:169,img:'/images/stretch-towncar.webp',note:'Más popular',minHrs:true,features:['Hasta 8 pasajeros · estilo clásico','Bar · iluminación ambiental · sonido','Perfecta para bodas y graduaciones','Fotos y celebraciones bienvenidas']},
   {id:'stretchsuv',name:'SUV alargada',desc:'Lincoln Navigator alargado — grupos grandes de lujo',pax:10,lug:6,imgairport:279,imgoneway:279,imghourly:279,img:'/images/stretch-navigator.webp',note:'',minHrs:true,features:['Hasta 10 pasajeros con lujo alargado','Bar premium · luces LED · audio','Ideal para despedidas de soltero','Una llegada inolvidable para cualquier evento']},
   {id:'sprinter',name:'Sprinter ejecutiva',desc:'Mercedes Sprinter — grupos de hasta 12',pax:12,lug:10,imgairport:179,imgoneway:159,imghourly:159,img:'/images/sprinter-new.webp',note:'',minHrs:true,features:['Hasta 12 pasajeros · 10 maletas','Interior alto · fácil acceso','Carga USB · WiFi disponible','Giras corporativas y viajes en grupo']},
@@ -789,7 +865,7 @@ document.getElementById('svcTabs').addEventListener('click',e=>{
   btn.classList.add('active');
   curSvc=btn.dataset.svc;
   resetBookingStages();
-   const labels={airport:'✈ Tarifas de aeropuerto',oneway:'🗺 Punto a punto',hourly:'⏱ Tarifa por hora'};
+   const labels={airport:'✈ Servicio de aeropuerto',oneway:'🗺 Punto a punto',hourly:'⏱ Servicio por hora'};
   document.getElementById('priceModeLabel').textContent=labels[curSvc]||'Tarifas';
   document.getElementById('flightRow').classList.toggle('show',curSvc==='airport');
 
@@ -898,14 +974,9 @@ async function fetchDistance(origin, destination){
 }
 
 function computePrice(v, totalMiles, totalMinutes){
-  const flat = getPrice(v);
-  if(totalMiles <= 20) {
-      return { total: flat, breakdown: `Tarifa plana (hasta 20 mi)` };
-  }
-  const hourlyRate = v.imghourly;
-  const hours = Math.max(2, Math.ceil(totalMinutes / 60));
-  const total = hourlyRate * hours;
-   return { total, breakdown: `${hours} h × $${hourlyRate}/h (más de 20 mi → por hora)` };
+  const cls = v.cls && window.phlGetClass ? window.phlGetClass(v.cls) : { flat:getPrice(v), hourly:v.imghourly };
+  const fare = window.phlComputeFare(cls, totalMiles, totalMinutes);
+  return { total: fare.total, breakdown: fare.breakdown };
 }
 
 async function updateEstimate(){
@@ -1287,6 +1358,395 @@ function carSlide(dir){ carGoTo(carIdx+dir); }
 let _carAuto=setInterval(()=>carSlide(1),5000);
 document.getElementById('carCarousel').addEventListener('mouseenter',()=>clearInterval(_carAuto));
 document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAuto=setInterval(()=>carSlide(1),5000);});
+</script>
+<script>
+/* Flujo exclusivo de reservas en español. La tabla compartida conserva las
+   tarifas canónicas; el servicio por hora espera al trabajador de hubs. */
+(function () {
+  'use strict';
+  const copy = {
+    selected: 'SELECCIONADO', select: 'Seleccionar', details: 'Expandir detalles',
+    change: 'Cambiar vehículo / ver vehículos', vehicleSelected: 'seleccionado',
+    noVehicle: 'Aún no has seleccionado un vehículo',
+    serviceAirport: '✈ Servicio de aeropuerto', serviceOneway: '🗺 Punto a punto',
+    serviceHourly: '⏱ Servicio por hora', finalPrice: 'Precio final',
+     contactQuote: 'Contáctanos para obtener una cotización.', checking: 'Comprobando disponibilidad…',
+    chooseVehicle: 'Elige un vehículo para ver el precio final.',
+    invalidWindow: 'La hora de fin debe ser posterior a la hora de inicio. Elige una fecha de fin para viajes nocturnos.',
+    missingEnd: 'Selecciona la fecha y la hora de fin para el servicio por hora.',
+    tripMissing: 'Completa la recogida, el destino, la fecha y la hora antes de buscar tu viaje.',
+    contactDetails: 'Introduce tu nombre, apellido y teléfono antes de solicitar una cotización.',
+    quoteGeneric: 'Nuestro representante confirmará contigo el precio final.',
+    sending: 'Enviando…', confirm: 'Reservar mi viaje',
+    sent: '✅ <strong>¡Solicitud recibida!</strong> Nuestro representante te llamará pronto para confirmar tu reserva.',
+    requestError: 'No pudimos aceptar la solicitud. Tus datos siguen aquí. Inténtalo de nuevo o llama al (833) 740-0700.'
+  };
+  const vehicleSection = document.getElementById('vehicleSection');
+  const detailsStage = document.getElementById('detailsStage');
+  const tripStage = document.getElementById('tripStage');
+  const vehiclesGrid = document.getElementById('vehiclesGrid');
+  const detailsToggle = document.getElementById('vehDetailsToggle');
+  const expandedDetails = document.getElementById('vehExpandedDetails');
+  let expanded = false;
+  let lastMobile = window.innerWidth < 768;
+  let estimateToken = 0;
+  let smokeTimer = null;
+  let revealToken = 0;
+  if (tripStage && vehicleSection && detailsStage) tripStage.parentNode.insertBefore(vehicleSection, detailsStage);
+
+  function serviceText() {
+    return curSvc === 'hourly' ? copy.serviceHourly : (curSvc === 'oneway' ? copy.serviceOneway : copy.serviceAirport);
+  }
+  function hourlyRate(v) {
+    const cls = v && v.cls && window.phlGetClass ? window.phlGetClass(v.cls) : null;
+    return cls ? cls.hourly : Number(v && v.imghourly);
+  }
+  function fullCard(v) {
+    return `<button type="button" class="veh-card${selVeh === v.id ? ' selected' : ''}" role="radio" aria-checked="${selVeh === v.id}" aria-label="${copy.select} ${v.name}" onclick="selectVehicle('${v.id}')">
+      <div class="selected-badge">✓ ${copy.selected}</div>
+      <div class="veh-img"><img src="${v.img}" alt="${v.name}" loading="lazy"></div>
+      <div class="veh-body"><div class="veh-name">${v.name}</div><div class="veh-desc">${v.desc}</div>
+        <div class="veh-caps"><div class="veh-cap">♙ ${v.pax} pasajeros</div><div class="veh-cap">▣ ${v.lug} maletas</div></div>
+        <ul class="veh-features">${(v.features || []).map(f => `<li>${f}</li>`).join('')}</ul>
+        ${v.minHrs ? '<div style="margin-top:8px;font-size:.68rem;color:#8a8a8a;font-style:italic;">◷ Puede aplicarse un mínimo de horas</div>' : ''}
+      </div>
+    </button>`;
+  }
+  function compactCard(v) {
+    return `<button type="button" class="veh-card compact selected" role="radio" aria-checked="true" aria-label="${v.name} seleccionado" onclick="selectVehicle('${v.id}')">
+      <div class="selected-badge">✓ ${copy.selected}</div><div class="veh-img"><img src="${v.img}" alt="${v.name}"></div>
+      <div class="veh-body"><div class="veh-name">${v.name}</div><div class="veh-desc">Seleccionado</div></div>
+    </button>`;
+  }
+  function refreshExpanded() {
+    if (!selVeh) { expandedDetails.innerHTML = ''; expandedDetails.hidden = true; return; }
+    const selected = VEHICLES.find(v => v.id === selVeh);
+    const list = window.innerWidth < 768 ? VEHICLES : (selected ? [selected] : []);
+    expandedDetails.innerHTML = list.map(v => `<div class="veh-slide">${fullCard(v)}</div>`).join('');
+    expandedDetails.hidden = !expanded;
+  }
+  function renderBookingVehicles() {
+    vehicleSection.classList.toggle('has-selection', !!selVeh);
+    if (!selVeh) {
+      vehiclesGrid.innerHTML = VEHICLES.map(v => `<div class="veh-slide">${fullCard(v)}</div>`).join('');
+      detailsToggle.hidden = true; detailsToggle.setAttribute('aria-expanded', 'false');
+      expanded = false; refreshExpanded(); return;
+    }
+    const selected = VEHICLES.find(v => v.id === selVeh);
+    if (!selected) return;
+    vehiclesGrid.innerHTML = `<div class="veh-slide">${compactCard(selected)}</div>`;
+    detailsToggle.hidden = false;
+    detailsToggle.textContent = window.innerWidth < 768 ? copy.change : copy.details;
+    detailsToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    refreshExpanded();
+  }
+  renderVehicles = renderBookingVehicles;
+  window.renderVehicles = renderBookingVehicles;
+  selectVehicle = function (id) {
+    if (!VEHICLES.some(v => v.id === id)) return;
+    selVeh = id; expanded = false;
+    const vehicle = VEHICLES.find(v => v.id === id);
+    document.getElementById('selVehicleText').textContent = `${vehicle.name} ${copy.vehicleSelected}`;
+    renderBookingVehicles();
+    if (typeof updateEstimate === 'function') updateEstimate();
+    detailsStage.hidden = false; detailsStage.setAttribute('aria-hidden', 'false');
+    requestAnimationFrame(() => detailsStage.classList.add('is-ready', 'is-active'));
+    detailsStage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+  window.selectVehicle = selectVehicle;
+  detailsToggle?.addEventListener('click', function () {
+    if (!selVeh) return;
+    expanded = !expanded;
+    detailsToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    refreshExpanded();
+    if (expanded) expandedDetails.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+  function updateCompactCarousel() {
+    if (!selVeh) return;
+    const mobile = window.innerWidth < 768;
+    if (mobile !== lastMobile) { lastMobile = mobile; renderBookingVehicles(); }
+    else if (detailsToggle) detailsToggle.textContent = mobile ? copy.change : copy.details;
+  }
+  updateVehCarousel = updateCompactCarousel;
+  window.updateVehCarousel = updateCompactCarousel;
+  function moveCompact(direction) {
+    if (!selVeh || window.innerWidth < 768) return;
+    const current = VEHICLES.findIndex(v => v.id === selVeh);
+    selectVehicle(VEHICLES[(current + direction + VEHICLES.length) % VEHICLES.length].id);
+  }
+  document.getElementById('vehPrev')?.addEventListener('click', () => moveCompact(-1));
+  document.getElementById('vehNext')?.addEventListener('click', () => moveCompact(1));
+  window.addEventListener('resize', updateCompactCarousel);
+
+  function setHourlyFields() {
+    const hourly = curSvc === 'hourly';
+    document.querySelector('.search-row')?.classList.toggle('is-hourly', hourly);
+    const dateField = document.getElementById('hourEndDateSf');
+    const timeField = document.getElementById('hourEndTimeSf');
+    if (dateField) dateField.hidden = !hourly;
+    if (timeField) timeField.hidden = !hourly;
+    const start = document.getElementById('dateInput')?.value;
+    const end = document.getElementById('hourEndDate');
+    const endTime = document.getElementById('hourEndTime');
+    if (!hourly) {
+      if (end) end.value = '';
+      if (endTime) endTime.value = '';
+    }
+    if (end && start) end.min = start;
+  }
+  function resetBookingStagesForFlow() {
+    clearTimeout(_estDebounce); _estDebounce = null; estimateToken++; revealToken++;
+    if (smokeTimer) { clearTimeout(smokeTimer); smokeTimer = null; }
+    document.getElementById('phlSmokeOverlay')?.remove();
+    selVeh = null; _lastEstimate = null; _estimateVersion++; expanded = false;
+    [vehicleSection, detailsStage].forEach(el => {
+      if (!el) return;
+      el.hidden = true; el.setAttribute('aria-hidden', 'true');
+      el.classList.remove('is-ready', 'is-active', 'smoke-in', 'has-selection', 'vehicle-fade-in');
+    });
+    document.getElementById('selVehicleText').textContent = copy.noVehicle;
+    const panel = document.getElementById('estPanel');
+    if (panel) { panel.style.display = 'none'; document.getElementById('estPrice').textContent = '—'; document.getElementById('estMeta').textContent = copy.chooseVehicle; }
+    ['alertSuccess', 'alertError'].forEach(id => { const el = document.getElementById(id); if (el) { el.classList.remove('show'); el.textContent = ''; } });
+    document.getElementById('confirmModal')?.classList.remove('show');
+    const moovs = document.getElementById('moovsLink'); if (moovs) moovs.style.display = '';
+    renderBookingVehicles();
+  }
+  resetBookingStages = resetBookingStagesForFlow;
+  window.resetBookingStages = resetBookingStagesForFlow;
+
+  function dateParts(value) {
+    const parts = String(value || '').split('-').map(Number);
+    return parts.length === 3 && parts.every(Number.isFinite) ? parts : null;
+  }
+  function startDateTime() {
+    const date = dateParts(document.getElementById('dateInput')?.value);
+    const hour = Number(document.getElementById('timeHour')?.value);
+    const minute = Number(document.getElementById('timeMin')?.value);
+    const ampm = document.getElementById('timeAmpm')?.value || 'AM';
+    if (!date || !Number.isFinite(hour) || !Number.isFinite(minute)) return null;
+    return new Date(date[0], date[1] - 1, date[2], (hour % 12) + (ampm === 'PM' ? 12 : 0), minute);
+  }
+  function hourlyWindow() {
+    const start = startDateTime();
+    const date = dateParts(document.getElementById('hourEndDate')?.value);
+    const time = (document.getElementById('hourEndTime')?.value || '').split(':').map(Number);
+    if (!start || !date || time.length !== 2 || !time.every(Number.isFinite)) return { error: copy.missingEnd };
+    const end = new Date(date[0], date[1] - 1, date[2], time[0], time[1]);
+    if (!(end > start)) return { error: copy.invalidWindow };
+    return { start, end, hours: Math.ceil((end - start) / 3600000) };
+  }
+  tripIsComplete = function () {
+    const pickup = document.getElementById('pickupInput')?.value.trim();
+    const dropoff = document.getElementById('dropoffInput')?.value.trim();
+    if (!pickup || (curSvc !== 'hourly' && !dropoff) || !document.getElementById('dateInput')?.value ||
+      !document.getElementById('timeHour')?.value || !document.getElementById('timeMin')?.value) return false;
+    return curSvc !== 'hourly' || !hourlyWindow().error;
+  };
+  window.tripIsComplete = tripIsComplete;
+  function revealVehicles() {
+    const runToken = ++revealToken;
+    vehicleSection.hidden = false; vehicleSection.setAttribute('aria-hidden', 'false');
+    vehicleSection.classList.remove('smoke-in', 'vehicle-fade-in');
+    requestAnimationFrame(() => vehicleSection.classList.add('is-ready'));
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const finish = function () {
+      if (runToken !== revealToken) return;
+      if (smokeTimer) { clearTimeout(smokeTimer); smokeTimer = null; }
+      document.getElementById('phlSmokeOverlay')?.remove();
+      vehicleSection.classList.add('vehicle-fade-in');
+      vehicleSection.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+    };
+    if (reduced) { finish(); return; }
+    const overlay = document.createElement('div');
+    overlay.id = 'phlSmokeOverlay'; overlay.className = 'smoke-overlay is-running';
+    document.body.appendChild(overlay);
+    overlay.addEventListener('animationend', finish, { once: true });
+    smokeTimer = setTimeout(finish, 2150);
+  }
+  scrollToVehicles = function () {
+    const error = document.getElementById('tripError');
+    if (!tripIsComplete()) {
+       const pickupValue = document.getElementById('pickupInput')?.value.trim();
+       const baseReady = pickupValue && document.getElementById('dateInput')?.value &&
+        document.getElementById('timeHour')?.value && document.getElementById('timeMin')?.value;
+      if (error) { error.textContent = curSvc === 'hourly' && baseReady ? hourlyWindow().error : copy.tripMissing; error.classList.add('show'); error.setAttribute('aria-hidden', 'false'); }
+       const pickup = document.getElementById('pickupInput');
+       const dropoff = document.getElementById('dropoffInput');
+       if (!pickup?.value.trim()) pickup?.focus();
+       else if (curSvc !== 'hourly' && !dropoff?.value.trim()) dropoff?.focus();
+       else if (curSvc === 'hourly') {
+         const endDate = document.getElementById('hourEndDate');
+         const endTime = document.getElementById('hourEndTime');
+         if (!endDate?.value) endDate?.focus();
+         else endTime?.focus();
+       }
+       return;
+    }
+    error?.classList.remove('show'); revealVehicles();
+  };
+  window.scrollToVehicles = scrollToVehicles;
+  document.getElementById('svcTabs')?.addEventListener('click', function () {
+    setHourlyFields();
+    const label = document.getElementById('priceModeLabel'); if (label) label.textContent = serviceText();
+  });
+  ['dateInput', 'hourEndDate', 'hourEndTime'].forEach(id => document.getElementById(id)?.addEventListener('change', function () {
+    setHourlyFields(); resetBookingStagesForFlow();
+  }));
+  setHourlyFields();
+
+  function coordinates(address) {
+    for (const field of document.querySelectorAll('input')) {
+      if ((field.value || '').trim() !== address) continue;
+      const lat = Number(field.dataset.lat), lon = Number(field.dataset.lon);
+      if (Number.isFinite(lat) && Number.isFinite(lon)) return { lat, lon };
+    }
+    return null;
+  }
+  async function hourlyHubAvailable(pickup) {
+    try {
+      const point = coordinates(pickup);
+      let url = '/api/hourly-hub?pickup=' + encodeURIComponent(pickup || '');
+      if (point) url += '&lat=' + encodeURIComponent(point.lat) + '&lon=' + encodeURIComponent(point.lon);
+      const response = await fetch(url, { credentials: 'same-origin' });
+      if (!response.ok) return false;
+      const result = await response.json();
+      return result && result.available === true;
+    } catch (_) { return false; }
+  }
+  function tripFare(v, miles, minutes) {
+    const cls = v.cls && window.phlGetClass ? window.phlGetClass(v.cls) : { flat: getPrice(v), hourly: v.imghourly };
+    return window.phlComputeFare(cls, miles, minutes);
+  }
+  function showEstimate(panel, price, meta) {
+    panel.style.display = 'block'; document.getElementById('estPrice').textContent = price; document.getElementById('estMeta').textContent = meta;
+  }
+  updateEstimate = async function () {
+    const token = ++estimateToken;
+    const panel = document.getElementById('estPanel');
+    const pickup = document.getElementById('pickupInput').value.trim();
+    const dropoff = document.getElementById('dropoffInput').value.trim();
+    const vehicle = VEHICLES.find(v => v.id === selVeh);
+    _lastEstimate = null;
+    if (!vehicle) { panel.style.display = 'none'; return null; }
+    if (!pickup || (curSvc !== 'hourly' && !dropoff)) { showEstimate(panel, '—', curSvc === 'hourly' ? 'Introduce la recogida para calcular.' : 'Introduce la recogida y el destino para calcular.'); return null; }
+    if (curSvc === 'hourly') {
+      const windowInfo = hourlyWindow();
+      if (windowInfo.error) { showEstimate(panel, '—', windowInfo.error); return null; }
+      showEstimate(panel, copy.checking, copy.checking);
+      const available = await hourlyHubAvailable(pickup);
+      if (token !== estimateToken) return null;
+      if (!available) {
+        showEstimate(panel, copy.contactQuote, copy.contactQuote);
+        _lastEstimate = { available: false, vehicle: vehicle.name, service: curSvc, hours: windowInfo.hours };
+        return _lastEstimate;
+      }
+      const total = hourlyRate(vehicle) * windowInfo.hours;
+      showEstimate(panel, '$' + total, copy.finalPrice);
+      _lastEstimate = { available: true, total, hours: windowInfo.hours, vehicle: vehicle.name, service: curSvc };
+      return _lastEstimate;
+    }
+    showEstimate(panel, '…', 'Calculando precio final…');
+    try {
+      const route = [pickup, ...getStops(), dropoff];
+      let miles = 0, minutes = 0;
+      for (let i = 0; i < route.length - 1; i++) {
+        const distance = await fetchDistance(route[i], route[i + 1]);
+        miles += Number(distance.miles) || 0; minutes += Number(distance.minutes) || 0;
+      }
+      if (token !== estimateToken) return null;
+      const fare = tripFare(vehicle, miles, minutes);
+      let total = fare.total, breakdown = fare.breakdown;
+      try {
+        const pos = await window.phlFetchPositioning(pickup, dropoff);
+        const cls = vehicle.cls && window.phlGetClass ? window.phlGetClass(vehicle.cls) : { flat: getPrice(vehicle), hourly: vehicle.imghourly };
+        const positioning = window.phlComputePositioning(cls, pos);
+        if (positioning && positioning.surcharge > 0) { total += positioning.surcharge; breakdown += ' + positioning'; }
+      } catch (_) {}
+      if (token !== estimateToken) return null;
+      showEstimate(panel, '$' + total, copy.finalPrice);
+      _lastEstimate = { available: true, total, totalMiles: miles, totalMinutes: minutes, breakdown, vehicle: vehicle.name, service: curSvc };
+      return _lastEstimate;
+    } catch (_) {
+      if (token !== estimateToken) return null;
+      showEstimate(panel, copy.contactQuote, copy.contactQuote);
+      _lastEstimate = { available: false, vehicle: vehicle.name, service: curSvc };
+      return _lastEstimate;
+    }
+  };
+  window.updateEstimate = updateEstimate;
+
+  openEstimateModal = async function () {
+    const error = document.getElementById('alertError'), success = document.getElementById('alertSuccess');
+    [error, success].forEach(el => { el.classList.remove('show'); el.textContent = ''; });
+    if (!selVeh) { error.textContent = 'Selecciona un vehículo primero.'; error.classList.add('show'); vehicleSection?.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+    const form = document.getElementById('bookingDetailsForm');
+    const required = ['fname', 'lname', 'fphone'].map(id => document.getElementById(id));
+    const missing = required.find(field => !(field.value || '').trim());
+    if (missing) { missing.focus(); missing.reportValidity(); error.textContent = copy.contactDetails; error.classList.add('show'); return; }
+    if (form && !form.checkValidity()) { form.reportValidity(); error.textContent = 'Corrige los datos de contacto antes de solicitar una cotización.'; error.classList.add('show'); return; }
+    const estimate = await updateEstimate();
+    if (!estimate) { error.textContent = copy.contactQuote; error.classList.add('show'); return; }
+    const vehicle = VEHICLES.find(v => v.id === selVeh);
+    const pickup = document.getElementById('pickupInput').value.trim();
+    const dropoff = curSvc === 'hourly' ? '(Por hora — ver paradas)' : document.getElementById('dropoffInput').value.trim();
+    const date = document.getElementById('dateInput').value || '—';
+    const hour = document.getElementById('timeHour').value || '--';
+    const min = document.getElementById('timeMin').value || '--';
+    const ampm = document.getElementById('timeAmpm').value || 'AM';
+    const endDate = document.getElementById('hourEndDate')?.value || '';
+    const endTime = document.getElementById('hourEndTime')?.value || '';
+    document.getElementById('mdlSvc').textContent = serviceText();
+    document.getElementById('mdlVeh').textContent = vehicle.name;
+    document.getElementById('mdlPickup').textContent = pickup || '—';
+    document.getElementById('mdlDropoff').textContent = dropoff || '—';
+    document.getElementById('mdlWhen').textContent = curSvc === 'hourly' && endDate && endTime ? `${date} · ${hour}:${min} ${ampm} – ${endDate} · ${endTime}` : `${date} · ${hour}:${min} ${ampm}`;
+    document.getElementById('mdlPax').textContent = document.getElementById('fpax').value || '—';
+    document.getElementById('mdlName').textContent = [document.getElementById('fname').value.trim(), document.getElementById('lname').value.trim()].filter(Boolean).join(' ') || '—';
+    document.getElementById('mdlPhone').textContent = document.getElementById('fphone').value.trim() || '—';
+    document.getElementById('mdlPrice').textContent = estimate.available && Number.isFinite(estimate.total) ? '$' + estimate.total : copy.contactQuote;
+    document.getElementById('mdlPriceSub').textContent = estimate.available && Number.isFinite(estimate.total) ? copy.finalPrice : copy.quoteGeneric;
+    document.getElementById('mdlDist').textContent = estimate.totalMiles ? `${estimate.totalMiles.toFixed(1)} mi` : '—';
+    document.getElementById('mdlDur').textContent = estimate.totalMinutes ? `${estimate.totalMinutes} min` : (estimate.hours ? `${estimate.hours} h` : '—');
+    document.getElementById('confirmModal').classList.add('show');
+  };
+  window.openEstimateModal = openEstimateModal;
+  closeModal = function () { document.getElementById('confirmModal')?.classList.remove('show'); };
+  window.closeModal = closeModal;
+
+  confirmAndSend = async function () {
+    const btn = document.getElementById('mdlConfirm'), modalError = document.getElementById('modalSubmitError'), pageError = document.getElementById('alertError');
+    const form = document.getElementById('bookingDetailsForm');
+    if (form && !form.checkValidity()) { form.reportValidity(); const message = 'Corrige los datos obligatorios antes de enviar tu solicitud.'; modalError.textContent = message; modalError.classList.add('show'); pageError.textContent = message; pageError.classList.add('show'); return; }
+    btn.disabled = true; btn.textContent = copy.sending; modalError.classList.remove('show'); pageError.classList.remove('show');
+    const name = [document.getElementById('fname').value.trim(), document.getElementById('lname').value.trim()].filter(Boolean).join(' ');
+    const phone = document.getElementById('fphone').value.trim(), email = document.getElementById('femail').value.trim();
+    const pickup = document.getElementById('pickupInput').value, dropoff = curSvc === 'hourly' ? '(Por hora — ver paradas)' : document.getElementById('dropoffInput').value;
+    const date = document.getElementById('dateInput').value, hour = document.getElementById('timeHour').value, min = document.getElementById('timeMin').value, ampm = document.getElementById('timeAmpm').value;
+    const endDate = document.getElementById('hourEndDate')?.value || '', endTime = document.getElementById('hourEndTime')?.value || '';
+    const flight = document.getElementById('flightInput').value, pax = document.getElementById('fpax').value, message = document.getElementById('fmessage').value;
+    const vehicle = VEHICLES.find(v => v.id === selVeh)?.name || '—', stops = getStops();
+    const internalEstimate = _lastEstimate && _lastEstimate.available && Number.isFinite(_lastEstimate.total) ? `$${_lastEstimate.total} (${_lastEstimate.totalMiles || 0} mi · ${_lastEstimate.totalMinutes || 0} min)` : copy.contactQuote;
+    const fullSummary = `=== SOLICITUD DE RESERVA ===\nNOMBRE: ${name}\nTELÉFONO: ${phone}\nCORREO: ${email || '—'}\n\nSERVICIO: ${curSvc}\nVEHÍCULO: ${vehicle}\nPASAJEROS: ${pax || '—'}\n\nRECOGIDA: ${pickup || '—'}\nDESTINO: ${dropoff || '—'}\nPARADAS: ${stops.length ? stops.join(' → ') : '—'}\n\nFECHA: ${date || '—'}\nHORA: ${hour}:${min} ${ampm}\nFECHA DE FIN: ${endDate || '—'}\nHORA DE FIN: ${endTime || '—'}\nVUELO: ${flight || '—'}\n\nESTIMACIÓN: ${internalEstimate}\nMENSAJE: ${message || '—'}`;
+    try {
+      const response = await fetch('/.netlify/functions/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+        name, phone, email: email || '', service: curSvc, vehicle, passengers: pax || '', pickup: pickup || '', dropoff: dropoff || '', stops,
+        date: date || '', time: `${hour}:${min} ${ampm}`, endDate, endTime, flightNumber: flight || '',
+        message: message ? `${message}\n\n${fullSummary}` : fullSummary, estimate: internalEstimate,
+        website: document.getElementById('bk-website')?.value || '', source: 'Booking Page'
+      }) });
+      let result = {}; try { result = await response.json(); } catch (_) {}
+      if (!response.ok || !result.success) throw new Error('booking service');
+      if (typeof gtag === 'function') { gtag('event', 'quote_request_submit', { form_location: 'booking_page', service_type: curSvc }); gtag('event', 'qualify_lead', { form_location: 'booking_page', service_type: curSvc, vehicle }); }
+      closeModal(); const success = document.getElementById('alertSuccess'); success.innerHTML = copy.sent; success.classList.add('show'); document.getElementById('moovsLink').style.display = 'block'; document.getElementById('submitBtn').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (_) {
+      modalError.textContent = copy.requestError; modalError.classList.add('show'); pageError.textContent = copy.requestError; pageError.classList.add('show');
+    } finally { btn.disabled = false; btn.textContent = copy.confirm; }
+  };
+  window.confirmAndSend = confirmAndSend;
+  renderBookingVehicles();
+  const label = document.getElementById('priceModeLabel'); if (label) label.textContent = serviceText();
+}());
 </script>
 <script defer="" src="/js/nav-dropdown.js"></script>
 <script src="/js/sitewide-leads.js" defer></script>
