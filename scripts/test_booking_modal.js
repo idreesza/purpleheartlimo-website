@@ -15,15 +15,19 @@ const {
   selectedScrollTarget
 } = require('../js/booking-vehicle-state.js');
 
-test('both booking pages retain localized hourly editor fields', () => {
+test('confirmation removes end time while retaining the trip duration source', () => {
   const english = fs.readFileSync('booking.html', 'utf8');
   const spanish = fs.readFileSync('es/booking.html', 'utf8');
   for (const html of [english, spanish]) {
     assert.match(html, /id="mdlEditEndDate"/);
-    assert.match(html, /id="mdlEditEndTime"/);
+    assert.doesNotMatch(html, /id="mdlEditEndTime"/);
+    assert.match(html, /id="hourEndTime"/);
     assert.match(html, /id="mdlEditStops"/);
   }
   assert.match(spanish, /Obtener una cotización/);
+  const editor = fs.readFileSync('js/booking-modal-editor.js', 'utf8');
+  assert.doesNotMatch(editor, /fields\.mdlEditEndTime/);
+  assert.match(editor, /endTime: service === 'hourly' \? value\(pageField\('hourEndTime'\)\)/);
 });
 
 test('vehicle state helper toggles once and advances a mobile swipe', () => {
@@ -100,8 +104,8 @@ test('ride cards map From/Desde prices through canonical class data', () => {
   }
   assert.match(english, /const label=spanish\?'Desde':'From'/);
   assert.match(spanish, /veh-price">Desde \$\$\{price\}/);
-  assert.match(english, /est-label">💰 Final Price/);
-  assert.match(spanish, /est-label">💰 Precio final/);
+  assert.match(english, /est-label">💰 Estimated Price/);
+  assert.match(spanish, /est-label">💰 Precio estimado/);
 });
 
 test('serializes edited modal fields instead of the original page snapshot', () => {

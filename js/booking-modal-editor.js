@@ -12,12 +12,12 @@
     service: { airport: '✈ Traslado al aeropuerto', oneway: '📍 Punto a punto', hourly: '⏱ Por hora' },
     selected: 'seleccionado',
     contactQuote: 'Contáctanos para obtener una cotización.',
-    finalPrice: 'Precio final',
-    quoteGeneric: 'Nuestro representante confirmará el precio final contigo.',
+    finalPrice: 'Precio estimado',
+    quoteGeneric: 'Nuestro representante confirmará el precio estimado contigo.',
     checking: 'Comprobando disponibilidad…',
     invalid: 'Corrige los datos obligatorios antes de enviar tu solicitud.',
     missingTrip: 'Completa la recogida, el destino, la fecha y la hora.',
-    missingHourly: 'Selecciona la fecha y hora de fin del servicio por hora.',
+    missingHourly: 'Selecciona la fecha de fin. Si falta la hora de fin, cierra esta ventana y añádela en los detalles del viaje.',
     invalidWindow: 'La hora de fin debe ser posterior a la hora de inicio.',
     sending: 'Enviando…',
     confirm: 'Obtener una cotización',
@@ -31,12 +31,12 @@
     service: { airport: '✈ Airport Transfer', oneway: '📍 Point to Point', hourly: '⏱ Hourly' },
     selected: 'selected',
     contactQuote: 'Contact us for a quote',
-    finalPrice: 'Final price',
-    quoteGeneric: 'Our representative will confirm the final price with you.',
+    finalPrice: 'Estimated price',
+    quoteGeneric: 'Our representative will confirm the estimated price with you.',
     checking: 'Checking availability…',
     invalid: 'Please correct the required details before submitting your request.',
     missingTrip: 'Please complete pickup, drop-off, date, and time.',
-    missingHourly: 'Select an hourly service end date and time.',
+    missingHourly: 'Select an end date. If the end time is missing, close this window and add it in Trip Details.',
     invalidWindow: 'End time must be later than the start time.',
     sending: 'Sending…',
     confirm: 'Get a Quote',
@@ -51,7 +51,7 @@
   var ids = [
     'mdlEditService', 'mdlEditVehicle', 'mdlEditPickup', 'mdlEditDropoff',
     'mdlEditDate', 'mdlEditHour', 'mdlEditMinute', 'mdlEditAmpm',
-    'mdlEditEndDate', 'mdlEditEndTime', 'mdlEditFirstName', 'mdlEditLastName',
+    'mdlEditEndDate', 'mdlEditFirstName', 'mdlEditLastName',
     'mdlEditPhone', 'mdlEditEmail', 'mdlEditPassengers', 'mdlEditFlight',
     'mdlEditRequests'
   ];
@@ -184,12 +184,10 @@
     if (dateField) dateField.hidden = !hourly;
     if (timeField) timeField.hidden = !hourly;
     var endDate = pageField('hourEndDate');
-    var endTime = pageField('hourEndTime');
     if (endDate) {
       endDate.value = value(fields.mdlEditEndDate);
       endDate.min = value(fields.mdlEditDate);
     }
-    if (endTime) endTime.value = value(fields.mdlEditEndTime);
   }
 
   function paintPageService() {
@@ -214,7 +212,6 @@
     var hourlyWindow = document.getElementById('mdlEditHourlyWindow');
     if (hourlyWindow) hourlyWindow.hidden = service !== 'hourly';
     if (fields.mdlEditEndDate) fields.mdlEditEndDate.required = service === 'hourly';
-    if (fields.mdlEditEndTime) fields.mdlEditEndTime.required = service === 'hourly';
   }
 
   function setPageContactAndExtras() {
@@ -274,7 +271,7 @@
       ampm: ampm,
       time: hour && minute ? hour + ':' + minute + (ampm ? ' ' + ampm : '') : '',
       endDate: service === 'hourly' ? value(fields.mdlEditEndDate) : '',
-      endTime: service === 'hourly' ? value(fields.mdlEditEndTime) : '',
+      endTime: service === 'hourly' ? value(pageField('hourEndTime')) : '',
       flight: value(fields.mdlEditFlight),
       specialRequests: value(fields.mdlEditRequests),
       estimate: pageEstimate(),
@@ -349,7 +346,7 @@
     var startMinute = Number(value(fields.mdlEditMinute));
     var startAmpm = value(fields.mdlEditAmpm);
     var endDate = parseDate(value(fields.mdlEditEndDate));
-    var endParts = value(fields.mdlEditEndTime).split(':').map(Number);
+    var endParts = value(pageField('hourEndTime')).split(':').map(Number);
     if (!startDate || !Number.isFinite(startHour) || !Number.isFinite(startMinute) ||
         !endDate || endParts.length !== 2 || !endParts.every(Number.isFinite)) return false;
     var startHour24 = (startHour % 12) + (startAmpm === 'PM' ? 12 : 0);
@@ -380,12 +377,12 @@
       }
     }
     if (service === 'hourly' &&
-        (!value(fields.mdlEditEndDate) || !value(fields.mdlEditEndTime))) {
+        (!value(fields.mdlEditEndDate) || !value(pageField('hourEndTime')))) {
       showModalError(copy.missingHourly, fields.mdlEditEndDate);
       return false;
     }
     if (service === 'hourly' && !endWindowValid()) {
-      showModalError(copy.invalidWindow, fields.mdlEditEndTime);
+      showModalError(copy.invalidWindow, fields.mdlEditEndDate);
       return false;
     }
     if (modalForm && !modalForm.checkValidity()) {
@@ -506,7 +503,6 @@
     setValue('mdlEditMinute', value(pageField('timeMin')));
     setValue('mdlEditAmpm', value(pageField('timeAmpm')) || 'AM');
     setValue('mdlEditEndDate', value(pageField('hourEndDate')));
-    setValue('mdlEditEndTime', value(pageField('hourEndTime')));
     setValue('mdlEditFirstName', value(pageField('fname')));
     setValue('mdlEditLastName', value(pageField('lname')));
     setValue('mdlEditPhone', value(pageField('fphone')));
@@ -618,7 +614,7 @@
   [
     fields.mdlEditPickup, fields.mdlEditDropoff, fields.mdlEditDate,
     fields.mdlEditHour, fields.mdlEditMinute, fields.mdlEditAmpm,
-    fields.mdlEditEndDate, fields.mdlEditEndTime, fields.mdlEditFirstName,
+    fields.mdlEditEndDate, fields.mdlEditFirstName,
     fields.mdlEditLastName, fields.mdlEditPhone, fields.mdlEditEmail,
     fields.mdlEditPassengers, fields.mdlEditFlight, fields.mdlEditRequests
   ].forEach(function (field) { bindField(field, onRegularFieldChange); });

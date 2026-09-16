@@ -1,4 +1,20 @@
 /* Stacked trip inputs; the three time selectors share one row. */
+.search-widget .search-row .cdate { position:static; }
+.search-widget .search-row .cdate-panel {
+  box-sizing:border-box;
+  left:0;
+  top:calc(100% + 6px);
+  width:100%!important;
+  max-width:none;
+  min-width:0;
+  padding:12px 14px;
+  border:2px solid #ddc9a3!important;
+  border-radius:12px;
+  background:#fffdf8!important;
+  box-shadow:0 6px 18px rgba(182,141,76,.16);
+}
+.search-widget .cdate-grid { grid-template-columns:repeat(7,minmax(0,1fr)); }
+.search-widget .cdate-day { min-width:0; }
 .search-widget .search-row,
 .search-widget .search-row.is-hourly {
   display:grid!important;

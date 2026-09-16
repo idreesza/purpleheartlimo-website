@@ -25,6 +25,7 @@ body.booking-modal-open {
 .booking-editor-grid .booking-editor-full {
   grid-column: 1 / -1;
 }
+.booking-editor-modal .booking-editor-field[hidden] { display:none!important; }
 .booking-editor-modal .booking-editor-field {
   display: flex;
   min-width: 0;

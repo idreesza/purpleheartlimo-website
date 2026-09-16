@@ -612,11 +612,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <div class="est-panel" id="estPanel" style="display:none;">
 <div class="est-head">
-<span class="est-label">💰 Precio final</span>
+<span class="est-label">💰 Precio estimado</span>
 <span class="est-price" id="estPrice">—</span>
 </div>
 <div class="est-meta" id="estMeta">Elige un vehículo e introduce el origen y destino para ver tu estimación.</div>
-<div class="est-note">Nuestro representante confirmará contigo el precio final.</div>
+<div class="est-note">Nuestro representante confirmará contigo el precio estimado.</div>
 </div>
 <div class="alert alert-success" id="alertSuccess"></div>
 <div class="alert alert-error" id="alertError"></div>
@@ -649,7 +649,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="modal booking-editor-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDescription">
 <div class="modal-head">
 <h3 id="modalTitle">Confirma tu solicitud de viaje</h3>
-<p id="modalDescription">Edita todos los detalles antes de enviar. Nuestro representante confirmará el precio final.</p>
+<p id="modalDescription">Edita todos los detalles antes de enviar. Nuestro representante confirmará el precio estimado.</p>
 </div>
 <div class="modal-body">
 <div id="mdlMissingWarn" style="display:none; background:#fef2f2; border:1.5px solid #dc2626; color:#991b1b; padding:10px 14px; border-radius:10px; font-size:0.82rem; margin-bottom:14px; line-height:1.45;"></div>
@@ -663,7 +663,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="booking-editor-field booking-editor-full" id="mdlEditDropoffField"><label for="mdlEditDropoff">Dirección de destino</label><input id="mdlEditDropoff" autocomplete="off" required type="text"/></div>
 <div class="booking-editor-field"><label for="mdlEditDate">Fecha</label><input id="mdlEditDate" required type="date"/></div>
 <div class="booking-editor-field"><label>Hora</label><div class="booking-editor-time"><select aria-label="Hora" id="mdlEditHour" required></select><select aria-label="Minutos" id="mdlEditMinute" required></select><select aria-label="AM o PM" id="mdlEditAmpm" required></select></div></div>
-<div class="booking-editor-field booking-editor-full" id="mdlEditHourlyWindow" hidden><label>Fin del servicio por hora</label><div class="booking-editor-grid"><div class="booking-editor-field"><label for="mdlEditEndDate">Fecha de fin</label><input id="mdlEditEndDate" type="date"/></div><div class="booking-editor-field"><label for="mdlEditEndTime">Hora de fin</label><input id="mdlEditEndTime" type="time"/></div></div></div>
+<div class="booking-editor-field booking-editor-full" id="mdlEditHourlyWindow" hidden><label for="mdlEditEndDate">Fecha de fin</label><input id="mdlEditEndDate" type="date"/></div>
 </div>
 </div>
 <div class="modal-section booking-editor-section" id="mdlEditStopsSection">
@@ -686,10 +686,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="modal-section">
 <div class="modal-est">
 <div class="est-num" id="mdlPrice" aria-live="polite">$—</div>
-<div class="est-sub" id="mdlPriceSub">Precio final — nuestro representante lo confirmará</div>
+<div class="est-sub" id="mdlPriceSub">Precio estimado — nuestro representante lo confirmará</div>
 </div>
 </div>
-<p class="est-note">Nuestro representante te llamará pronto para confirmar la reserva y finalizar el precio.</p>
+<p class="est-note">Nuestro representante te llamará pronto para confirmar la reserva y verificar el precio estimado.</p>
 </form>
 </div>
 <div class="modal-submit-error" id="modalSubmitError" role="alert"></div>
@@ -784,6 +784,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>
 function toggleMenu(){const m=document.getElementById('mobile-menu');const b=document.getElementById('hamburger');const open=m.style.display!=='block';m.style.display=open?'block':'none';if(b)b.setAttribute('aria-expanded',open?'true':'false');}
 
+// Mantén los encabezados del flujo visibles bajo el encabezado fijo sin
+// reemplazar las API nativas de desplazamiento ni competir con el carrusel.
+window.phlBookingScrollTo = function (target) {
+  const element = typeof target === 'string' ? document.querySelector(target) : target;
+  if (!element) return;
+  const header = document.getElementById('navbar');
+  const headerBottom = header ? Math.max(0, header.getBoundingClientRect().bottom) : 0;
+  // Layout offsets exclude the reveal animation's temporary translateY.
+  let layoutTop = 0;
+  for (let node = element; node; node = node.offsetParent) layoutTop += node.offsetTop;
+  const top = Math.max(0, layoutTop - headerBottom - 24);
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({ top, behavior: reduced ? 'auto' : 'smooth' });
+};
+
 // Vehicle data
 const VEHICLES=[
   {id:'sedan',cls:'business-sedan',name:'Sedán ejecutivo',desc:'Cadillac CTS — viajes individuales y de negocios',pax:3,lug:2,imgairport:120,imgoneway:120,imghourly:119,img:'/images/sedan-cadillac.webp',note:'',features:['Interior de cuero · climatización','Agua embotellada de cortesía','Chófer profesional · traje y corbata','WiFi gratis · cargadores para teléfono']},
@@ -845,7 +860,7 @@ function selectVehicle(id){
    document.getElementById('selVehicleText').textContent=v?`${v.name} seleccionado — desde $${getPrice(v)} de tarifa plana`:'Ningún vehículo seleccionado';
   renderVehicles();
   if(typeof updateEstimate==='function') updateEstimate();
-  const details=document.getElementById('detailsStage');details.hidden=false;details.setAttribute('aria-hidden','false');requestAnimationFrame(()=>details.classList.add('is-ready','is-active'));details.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(()=>document.getElementById('fname').focus({preventScroll:true}),600);
+  const details=document.getElementById('detailsStage');details.hidden=false;details.setAttribute('aria-hidden','false');requestAnimationFrame(()=>details.classList.add('is-ready','is-active'));window.phlBookingScrollTo(details.querySelector('.details-head h2') || details);setTimeout(()=>document.getElementById('fname').focus({preventScroll:true}),600);
 }
 
 function tripIsComplete(){return !!(document.getElementById('pickupInput').value.trim()&&(curSvc==='hourly'||document.getElementById('dropoffInput').value.trim())&&document.getElementById('dateInput').value&&document.getElementById('timeHour').value&&document.getElementById('timeMin').value);}
@@ -886,7 +901,7 @@ function scrollToVehicles(){
   error.setAttribute('aria-hidden','true');
   const vehicle=document.getElementById('vehicleSection');
   vehicle.hidden=false;vehicle.setAttribute('aria-hidden','false');
-  requestAnimationFrame(()=>{vehicle.classList.add('is-ready','smoke-in');vehicle.scrollIntoView({behavior:'smooth',block:'start'});});
+  requestAnimationFrame(()=>{vehicle.classList.add('is-ready','smoke-in');window.phlBookingScrollTo(vehicle.querySelector('.choose-header h2') || vehicle);});
 }
 
 // Service type tabs
@@ -1083,8 +1098,8 @@ function openEstimateModal(){
   [succ,err].forEach(e=>{e.classList.remove('show');e.textContent='';});
   // Clear previous warnings
   document.querySelectorAll('.fg.field-warn').forEach(el=>el.classList.remove('field-warn'));
-   // Debe seleccionarse un vehículo antes de pasar a la revisión.
-  if(!selVeh){err.textContent='Selecciona un vehículo primero.';err.classList.add('show');document.getElementById('vehicleSection').scrollIntoView({behavior:'smooth',block:'start'});return;}
+  // Debe seleccionarse un vehículo antes de pasar a la revisión.
+  if(!selVeh){err.textContent='Selecciona un vehículo primero.';err.classList.add('show');window.phlBookingScrollTo(document.getElementById('vehicleSection')?.querySelector('.choose-header h2'));return;}
   // Usa la semántica required nativa y no avances a la revisión si faltan
   // datos de contacto. Los valores permanecen para que la persona los corrija.
   const detailsForm=document.getElementById('bookingDetailsForm');
@@ -1125,7 +1140,7 @@ function openEstimateModal(){
   document.getElementById('mdlPhone').textContent = phone||'—';
   if(_lastEstimate){
     document.getElementById('mdlPrice').textContent = `$${_lastEstimate.total}`;
-     document.getElementById('mdlPriceSub').innerHTML = `${_lastEstimate.breakdown}<br><span style="opacity:0.75;">* Estimación media. Nuestro representante confirmará el precio final.</span>`;
+     document.getElementById('mdlPriceSub').innerHTML = `${_lastEstimate.breakdown}<br><span style="opacity:0.75;">* Estimación media. Nuestro representante confirmará el precio estimado.</span>`;
      document.getElementById('mdlDist').textContent = `${_lastEstimate.totalMiles.toFixed(1)} mi (ida y vuelta)`;
      document.getElementById('mdlDur').textContent = `${_lastEstimate.totalMinutes} min`;
   } else {
@@ -1209,7 +1224,7 @@ async function confirmAndSend(){
     }
     closeModal();
     const succ=document.getElementById('alertSuccess');
-    succ.innerHTML='✅ <strong>¡Solicitud recibida!</strong> Nuestro representante te llamará pronto para confirmar la reserva y finalizar el precio.';
+    succ.innerHTML='✅ <strong>¡Solicitud recibida!</strong> Nuestro representante te llamará pronto para confirmar la reserva y verificar el precio estimado.';
     succ.classList.add('show');
     document.getElementById('moovsLink').style.display='block';
     document.getElementById('submitBtn').scrollIntoView({behavior:'smooth',block:'center'});
@@ -1382,14 +1397,14 @@ document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAu
     vehicleSelected: 'seleccionado',
     noVehicle: 'Aún no has seleccionado un vehículo',
     serviceAirport: '✈ Servicio de aeropuerto', serviceOneway: '🗺 Punto a punto',
-    serviceHourly: '⏱ Servicio por hora', finalPrice: 'Precio final',
+    serviceHourly: '⏱ Servicio por hora', finalPrice: 'Precio estimado',
      contactQuote: 'Contáctanos para obtener una cotización.', checking: 'Comprobando disponibilidad…',
-    chooseVehicle: 'Elige un vehículo para ver el precio final.',
+    chooseVehicle: 'Elige un vehículo para ver el precio estimado.',
     invalidWindow: 'La hora de fin debe ser posterior a la hora de inicio. Elige una fecha de fin para viajes nocturnos.',
     missingEnd: 'Selecciona la fecha y la hora de fin para el servicio por hora.',
     tripMissing: 'Completa la recogida, el destino, la fecha y la hora antes de buscar tu viaje.',
     contactDetails: 'Introduce tu nombre, apellido y teléfono antes de solicitar una cotización.',
-    quoteGeneric: 'Nuestro representante confirmará contigo el precio final.',
+    quoteGeneric: 'Nuestro representante confirmará contigo el precio estimado.',
     sending: 'Enviando…', confirm: 'Obtener una cotización',
     sent: '✅ <strong>¡Solicitud recibida!</strong> Nuestro representante te llamará pronto para confirmar tu reserva.',
     requestError: 'No pudimos aceptar la solicitud. Tus datos siguen aquí. Inténtalo de nuevo o llama al (833) 740-0700.'
@@ -1457,6 +1472,7 @@ document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAu
   window.renderVehicles = renderBookingVehicles;
   selectVehicle = function (id) {
     if (!VEHICLES.some(v => v.id === id)) return;
+    const hadSelection = !!selVeh;
     selVeh = id; expanded = false;
     const vehicle = VEHICLES.find(v => v.id === id);
     document.getElementById('selVehicleText').textContent = `${vehicle.name} ${copy.vehicleSelected}`;
@@ -1464,7 +1480,7 @@ document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAu
     if (typeof updateEstimate === 'function') updateEstimate();
     detailsStage.hidden = false; detailsStage.setAttribute('aria-hidden', 'false');
     requestAnimationFrame(() => detailsStage.classList.add('is-ready', 'is-active'));
-    detailsStage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (!hadSelection) window.phlBookingScrollTo(detailsStage.querySelector('.details-head h2') || detailsStage);
   };
   window.selectVehicle = selectVehicle;
   function setHourlyFields() {
@@ -1534,16 +1550,18 @@ document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAu
   window.tripIsComplete = tripIsComplete;
   function revealVehicles() {
     const runToken = ++revealToken;
+    let finished = false;
     vehicleSection.hidden = false; vehicleSection.setAttribute('aria-hidden', 'false');
     vehicleSection.classList.remove('smoke-in', 'vehicle-fade-in');
     requestAnimationFrame(() => vehicleSection.classList.add('is-ready'));
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const finish = function () {
-      if (runToken !== revealToken) return;
+      if (finished || runToken !== revealToken) return;
+      finished = true;
       if (smokeTimer) { clearTimeout(smokeTimer); smokeTimer = null; }
       document.getElementById('phlSmokeOverlay')?.remove();
       vehicleSection.classList.add('vehicle-fade-in');
-      vehicleSection.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+      window.phlBookingScrollTo(vehicleSection.querySelector('.choose-header h2') || vehicleSection);
     };
     if (reduced) { finish(); return; }
     const overlay = document.createElement('div');
@@ -1634,7 +1652,7 @@ document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAu
       _lastEstimate = { available: true, total, hours: windowInfo.hours, vehicle: vehicle.name, service: curSvc };
       return _lastEstimate;
     }
-    showEstimate(panel, '…', 'Calculando precio final…');
+    showEstimate(panel, '…', 'Calculando precio estimado…');
     try {
       const route = [pickup, ...getStops(), dropoff];
       let miles = 0, minutes = 0;
@@ -1667,7 +1685,7 @@ document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAu
   openEstimateModal = async function () {
     const error = document.getElementById('alertError'), success = document.getElementById('alertSuccess');
     [error, success].forEach(el => { el.classList.remove('show'); el.textContent = ''; });
-    if (!selVeh) { error.textContent = 'Selecciona un vehículo primero.'; error.classList.add('show'); vehicleSection?.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+    if (!selVeh) { error.textContent = 'Selecciona un vehículo primero.'; error.classList.add('show'); window.phlBookingScrollTo(vehicleSection?.querySelector('.choose-header h2')); return; }
     const form = document.getElementById('bookingDetailsForm');
     const required = ['fname', 'lname', 'fphone'].map(id => document.getElementById(id));
     const missing = required.find(field => !(field.value || '').trim());
@@ -1824,7 +1842,7 @@ document.getElementById('carCarousel').addEventListener('mouseleave',()=>{_carAu
     if(details){
       details.hidden=false;details.setAttribute('aria-hidden','false');
       requestAnimationFrame(()=>details.classList.add('is-ready','is-active'));
-      if(!hadSelection)details.scrollIntoView({behavior:'smooth',block:'start'});
+      if(!hadSelection)window.phlBookingScrollTo(details.querySelector('.details-head h2') || details);
     }
   }
   window.renderVehicles=render;renderVehicles=render;
