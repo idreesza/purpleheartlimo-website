@@ -5,6 +5,12 @@ readable and reviewable.  They are appended before each generated FAQ section.
 """
 
 BODY_REPLACEMENTS = {
+    "arlington-entertainment-district-cowboys-games": [
+        (
+            'href="/blog/arlington-entertainment.html"',
+            'href="/blog/arlington-entertainment"',
+        ),
+    ],
     "dfw-airport-limo-guide": [
         (
             "Dallas Fort Worth International is the third-busiest airport in the world, moving more than 80 million passengers a year across five terminals, so a smooth arrival is worth planning for.",
