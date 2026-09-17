@@ -112,9 +112,10 @@ body.hdr-v2 #mobile-menu { background:#FFFFFF !important; border-bottom:1px soli
 body.hdr-v2 #mobile-menu a { color:#fff !important; border-bottom-color:rgba(255,255,255,0.08) !important; }
 
 @media(max-width:768px){
-  body.hdr-v2 .nav-links { display:none !important; }
+  body.hdr-v2 .navbar .nav-links { display:none !important; }
   body.hdr-v2 #lang-toggle { display:none !important; }
   body.hdr-v2 .navbar .nav-cta .nav-phone { display:none !important; }
   body.hdr-v2 .navbar .nav-cta { grid-column:1; justify-self:start; }
-  body.hdr-v2 .hamburger { display:flex; grid-column:3; justify-self:end; }
+  body.hdr-v2 .navbar .hamburger { display:flex!important; grid-column:3; justify-self:end; min-width:44px; min-height:44px; align-items:center; justify-content:center; }
+  body.hdr-v2 #mobile-menu a { color:#211b13!important; border-bottom-color:rgba(201,168,76,.2)!important; }
 }
