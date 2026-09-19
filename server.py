@@ -42,6 +42,7 @@ CONTACT_SMS_GATEWAYS = (
 HOURLY_HUBS = (
     ('austin', '3100 Esperanza Crossing, Austin, TX 78758'),
     ('dallas', '777 S Central Expy, Richardson, TX 75080'),
+    ('houston', '15200 Memorial Dr, Houston, TX 77079'),
 )
 HOURLY_HUB_PATH = '/api/hourly-hub'
 HOURLY_HUB_CACHE_MAX_ENTRIES = 256
@@ -980,7 +981,7 @@ class Handler(SimpleHTTPRequestHandler):
     HUBS = [
         ('Austin',            -97.7431, 30.2672),
         ('Dallas\u2013Fort Worth', -96.7970, 32.7767),
-        ('Houston',           -95.3698, 29.7604),
+        ('Houston',           None, None),
     ]
     HUB_FREE_MILES = 60
     _geo_cache = {}
@@ -1009,6 +1010,16 @@ class Handler(SimpleHTTPRequestHandler):
         # whichever hub is closest overall.
         best = None
         for name, lon, lat in self.HUBS:
+            if name == 'Houston':
+                # Resolve the private operating base, never a city-center guess.
+                address = dict(HOURLY_HUBS)['houston']
+                try:
+                    point = self._geocode(address)
+                except Exception:
+                    return None
+                if not point:
+                    return None
+                lon, lat = point
             hp = self._haversine_miles((lon, lat), p)
             hd = self._haversine_miles((lon, lat), d) if d else hp
             score = min(hp, hd)

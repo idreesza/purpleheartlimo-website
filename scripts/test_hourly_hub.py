@@ -31,13 +31,14 @@ class _GoogleResponse:
         return False
 
 
-def _distance_matrix(austin_meters, dallas_meters):
+def _distance_matrix(austin_meters, dallas_meters, houston_meters=999999):
     return {
         'status': 'OK',
         'rows': [{
             'elements': [
                 {'status': 'OK', 'distance': {'value': austin_meters}},
                 {'status': 'OK', 'distance': {'value': dallas_meters}},
+                {'status': 'OK', 'distance': {'value': houston_meters}},
             ],
         }],
     }
@@ -100,9 +101,37 @@ class HourlyHubEndpointTests(unittest.TestCase):
         query = parse_qs(urlsplit(request.full_url).query)
         self.assertEqual(
             query['destinations'],
-            ['3100 Esperanza Crossing, Austin, TX 78758|777 S Central Expy, Richardson, TX 75080'],
+            ['|'.join(address for _, address in server.HOURLY_HUBS)],
         )
         self.assertEqual(query['mode'], ['driving'])
+
+    def test_houston_base_is_selected_without_disclosing_address(self):
+        self.env.side_effect = lambda *_args, **_kwargs: _GoogleResponse(
+            _distance_matrix(250000, 400000, 1000)
+        )
+        status, body = self.get('/api/hourly-hub?pickup=Houston')
+        self.assertEqual((status, body), (200, {'available': True}))
+        key = server._normalize_hourly_request('Houston')[2]
+        self.assertEqual(Handler._hourly_hub_cache.get(key), 'houston')
+
+    def test_positioning_uses_private_houston_base_not_downtown(self):
+        handler = object.__new__(Handler)
+        address = dict(server.HOURLY_HUBS)['houston']
+        base = (-95.61, 29.77)  # Synthetic test coordinates, not production data.
+        points = {'pickup': (-95.60, 29.77), 'dropoff': (-95.55, 29.77), address: base}
+        with mock.patch.object(handler, '_geocode', side_effect=points.get), \
+             mock.patch.object(handler, '_route_coords', return_value={'miles': 5}) as route:
+            result = handler._hub_positioning('pickup', 'dropoff')
+        self.assertEqual(route.call_args.args[0], base)
+        self.assertEqual(result, {'miles': 5, 'hub': 'Houston', 'free_miles': 60})
+        self.assertNotIn(address, json.dumps(result))
+
+    def test_unresolved_private_base_never_falls_back_to_city_center(self):
+        handler = object.__new__(Handler)
+        with mock.patch.object(handler, '_geocode', side_effect=[(-95.60, 29.77), None]), \
+             mock.patch.object(handler, '_route_coords') as route:
+            self.assertIsNone(handler._hub_positioning('pickup', None))
+            route.assert_not_called()
 
     def test_success_is_cached_for_normalized_address_and_coordinates(self):
         self.env.side_effect = lambda *_args, **_kwargs: _GoogleResponse(
