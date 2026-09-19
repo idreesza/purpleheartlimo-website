@@ -1,10 +1,17 @@
 (function () {
   'use strict';
+  if (window.__PHLSitewideLeadsLoaded) return;
+  window.__PHLSitewideLeadsLoaded = true;
 
   function event(name, params) {
     if (typeof window.gtag !== 'function') return false;
-    window.gtag('event', name, params || {});
-    return true;
+    try {
+      window.gtag('event', name, params || {});
+      return true;
+    } catch (_) {
+      // Analytics must never interrupt a call, email, or booking.
+      return false;
+    }
   }
 
   var recent = Object.create(null);
@@ -27,16 +34,21 @@
   };
 
   document.addEventListener('click', function (e) {
-    var link = e.target.closest && e.target.closest('a[href]');
+    var target = e.target && (e.target.nodeType === 3 ? e.target.parentElement : e.target);
+    var link = target && target.closest && target.closest('a[href]');
     if (!link) return;
-    var href = link.getAttribute('href') || '';
+    var href = (link.getAttribute('href') || '').trim();
     var parent = link.closest('nav,header,footer,aside,main');
     var context = {
       link_text: (link.textContent || link.getAttribute('aria-label') || '').trim().slice(0, 80),
-      link_location: parent ? parent.tagName.toLowerCase() : 'body',
+       link_location: link.closest('.mobile-bar,.phl-mobile-call-bar,.floating-widgets')
+         ? 'floating_button' : (parent ? parent.tagName.toLowerCase() : 'body'),
       page_path: window.location.pathname
     };
-    if (href.toLowerCase().indexOf('tel:') === 0) event('phone_call_click', context);
+    if (href.toLowerCase().indexOf('tel:') === 0) {
+      context.transport_type = 'beacon';
+      event('phone_call_click', context);
+    }
     if (href.toLowerCase().indexOf('mailto:') === 0) event('email_click', context);
-  });
+  }, { capture: true, passive: true });
 })();
