@@ -24,9 +24,11 @@ source of truth; `scripts/gen_htaccess.py` parses every `[[redirects]]` +
   (`^blog/([^/]+)$ /blog/$1/`) — a literal `:slug` is a dead rule. Anchor with `$`
   (no optional trailing slash) + `!-f`/`!-d` guards, or the slashed target re-matches
   and loops.
-- Pretty URLs: redirect `*.html`/`index.html`→clean via `THE_REQUEST`, then serve
-  extensionless via internal rewrite to `.html` (loop-safe because the redirect only
-  fires on the original browser request).
+- Pretty URLs: preserve explicit canonical choices in netlify.toml; never strip
+  `.html` globally. Some root and airport/wedding guide pages intentionally use it.
+  **Why:** blanket stripping conflicts with self-canonical destination pages.
+  Serve extensionless aliases via internal rewrite where configured, and make
+  unslashed-to-slashed rules match only the unslashed source to prevent loops.
 - Host canonical (HTTPS + strip www) is one block at the top; skip the three
   per-scheme host `[[redirects]]` (covered by it).
 

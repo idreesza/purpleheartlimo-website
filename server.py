@@ -498,13 +498,62 @@ def _load_redirects():
         frm, to, status = r.get('from', ''), r.get('to', ''), int(r.get('status', 301))
         if frm.startswith('http') or status not in (301, 410) or frm == '/*':
             continue
+        # Query-gated rules must not become unconditional path redirects.
+        # The retired blog pagination parameters are handled explicitly below.
+        if r.get('query'):
+            continue
         if frm.endswith('/*'):
             prefixes.append((frm[:-1], to, status))  # keep trailing slash on prefix
         else:
-            exact[frm] = (to, status)
+            exact.setdefault(frm, (to, status))
     return exact, prefixes
 
 REDIRECTS_EXACT, REDIRECT_PREFIXES = _load_redirects()
+
+
+def _redirect_destination(request_target):
+    """Resolve configured aliases without emitting intermediate redirects.
+
+    Only explicit legacy mappings are followed; unknown blog slugs are never
+    guessed into folder URLs. Preserve unrelated query parameters, but retire
+    the old blog search/pagination aliases on both /blog and /blog/.
+    """
+    parsed = urllib.parse.urlsplit(request_target)
+    path, query = parsed.path, parsed.query
+    if path in ('/blog', '/blog/'):
+        pairs = urllib.parse.parse_qsl(query, keep_blank_values=True)
+        if any(key in ('q', 'p') for key, _ in pairs):
+            query = urllib.parse.urlencode([
+                (key, value) for key, value in pairs if key not in ('q', 'p')
+            ])
+            path = '/blog/'
+
+    seen = set()
+    while path not in seen:
+        seen.add(path)
+        hit = REDIRECTS_EXACT.get(path)
+        if hit is None and path != '/':
+            hit = REDIRECTS_EXACT.get(path.rstrip('/'))
+        if hit is None:
+            for prefix, to, status in REDIRECT_PREFIXES:
+                if path.startswith(prefix):
+                    hit = (to, status)
+                    break
+        if hit is None:
+            break
+        to, status = hit
+        if status == 410:
+            return to, status
+        if to == path:
+            break
+        if to in seen:
+            # Bad future configuration must not create a browser redirect loop.
+            return None
+        path = to
+
+    destination = path + ('?' + query if query else '')
+    return (destination, 301) if destination != request_target else None
+
 
 class Handler(SimpleHTTPRequestHandler):
     _gzip_cache = {}
@@ -614,12 +663,16 @@ class Handler(SimpleHTTPRequestHandler):
             return super().send_head()
 
     def _www_redirect(self):
-        """301 www.purpleheartlimo.com -> purpleheartlimo.com, preserving
-        the full path + query string. Runs before any other routing."""
+        """Collapse the www host and any configured path alias in one hop."""
         host = (self.headers.get('Host') or '').split(':')[0].strip().lower()
         if host == 'www.purpleheartlimo.com':
+            hit = _redirect_destination(self.path)
+            # Retired/Gone URLs must remain Gone, not redirect to /404.html.
+            if hit and hit[1] == 410:
+                return False
+            target = hit[0] if hit else self.path
             self.send_response(301)
-            self.send_header('Location', 'https://purpleheartlimo.com' + self.path)
+            self.send_header('Location', 'https://purpleheartlimo.com' + target)
             self.send_header('Cache-Control', 'max-age=3600')
             SimpleHTTPRequestHandler.end_headers(self)
             return True
@@ -703,28 +756,16 @@ class Handler(SimpleHTTPRequestHandler):
     def _legacy_redirect(self):
         """Legacy-slug 301s/410s ported from netlify.toml (the static
         deployment's rewrites don't apply once a server handles requests)."""
-        parsed = urllib.parse.urlparse(self.path)
-        path, query = parsed.path, parsed.query
-        hit = REDIRECTS_EXACT.get(path) or (path != '/' and REDIRECTS_EXACT.get(path.rstrip('/'))) or None
-        if hit is None:
-            for prefix, to, status in REDIRECT_PREFIXES:
-                if path.startswith(prefix):
-                    hit = (to, status)
-                    break
+        hit = _redirect_destination(self.path)
         if hit is None:
             return False
         to, status = hit
-        # Never redirect a URL to itself (e.g. /blog/foo/ matching the
-        # /blog/foo -> /blog/foo/ rule via the rstrip fallback) — that's an
-        # infinite 301 loop. Let the request fall through to normal serving.
-        if status == 301 and urllib.parse.urlparse(to).path == path:
-            return False
         if status == 410:
             self.send_response(410)
             SimpleHTTPRequestHandler.end_headers(self)
             return True
         self.send_response(301)
-        self.send_header('Location', to + ('?' + query if query else ''))
+        self.send_header('Location', to)
         self.send_header('Cache-Control', 'max-age=3600')
         SimpleHTTPRequestHandler.end_headers(self)
         return True

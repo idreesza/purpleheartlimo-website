@@ -63,6 +63,16 @@
 # 2b. Pretty-URL → real HTML files (GSC 404s)
 # ─────────────────────────────────────────────────────────────
 [[redirects]]
+  from   = "/index.html"
+  to     = "/"
+  status = 301
+  force  = true
+[[redirects]]
+  from   = "/about"
+  to     = "/about.html"
+  status = 301
+  force  = true
+[[redirects]]
   from   = "/about-us"
   to     = "/about.html"
   status = 301

@@ -5,9 +5,9 @@ Netlify configuration in netlify.toml.
 
 Netlify does not run on Hostinger, so its netlify.toml is ignored there. This
 script ports every [[redirects]] rule and the [[headers]] blocks into the
-equivalent Apache rewrite/header directives, plus the clean-URL behaviour
-Netlify provides automatically (pretty URLs: /foo serves foo.html, /foo.html
-redirects to /foo).
+equivalent Apache rewrite/header directives, plus extensionless file serving.
+Only explicit configured aliases strip .html: live root pages and established
+DFW guide winners deliberately retain their .html canonical URLs.
 
 Run:  python3 scripts/gen_htaccess.py
 Output: ./.htaccess
@@ -183,7 +183,13 @@ def build_htaccess(redirects, headers):
             continue
         else:
             norm = frm.rstrip("/").lstrip("/")
-            patt = "^%s/?$" % esc(norm)
+            # A slash-normalization rule must match only the unslashed form.
+            # Matching /es/ or /blog/post/ here would redirect it to itself.
+            # Other legacy rules still accept either source spelling.
+            if status == 301 and to == "/" + norm + "/":
+                patt = "^%s$" % esc(norm)
+            else:
+                patt = "^%s/?$" % esc(norm)
             target = to.replace(":splat", "$1")
 
         if status == 200:
@@ -200,11 +206,11 @@ def build_htaccess(redirects, headers):
         a(line)
 
     a("")
-    a("# --- 3. Pretty URLs: redirect *.html and /dir/index.html to clean URLs ---")
+    a("# --- 3. Directory index aliases -> canonical directory URLs ---")
     a("RewriteCond %{THE_REQUEST} \\s/+(.+/)?index\\.html[\\s?] [NC]")
     a("RewriteRule ^ /%1 [R=301,L]")
-    a("RewriteCond %{THE_REQUEST} \\s/+([^.\\s?]+)\\.html[\\s?] [NC]")
-    a("RewriteRule ^ /%1 [R=301,L]")
+    a("# Root pages and the two established DFW guide winners retain .html canonicals.")
+    a("# Blog .html aliases are handled by the explicit rules above, not a blanket rule.")
     a("")
     a("# --- 4. Serve extensionless URLs from their .html file ---")
     a("RewriteCond %{REQUEST_FILENAME} !-d")
