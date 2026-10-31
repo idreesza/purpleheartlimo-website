@@ -37,15 +37,20 @@ UPDATED = {
         "/blog/the-ultimate-guide-to-booking-a-limo-service-in-austin/",
 }
 
-# No equivalent substantive article was found for these audit entries. Their
-# generic destination is intentionally unchanged rather than inventing a
-# topical redirect. They are still legacy sources and must stay out of the
-# sitemap.
-RETAINED_GENERIC = {
+# Owner-approved retirement after original-content and equivalence audit.
+RETIRED_ARTICLES = {
     "/blog/a-comprehensive-guide-to-transportation-services-in-austin--texas",
     "/blog/exploring-advanced-limousine-booking-systems--a-look-at-purple-heart-limo-s-technology",
     "/blog/how-purple-heart-limousine-uses-ai-for-seamless-booking-experiences",
     "/blog/the-future-of-transportation-booking-systems--how-innovations-are-changing-the-game",
+    "/blog/case-study--success-stories-from-austin-s-prom-season-limo-bookings",
+    "/blog/why-austin-locals-love-purple-heart-limousine-services",
+    "/blog/why-purple-heart-limousine-stands-out-among-austin-s-limo-services",
+}
+
+RESTORED_ARTICLES = {
+    "/blog/prom-night-perfection--tips-for-booking-a-limo-in-austin",
+    "/blog/prom-season-limo-booking-tips-for-austin-teens-and-parents",
 }
 
 LINK_FIXES = {
@@ -162,16 +167,59 @@ class RedirectIndexRegressions(unittest.TestCase):
                 self.assertEqual(canonical.group(1), BASE + destination)
 
     def test_legacy_sources_are_not_in_sitemap(self):
-        for source in set(UPDATED) | RETAINED_GENERIC:
+        for source in set(UPDATED) | RETIRED_ARTICLES:
             with self.subTest(source=source):
                 self.assertNotIn(BASE + source, self.sitemap)
                 self.assertNotIn(BASE + source + "/", self.sitemap)
 
-    def test_unmatched_audit_articles_remain_explicitly_generic(self):
-        for source in RETAINED_GENERIC:
+    def test_unmatched_audit_articles_are_gone(self):
+        apache = (ROOT / ".htaccess").read_text()
+        for source in RETIRED_ARTICLES:
             with self.subTest(source=source):
-                self.assertEqual(self.redirects[source].get("status"), 301)
-                self.assertEqual(self.redirects[source].get("to"), "/blog/")
+                self.assertEqual(self.redirects[source].get("status"), 410)
+                self.assertEqual(self.redirects[source].get("to"), "/404.html")
+                self.assertIn(f"RewriteRule ^{re.escape(source.lstrip('/'))}/?$ - [G,L]", apache)
+                for suffix in ("", "/", "?utm_source=test", "/?utm_source=test"):
+                    self.assertEqual(_redirect_destination(source + suffix), ("/404.html", 410))
+
+    def test_restored_articles_have_canonical_discoverable_targets(self):
+        index = (ROOT / "blog/index.html").read_text()
+        apache = (ROOT / ".htaccess").read_text()
+        for source in RESTORED_ARTICLES:
+            with self.subTest(source=source):
+                target = source + "/"
+                self.assertEqual(_redirect_destination(source), (target, 301))
+                self.assertIsNone(_redirect_destination(target))
+                self.assertFalse(self.redirects[source].get("force", False))
+                html = _target_file(target).read_text()
+                self.assertEqual(_canonical(html), BASE + target)
+                self.assertNotRegex(html, r'(?i)<meta[^>]+name=["\']robots["\'][^>]+noindex')
+                self.assertIn(BASE + target + "</loc>", self.sitemap)
+                self.assertIn(f'href="{target}"', index)
+                self.assertIn(f"RewriteRule ^{re.escape(source.lstrip('/'))}$ {target} [R=301,L]", apache)
+
+    def test_retired_articles_get_and_head_never_redirect_even_on_www(self):
+        from io import BytesIO
+        for source in RETIRED_ARTICLES:
+            for suffix in ("", "/", "?utm_source=test", "/?utm_source=test"):
+                for method in ("GET", "HEAD"):
+                    for host in ("purpleheartlimo.com", "www.purpleheartlimo.com"):
+                        handler = object.__new__(Handler)
+                        handler.path = source + suffix
+                        handler.command = method
+                        handler.headers = Message()
+                        handler.headers["Host"] = host
+                        handler.wfile = BytesIO()
+                        with self.subTest(path=handler.path, method=method, host=host), \
+                             patch.object(handler, "send_response") as status, \
+                             patch.object(handler, "send_header") as header, \
+                             patch("http.server.SimpleHTTPRequestHandler.end_headers"):
+                            self.assertFalse(handler._www_redirect())
+                            self.assertTrue(handler._legacy_redirect())
+                            status.assert_called_once_with(410)
+                            self.assertNotIn("Location", [c.args[0] for c in header.call_args_list])
+                            if method == "HEAD":
+                                self.assertEqual(handler.wfile.getvalue(), b"")
 
     def test_listed_internal_links_use_clean_targets(self):
         for filename, (legacy, clean) in LINK_FIXES.items():

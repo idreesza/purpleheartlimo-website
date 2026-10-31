@@ -192,30 +192,28 @@
   to = "/blog/"
   status = 301
 
-# --- GSC "Crawled - currently not indexed" (old AI posts) ---
-# These two files STILL EXIST on disk → must use force=true to win over the file
+# Restored original prom articles: normalize only the unslashed URL.
 [[redirects]]
   from = "/blog/prom-night-perfection--tips-for-booking-a-limo-in-austin"
-  to = "/blog/"
+  to = "/blog/prom-night-perfection--tips-for-booking-a-limo-in-austin/"
   status = 301
-  force = true
 [[redirects]]
   from = "/blog/prom-season-limo-booking-tips-for-austin-teens-and-parents"
-  to = "/blog/"
+  to = "/blog/prom-season-limo-booking-tips-for-austin-teens-and-parents/"
   status = 301
-  force = true
+# Owner-approved retirement: no recovered original or verified equivalent.
 [[redirects]]
   from = "/blog/why-purple-heart-limousine-stands-out-among-austin-s-limo-services"
-  to = "/blog/"
-  status = 301
+  to = "/404.html"
+  status = 410
 [[redirects]]
   from = "/blog/how-to-book-the-perfect-limousine-in-austin--a-step-by-step-guide"
   to = "/blog/the-ultimate-guide-to-booking-a-limo-service-in-austin/"
   status = 301
 [[redirects]]
   from = "/blog/why-austin-locals-love-purple-heart-limousine-services"
-  to = "/blog/"
-  status = 301
+  to = "/404.html"
+  status = 410
 [[redirects]]
   from = "/blog/event-based-limousine-rental-in-austin--tailoring-your-ride-for-every-occasion"
   to = "/blog/"
@@ -230,16 +228,16 @@
   status = 301
 [[redirects]]
   from = "/blog/case-study--success-stories-from-austin-s-prom-season-limo-bookings"
-  to = "/blog/"
-  status = 301
+  to = "/404.html"
+  status = 410
 [[redirects]]
   from = "/blog/top-benefits-of-using-dynamic-maps-for-limousine-services-in-austin"
   to = "/blog/"
   status = 301
 [[redirects]]
   from = "/blog/how-purple-heart-limousine-uses-ai-for-seamless-booking-experiences"
-  to = "/blog/"
-  status = 301
+  to = "/404.html"
+  status = 410
 [[redirects]]
   from = "/blog/comparing-limousine-services--how-to-get-the-most-value-in-austin"
   to = "/blog/"
@@ -294,8 +292,8 @@
   status = 301
 [[redirects]]
   from = "/blog/exploring-advanced-limousine-booking-systems--a-look-at-purple-heart-limo-s-technology"
-  to = "/blog/"
-  status = 301
+  to = "/404.html"
+  status = 410
 [[redirects]]
   from = "/blog/choosing-the-right-limo-service--austin-prestige-limo-vs-alternatives"
   to = "/blog/comparing-purple-heart-limo-with-other-austin-limo-services/"
@@ -322,16 +320,16 @@
   status = 301
 [[redirects]]
   from = "/blog/a-comprehensive-guide-to-transportation-services-in-austin--texas"
-  to = "/blog/"
-  status = 301
+  to = "/404.html"
+  status = 410
 [[redirects]]
   from = "/blog/the-ultimate-guide-to-transportation-services-in-austin--texas-3"
   to = "/blog/"
   status = 301
 [[redirects]]
   from = "/blog/the-future-of-transportation-booking-systems--how-innovations-are-changing-the-game"
-  to = "/blog/"
-  status = 301
+  to = "/404.html"
+  status = 410
 [[redirects]]
   from = "/blog/how-to-simplify-your-multi-step-limo-booking-experience"
   to = "/blog/the-ultimate-guide-to-booking-a-limo-service-in-austin/"
