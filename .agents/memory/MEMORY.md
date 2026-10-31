@@ -31,3 +31,4 @@
 - [Homepage loading](homepage-loading.md) — avoid timed brand intros that delay LCP; preserve immediate visitor tracking.
 - [Google autocomplete](google-autocomplete.md) — browser-only Places credential, single lazy loader, and actual RPC authorization checks; keep routing/pricing separate.
 - [Retired article policy](retired-article-policy.md) — owner approved restoring original prom guides and retiring unrecovered articles, not generic homepage redirects.
+- [Editorial evidence](editorial-evidence.md) — repeated marketing copy is not verification; resolve conflicting policies before publishing specific promises.

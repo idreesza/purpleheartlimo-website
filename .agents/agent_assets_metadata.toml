@@ -106,3 +106,17 @@ mtime_ms = 1793475180277
 storage_uri = "gcs://replit-rams-assets-janeway/rams/assets/repl:0463f24a-ebca-46a5-aec2-0a40e3f5d87e/f439765e-3cbc-4459-81a2-d8b63b5f801b/9d9d86a1-fa24-4cab-a062-cb6d32eedb93"
 storage_version_token = "1793475197962375"
 content_type = "text/plain"
+
+[[outputs]]
+id = "FjVZ4YcpU7T5bzTw7AVsG"
+uri = "file://reports/article-content-review.md"
+type = "text"
+title = "Article content review and recommendations"
+description = "Review of all 40 supplied URLs and 20 canonical articles, with prioritized factual issues, distinct editorial briefs and proposed trip-planning content. No public pages or URLs changed."
+logical_id = "ea231f52-c673-40b6-ba58-05c9d2d29cb2"
+content_hash = "sha256:1bb9b94bc5e89209c9a6e7b75148caa4490b3900333a8672a5142e5065d82f55"
+size = 33767
+mtime_ms = 1793475715022
+storage_uri = "gcs://replit-rams-assets-janeway/rams/assets/repl:0463f24a-ebca-46a5-aec2-0a40e3f5d87e/ea231f52-c673-40b6-ba58-05c9d2d29cb2/82741223-5b69-4361-98f6-58b0d85540fb"
+storage_version_token = "1793475725203488"
+content_type = "text/markdown"
