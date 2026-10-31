@@ -35,51 +35,74 @@ id = "JkUNDP8kjejZhYioyYljN"
 uri = "file://backlink-action-plan.md"
 type = "text"
 title = "Purple Heart Limo — Backlink & Authority Action Plan"
+logical_id = "5af41613-67fe-4a94-b6d5-34f9c47e056f"
 
 [[outputs]]
 id = "XarRONcli1WvCrHIA5Z-7"
 uri = "file://attached_assets/purpleheart-office-sign.png"
 type = "image"
 title = "Purple Heart Limo — Office with Roof Sign"
+logical_id = "6d290273-90ce-4159-a06c-88dea1734570"
 
 [[outputs]]
 id = "9_l8rcOLZwEJaexxb6u_7"
 uri = "file://exports/titanium-garage-door-seo-prompts.md"
 type = "text"
 title = "Titanium Garage Door — Reusable SEO Prompt Pack"
+logical_id = "b50bcce0-5a15-4ec9-bba6-d4b10657885f"
 
 [[outputs]]
 id = "cAkkM7B_Wov-P4xKNN-If"
 uri = "file://exports/purpleheartlimo-website.zip"
 type = "unspecified"
 title = "Purple Heart Limo — Full Website (35.6 MB)"
+logical_id = "e842de75-ea23-4ef3-b394-1e2cde3f4003"
 
 [[outputs]]
 id = "EFKnfxN2MTAumFvhCX5Zn"
 uri = "file://business-card/purpleheart-business-card-front.png"
 type = "image"
 title = "Business Card — Front (gold crest logo, no background cars)"
+logical_id = "e8ba8cae-082b-41f4-af94-0383aba70845"
 
 [[outputs]]
 id = "xzpJScC_b797jSppaiRWV"
 uri = "file://business-card/purpleheart-business-card-back.png"
 type = "image"
 title = "Business Card — Back"
+logical_id = "37163cb3-a92f-49ee-b946-acfbb5a6dfcf"
 
 [[outputs]]
 id = "Qgq_fw1DHykj1Jjuj1jKx"
 uri = "file://business-card/purpleheart-business-card.pdf"
 type = "pdf"
 title = "Print-Ready PDF (front + back, 300 DPI, with bleed)"
+logical_id = "5d4f4164-5e3a-4a5d-9a40-daf93a010157"
 
 [[outputs]]
 id = "JRzJ6XIWpebq7RwCaqYqT"
 uri = "file://business-card/purpleheart-card-clean.png"
 type = "image"
 title = "Business Card — QR fixed (clean, scannable)"
+logical_id = "3b509773-fcdb-47a4-a126-513412a2fd8c"
 
 [[outputs]]
 id = "u0X3y5EEeooO4XF8j0EGj"
 uri = "file://business-card/purpleheart-card-clean.pdf"
 type = "pdf"
 title = "Print-Ready PDF (500 DPI)"
+logical_id = "1b7b18c3-de06-4a4e-b61e-cdfc70b7cb3d"
+
+[[outputs]]
+id = "UeYNJeYGvy_IBB-UNI4pg"
+uri = "file://generated-artifacts/changed-files.txt"
+type = "text"
+title = "Complete changed-file list"
+description = "All 244 changed or added source/configuration files for the accessibility, loading, and WebMCP work."
+logical_id = "f439765e-3cbc-4459-81a2-d8b63b5f801b"
+content_hash = "sha256:f6af9f94cc7825ae43cecc2b95bff5d8efc727b196e52356abf02b95e5ad77bc"
+size = 9592
+mtime_ms = 1793475180277
+storage_uri = "gcs://replit-rams-assets-janeway/rams/assets/repl:0463f24a-ebca-46a5-aec2-0a40e3f5d87e/f439765e-3cbc-4459-81a2-d8b63b5f801b/9d9d86a1-fa24-4cab-a062-cb6d32eedb93"
+storage_version_token = "1793475197962375"
+content_type = "text/plain"

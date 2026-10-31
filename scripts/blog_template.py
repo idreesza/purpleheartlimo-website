@@ -121,6 +121,7 @@ def render(post):
 TEMPLATE = """<!DOCTYPE html>
 <html lang="{{LANG}}">
 <head>
+<meta charset="utf-8">
 <!-- Google Analytics 4 — Purple Heart Limo -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y469VZMYZT"></script>
 <script>
@@ -130,7 +131,7 @@ TEMPLATE = """<!DOCTYPE html>
   gtag('config', 'G-Y469VZMYZT');
 </script>
 <link rel="icon" type="image/png" href="/favicon.png">
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 <title>{{TITLE_TAG}}</title>
 <meta name="description" content="{{META_DESC}}">

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<meta charset="utf-8">
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y469VZMYZT"></script>
+<script src="/js/analytics-loader.js" defer></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -27,8 +28,6 @@
 <script id="seo-business-graph" type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LimousineService","@id":"https://purpleheartlimo.com/#business","name":"Purple Heart Limo","url":"https://purpleheartlimo.com/","telephone":"+18337400700","priceRange":"$$","openingHours":"Mo-Su 00:00-23:59","areaServed":[{"@type":"City","name":"Dallas"},{"@type":"City","name":"Fort Worth"},{"@type":"City","name":"Addison"},{"@type":"City","name":"Frisco"},{"@type":"City","name":"Plano"},{"@type":"City","name":"Arlington"},{"@type":"Airport","name":"Dallas Fort Worth International Airport","iataCode":"DFW"},{"@type":"Airport","name":"Dallas Love Field","iataCode":"DAL"}]}]}</script>
 <!-- Google Tag Manager -->
 <link href="/favicon.png" rel="icon" type="image/png"/>
-<meta charset="utf-8"/>
-
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 
 <meta content="US-TX" name="geo.region"/>
@@ -44,7 +43,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&amp;family=Cinzel:wght@500;600;700&amp;family=Poppins:wght@300;400;500;600;700;800&amp;family=Mulish:wght@700;800;900&amp;display=swap" media="print" onload="this.media='all'" rel="stylesheet"/>
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:wght@600;700;800;900&amp;family=Cinzel:wght@500;600;700&amp;family=Poppins:wght@300;400;500;600;700;800&amp;family=Mulish:wght@700;800;900&amp;display=swap"></noscript>
 <link href="/css/page.css" rel="stylesheet"/>
-<script src="/js/google-places-autocomplete.js"></script>
+<script src="/js/google-places-autocomplete.js" defer></script>
 <script src="/js/booking-email.js"></script>
 <style>
 /* Booking page — light theme */
@@ -413,6 +412,8 @@ html { scroll-behavior:smooth; }
 </style>
 <link href="https://purpleheartlimo.com/booking.html" hreflang="en" rel="alternate"/><link href="https://purpleheartlimo.com/es/booking.html" hreflang="es" rel="alternate"/><link href="https://purpleheartlimo.com/booking.html" hreflang="x-default" rel="alternate"/>
 <link rel="stylesheet" href="/css/sitewide-leads.css">
+<script src="/js/webmcp-tools.js" defer></script>
+<link rel="preconnect" href="https://www.googletagmanager.com">
 </head>
 <body data-lang="es">
 <!-- Google Tag Manager (noscript) -->
@@ -456,7 +457,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a class="nav-phone" href="tel:+18337400700">📞 (833) 740-0700</a>
 <a class="btn-primary" href="https://customer.moovs.app/purple-heart-limo/request/new" style="padding:10px 20px;font-size:0.78rem;" target="_blank">Reservar Online</a>
 </div>
-<button aria-expanded="false" aria-label="Abrir menú de navegación" class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+<button aria-expanded="false" aria-label="Abrir menú de navegación" class="hamburger" id="hamburger" onclick="toggleMenu()" type="button"><span></span><span></span><span></span></button>
 </nav>
 <div id="mobile-menu" style="display:none;position:fixed;top:72px;left:0;right:0;background:white;z-index:999;padding:20px;box-shadow:0 12px 48px rgba(45,0,69,0.18);border-bottom:2px solid #F2EFE8;"><a href="/booking.html" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;margin-bottom:12px;background:#2D0045;color:#fff;border:none;border-radius:8px;font-size:0.9rem;font-weight:700;letter-spacing:0.08em;text-decoration:none;">🌐 English</a>
 <a href="/" style="display:block;padding:12px;font-size:0.9rem;color:#0a0a0a;border-bottom:1px solid #F2EFE8;">🏠 Inicio</a>
@@ -469,8 +470,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="booking-hero" aria-label="Flota de lujo de Purple Heart Limo">
 <div class="car-carousel" id="carCarousel">
 <div class="car-track" id="carTrack"></div>
-<button aria-label="Vehículo anterior" class="car-nav prev" onclick="carSlide(-1)"><svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="20"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-<button aria-label="Siguiente vehículo" class="car-nav next" onclick="carSlide(1)"><svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="20"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+<button aria-label="Vehículo anterior" class="car-nav prev" onclick="carSlide(-1)" type="button"><svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="20"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+<button aria-label="Siguiente vehículo" class="car-nav next" onclick="carSlide(1)" type="button"><svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="20"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
 <div class="car-caption" id="carCaption">Sedán Ejecutivo</div>
 </div>
 <div class="car-dots" id="carDots"></div>
@@ -503,60 +504,60 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="below-hero trip-stage is-active" id="tripStage">
 <div class="search-widget">
 <div class="svc-tabs" id="svcTabs">
-<button class="svc-tab active" data-svc="airport">✈ Aeropuerto</button>
-<button class="svc-tab" data-svc="oneway">Punto a punto</button>
-<button class="svc-tab" data-svc="hourly">⏱ Por hora</button>
+<button class="svc-tab active" data-svc="airport" type="button">✈ Aeropuerto</button>
+<button class="svc-tab" data-svc="oneway" type="button">Punto a punto</button>
+<button class="svc-tab" data-svc="hourly" type="button">⏱ Por hora</button>
 </div>
 <div class="search-row">
 <div class="sf">
-<label>Lugar de recogida</label>
-<input autocomplete="off" id="pickupInput" placeholder="Dirección, aeropuerto u hotel…" type="text"/>
-<div class="ac-list" id="pickupAc"></div>
+<label for="pickupInput">Lugar de recogida</label>
+<input autocomplete="off" id="pickupInput" placeholder="Dirección, aeropuerto u hotel…" type="text" name="pickup" toolparamdescription="Pickup address, airport or hotel" form="bookingDetailsForm" aria-describedby="alertError" role="combobox" aria-autocomplete="list" aria-controls="pickupAc" aria-expanded="false"/>
+<div class="ac-list" id="pickupAc" role="listbox" aria-label="Pickup address, airport or hotel"></div>
 </div>
 <div class="sf" id="dropoffSf">
-<label id="dropoffLabel">Destino</label>
-<input autocomplete="off" id="dropoffInput" placeholder="Destino…" type="text"/>
-<div class="ac-list" id="dropoffAc"></div>
+<label id="dropoffLabel" for="dropoffInput">Destino</label>
+<input autocomplete="off" id="dropoffInput" placeholder="Destino…" type="text" name="dropoff" toolparamdescription="Drop-off address, airport or hotel" form="bookingDetailsForm" aria-describedby="alertError" role="combobox" aria-autocomplete="list" aria-controls="dropoffAc" aria-expanded="false"/>
+<div class="ac-list" id="dropoffAc" role="listbox" aria-label="Drop-off address, airport or hotel"></div>
 </div>
 <div class="sf">
-<label>Fecha</label>
-<div class="cdate" data-value="" id="dateCdd">
+<label for="dateInput">Fecha</label>
+<div class="cdate" data-value="" id="dateCdd" aria-label="Pickup date in YYYY-MM-DD">
 <span class="cdate-placeholder" id="dateCddLabel">mm/dd/yyyy</span>
-<input id="dateInput" type="hidden"/>
+<input id="dateInput" type="hidden" name="date" toolparamdescription="Pickup date in YYYY-MM-DD" form="bookingDetailsForm"/>
 <div class="cdate-panel" id="dateCddPanel"></div>
 </div>
 </div>
 <div class="sf">
-<label>Hora</label>
-<div class="cdd" data-value="" id="hourCdd">
+<label for="timeHour">Hora</label>
+<div class="cdd" data-value="" id="hourCdd" aria-label="Pickup hour, 1 through 12">
 <span class="cdd-placeholder" id="hourCddLabel">--</span>
-<input id="timeHour" type="hidden"/>
+<input id="timeHour" type="hidden" name="hour" toolparamdescription="Pickup hour, 1 through 12" form="bookingDetailsForm"/>
 <div class="cdd-list"></div>
 </div>
 </div>
 <div class="sf">
-<label>Min.</label>
-<div class="cdd" data-value="" id="minCdd">
+<label for="timeMin">Min.</label>
+<div class="cdd" data-value="" id="minCdd" aria-label="Pickup minute: 00, 15, 30 or 45">
 <span class="cdd-placeholder" id="minCddLabel">--</span>
-<input id="timeMin" type="hidden"/>
+<input id="timeMin" type="hidden" name="minute" toolparamdescription="Pickup minute: 00, 15, 30 or 45" form="bookingDetailsForm"/>
 <div class="cdd-list"></div>
 </div>
 </div>
 <div class="sf">
-<label>AM/PM</label>
-<div class="cdd" data-value="AM" id="ampmCdd">
+<label for="timeAmpm">AM/PM</label>
+<div class="cdd" data-value="AM" id="ampmCdd" aria-label="AM or PM">
 <span id="ampmCddLabel">AM</span>
-<input id="timeAmpm" type="hidden" value="AM"/>
+<input id="timeAmpm" type="hidden" value="AM" name="ampm" toolparamdescription="AM or PM" form="bookingDetailsForm"/>
 <div class="cdd-list"></div>
 </div>
 </div>
 <div class="sf hourly-end-field" id="hourEndDateSf" hidden>
 <label for="hourEndDate">Fecha de fin</label>
-<input id="hourEndDate" type="date" autocomplete="off"/>
+<input id="hourEndDate" type="date" autocomplete="off" name="end_date" toolparamdescription="Hourly charter end date in YYYY-MM-DD" form="bookingDetailsForm"/>
 </div>
 <div class="sf hourly-end-field" id="hourEndTimeSf" hidden>
 <label for="hourEndTime">Hora de fin</label>
-<input id="hourEndTime" type="time" autocomplete="off"/>
+<input id="hourEndTime" type="time" autocomplete="off" name="end_time" toolparamdescription="Hourly charter end time in HH:MM" form="bookingDetailsForm"/>
 </div>
 <button class="search-btn" id="searchBtn" type="button" onclick="scrollToVehicles()">
 <svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
@@ -567,14 +568,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <span class="flight-label">✈ N.º de vuelo</span>
 <div class="flight-wrap">
 <span class="flt-pre">FLT#</span>
-<input autocomplete="off" id="flightInput" placeholder="AA1234" type="text"/>
+<input autocomplete="off" id="flightInput" placeholder="AA1234" type="text" name="flight" toolparamdescription="Optional flight number" form="bookingDetailsForm" aria-label="Optional flight number"/>
 </div>
 <span style="font-size:0.72rem;color:#8a8a8a;">opcional — para seguimiento de vuelos en tiempo real</span>
 </div>
 <!-- Extra stops (shown for Point-to-Point and Hourly) -->
 <div class="stops-wrap" id="stopsWrap">
 <div id="stopsList"></div>
-<button class="btn-add-stop" id="addStopBtn" onclick="addStop()">
+<button class="btn-add-stop" id="addStopBtn" onclick="addStop()" type="button">
 <svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><line x1="12" x2="12" y1="5" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line></svg>
           Agregar parada <span style="font-weight:400;opacity:0.7;">(opcional)</span>
 </button>
@@ -584,7 +585,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 <!-- ===== TUS DATOS (flujo permanente Viaje → Vehículos → Datos) ===== -->
 <div class="details-horizontal booking-stage" id="detailsStage" hidden aria-hidden="true">
-<form id="bookingDetailsForm" novalidate>
+<form id="bookingDetailsForm" novalidate="" toolname="prepare_limo_quote" tooldescription="Prepare a Purple Heart Limo quote for user review. Fill trip and contact details; the user must click the existing booking button to send a request." onsubmit="event.preventDefault()">
 <div class="details-card">
 <div class="details-head">
 <h2>Tus Datos</h2>
@@ -594,21 +595,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 </div>
 <div class="form-row wide">
-<div class="fg"><label for="fname">Nombre <span style="color:var(--pk)">*</span></label><input autocomplete="given-name" id="fname" name="first_name" placeholder="Juan" required aria-required="true" type="text"/></div>
-<div class="fg"><label for="lname">Apellido <span style="color:var(--pk)">*</span></label><input autocomplete="family-name" id="lname" name="last_name" placeholder="García" required aria-required="true" type="text"/></div>
-<div class="fg"><label for="fphone">Teléfono <span style="color:var(--pk)">*</span></label><input autocomplete="tel" id="fphone" name="phone" placeholder="(555) 000-0000" required aria-required="true" type="tel"/></div>
+<div class="fg"><label for="fname">Nombre <span style="color:var(--pk)">*</span></label><input autocomplete="given-name" id="fname" placeholder="Juan" required aria-required="true" type="text" name="first_name" toolparamdescription="Customer first name" form="bookingDetailsForm" aria-describedby="alertError"/></div>
+<div class="fg"><label for="lname">Apellido <span style="color:var(--pk)">*</span></label><input autocomplete="family-name" id="lname" placeholder="García" required aria-required="true" type="text" name="last_name" toolparamdescription="Customer last name" form="bookingDetailsForm" aria-describedby="alertError"/></div>
+<div class="fg"><label for="fphone">Teléfono <span style="color:var(--pk)">*</span></label><input autocomplete="tel" id="fphone" placeholder="(555) 000-0000" required aria-required="true" type="tel" name="phone" toolparamdescription="Customer phone number including area code" form="bookingDetailsForm" aria-describedby="alertError"/></div>
 <div class="fg">
-<label>Pasajeros</label>
-<div class="cdd" data-value="" id="paxCdd" style="background:var(--bg2);border:1.5px solid var(--border-c);border-radius:8px;padding:11px 32px 11px 14px;">
+<label for="fpax">Pasajeros</label>
+<div class="cdd" data-value="" id="paxCdd" style="background:var(--bg2);border:1.5px solid var(--border-c);border-radius:8px;padding:11px 32px 11px 14px;" aria-label="Passenger count or group range supported by the selected vehicle">
 <span class="cdd-placeholder" id="paxCddLabel">Selecciona…</span>
-<input id="fpax" type="hidden"/>
+<input id="fpax" type="hidden" name="passengers" toolparamdescription="Passenger count or group range supported by the selected vehicle" form="bookingDetailsForm"/>
 <div class="cdd-list"></div>
 </div>
 </div>
-<div class="fg"><label for="femail">Correo electrónico <span class="opt-label">(opcional)</span></label><input autocomplete="email" id="femail" name="email" placeholder="tu@correo.com" type="email"/></div>
+<div class="fg"><label for="femail">Correo electrónico <span class="opt-label">(opcional)</span></label><input autocomplete="email" id="femail" placeholder="tu@correo.com" type="email" name="email" toolparamdescription="Optional customer email address" form="bookingDetailsForm" aria-describedby="alertError"/></div>
 </div>
 <div class="form-row single">
-<div class="fg"><label for="fmessage">Solicitudes especiales <span class="opt-label">(opcional)</span></label><textarea id="fmessage" name="message" placeholder="Decoraciones, paradas, accesibilidad o cualquier otro detalle…"></textarea></div>
+<div class="fg"><label for="fmessage">Solicitudes especiales <span class="opt-label">(opcional)</span></label><textarea id="fmessage" placeholder="Decoraciones, paradas, accesibilidad o cualquier otro detalle…" name="message" toolparamdescription="Optional special requests" form="bookingDetailsForm"></textarea></div>
 </div>
 <div class="est-panel" id="estPanel" style="display:none;">
 <div class="est-head">
@@ -619,7 +620,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="est-note">Nuestro representante confirmará contigo el precio estimado.</div>
 </div>
 <div class="alert alert-success" id="alertSuccess"></div>
-<div class="alert alert-error" id="alertError"></div>
+<div class="alert alert-error" id="alertError" aria-live="polite" aria-atomic="true"></div>
 <button class="btn-submit" id="submitBtn" type="button" onclick="openEstimateModal()">Obtener una cotización</button>
 <div class="moovs-cta" id="moovsLink">
 <a href="https://customer.moovs.app/purple-heart-limo/new/info" target="_blank" rel="noopener noreferrer">Reservar por Moovs</a>
@@ -780,7 +781,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a class="m-wa" href="https://wa.me/18337400700" target="_blank" rel="nofollow noopener" aria-label="WhatsApp"><img src="/images/whatsapp-white.svg" width="30" height="30" alt=""/></a>
 <a class="m-book" href="https://customer.moovs.app/purple-heart-limo/request/new" target="_blank">Reservar un Viaje</a>
 </div>
-<script src="/js/pricing.js"></script>
+<script src="/js/pricing.js" defer></script>
 <script>
 function toggleMenu(){const m=document.getElementById('mobile-menu');const b=document.getElementById('hamburger');const open=m.style.display!=='block';m.style.display=open?'block':'none';if(b)b.setAttribute('aria-expanded',open?'true':'false');}
 
@@ -940,6 +941,10 @@ document.getElementById('svcTabs').addEventListener('click',e=>{
 // Reuse the existing dropdown nodes so booking IDs and layout contracts
 // remain intact; the shared helper moves each node to <body> while open.
 function setupAc(inp, ac, options) {
+  if (typeof window.initGooglePlacesAutocomplete !== 'function') {
+    document.addEventListener('DOMContentLoaded', () => setupAc(inp, ac, options), { once:true });
+    return null;
+  }
   return initGooglePlacesAutocomplete(inp, Object.assign({
     dropdown: ac,
     restrict: true

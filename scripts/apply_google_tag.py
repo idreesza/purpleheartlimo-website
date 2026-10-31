@@ -5,10 +5,10 @@ import re
 
 ROOT = Path(__file__).resolve().parent.parent
 MEASUREMENT_ID = "G-Y469VZMYZT"
-EXCLUDED_DIRS = {".git", ".local", ".agents", "node_modules", "attached_assets"}
+EXCLUDED_DIRS = {".git", ".local", ".agents", "node_modules", "attached_assets", "compiled-static", "generated-artifacts"}
 
 GOOGLE_TAG = """<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y469VZMYZT"></script>
+<script src="/js/analytics-loader.js" defer></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -44,14 +44,15 @@ def html_files() -> list[Path]:
 
 
 def transform(source: str, path: Path) -> str:
+    source = re.sub(r'<script[^>]*src=["\']/js/analytics-loader\.js["\'][^>]*></script>', '', source)
     source = LOADER_RE.sub("\n", source)
     source = INLINE_RE.sub("\n", source)
     source = COMMENT_RE.sub("\n", source)
     head = re.search(r"<head\b[^>]*>", source, re.I)
     if not head:
         raise ValueError(f"{path}: missing <head>")
-    tail = source[head.end():].lstrip("\r\n")
-    return source[:head.end()] + "\n" + GOOGLE_TAG + "\n" + tail
+    tail = re.sub(r'<meta\b[^>]*charset\s*=[^>]*>', '', source[head.end():], flags=re.I).lstrip("\r\n")
+    return source[:head.end()] + '\n<meta charset="utf-8">\n' + GOOGLE_TAG + "\n" + tail
 
 
 def main() -> None:

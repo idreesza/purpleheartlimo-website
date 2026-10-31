@@ -220,10 +220,11 @@
       bootstrapPromise = new Promise(function (resolve, reject) {
         var script = document.createElement('script');
         var query = 'key=' + encodeURIComponent(browserKey) +
-          '&v=weekly&libraries=' + encodeURIComponent(Array.from(requested).join(',')) +
+          '&v=weekly&loading=async&libraries=' + encodeURIComponent(Array.from(requested).join(',')) +
           '&callback=google.maps.__ib__';
         script.src = 'https://maps.googleapis.com/maps/api/js?' + query;
         script.async = true;
+        script.defer = true;
         script.dataset.phlGooglePlaces = 'true';
         maps.__ib__ = resolve;
         script.onerror = function () {
@@ -364,6 +365,8 @@
 
     var attribution = document.createElement('li');
     attribution.className = 'phl-place-attribution';
+    attribution.setAttribute('role', 'presentation');
+    attribution.setAttribute('aria-hidden', 'true');
     var logo = document.createElement('img');
     logo.src = 'https://maps-docs-team.web.app/samples/place-autocomplete-data-simple/dist/powered_by_google_on_white.png';
     logo.alt = 'Powered by Google';
@@ -453,12 +456,15 @@
     addStyles();
     options = options || {};
     var dropdown = resolveElement(options.dropdown);
-    var list = dropdown || document.createElement('ul');
+    var list = dropdown || document.getElementById(input.id + '-google-places') || document.createElement('ul');
     var dark = input.id === 'pickup-input' || input.id === 'dropoff-input' ||
       input.id.indexOf('stop-input-') === 0;
     list.classList.add('phl-place-list');
     list.classList.toggle('phl-place-list-dark', dark);
     list.setAttribute('role', 'listbox');
+    list.setAttribute('aria-label', input.getAttribute('aria-label') ||
+      (input.labels && input.labels[0] && input.labels[0].textContent.trim()) ||
+      input.getAttribute('placeholder') || input.id);
     // Existing booking CSS targets .ac-list/.stop-ac and is intentionally
     // kept for layout compatibility. Inline geometry/style here prevents
     // those legacy rules from defeating the fixed, body-level list.
@@ -507,10 +513,19 @@
       suppressNextInput: false
     };
     instances.set(input, instance);
+    input.setAttribute('role', 'combobox');
     input.setAttribute('aria-autocomplete', 'list');
     input.setAttribute('aria-controls', list.id || (input.id + '-google-places'));
     if (!list.id) list.id = input.id + '-google-places';
     input.setAttribute('aria-expanded', 'false');
+    if (!input.labels || !input.labels.length) {
+      if (!input.hasAttribute('aria-label') && !input.hasAttribute('aria-labelledby')) {
+        input.setAttribute('aria-label', input.getAttribute('placeholder') || input.id);
+      }
+    }
+    var descriptions = (input.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean);
+    if (descriptions.indexOf(status.id) < 0) descriptions.push(status.id);
+    input.setAttribute('aria-describedby', descriptions.join(' '));
 
     input.addEventListener('focus', function () {
       showLoading(instance);
@@ -559,8 +574,9 @@
       if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
         event.preventDefault();
         var delta = event.key === 'ArrowDown' ? 1 : -1;
-        instance.activeIndex = (instance.activeIndex + delta + instance.predictions.length) %
-          instance.predictions.length;
+        instance.activeIndex = instance.activeIndex < 0
+          ? (delta > 0 ? 0 : instance.predictions.length - 1)
+          : (instance.activeIndex + delta + instance.predictions.length) % instance.predictions.length;
         Array.prototype.forEach.call(
           instance.list.querySelectorAll('.phl-place-item'),
           function (item, index) {

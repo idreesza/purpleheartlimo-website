@@ -28,7 +28,7 @@ class GooglePlacesIntegrationTests(unittest.TestCase):
         self.assertIn("powered_by_google_on_white.png", self.helper)
         self.assertIn("https://maps.googleapis.com/maps/api/js?", self.helper)
         self.assertIn("key=' + encodeURIComponent(browserKey)", self.helper)
-        self.assertIn("&v=weekly&libraries=", self.helper)
+        self.assertIn("&v=weekly&loading=async&libraries=", self.helper)
         self.assertEqual(self.helper.count("https://maps.googleapis.com/maps/api/js?"), 1)
         self.assertIn("Google Maps authentication failed", self.helper)
         self.assertIn("Google Maps library unavailable", self.helper)
@@ -85,13 +85,16 @@ class GooglePlacesIntegrationTests(unittest.TestCase):
         self.assertEqual(result["miles"], 1.0)
 
     def test_no_competing_maps_javascript_loader_in_pages(self):
-        page_files = list(ROOT.rglob("*.html"))
+        excluded = {'node_modules', 'compiled-static', 'generated-artifacts', '.local', '.git'}
+        page_files = [p for p in ROOT.rglob("*.html") if not excluded.intersection(p.relative_to(ROOT).parts)]
         for page in page_files:
             text = page.read_text()
             self.assertNotIn("maps.googleapis.com/maps/api/js", text, page.name)
             self.assertNotIn("maps.google.com/maps/api/js", text, page.name)
             self.assertNotIn("google.maps.places.Autocomplete", text, page.name)
         for script in ROOT.rglob("*.js"):
+            if excluded.intersection(script.relative_to(ROOT).parts):
+                continue
             if script == ROOT / "js/google-places-autocomplete.js":
                 continue
             text = script.read_text()

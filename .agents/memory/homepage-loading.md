@@ -6,7 +6,7 @@ Do not hide the homepage behind a timed logo intro.
 
 **Why:** The September 12, 2026 mobile PageSpeed report measured 6.2s LCP and identified the navigation logo as the LCP element; the timed intro added avoidable render delay.
 
-**How to apply:** Keep branding visible in the header without blocking initial content. Preserve immediate Analytics tracking rather than withholding it until interaction solely to improve a lab score.
+**How to apply:** Keep branding visible in the header without blocking initial content. The user's later PageSpeed brief explicitly requests deferred Analytics transport: preserve the immediate dataLayer queue and load the transport after load/idle or first interaction. Do not require interaction exclusively.
 
 Keep the default booking layout present before JavaScript and avoid late font replacement on slow connections.
 

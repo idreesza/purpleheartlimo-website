@@ -556,6 +556,25 @@ def _redirect_destination(request_target):
 
 
 class Handler(SimpleHTTPRequestHandler):
+    def guess_type(self, path):
+        content_type = super().guess_type(path)
+        return content_type + '; charset=utf-8' if content_type == 'text/html' else content_type
+
+    def translate_path(self, path):
+        source = super().translate_path(path)
+        # The build is an internal serving layer, never a separate public site.
+        if os.path.isdir(source):
+            candidate = os.path.join(source, 'index.html')
+            if os.path.isfile(candidate) and urllib.parse.urlsplit(path).path.endswith('/'):
+                source = candidate
+        relative = os.path.relpath(source, self.directory)
+        compiled = os.path.join(self.directory, 'compiled-static', relative)
+        if (not relative.startswith(('..', 'compiled-static'))
+                and os.path.isfile(source) and os.path.isfile(compiled)
+                and os.path.getmtime(compiled) >= os.path.getmtime(source)):
+            return compiled
+        return source
+
     _gzip_cache = {}
     _compressible_extensions = ('.html', '.css', '.js', '.json', '.xml', '.txt', '.svg')
     _hourly_hub_cache = _BoundedTTLCache(
@@ -903,6 +922,9 @@ class Handler(SimpleHTTPRequestHandler):
             or lower == '/.git'
             or lower == '/scripts'
             or lower.startswith('/scripts/')
+            or lower.startswith('/compiled-static/')
+            or lower.startswith('/node_modules/')
+            or lower.startswith('/generated-artifacts/')
         ):
             return True
         # Briefs and other source documents under attached_assets can contain
@@ -952,9 +974,10 @@ class Handler(SimpleHTTPRequestHandler):
         if IS_PROD:
             # Production: cache static assets, always revalidate HTML.
             if path.endswith(('.css', '.js', '.webp', '.png', '.jpg', '.jpeg', '.svg', '.ico', '.woff', '.woff2', '.mp4')):
-                self.send_header('Cache-Control', 'public, max-age=86400')
+                versioned = bool(urllib.parse.parse_qs(urllib.parse.urlsplit(self.path).query).get('v'))
+                self.send_header('Cache-Control', 'public, max-age=31536000, immutable' if versioned else 'public, max-age=0, must-revalidate')
             else:
-                self.send_header('Cache-Control', 'no-cache')
+                self.send_header('Cache-Control', 'public, max-age=0, must-revalidate')
         else:
             # Dev preview: never cache, so edits show up on refresh.
             self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')

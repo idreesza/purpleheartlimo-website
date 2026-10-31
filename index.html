@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="utf-8">
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y469VZMYZT"></script>
+<script src="/js/analytics-loader.js" defer></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -27,8 +28,6 @@
 <script id="seo-business-graph" type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LimousineService","@id":"https://purpleheartlimo.com/#business","name":"Purple Heart Limo","url":"https://purpleheartlimo.com/","telephone":"+18337400700","priceRange":"$$","openingHours":"Mo-Su 00:00-23:59","areaServed":[{"@type":"City","name":"Dallas"},{"@type":"City","name":"Fort Worth"},{"@type":"City","name":"Addison"},{"@type":"City","name":"Frisco"},{"@type":"City","name":"Plano"},{"@type":"City","name":"Arlington"},{"@type":"Airport","name":"Dallas Fort Worth International Airport","iataCode":"DFW"},{"@type":"Airport","name":"Dallas Love Field","iataCode":"DAL"}]}]}</script>
 <!-- Google Tag Manager -->
 <link href="/favicon.png" rel="icon" type="image/png"/>
-<meta charset="utf-8"/>
-
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 
 <meta content="limo service austin tx, limo service dallas tx, limo service houston tx, black car service texas, airport transfer austin, dfw airport limo, luxury transportation texas, Texan owned limo, wedding limo texas, corporate car service texas" name="keywords"/>
@@ -92,8 +91,8 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
 <!-- The header banner is the first visible branded image and the mobile LCP. -->
-<link as="image" href="/images/logo-banner-960.webp" imagesrcset="/images/logo-banner-480.webp 480w, /images/logo-banner-960.webp 960w" imagesizes="(max-width: 768px) 80vw, 465px" rel="preload" fetchpriority="high"/>
-<link as="image" href="/images/hero-jet-escalade.webp" rel="preload" fetchpriority="low"/>
+<link as="image" href="/images/logo-banner-960.webp" imagesrcset="/images/logo-banner-480.webp 480w, /images/logo-banner-960.webp 960w" imagesizes="(max-width: 768px) 80vw, 465px" rel="preload"/>
+<link rel="preload" as="image" href="/images/hero-jet-escalade.webp" fetchpriority="high" imagesrcset="/images/hero-jet-escalade-640.webp 640w, /images/hero-jet-escalade-960.webp 960w, /images/hero-jet-escalade-1280.webp 1280w" imagesizes="100vw">
 <!-- Keep the initial fallback face when fonts arrive late on slow mobile connections. -->
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;display=optional" media="print" onload="this.media='all'" rel="stylesheet"/>
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;display=optional"></noscript>
@@ -732,7 +731,7 @@ a { text-decoration:none; color:inherit; }
     linear-gradient(180deg, rgba(6,6,6,0.45) 0%, transparent 28%);
 }/* ===== HOME HERO — Light Luxury (home-only) ===== */
 #home-page .hero { background:#FBFaf7; }
-#home-page .hero::before { background-image:url('images/hero-jet-escalade.webp');
+#home-page .hero::before { background-image:none;
   background-size:cover; background-position:center 60%; background-repeat:no-repeat;
   mix-blend-mode:normal; opacity:1; animation:none;
   top:0; left:0; width:100%; height:100%; }
@@ -1622,7 +1621,7 @@ body.home-active .nav-links > li.nav-home-li { display:none !important; }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
 <script src="js/pricing.js" defer></script>
-<script src="/js/google-places-autocomplete.js"></script>
+<script src="/js/google-places-autocomplete.js" defer></script>
 <script>
   document.addEventListener('DOMContentLoaded', function(){
     if (window.emailjs) { emailjs.init({ publicKey: 'coK69SSFSbc1x8dc6' }); }
@@ -1854,6 +1853,12 @@ body.home-active .navbar.scrolled {
   body:has(.mobile-bar) .phl-mobile-call-bar{display:none}
 }
 </style>
+<script src="/js/webmcp-tools.js" defer></script>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<style>/* responsive hero source */
+#home-page .hero > .phl-hero-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%;z-index:0;pointer-events:none}
+@media(max-width:768px){#home-page .hero > .phl-hero-media{object-position:center top}}
+</style>
 </head>
 <body class="home-active">
 <!-- Google Tag Manager (noscript) -->
@@ -1863,7 +1868,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ===== NAVBAR ===== -->
 <nav class="navbar" id="navbar">
 <a class="nav-logo" href="/">
-<img alt="Purple Heart Limo" class="nav-logo-img" decoding="async" fetchpriority="high" loading="eager" width="960" height="217" src="/images/logo-banner-960.webp" srcset="/images/logo-banner-480.webp 480w, /images/logo-banner-960.webp 960w" sizes="(max-width: 768px) 80vw, 465px"/>
+<img alt="Purple Heart Limo" class="nav-logo-img" decoding="async" loading="eager" width="960" height="217" src="/images/logo-banner-960.webp" srcset="/images/logo-banner-480.webp 480w, /images/logo-banner-960.webp 960w" sizes="(max-width: 768px) 80vw, 465px"/>
 </a>
 <ul class="nav-links">
 <li class="nav-home-li"><a href="/">Home</a></li>
@@ -1906,15 +1911,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </li>
 </ul>
 <div class="nav-cta">
-<button aria-label="Switch language" id="lang-toggle" onclick="toggleLang()" style="background:none;border:1.5px solid rgba(0,0,0,0.15);border-radius:20px;padding:5px 12px;font-family:inherit;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;cursor:pointer;color:var(--purple);display:flex;align-items:center;gap:5px;transition:all 0.2s;" title="Switch language">🌐 <span id="lang-label">EN</span></button>
+<button aria-label="Switch language" id="lang-toggle" onclick="toggleLang()" style="background:none;border:1.5px solid rgba(0,0,0,0.15);border-radius:20px;padding:5px 12px;font-family:inherit;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;cursor:pointer;color:var(--purple);display:flex;align-items:center;gap:5px;transition:all 0.2s;" title="Switch language" type="button">🌐 <span id="lang-label">EN</span></button>
 <a class="nav-phone" href="tel:+18337400700"><span class="phone-ico"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.05 15.05 0 0 1-6.59-6.59l2.2-2.21a1 1 0 0 0 .25-1.02A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"></path></svg></span><span class="nav-phone-label">Call</span></a></div>
-<button aria-expanded="false" aria-label="Open navigation menu" class="hamburger" id="hamburger" onclick="toggleMenu()">
+<button aria-expanded="false" aria-label="Open navigation menu" class="hamburger" id="hamburger" onclick="toggleMenu()" type="button">
 <span></span><span></span><span></span>
 </button>
 </nav>
 <!-- Mobile menu -->
 <div id="mobile-menu" style="display:none;position:fixed;top:72px;left:0;right:0;background:white;z-index:999;padding:20px;box-shadow:var(--shadow-lg);border-bottom:2px solid var(--gray-light);">
-<button aria-label="Switch language" id="lang-toggle-mobile" onclick="toggleLang()" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;margin-bottom:12px;background:var(--purple);color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:0.9rem;font-weight:700;letter-spacing:0.08em;cursor:pointer;">🌐 <span id="lang-label-mobile">English / Español</span></button>
+<button aria-label="Switch language" id="lang-toggle-mobile" onclick="toggleLang()" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;margin-bottom:12px;background:var(--purple);color:#fff;border:none;border-radius:8px;font-family:inherit;font-size:0.9rem;font-weight:700;letter-spacing:0.08em;cursor:pointer;" type="button">🌐 <span id="lang-label-mobile">English / Español</span></button>
 <a href="/" style="display:block;padding:12px;font-size:0.9rem;color:#0a0a0a;border-bottom:1px solid #F2EFE8;">🏠 Home</a>
 <a href="/services.html" style="display:block;padding:12px;font-size:0.9rem;color:var(--text);border-bottom:1px solid var(--gray-light);">Services</a>
 <a href="/services.html#airport" style="display:block;padding:12px 12px 12px 24px;font-size:0.85rem;color:var(--text);border-bottom:1px solid var(--gray-light);">✈️ Airport Transfer</a>
@@ -1948,21 +1953,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <!-- ===== DISCOUNT CLOUD WIDGET ===== -->
 <div class="discount-cloud" id="discountCloud" style="display:none;">
-<button aria-label="Close" class="discount-cloud-close" onclick="closeCloud()">✕</button>
+<button aria-label="Close" class="discount-cloud-close" onclick="closeCloud()" type="button">✕</button>
 <div class="discount-cloud-badge">🎖️ Welcome Offer</div>
 <h4>15% Off<br/>Your First Ride</h4>
 <p>Enter your name &amp; phone — we'll text your code in 60 seconds. Texan-owned Texas luxury.</p>
 <div class="discount-cloud-form">
 <input autocomplete="name" id="dc-name" oninput="clearFieldError('dc-name','err-dc-name')" placeholder="Your Name" type="text"/>
-<span class="field-error" id="err-dc-name">⚠ Name is required</span>
+<span class="field-error" id="err-dc-name" aria-live="polite" aria-atomic="true">⚠ Name is required</span>
 <input autocomplete="tel" id="dc-phone" oninput="clearFieldError('dc-phone','err-dc-phone')" placeholder="Phone Number" type="tel"/>
-<span class="field-error" id="err-dc-phone">⚠ Phone number is required</span>
-<button class="discount-cloud-btn" onclick="submitCloud()">🎁 Claim My 15% Off</button>
+<span class="field-error" id="err-dc-phone" aria-live="polite" aria-atomic="true">⚠ Phone number is required</span>
+<button class="discount-cloud-btn" onclick="submitCloud()" type="button">🎁 Claim My 15% Off</button>
 </div>
 <p class="discount-cloud-note">No spam, ever. Code arrives within 60 seconds.</p>
 </div>
 <!-- Side tab appears after cloud is dismissed -->
-<button aria-label="Claim 15% discount" class="discount-tab" id="discountTab" onclick="openCloud()">
+<button aria-label="Claim 15% discount" class="discount-tab" id="discountTab" onclick="openCloud()" type="button">
   🎁 15% Off
 </button>
 <!-- ================================================================
@@ -1970,18 +1975,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 ================================================================ -->
 <main class="page active" id="home-page">
 <!-- Hero -->
-<section class="hero">
+<section class="hero"><img class="phl-hero-media" alt="" aria-hidden="true" src="/images/hero-jet-escalade.webp" srcset="/images/hero-jet-escalade-640.webp 640w, /images/hero-jet-escalade-960.webp 960w, /images/hero-jet-escalade-1280.webp 1280w" sizes="100vw" fetchpriority="high" decoding="async">
 <div class="hero-overlay" aria-hidden="true"></div>
 <div class="hero-inner">
 <div class="hero-content" aria-hidden="true"></div>
 <!-- Booking Widget -->
-<div class="booking-card" id="booking-widget">
+<form class="booking-card" id="booking-widget" novalidate="" toolname="prepare_limo_quote" tooldescription="Prepare a Purple Heart Limo quote for user review. Fill trip and contact details; the user must click the existing booking button to send a request." onsubmit="event.preventDefault()">
 <h1 class="bk-tagline">Luxury Rides. Premier Limo Service. Prime Limo Fleet.</h1>
 <h2 class="bk-sronly">Get an Instant Quote</h2>
 <div class="trip-tabs">
-<button class="trip-tab active" onclick="setTab(this,'airport')">✈ Airport</button>
-<button class="trip-tab" onclick="setTab(this,'pointtopoint')">→ Point to Point</button>
-<button class="trip-tab" onclick="setTab(this,'hourly')">⏱ Hourly</button>
+<button class="trip-tab active" onclick="setTab(this,'airport')" type="button">✈ Airport</button>
+<button class="trip-tab" onclick="setTab(this,'pointtopoint')" type="button">→ Point to Point</button>
+<button class="trip-tab" onclick="setTab(this,'hourly')" type="button">⏱ Hourly</button>
 </div>
 <!-- Field pool — JS (bkApplyLayout) distributes these into steps per service type -->
 <div id="bk-pool" style="display:none;">
@@ -1994,30 +1999,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <div class="bk-bar" id="bk-bar">
 <div class="form-group" id="fb-pickup">
-<label>Pickup Location</label>
-<input autocomplete="off" id="pickup-input" oninput="clearFieldError('pickup-input','err-pickup')" placeholder="Address, hotel or airport..." type="text"/>
-<span class="field-error" id="err-pickup">⚠ Pickup location is required</span>
+<label for="pickup-input">Pickup Location</label>
+<input autocomplete="off" id="pickup-input" oninput="clearFieldError('pickup-input','err-pickup')" placeholder="Address, hotel or airport..." type="text" name="pickup" toolparamdescription="Pickup address, airport or hotel" aria-describedby="err-pickup" role="combobox" aria-autocomplete="list" aria-controls="pickup-input-google-places" aria-expanded="false"/><ul id="pickup-input-google-places" style="display:none" role="listbox" aria-label="Pickup address, airport or hotel"></ul>
+<span class="field-error" id="err-pickup" aria-live="polite" aria-atomic="true">⚠ Pickup location is required</span>
 </div>
 <div id="dropoff-section">
 <div class="form-group">
-<label>Drop-off Location</label>
-<input autocomplete="off" id="dropoff-input" oninput="clearFieldError('dropoff-input','err-dropoff')" placeholder="Destination..." type="text"/>
-<span class="field-error" id="err-dropoff">⚠ Drop-off location is required</span>
+<label for="dropoff-input">Drop-off Location</label>
+<input autocomplete="off" id="dropoff-input" oninput="clearFieldError('dropoff-input','err-dropoff')" placeholder="Destination..." type="text" name="dropoff" toolparamdescription="Drop-off address, airport or hotel" aria-describedby="err-dropoff" role="combobox" aria-autocomplete="list" aria-controls="dropoff-input-google-places" aria-expanded="false"/><ul id="dropoff-input-google-places" style="display:none" role="listbox" aria-label="Drop-off address, airport or hotel"></ul>
+<span class="field-error" id="err-dropoff" aria-live="polite" aria-atomic="true">⚠ Drop-off location is required</span>
 </div>
 </div>
 <div class="form-row" id="fb-datetime">
 <div class="form-group">
-<label>Date</label>
+<label for="date-input">Date</label>
 <div style="position:relative;">
-<input autocomplete="off" id="date-input" placeholder="mm/dd/yyyy" readonly="" style="cursor:pointer;padding-right:36px;" type="text"/>
+<input autocomplete="off" id="date-input" placeholder="mm/dd/yyyy" readonly="" style="cursor:pointer;padding-right:36px;" type="text" name="date" toolparamdescription="Pickup date in MM/DD/YYYY"/>
 <svg fill="none" stroke="rgba(255,255,255,0.7)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="position:absolute;right:11px;top:50%;transform:translateY(-50%);pointer-events:none;width:18px;height:18px;opacity:1;" viewBox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
 </div>
 </div>
 <div class="form-group">
-<label>Pickup Time</label>
+<label for="time-ampm">Pickup Time</label>
 <div style="display:grid;grid-template-columns:1fr 1fr 80px;gap:6px;">
 <div class="csel compact" id="csel-hour">
-<button class="csel-btn" onclick="cselToggle('csel-hour')" type="button">Hr</button>
+<button class="csel-btn" onclick="cselToggle('csel-hour')" type="button" aria-label="Pickup hour, 1 through 12">Hr</button>
 <div class="csel-list">
 <div class="csel-opt" onclick="cselPick('csel-hour','time-hour','1')">1</div>
 <div class="csel-opt" onclick="cselPick('csel-hour','time-hour','2')">2</div>
@@ -2032,10 +2037,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="csel-opt" onclick="cselPick('csel-hour','time-hour','11')">11</div>
 <div class="csel-opt" onclick="cselPick('csel-hour','time-hour','12')">12</div>
 </div>
-<input id="time-hour" type="hidden" value=""/>
+<input id="time-hour" type="hidden" value="" name="hour" toolparamdescription="Pickup hour, 1 through 12"/>
 </div>
 <div class="csel compact" id="csel-min">
-<button class="csel-btn" onclick="cselToggle('csel-min')" type="button">Min</button>
+<button class="csel-btn" onclick="cselToggle('csel-min')" type="button" aria-label="Pickup minute, 00 through 55 in five-minute increments">Min</button>
 <div class="csel-list">
 <div class="csel-opt" onclick="cselPick('csel-min','time-min','00')">00</div>
 <div class="csel-opt" onclick="cselPick('csel-min','time-min','05')">05</div>
@@ -2050,15 +2055,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="csel-opt" onclick="cselPick('csel-min','time-min','50')">50</div>
 <div class="csel-opt" onclick="cselPick('csel-min','time-min','55')">55</div>
 </div>
-<input id="time-min" type="hidden" value=""/>
+<input id="time-min" type="hidden" value="" name="minute" toolparamdescription="Pickup minute, 00 through 55 in five-minute increments"/>
 </div>
 <div class="csel compact" id="csel-ampm">
-<button class="csel-btn" onclick="cselToggle('csel-ampm')" type="button">AM</button>
+<button class="csel-btn" onclick="cselToggle('csel-ampm')" type="button" aria-label="AM or PM">AM</button>
 <div class="csel-list">
 <div class="csel-opt selected" onclick="cselPick('csel-ampm','time-ampm','AM')">AM</div>
 <div class="csel-opt" onclick="cselPick('csel-ampm','time-ampm','PM')">PM</div>
 </div>
-<input id="time-ampm" type="hidden" value="AM"/>
+<input id="time-ampm" type="hidden" value="AM" name="ampm" toolparamdescription="AM or PM"/>
 </div>
 </div>
 </div>
@@ -2068,33 +2073,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div id="distance-note" style="display:none;margin-top:8px;font-size:0.78rem;color:rgba(255,255,255,0.85);text-align:left;padding-left:6px;"></div>
 <div class="bk-details" id="bk-details">
 <div class="form-group" id="fb-name">
-<label>Your Name</label>
-<input id="quote-name" oninput="clearFieldError('quote-name','err-name')" placeholder="Full name" type="text"/>
+<label for="quote-name">Your Name</label>
+<input id="quote-name" oninput="clearFieldError('quote-name','err-name')" placeholder="Full name" type="text" name="name" toolparamdescription="Customer full name" aria-describedby="err-name" autocomplete="name"/>
 <input id="quote-website" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;height:0;width:0;opacity:0;pointer-events:none;"/>
-<span class="field-error" id="err-name">⚠ Name is required</span>
+<span class="field-error" id="err-name" aria-live="polite" aria-atomic="true">⚠ Name is required</span>
 </div>
 <div class="form-group" id="fb-email">
-<label>Email <span class="optional-badge">(optional)</span></label>
-<input autocomplete="off" id="quote-email" placeholder="you@email.com" type="email"/>
+<label for="quote-email">Email <span class="optional-badge">(optional)</span></label>
+<input id="quote-email" placeholder="you@email.com" type="email" name="email" toolparamdescription="Optional customer email address" autocomplete="email"/>
 </div>
 <div class="form-group" id="fb-phone">
-<label>Phone</label>
-<input id="quote-phone" oninput="clearFieldError('quote-phone','err-phone')" placeholder="(555) 000-0000" type="tel"/>
-<span class="field-error" id="err-phone">⚠ Phone number is required</span>
+<label for="quote-phone">Phone</label>
+<input id="quote-phone" oninput="clearFieldError('quote-phone','err-phone')" placeholder="(555) 000-0000" type="tel" name="phone" toolparamdescription="Customer phone number including area code" aria-describedby="err-phone" autocomplete="tel"/>
+<span class="field-error" id="err-phone" aria-live="polite" aria-atomic="true">⚠ Phone number is required</span>
 </div>
 <div class="flight-field show" id="flight-field">
 <div class="form-group">
-<label style="display:flex;align-items:center;gap:6px;">
+<label style="display:flex;align-items:center;gap:6px;" for="flight-input">
 <span style="font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);font-weight:700;font-family:'Plus Jakarta Sans','Inter',sans-serif;">✈ Flight No.</span>
 <span class="optional-badge">(optional)</span>
 </label>
-<input autocomplete="off" id="flight-input" placeholder="AA1234" style="font-family:'Courier New',monospace;letter-spacing:0.12em;text-transform:uppercase;" type="text"/>
+<input autocomplete="off" id="flight-input" placeholder="AA1234" style="font-family:'Courier New',monospace;letter-spacing:0.12em;text-transform:uppercase;" type="text" name="flight" toolparamdescription="Optional flight number"/>
 </div>
 </div>
 <div class="form-group" id="fb-pax">
-<label data-en="Passengers" data-es="Pasajeros" id="label-pax" style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Passengers</label>
+<label data-en="Passengers" data-es="Pasajeros" id="label-pax" style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;" for="pax-input">Passengers</label>
 <div class="csel" id="csel-pax">
-<button class="csel-btn" onclick="cselToggle('csel-pax')" type="button">1</button>
+<button class="csel-btn" onclick="cselToggle('csel-pax')" type="button" aria-label="Passenger count or group range supported by the selected vehicle">1</button>
 <div class="csel-list">
 <div class="csel-opt selected" onclick="cselPick('csel-pax','pax-input','1');checkCapacity()">1</div>
 <div class="csel-opt" onclick="cselPick('csel-pax','pax-input','2');checkCapacity()">2</div>
@@ -2111,14 +2116,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="csel-opt" onclick="cselPick('csel-pax','pax-input','18');checkCapacity()">18</div>
 <div class="csel-opt" onclick="cselPick('csel-pax','pax-input','24');checkCapacity()">24</div>
 </div>
-<input id="pax-input" type="hidden" value="1"/>
+<input id="pax-input" type="hidden" value="1" name="passengers" toolparamdescription="Passenger count or group range supported by the selected vehicle"/>
 </div>
 <div id="capacity-warning" style="display:none;margin-top:8px;background:#fffbeb;border:1.5px solid #f59e0b;border-radius:8px;padding:9px 12px;font-size:0.78rem;color:#92400e;line-height:1.5;"></div>
 </div>
 <div id="luggage-row" style="margin-top:10px;">
 <label data-en="🧳 Luggage" data-es="🧳 Equipaje" id="label-luggage" style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">🧳 Luggage</label>
 <div class="csel" id="csel-luggage">
-<button class="csel-btn" onclick="cselToggle('csel-luggage')" type="button">0 bags</button>
+<button class="csel-btn" onclick="cselToggle('csel-luggage')" type="button" aria-label="luggage-input">0 bags</button>
 <div class="csel-list">
 <div class="csel-opt selected" onclick="cselPick('csel-luggage','luggage-input','0','0 bags')">0 bags</div>
 <div class="csel-opt" onclick="cselPick('csel-luggage','luggage-input','1','1 bag')">1 bag</div>
@@ -2134,9 +2139,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 </div>
 <div class="form-group" id="fb-vehicle">
-<label data-en="Ride Type" data-es="Tipo" id="label-type" style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;">Ride Type</label>
+<label data-en="Ride Type" data-es="Tipo" id="label-type" style="font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:6px;" for="vehicle-input">Ride Type</label>
 <div class="csel" id="csel-vehicle">
-<button class="csel-btn" onclick="cselToggle('csel-vehicle')" type="button">Luxury SUV</button>
+<button class="csel-btn" onclick="cselToggle('csel-vehicle')" type="button" aria-label="Vehicle: Luxury SUV, Business SUV, Luxury Sedan, Business Sedan, Sprinter Van, Sprinter Jet, Stretch Sedan, Stretch SUV, Party Bus, Coach Bus">Luxury SUV</button>
 <div class="csel-list">
 <div class="csel-opt selected" onclick="cselPick('csel-vehicle','vehicle-input','Luxury SUV');onVehicleChange('Luxury SUV')">Luxury SUV</div>
 <div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','Business SUV');onVehicleChange('Business SUV')">Business SUV</div>
@@ -2149,12 +2154,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','Party Bus');onVehicleChange('Party Bus')">Party Bus</div>
 <div class="csel-opt" onclick="cselPick('csel-vehicle','vehicle-input','Coach Bus');onVehicleChange('Coach Bus')">Coach Bus</div>
 </div>
-<input id="vehicle-input" type="hidden" value="Luxury SUV"/>
+<input id="vehicle-input" type="hidden" value="Luxury SUV" name="vehicle" toolparamdescription="Vehicle: Luxury SUV, Business SUV, Luxury Sedan, Business Sedan, Sprinter Van, Sprinter Jet, Stretch Sedan, Stretch SUV, Party Bus, Coach Bus"/>
 </div>
 </div>
 <div class="form-group" id="fb-notes">
-<label>Notes <span class="optional-badge">(optional)</span></label>
-<textarea id="quote-notes" placeholder="Special requests..." rows="2"></textarea>
+<label for="quote-notes">Notes <span class="optional-badge">(optional)</span></label>
+<textarea id="quote-notes" placeholder="Special requests..." rows="2" name="notes" toolparamdescription="Optional special requests"></textarea>
 </div>
 <div id="vehicle-display" style="display:none;"></div>
 <div id="price-estimate" style="display:none;background:rgba(201,168,76,0.1);border:1.5px solid rgba(201,168,76,0.45);border-radius:10px;padding:12px 16px;margin-bottom:10px;text-align:center;">
@@ -2163,7 +2168,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div style="font-size:0.65rem;color:var(--gray);margin-top:2px;">Flat rate · No surge · All-inclusive</div>
 <div id="price-note" style="font-size:0.68rem;color:#b45309;font-weight:600;margin-top:4px;"></div>
 </div>
-<div class="bk-details-action"><button class="btn-book-full" id="quote-btn" onclick="submitQuote()">Book My Ride</button></div>
+<div class="bk-details-action"><button class="btn-book-full" id="quote-btn" onclick="submitQuote()" type="button">Book My Ride</button></div>
 <div id="quote-success" style="display:none;background:#f0fdf4;border:1.5px solid #22c55e;border-radius:10px;padding:12px 14px;text-align:center;margin-top:8px;">
 <div style="color:#16a34a;font-weight:700;font-size:0.88rem;">✅ Request received!</div>
 <div style="color:#166534;font-size:0.78rem;margin-top:4px;">We'll call or text you within 5 minutes with your exact flat rate.</div>
@@ -2200,7 +2205,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <div class="fleet-caption" id="fleet-caption"></div>
 <a class="bk-phone" href="tel:+18337400700">📞 (833) 740-0700</a>
-</div>
+</form>
 </div>
 <div class="svc-marquee" aria-label="The services we provide">
 <div class="svc-marquee-track">
