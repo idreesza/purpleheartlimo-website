@@ -17,7 +17,10 @@ from collections import OrderedDict
 from concurrent.futures import ThreadPoolExecutor
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 
-IS_PROD = bool(os.environ.get('REPLIT_DEPLOYMENT'))
+# Production caching on any real deployment: Render sets RENDER=true;
+# PRODUCTION=1 works on any host; REPLIT_DEPLOYMENT kept for the old host.
+IS_PROD = bool(os.environ.get('PRODUCTION') or os.environ.get('RENDER')
+               or os.environ.get('REPLIT_DEPLOYMENT'))
 
 # The static site was originally deployed with a Netlify function at this
 # path.  Autoscale runs this Python server instead, so keep the browser

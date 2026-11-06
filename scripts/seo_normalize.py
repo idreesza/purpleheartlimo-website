@@ -21,7 +21,8 @@ BUSINESS_ID = BASE + "/#business"
 SAME_AS = [
     "https://www.facebook.com/profile.php?id=61578479742416",
 ]
-EXCLUDED = {".git", ".local", ".agents", "node_modules", "attached_assets"}
+EXCLUDED = {".git", ".local", ".agents", "node_modules", "attached_assets",
+            "compiled-static", "generated-artifacts"}  # build output is not source
 TARGET_META = {
     "description", "robots", "twitter:card", "twitter:title",
     "twitter:description", "twitter:image",

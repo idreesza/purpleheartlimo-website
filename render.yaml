@@ -1,0 +1,36 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# Dashboard: New > Blueprint > pick this repo. Render builds the Dockerfile
+# and redeploys on every push to the connected branch.
+services:
+  - type: web
+    name: purpleheartlimo
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter          # always-on; the free plan sleeps (slow first visit)
+    region: ohio           # closest Render region to Texas
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: PRODUCTION
+        value: "1"
+      # Secrets: "sync: false" makes Render ask for each value at setup.
+      # Enter them in the Render dashboard; never commit them here.
+      - key: SENDGRID_API_KEY        # booking/contact emails
+        sync: false
+      - key: NOTIFY_EMAIL            # where booking emails go (default info@purpleheartlimo.com)
+        sync: false
+      - key: GOOGLE_MAPS_API_KEY     # server-side routes/distances (quotes, hourly hub)
+        sync: false
+      - key: GOOGLE_MAPS_BROWSER_API_KEY   # address autocomplete in the browser
+        sync: false
+      - key: AVIATIONSTACK_API_KEY   # flight tracker
+        sync: false
+      - key: EMAILJS_PUBLIC_KEY
+        sync: false
+      - key: EMAILJS_SERVICE_ID
+        sync: false
+      - key: EMAILJS_TEMPLATE_ID
+        sync: false
+    domains:
+      - purpleheartlimo.com
+      - www.purpleheartlimo.com

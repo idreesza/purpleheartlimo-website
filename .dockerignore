@@ -1,0 +1,17 @@
+.git
+.github
+.agents
+.canvas
+.local
+.replit
+.env
+.env.*
+node_modules
+compiled-static
+generated-artifacts
+exports
+reports
+screenshots
+images/_orig
+**/__pycache__
+*.log

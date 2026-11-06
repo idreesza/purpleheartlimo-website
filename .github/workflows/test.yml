@@ -1,0 +1,45 @@
+name: Tests
+
+# Hosting is Render (render.yaml), which deploys on push by itself.
+# This workflow only verifies every push and pull request; it deploys nothing.
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # seo_normalize --check derives sitemap <lastmod> from git
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Python tests
+        run: |
+          python -m unittest \
+            scripts.test_canonical_redirects \
+            scripts.test_redirect_index_regressions \
+            scripts.test_google_places_autocomplete \
+            scripts.test_hourly_hub \
+            scripts.test_server_compression \
+            scripts.test_asset_delivery
+          (cd scripts && python -m unittest test_seo_normalize)
+
+      - name: JavaScript tests
+        run: for t in scripts/test_*.js; do node --test "$t"; done
+
+      - name: Generated SEO metadata and sitemap are up to date
+        run: python scripts/seo_normalize.py --check
+
+      - name: Production image builds
+        run: docker build -t purpleheartlimo .
