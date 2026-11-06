@@ -555,6 +555,80 @@ def _redirect_destination(request_target):
     return (destination, 301) if destination != request_target else None
 
 
+_CANONICAL_RE = re.compile(
+    r'<link\b[^>]*\brel\s*=\s*["\']canonical["\'][^>]*>', re.I)
+_HREF_RE = re.compile(r'\bhref\s*=\s*["\']([^"\']+)["\']', re.I)
+_canonical_cache = {}
+
+
+def _page_file_for(root, url_path):
+    """Map a request path to the HTML file the static handler would serve
+    (including the alias forms that duplicate a canonical URL), or None."""
+    try:
+        rel = posixpath.normpath('/' + urllib.parse.unquote(url_path).lstrip('/'))
+    except (TypeError, ValueError):
+        return None
+    if rel.startswith('/..'):
+        return None
+    base = os.path.join(root, rel.lstrip('/'))
+    candidates = []
+    if url_path.endswith('/'):
+        candidates = [os.path.join(base, 'index.html'), base.rstrip('/\\') + '.html']
+    elif url_path.endswith('.html'):
+        candidates = [base]
+    elif not os.path.splitext(rel)[1]:
+        candidates = [base + '.html', os.path.join(base, 'index.html')]
+    for candidate in candidates:
+        if os.path.isfile(candidate):
+            return os.path.realpath(candidate)
+    return None
+
+
+def _canonical_path(html_file):
+    """Path component of the page's own <link rel="canonical">, cached by mtime."""
+    try:
+        mtime = os.path.getmtime(html_file)
+    except OSError:
+        return None
+    cached = _canonical_cache.get(html_file)
+    if cached and cached[0] == mtime:
+        return cached[1]
+    path = None
+    try:
+        with open(html_file, encoding='utf-8', errors='replace') as f:
+            head = f.read(65536)
+        tag = _CANONICAL_RE.search(head)
+        href = _HREF_RE.search(tag.group(0)) if tag else None
+        if href:
+            parsed = urllib.parse.urlsplit(href.group(1))
+            if parsed.netloc in ('', 'purpleheartlimo.com') and parsed.path.startswith('/'):
+                path = parsed.path
+    except OSError:
+        path = None
+    _canonical_cache[html_file] = (mtime, path)
+    return path
+
+
+def _canonical_redirect_target(root, request_target):
+    """Return the canonical URL when ``request_target`` is a duplicate address
+    of the same page (/x/index.html, /post vs /post.html, /post/ vs /post),
+    else None. Only redirects when the canonical resolves to the very same
+    file, so pages that canonicalise elsewhere are never redirected here."""
+    parsed = urllib.parse.urlsplit(request_target)
+    path = parsed.path
+    if not path or path.startswith('/api/'):
+        return None
+    html_file = _page_file_for(root, path)
+    if not html_file:
+        return None
+    canonical = _canonical_path(html_file)
+    if not canonical or canonical == path:
+        return None
+    if _page_file_for(root, canonical) != html_file:
+        return None
+    return canonical + ('?' + parsed.query if parsed.query else '')
+
+
 class Handler(SimpleHTTPRequestHandler):
     def guess_type(self, path):
         content_type = super().guess_type(path)
@@ -789,6 +863,19 @@ class Handler(SimpleHTTPRequestHandler):
         SimpleHTTPRequestHandler.end_headers(self)
         return True
 
+    def _canonical_redirect(self):
+        """One-hop 301 from duplicate URL forms to the page's canonical URL,
+        so duplicates stop returning 200 and splitting link equity."""
+        root = getattr(self, 'directory', None) or os.getcwd()
+        target = _canonical_redirect_target(root, self.path)
+        if not target:
+            return False
+        self.send_response(301)
+        self.send_header('Location', target)
+        self.send_header('Cache-Control', 'max-age=3600')
+        SimpleHTTPRequestHandler.end_headers(self)
+        return True
+
     def do_GET(self):
         if urllib.parse.urlsplit(self.path).path in CONTACT_PATHS:
             self._json({'error': 'Method not allowed'}, 405,
@@ -806,6 +893,8 @@ class Handler(SimpleHTTPRequestHandler):
         if self._www_redirect():
             return
         if self._legacy_redirect():
+            return
+        if self._canonical_redirect():
             return
         if self.path == '/config.js':
             key = os.environ.get('AVIATIONSTACK_API_KEY', '')
@@ -971,6 +1060,17 @@ class Handler(SimpleHTTPRequestHandler):
         path = urllib.parse.urlparse(self.path).path.lower()
         if getattr(self, '_vary_accept_encoding', False):
             self.send_header('Vary', 'Accept-Encoding')
+        # Baseline security headers. CSP starts report-only so third-party
+        # tags (GTM, Google Maps, EmailJS, Moovs) can't break before a
+        # tested enforcing policy is written.
+        self.send_header('X-Content-Type-Options', 'nosniff')
+        self.send_header('Referrer-Policy', 'strict-origin-when-cross-origin')
+        self.send_header('X-Frame-Options', 'SAMEORIGIN')
+        self.send_header('Permissions-Policy',
+                         'camera=(), microphone=(), payment=(), usb=(), geolocation=(self)')
+        self.send_header('Content-Security-Policy-Report-Only',
+                         "default-src 'self' https: data: blob: 'unsafe-inline' 'unsafe-eval'; "
+                         "frame-ancestors 'self'; object-src 'none'; base-uri 'self'")
         if IS_PROD:
             # Production: cache static assets, always revalidate HTML.
             if path.endswith(('.css', '.js', '.webp', '.png', '.jpg', '.jpeg', '.svg', '.ico', '.woff', '.woff2', '.mp4')):

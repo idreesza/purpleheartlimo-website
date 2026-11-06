@@ -543,7 +543,7 @@ a:hover { color: var(--accent-light); }
   gap: 1rem;
 }
 .footer-bottom p { color: var(--text-dark); font-size: 0.83rem; }
-.footer-bottom-links { display: flex; gap: 1.5rem; }
+.footer-bottom-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
 .footer-bottom-links a { color: var(--text-dark); font-size: 0.83rem; }
 .footer-bottom-links a:hover { color: var(--accent); }
 

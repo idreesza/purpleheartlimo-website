@@ -41,6 +41,9 @@ body.dark-theme .stat-row{border-top-color:rgba(255,255,255,.12)!important}
 body.dark-theme .navbar{background:rgba(10,10,15,.92)!important;
   border-bottom:1px solid rgba(255,255,255,.08)!important;box-shadow:0 2px 24px rgba(0,0,0,.5)!important}
 body.dark-theme .nav-logo-text{color:#fff!important}
+/* Dark transparent .header (city/service landing pages): light wordmark so
+   the brand name is readable on the dark hero (was #0a0a0a on near-black). */
+header.header .nav-logo-text{color:#fff!important}
 body.dark-theme .nav-logo-sub{color:rgba(255,255,255,.55)!important}
 body.dark-theme .nav-links>li>a{background:rgba(255,255,255,.06)!important;
   border:1px solid rgba(255,255,255,.16)!important;color:#fff!important;box-shadow:none!important}
