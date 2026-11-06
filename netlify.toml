@@ -131,8 +131,7 @@
 #    serving 404s to Google.
 # ─────────────────────────────────────────────────────────────
 
-# --- /es/ root (no Spanish home page exists) → primary Spanish landing ---
-# Dallas is the primary market (physical presence), so /es lands there.
+# /es/ has its own live homepage; do not redirect it to a city landing page.
 
 # --- 404s where the actual page exists with a trailing slash ---
 [[redirects]]
