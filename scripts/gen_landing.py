@@ -205,18 +205,15 @@ def schema_block(p):
     url = "%s/%s/" % (BASE, p["slug"])
     graph = [
         {
-            "@type": ["Service", "LimousineService", "LocalBusiness"],
+            # A service offered by the one site-wide business entity (#business),
+            # not a separate storefront per city page.
+            "@type": "Service",
             "name": p["schema_name"],
             "description": p["meta"],
             "url": url,
-            "telephone": PHONE,
-            "email": "info@purpleheartlimo.com",
             "image": "%s/images/%s" % (BASE, p.get("image", "sedan-cadillac.webp")),
             "areaServed": [{"@type": "City", "name": c} for c in p["areas"]],
-            "address": {"@type": "PostalAddress", "addressLocality": p["locality"], "addressRegion": "TX", "addressCountry": "US"},
-            "openingHoursSpecification": {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], "opens": "00:00", "closes": "23:59"},
-            "priceRange": "$$",
-            "sameAs": ["https://www.facebook.com/profile.php?id=61578479742416", "https://www.instagram.com/austinlimousine"],
+            "provider": {"@id": BASE + "/#business"},
         },
         {
             "@type": "BreadcrumbList",

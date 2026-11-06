@@ -2,7 +2,9 @@
 """Idempotent sitewide SEO metadata, schema, image-alt and sitemap normalizer."""
 from pathlib import Path
 from collections import Counter
+import datetime
 import html
+import subprocess
 import json
 import re
 import sys
@@ -14,6 +16,11 @@ import inline_homepage_css
 ROOT = Path(__file__).resolve().parent.parent
 BASE = "https://purpleheartlimo.com"
 BUSINESS_ID = BASE + "/#business"
+# Verified official profiles only. Add the Google Business Profile, Yelp, BBB,
+# etc. here once confirmed; every page's business entity picks them up.
+SAME_AS = [
+    "https://www.facebook.com/profile.php?id=61578479742416",
+]
 EXCLUDED = {".git", ".local", ".agents", "node_modules", "attached_assets"}
 TARGET_META = {
     "description", "robots", "twitter:card", "twitter:title",
@@ -177,16 +184,55 @@ def attr(tag, name):
     return html.unescape(m.group(2).strip()) if m else ""
 
 
+def _load_title_overrides():
+    try:
+        return json.loads((ROOT / "scripts" / "data" / "title_overrides.json")
+                          .read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
+# Hand-written titles (<=60 chars) for pages whose H1 is too long to clip
+# into a readable title. Keyed by repo-relative path.
+TITLE_OVERRIDES = _load_title_overrides()
+
+
 def title_for(source, path):
+    override = TITLE_OVERRIDES.get(path.relative_to(ROOT).as_posix())
+    if override:
+        return override
     m = re.search(r"<title\b[^>]*>(.*?)</title>", source, re.I | re.S)
     current = clean(m.group(1)) if m else ""
     malformed = re.search(r"(?:—\s*\d+|—\s*\|)", current)
+    head_words = current.split("|")[0].split()
+    if head_words and head_words[-1].casefold().strip(".,:;") in _DANGLING:
+        malformed = True  # earlier clipping cut the phrase mid-sentence
+    if current.rstrip().endswith("| PHL"):
+        malformed = True  # opaque abbreviation from the old de-dup pass
     if current and len(current) <= 60 and not malformed:
         return current
     h = re.search(r"<h1\b[^>]*>(.*?)</h1>", source, re.I | re.S)
     subject = clean(h.group(1)) if h else path.stem.replace("-", " ").title()
     suffix = " | Purple Heart Limo"
-    return clip(subject, 60 - len(suffix)) + suffix
+    return clip_phrase(subject, 60 - len(suffix)) + suffix
+
+
+# Words a clipped title must not end on ("...Tip a Limo Driver in |").
+_DANGLING = {
+    "a", "an", "the", "and", "or", "but", "for", "to", "of", "in", "on", "at",
+    "by", "with", "from", "vs", "your", "our", "how", "what", "why", "is",
+    "y", "de", "del", "la", "el", "en", "los", "las", "sin", "con", "para", "&",
+}
+
+
+def clip_phrase(value, limit):
+    """clip() that also drops trailing connector words and dangling
+    punctuation so a shortened title still reads as a complete phrase."""
+    value = clip(value, limit)
+    words = value.split()
+    while len(words) > 1 and words[-1].casefold().strip(".,:;") in _DANGLING:
+        words.pop()
+    return " ".join(words).rstrip(" ,;:—-")
 
 
 def description_for(source, title):
@@ -282,27 +328,30 @@ def image_alts(source):
 
 
 def business_graph(path):
+    # One canonical business entity, identical on every page (no per-page
+    # Organization/LimousineService type conflicts on the same @id). No
+    # aggregateRating: self-served ratings on a business entity are against
+    # Google's review-snippet policy.
     areas = [
         *[{"@type": "City", "name": x} for x in
-          ["Dallas", "Fort Worth", "Addison", "Frisco", "Plano", "Arlington"]],
+          ["Dallas", "Fort Worth", "Arlington", "Plano", "Frisco", "Addison",
+           "Austin", "Round Rock", "Houston"]],
         {"@type": "Airport", "name": "Dallas Fort Worth International Airport", "iataCode": "DFW"},
         {"@type": "Airport", "name": "Dallas Love Field", "iataCode": "DAL"},
+        {"@type": "Airport", "name": "Austin-Bergstrom International Airport", "iataCode": "AUS"},
     ]
-    if path.relative_to(ROOT).as_posix() == "fleet.html":
-        item = {
-            "@type": "Organization", "@id": BUSINESS_ID,
-            "name": "Purple Heart Limo", "url": BASE + "/",
-            "telephone": "+18337400700", "logo": BASE + "/logo.webp",
-            "areaServed": areas,
-        }
-    else:
-        item = {
-            "@type": "LimousineService", "@id": BUSINESS_ID,
-            "name": "Purple Heart Limo", "url": BASE + "/",
-            "telephone": "+18337400700", "priceRange": "$$",
-            "openingHours": "Mo-Su 00:00-23:59",
-            "areaServed": areas,
-        }
+    item = {
+        "@type": "LimousineService", "@id": BUSINESS_ID,
+        "name": "Purple Heart Limo", "url": BASE + "/",
+        "telephone": "+18337400700", "email": "info@purpleheartlimo.com",
+        "logo": BASE + "/logo.webp",
+        "image": [BASE + "/logo.webp", BASE + "/images/sedan-cadillac.webp"],
+        "priceRange": "$$",
+        "openingHours": "Mo-Su 00:00-23:59",
+        "address": {"@type": "PostalAddress", "addressRegion": "TX", "addressCountry": "US"},
+        "areaServed": areas,
+        "sameAs": SAME_AS,
+    }
     node = {"@context": "https://schema.org", "@graph": [item]}
     return json.dumps(node, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
 
@@ -375,18 +424,67 @@ def collect():
     for p, s, t in rows:
         if counts[t.casefold()] > 1:
             suffix = clip(p.parent.name.replace("-", " ").title(), 18)
-            t = clip(clip(t.split("|")[0], 38) + " " + suffix, 54) + " | PHL"
+            t = clip_phrase(clip_phrase(t.split("|")[0], 38) + " " + suffix, 40) + " | Purple Heart Limo"
         output.append((p, s, t, description_for(s, t)))
     return output
 
 
+def article_date(source):
+    """dateModified (or datePublished) of the page's Article/BlogPosting.
+
+    Site-wide template commits touch every file, so for articles the date the
+    content itself last changed is the meaningful <lastmod>."""
+    best = ""
+    for raw in re.findall(r'<script\b[^>]*application/ld\+json[^>]*>(.*?)</script\s*>',
+                          source, re.I | re.S):
+        try:
+            data = json.loads(raw)
+        except json.JSONDecodeError:
+            continue
+        nodes = data.get("@graph", [data]) if isinstance(data, dict) else data
+        for node in nodes if isinstance(nodes, list) else []:
+            if not isinstance(node, dict):
+                continue
+            kind = node.get("@type")
+            kinds = kind if isinstance(kind, list) else [kind]
+            if not {"Article", "BlogPosting", "NewsArticle"} & set(kinds):
+                continue
+            value = str(node.get("dateModified") or node.get("datePublished") or "")
+            if re.match(r"\d{4}-\d{2}-\d{2}", value):
+                best = max(best, value[:10])
+    return best
+
+
+def last_modified(path, source=""):
+    """<lastmod> for a page: the article's own modified date when it has one,
+    otherwise the last commit touching the file (file mtime if uncommitted).
+    Google uses <lastmod> when it is consistently accurate; it ignores
+    <changefreq>."""
+    found = article_date(source)
+    if found:
+        return found
+    rel = path.relative_to(ROOT).as_posix()
+    try:
+        out = subprocess.run(["git", "log", "-1", "--format=%cs", "--", rel],
+                             cwd=ROOT, capture_output=True, text=True, timeout=20)
+        if out.returncode == 0 and out.stdout.strip():
+            return out.stdout.strip()
+    except (OSError, subprocess.SubprocessError):
+        pass
+    return datetime.date.fromtimestamp(path.stat().st_mtime).isoformat()
+
+
 def sitemap_for(rows):
-    urls = list(dict.fromkeys(
-        canonical(p) for p, source, _, _ in rows if not is_noindex(source, p)
-    ))
+    entries = {}
+    for p, source, _, _ in rows:
+        if is_noindex(source, p):
+            continue
+        url = canonical(p)
+        entries[url] = max(entries.get(url, ""), last_modified(p, source))
     lines = ['<?xml version="1.0" encoding="UTF-8"?>',
              '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
-    lines += [f"  <url><loc>{html.escape(u)}</loc><changefreq>monthly</changefreq></url>" for u in urls]
+    lines += [f"  <url><loc>{html.escape(u)}</loc><lastmod>{d}</lastmod></url>"
+              for u, d in entries.items()]
     lines.append("</urlset>")
     return "\n".join(lines) + "\n"
 
@@ -416,9 +514,10 @@ def main():
     for p, old, title, desc in rows:
         new = normalize(old, p, title, desc)
         if new != old:
-            p.write_text(new, encoding="utf-8")
-    (ROOT / "sitemap.xml").write_text(sitemap, encoding="utf-8")
-    (ROOT / "robots.txt").write_text(robots, encoding="utf-8")
+            # newline="\n": keep LF on Windows too (no CRLF churn in git).
+            p.write_text(new, encoding="utf-8", newline="\n")
+    (ROOT / "sitemap.xml").write_text(sitemap, encoding="utf-8", newline="\n")
+    (ROOT / "robots.txt").write_text(robots, encoding="utf-8", newline="\n")
     print(f"normalized {len(rows)} pages; changed {len(changed)}; sitemap URLs {len(rows)-sum(is_noindex(s,p) for p,s,_,_ in rows)}")
 
 
