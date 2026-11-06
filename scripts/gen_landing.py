@@ -277,7 +277,11 @@ def render(p):
     parts.append('<div class="alert alert-success" id="alertSuccess"></div><div class="alert alert-error" id="alertError"></div>')
     parts.append('<form id="bookingForm">')
     parts.append('<div class="form-row"><div class="form-group"><label>First Name *</label><input name="first_name" placeholder="John" required="" type="text"/></div><div class="form-group"><label>Last Name *</label><input name="last_name" placeholder="Smith" required="" type="text"/></div></div>')
-    parts.append('<div class="form-row"><div class="form-group"><label>Phone *</label><input name="phone" placeholder="(512) 555-0100" required="" type="tel"/></div><div class="form-group"><label>Email *</label><input name="email" placeholder="you@email.com" required="" type="email"/></div></div>')
+    # Example number uses the page's own metro area code (Austin 512,
+    # Houston 713, otherwise DFW 214) so DFW pages don't show Austin copy.
+    slug = p["slug"]
+    area = "512" if ("austin" in slug or "round-rock" in slug) else "713" if "houston" in slug else "214"
+    parts.append('<div class="form-row"><div class="form-group"><label>Phone *</label><input name="phone" placeholder="(%s) 555-0100" required="" type="tel"/></div><div class="form-group"><label>Email *</label><input name="email" placeholder="you@email.com" required="" type="email"/></div></div>' % area)
     parts.append('<div class="form-row"><div class="form-group"><label>Service Type *</label><select name="service" required=""><option value="">Select service...</option>%s</select></div>' % options_html(p["service_opts"]))
     parts.append('<div class="form-group"><label>Vehicle *</label><select name="vehicle" required=""><option value="">Select vehicle...</option>%s</select></div></div>' % options_html(p["vehicle_opts"]))
     parts.append('<div class="form-row"><div class="form-group"><label>Pickup Date *</label><input name="pickup_date" required="" type="date"/></div><div class="form-group"><label>Pickup Time *</label><input name="pickup_time" required="" type="time"/></div></div>')
