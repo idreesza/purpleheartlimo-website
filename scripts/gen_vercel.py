@@ -85,7 +85,12 @@ def build_config():
         if source in sources or source == destination:
             return
         sources.add(source)
-        redirects.append({"source": source, "destination": destination, "statusCode": 301})
+        rule = {"source": source, "destination": destination, "statusCode": 301}
+        if source == "/blog":
+            # Retired ?q=/?p= search URLs go to server.py, which strips the
+            # query in one hop (a redirect here would keep the query).
+            rule["missing"] = [{"type": "query", "key": "q"}, {"type": "query", "key": "p"}]
+        redirects.append(rule)
 
     # Retired URLs answer 410 Gone via server.py; old blog search/paging URLs
     # are cleaned up by server.py as well.

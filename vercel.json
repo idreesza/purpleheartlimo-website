@@ -77,7 +77,17 @@
     {
       "source": "/blog",
       "destination": "/blog/",
-      "statusCode": 301
+      "statusCode": 301,
+      "missing": [
+        {
+          "type": "query",
+          "key": "q"
+        },
+        {
+          "type": "query",
+          "key": "p"
+        }
+      ]
     },
     {
       "source": "/blog/5-common-misconceptions-about-limousine-services-debunked",
