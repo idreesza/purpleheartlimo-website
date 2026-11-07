@@ -1,6 +1,6 @@
 name: Tests
 
-# Hosting is Render (render.yaml), which deploys on push by itself.
+# Hosting is Vercel (vercel.json), which deploys on push by itself.
 # This workflow only verifies every push and pull request; it deploys nothing.
 on:
   push:
@@ -41,5 +41,8 @@ jobs:
       - name: Generated SEO metadata and sitemap are up to date
         run: python scripts/seo_normalize.py --check
 
-      - name: Production image builds
-        run: docker build -t purpleheartlimo .
+      - name: vercel.json is up to date
+        run: python scripts/gen_vercel.py --check
+
+      - name: Vercel production build
+        run: npm ci && python scripts/build_vercel.py

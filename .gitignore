@@ -9,3 +9,5 @@ Thumbs.db
 images/_orig/
 __pycache__/
 *.pyc
+dist/
+.vercel
