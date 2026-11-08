@@ -28,6 +28,8 @@ jobs:
         run: |
           python -m unittest \
             scripts.test_canonical_redirects \
+            scripts.test_vercel_config \
+            scripts.test_flights_and_routing \
             scripts.test_redirect_index_regressions \
             scripts.test_google_places_autocomplete \
             scripts.test_hourly_hub \
