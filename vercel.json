@@ -3585,6 +3585,14 @@
     {
       "source": "/config.js",
       "destination": "/api/index?__path=/config.js"
+    },
+    {
+      "source": "/.netlify/functions/flights",
+      "destination": "/api/index?__path=/.netlify/functions/flights"
+    },
+    {
+      "source": "/api/flights",
+      "destination": "/api/index?__path=/api/flights"
     }
   ]
 }

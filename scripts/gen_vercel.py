@@ -25,6 +25,7 @@ DYNAMIC = [
     "/.netlify/functions/contact", "/api/contact",
     "/api/distance", "/api/positioning", "/api/hourly-hub",
     "/api/google-maps-browser-key", "/config.js",
+    "/.netlify/functions/flights", "/api/flights",
 ]
 SECURITY_HEADERS = [
     {"key": "X-Content-Type-Options", "value": "nosniff"},

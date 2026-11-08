@@ -148,6 +148,51 @@ def _normalize_hourly_request(pickup, lat=None, lon=None):
     return address, coordinates, key
 
 
+FLIGHTS_PATHS = frozenset(('/.netlify/functions/flights', '/api/flights'))
+_FLIGHT_RE = re.compile(r'^[A-Z0-9]{2,8}$')
+_FLIGHT_REFERER_HOST = re.compile(
+    r'(^|\.)purpleheartlimo\.com$|^purpleheartlimo[a-z0-9-]*\.vercel\.app$|^(localhost|127\.0\.0\.1)$')
+
+
+def _flight_lookup(flight, referer='', opener=None):
+    """Server-side AviationStack proxy for /flight-tracker.html.
+
+    Returns (body, status). The key never reaches the browser. Lookups fail
+    soft with ``{"data": []}`` so the page falls back to airline links.
+    """
+    if referer:
+        host = urllib.parse.urlsplit(referer).hostname or ''
+        if host and not _FLIGHT_REFERER_HOST.search(host):
+            return {'error': 'Forbidden', 'data': []}, 403
+    flight = (flight or '').strip().upper().replace(' ', '')
+    if not _FLIGHT_RE.match(flight):
+        return {'error': 'Invalid flight number', 'data': []}, 400
+    key = os.environ.get('AVIATIONSTACK_API_KEY', '').strip()
+    if not key:
+        return {'data': []}, 200
+    opener = opener or urllib.request.urlopen
+    query = urllib.parse.urlencode({'access_key': key, 'flight_iata': flight, 'limit': 1})
+    payload = {}
+    # AviationStack's free plan rejects HTTPS; try HTTPS first, then HTTP.
+    for scheme in ('https', 'http'):
+        try:
+            with opener(f'{scheme}://api.aviationstack.com/v1/flights?{query}', timeout=10) as r:
+                payload = json.loads(r.read().decode('utf-8', 'replace') or '{}')
+        except Exception as error:
+            print(f'[flights] {scheme} lookup failed: {type(error).__name__}', flush=True)
+            payload = {}
+            continue
+        code = (payload.get('error') or {}).get('code') if isinstance(payload, dict) else None
+        if code == 'https_access_restricted' and scheme == 'https':
+            continue
+        if code:
+            print(f'[flights] aviationstack error: {code}', flush=True)
+            return {'data': [], 'error': 'lookup_failed'}, 200
+        break
+    data = payload.get('data') if isinstance(payload, dict) else None
+    return {'data': data if isinstance(data, list) else []}, 200
+
+
 def _log_google_failure(api, error):
     """Log why a Google Maps call failed (status + Google's own message) so
     key/API-enablement problems are diagnosable. Never logs the key, the
@@ -921,12 +966,12 @@ class Handler(SimpleHTTPRequestHandler):
         if self._canonical_redirect():
             return
         if self.path == '/config.js':
-            key = os.environ.get('AVIATIONSTACK_API_KEY', '')
+            # Only browser-safe values. The AviationStack key is a paid
+            # server secret: flight lookups go through FLIGHTS_PATHS instead.
             ejs_pub  = os.environ.get('EMAILJS_PUBLIC_KEY', '')
             ejs_svc  = os.environ.get('EMAILJS_SERVICE_ID', '')
             ejs_tpl  = os.environ.get('EMAILJS_TEMPLATE_ID', '')
-            js = (f'window.AVIATION_KEY = "{key}";'
-                  f'window.EJS_PUBLIC_KEY = "{ejs_pub}";'
+            js = (f'window.EJS_PUBLIC_KEY = "{ejs_pub}";'
                   f'window.EJS_SERVICE_ID = "{ejs_svc}";'
                   f'window.EJS_TEMPLATE_ID = "{ejs_tpl}";')
             self.send_response(200)
@@ -946,6 +991,11 @@ class Handler(SimpleHTTPRequestHandler):
             if not browser_key:
                 return self._json({'error': 'Google Maps address search unavailable'}, 503)
             return self._json({'key': browser_key})
+
+        if request_path in FLIGHTS_PATHS:
+            return self._json(*_flight_lookup(
+                urllib.parse.parse_qs(urllib.parse.urlsplit(self.path).query).get('flight', [''])[0],
+                self.headers.get('Referer', '')))
 
         if request_path == HOURLY_HUB_PATH:
             return self._hourly_hub_route()
@@ -1225,6 +1275,15 @@ class Handler(SimpleHTTPRequestHandler):
         return route
 
     def _route_coords(self, a, b):
+        """Driving route between two (lon, lat) points: Google Routes first
+        (traffic-aware, reliable), the public OSRM demo server as fallback."""
+        route = self._google_route('', '', (float(a[1]), float(a[0])),
+                                   (float(b[1]), float(b[0])))
+        if route is not None:
+            return route
+        return self._osrm_route_coords(a, b)
+
+    def _osrm_route_coords(self, a, b):
         try:
             url = (f'https://router.project-osrm.org/route/v1/driving/'
                    f'{a[0]},{a[1]};{b[0]},{b[1]}?overview=false')
@@ -1249,9 +1308,41 @@ class Handler(SimpleHTTPRequestHandler):
             return None
 
     def _geocode(self, q):
+        """(lon, lat) for an address: Google Geocoding first, OpenStreetMap
+        Nominatim (rate-limited public service) as fallback."""
         cached = Handler._geo_cache.get(q)
         if cached is not None:
             return cached
+        result = self._google_geocode(q)
+        if result is not None:
+            Handler._geo_cache[q] = result
+            return result
+        return self._nominatim_geocode(q)
+
+    @staticmethod
+    def _google_geocode(q):
+        key = os.environ.get('GOOGLE_MAPS_API_KEY', '').strip()
+        if not key or not q:
+            return None
+        url = ('https://maps.googleapis.com/maps/api/geocode/json?'
+               + urllib.parse.urlencode({'address': q, 'components': 'country:US', 'key': key}))
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url), timeout=10) as r:
+                data = json.loads(r.read().decode())
+        except Exception as error:
+            _log_google_failure('geocode', error)
+            return None
+        if data.get('status') != 'OK' or not data.get('results'):
+            if data.get('status') != 'ZERO_RESULTS':
+                _log_google_failure('geocode', data)
+            return None
+        loc = data['results'][0].get('geometry', {}).get('location', {})
+        try:
+            return (float(loc['lng']), float(loc['lat']))
+        except (KeyError, TypeError, ValueError):
+            return None
+
+    def _nominatim_geocode(self, q):
         url = ('https://nominatim.openstreetmap.org/search?format=json&limit=1'
                '&countrycodes=us&q=' + urllib.parse.quote(q))
         req = urllib.request.Request(url, headers={
