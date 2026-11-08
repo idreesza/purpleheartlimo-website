@@ -148,6 +148,25 @@ def _normalize_hourly_request(pickup, lat=None, lon=None):
     return address, coordinates, key
 
 
+def _log_google_failure(api, error):
+    """Log why a Google Maps call failed (status + Google's own message) so
+    key/API-enablement problems are diagnosable. Never logs the key, the
+    request URL, or customer addresses."""
+    detail = ''
+    try:
+        if isinstance(error, urllib.error.HTTPError):
+            body = json.loads(error.read().decode('utf-8', 'replace') or '{}')
+            err = body.get('error', {}) if isinstance(body, dict) else {}
+            detail = f"HTTP {error.code} {err.get('status', '')}: {err.get('message', '')}"
+        elif isinstance(error, dict):
+            detail = f"{error.get('status', '')}: {error.get('error_message', '')}"
+        else:
+            detail = type(error).__name__
+    except Exception:
+        detail = type(error).__name__
+    print(f'[google-maps] {api} failed: {detail[:300]}', flush=True)
+
+
 def _google_hourly_distances(pickup, coordinates):
     """Return the two Google driving distances, or ``None`` on any failure.
 
@@ -191,12 +210,14 @@ def _google_hourly_distances(pickup, coordinates):
             if isinstance(raw, bytes):
                 raw = raw.decode('utf-8')
             payload = json.loads(raw)
-    except Exception:
-        # Deliberately keep provider errors and credentials out of both the
-        # response and logs.  The caller turns this into contact-us behavior.
+    except Exception as error:
+        # Provider details stay out of the response; only Google's status
+        # (never the key) is logged. The caller turns this into contact-us.
+        _log_google_failure('distancematrix', error)
         return None
 
     if not isinstance(payload, dict) or payload.get('status') != 'OK':
+        _log_google_failure('distancematrix', payload if isinstance(payload, dict) else None)
         return None
     rows = payload.get('rows')
     if not isinstance(rows, list) or not rows:
@@ -1141,7 +1162,8 @@ class Handler(SimpleHTTPRequestHandler):
                 'minutes': round(seconds / 60),
                 'source': 'google',
             }
-        except Exception:
+        except Exception as error:
+            _log_google_failure('routes', error)
             return None
 
     # Operating hubs: every vehicle starts and ends its day at one of these.
