@@ -148,6 +148,17 @@ def _normalize_hourly_request(pickup, lat=None, lon=None):
     return address, coordinates, key
 
 
+def _server_maps_key():
+    """Server-side Google Maps key (Routes, Distance Matrix, Geocoding).
+
+    GOOGLE_MAPS_API is the unrestricted server key created for Vercel;
+    GOOGLE_MAPS_API_KEY is the original name. Never the browser key, which
+    is website-restricted and rejected by Google for server calls.
+    """
+    return (os.environ.get('GOOGLE_MAPS_API', '').strip()
+            or os.environ.get('GOOGLE_MAPS_API_KEY', '').strip())
+
+
 FLIGHTS_PATHS = frozenset(('/.netlify/functions/flights', '/api/flights'))
 _FLIGHT_RE = re.compile(r'^[A-Z0-9]{2,8}$')
 _FLIGHT_REFERER_HOST = re.compile(
@@ -219,7 +230,7 @@ def _google_hourly_distances(pickup, coordinates):
     particular, it never reads the referrer-restricted browser key and never
     falls back to OSRM for an hourly availability decision.
     """
-    api_key = os.environ.get('GOOGLE_MAPS_API_KEY', '').strip()
+    api_key = _server_maps_key()
     if not api_key:
         return None
 
@@ -1175,7 +1186,7 @@ class Handler(SimpleHTTPRequestHandler):
 
     def _google_route(self, origin, destination, origin_coordinates=None,
                       destination_coordinates=None):
-        gkey = os.environ.get('GOOGLE_MAPS_API_KEY', '')
+        gkey = _server_maps_key()
         if not gkey:
             return None
         try:
@@ -1321,7 +1332,7 @@ class Handler(SimpleHTTPRequestHandler):
 
     @staticmethod
     def _google_geocode(q):
-        key = os.environ.get('GOOGLE_MAPS_API_KEY', '').strip()
+        key = _server_maps_key()
         if not key or not q:
             return None
         url = ('https://maps.googleapis.com/maps/api/geocode/json?'
