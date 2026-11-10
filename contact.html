@@ -339,7 +339,7 @@ function submitContactForm(e){
     document.getElementById(success?'cf-success':'cf-fail').style.display='block';
     if(success){if(window.PHLTrackLead)window.PHLTrackLead(e.target);e.target.reset();}
   };
-  fetch('/.netlify/functions/contact', {
+  PHLLeadFetch('/.netlify/functions/contact', {
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body: JSON.stringify({ name:name, email:email, phone:phone, service:subject, message:message })
@@ -353,5 +353,7 @@ function submitContactForm(e){
 <aside class="phl-mobile-call-bar" aria-label="Call Purple Heart Limo">
   <a class="phl-mobile-call-bar__link" href="tel:+18337400700">Call now: (833) 740-0700</a>
 </aside>
+<script src="/js/booking-email.js" defer></script>
+<script src="/js/lead-submit.js" defer></script>
 </body>
 </html>

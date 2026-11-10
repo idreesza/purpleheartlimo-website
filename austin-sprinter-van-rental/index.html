@@ -233,7 +233,7 @@ document.getElementById('bookingForm').addEventListener('submit', async function
     pickup:f.pickup_address,dropoff:f.dropoff_address,message:f.notes||'',city:f.city||''
   };
   try{
-    const res=await fetch('/.netlify/functions/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const res=await PHLLeadFetch('/.netlify/functions/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     const json=await res.json();
     if(res.ok&&json.success){ok.textContent="\u2713 Booking request received! We'll confirm within 30 minutes. Check your email and phone.";ok.classList.add('show');if(window.PHLTrackLead)window.PHLTrackLead(this);this.reset();}
     else{throw new Error(json.error||'Error');}
@@ -245,4 +245,6 @@ document.getElementById('bookingForm').addEventListener('submit', async function
 <aside class="phl-mobile-call-bar" aria-label="Call Purple Heart Limo">
   <a class="phl-mobile-call-bar__link" href="tel:+18337400700">Call now: (833) 740-0700</a>
 </aside>
+<script src="/js/booking-email.js" defer></script>
+<script src="/js/lead-submit.js" defer></script>
 </body></html>

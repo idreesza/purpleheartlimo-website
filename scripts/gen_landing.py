@@ -154,7 +154,7 @@ document.getElementById('bookingForm').addEventListener('submit', async function
     pickup:f.pickup_address,dropoff:f.dropoff_address,message:f.notes||'',city:f.city||''
   };
   try{
-    const res=await fetch('/.netlify/functions/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const res=await PHLLeadFetch('/.netlify/functions/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     const json=await res.json();
     if(res.ok&&json.success){ok.textContent="\\u2713 Booking request received! We'll confirm within 30 minutes. Check your email and phone.";ok.classList.add('show');if(window.PHLTrackLead)window.PHLTrackLead(this);this.reset();}
     else{throw new Error(json.error||'Error');}
@@ -302,6 +302,9 @@ def render(p):
     parts.append('<section class="related"><div class="inner"><div class="section-header"><span class="section-label">Explore More</span><h2 class="section-title">Related Services</h2></div><div class="related-grid">%s</div></div></section>' % related_html(p["related"]))
     parts.append(FOOTER)
     parts.append(SCRIPT)
+    # Booking form is delivered by email via EmailJS (PHLLeadFetch).
+    parts.append('<script src="/js/booking-email.js" defer></script>\n'
+                 '<script src="/js/lead-submit.js" defer></script>\n')
     parts.append('</body></html>')
     return "\n".join(parts)
 
