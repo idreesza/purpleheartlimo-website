@@ -15,7 +15,8 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'compiled-static'
 ESBUILD = ROOT / 'node_modules/.bin/esbuild'
 EXCLUDE = {'.git', '.local', '.agents', 'node_modules', 'attached_assets',
-           'compiled-static', 'generated-artifacts', 'scripts', 'netlify'}
+           'compiled-static', 'generated-artifacts', 'scripts', 'netlify',
+           'dist', 'api', 'exports', 'reports', 'screenshots'}  # not public site
 ASSET_EXT = {'.css', '.js', '.webp', '.avif', '.png', '.jpg', '.jpeg',
              '.svg', '.ico', '.woff', '.woff2', '.ttf', '.mp4'}
 

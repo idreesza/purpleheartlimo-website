@@ -17,7 +17,10 @@ from collections import OrderedDict
 from concurrent.futures import ThreadPoolExecutor
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 
-IS_PROD = bool(os.environ.get('REPLIT_DEPLOYMENT'))
+# Production caching on any real deployment: Render sets RENDER=true;
+# PRODUCTION=1 works on any host; REPLIT_DEPLOYMENT kept for the old host.
+IS_PROD = bool(os.environ.get('PRODUCTION') or os.environ.get('RENDER')
+               or os.environ.get('REPLIT_DEPLOYMENT'))
 
 # The static site was originally deployed with a Netlify function at this
 # path.  Autoscale runs this Python server instead, so keep the browser
@@ -145,6 +148,81 @@ def _normalize_hourly_request(pickup, lat=None, lon=None):
     return address, coordinates, key
 
 
+def _server_maps_key():
+    """Server-side Google Maps key (Routes, Distance Matrix, Geocoding).
+
+    GOOGLE_MAPS_API is the unrestricted server key created for Vercel;
+    GOOGLE_MAPS_API_KEY is the original name. Never the browser key, which
+    is website-restricted and rejected by Google for server calls.
+    """
+    return (os.environ.get('GOOGLE_MAPS_API', '').strip()
+            or os.environ.get('GOOGLE_MAPS_API_KEY', '').strip())
+
+
+FLIGHTS_PATHS = frozenset(('/.netlify/functions/flights', '/api/flights'))
+_FLIGHT_RE = re.compile(r'^[A-Z0-9]{2,8}$')
+_FLIGHT_REFERER_HOST = re.compile(
+    r'(^|\.)purpleheartlimo\.com$|^purpleheartlimo[a-z0-9-]*\.vercel\.app$|^(localhost|127\.0\.0\.1)$')
+
+
+def _flight_lookup(flight, referer='', opener=None):
+    """Server-side AviationStack proxy for /flight-tracker.html.
+
+    Returns (body, status). The key never reaches the browser. Lookups fail
+    soft with ``{"data": []}`` so the page falls back to airline links.
+    """
+    if referer:
+        host = urllib.parse.urlsplit(referer).hostname or ''
+        if host and not _FLIGHT_REFERER_HOST.search(host):
+            return {'error': 'Forbidden', 'data': []}, 403
+    flight = (flight or '').strip().upper().replace(' ', '')
+    if not _FLIGHT_RE.match(flight):
+        return {'error': 'Invalid flight number', 'data': []}, 400
+    key = os.environ.get('AVIATIONSTACK_API_KEY', '').strip()
+    if not key:
+        return {'data': []}, 200
+    opener = opener or urllib.request.urlopen
+    query = urllib.parse.urlencode({'access_key': key, 'flight_iata': flight, 'limit': 1})
+    payload = {}
+    # AviationStack's free plan rejects HTTPS; try HTTPS first, then HTTP.
+    for scheme in ('https', 'http'):
+        try:
+            with opener(f'{scheme}://api.aviationstack.com/v1/flights?{query}', timeout=10) as r:
+                payload = json.loads(r.read().decode('utf-8', 'replace') or '{}')
+        except Exception as error:
+            print(f'[flights] {scheme} lookup failed: {type(error).__name__}', flush=True)
+            payload = {}
+            continue
+        code = (payload.get('error') or {}).get('code') if isinstance(payload, dict) else None
+        if code == 'https_access_restricted' and scheme == 'https':
+            continue
+        if code:
+            print(f'[flights] aviationstack error: {code}', flush=True)
+            return {'data': [], 'error': 'lookup_failed'}, 200
+        break
+    data = payload.get('data') if isinstance(payload, dict) else None
+    return {'data': data if isinstance(data, list) else []}, 200
+
+
+def _log_google_failure(api, error):
+    """Log why a Google Maps call failed (status + Google's own message) so
+    key/API-enablement problems are diagnosable. Never logs the key, the
+    request URL, or customer addresses."""
+    detail = ''
+    try:
+        if isinstance(error, urllib.error.HTTPError):
+            body = json.loads(error.read().decode('utf-8', 'replace') or '{}')
+            err = body.get('error', {}) if isinstance(body, dict) else {}
+            detail = f"HTTP {error.code} {err.get('status', '')}: {err.get('message', '')}"
+        elif isinstance(error, dict):
+            detail = f"{error.get('status', '')}: {error.get('error_message', '')}"
+        else:
+            detail = type(error).__name__
+    except Exception:
+        detail = type(error).__name__
+    print(f'[google-maps] {api} failed: {detail[:300]}', flush=True)
+
+
 def _google_hourly_distances(pickup, coordinates):
     """Return the two Google driving distances, or ``None`` on any failure.
 
@@ -152,7 +230,7 @@ def _google_hourly_distances(pickup, coordinates):
     particular, it never reads the referrer-restricted browser key and never
     falls back to OSRM for an hourly availability decision.
     """
-    api_key = os.environ.get('GOOGLE_MAPS_API_KEY', '').strip()
+    api_key = _server_maps_key()
     if not api_key:
         return None
 
@@ -188,12 +266,14 @@ def _google_hourly_distances(pickup, coordinates):
             if isinstance(raw, bytes):
                 raw = raw.decode('utf-8')
             payload = json.loads(raw)
-    except Exception:
-        # Deliberately keep provider errors and credentials out of both the
-        # response and logs.  The caller turns this into contact-us behavior.
+    except Exception as error:
+        # Provider details stay out of the response; only Google's status
+        # (never the key) is logged. The caller turns this into contact-us.
+        _log_google_failure('distancematrix', error)
         return None
 
     if not isinstance(payload, dict) or payload.get('status') != 'OK':
+        _log_google_failure('distancematrix', payload if isinstance(payload, dict) else None)
         return None
     rows = payload.get('rows')
     if not isinstance(rows, list) or not rows:
@@ -555,6 +635,80 @@ def _redirect_destination(request_target):
     return (destination, 301) if destination != request_target else None
 
 
+_CANONICAL_RE = re.compile(
+    r'<link\b[^>]*\brel\s*=\s*["\']canonical["\'][^>]*>', re.I)
+_HREF_RE = re.compile(r'\bhref\s*=\s*["\']([^"\']+)["\']', re.I)
+_canonical_cache = {}
+
+
+def _page_file_for(root, url_path):
+    """Map a request path to the HTML file the static handler would serve
+    (including the alias forms that duplicate a canonical URL), or None."""
+    try:
+        rel = posixpath.normpath('/' + urllib.parse.unquote(url_path).lstrip('/'))
+    except (TypeError, ValueError):
+        return None
+    if rel.startswith('/..'):
+        return None
+    base = os.path.join(root, rel.lstrip('/'))
+    candidates = []
+    if url_path.endswith('/'):
+        candidates = [os.path.join(base, 'index.html'), base.rstrip('/\\') + '.html']
+    elif url_path.endswith('.html'):
+        candidates = [base]
+    elif not os.path.splitext(rel)[1]:
+        candidates = [base + '.html', os.path.join(base, 'index.html')]
+    for candidate in candidates:
+        if os.path.isfile(candidate):
+            return os.path.realpath(candidate)
+    return None
+
+
+def _canonical_path(html_file):
+    """Path component of the page's own <link rel="canonical">, cached by mtime."""
+    try:
+        mtime = os.path.getmtime(html_file)
+    except OSError:
+        return None
+    cached = _canonical_cache.get(html_file)
+    if cached and cached[0] == mtime:
+        return cached[1]
+    path = None
+    try:
+        with open(html_file, encoding='utf-8', errors='replace') as f:
+            head = f.read(65536)
+        tag = _CANONICAL_RE.search(head)
+        href = _HREF_RE.search(tag.group(0)) if tag else None
+        if href:
+            parsed = urllib.parse.urlsplit(href.group(1))
+            if parsed.netloc in ('', 'purpleheartlimo.com') and parsed.path.startswith('/'):
+                path = parsed.path
+    except OSError:
+        path = None
+    _canonical_cache[html_file] = (mtime, path)
+    return path
+
+
+def _canonical_redirect_target(root, request_target):
+    """Return the canonical URL when ``request_target`` is a duplicate address
+    of the same page (/x/index.html, /post vs /post.html, /post/ vs /post),
+    else None. Only redirects when the canonical resolves to the very same
+    file, so pages that canonicalise elsewhere are never redirected here."""
+    parsed = urllib.parse.urlsplit(request_target)
+    path = parsed.path
+    if not path or path.startswith('/api/'):
+        return None
+    html_file = _page_file_for(root, path)
+    if not html_file:
+        return None
+    canonical = _canonical_path(html_file)
+    if not canonical or canonical == path:
+        return None
+    if _page_file_for(root, canonical) != html_file:
+        return None
+    return canonical + ('?' + parsed.query if parsed.query else '')
+
+
 class Handler(SimpleHTTPRequestHandler):
     def guess_type(self, path):
         content_type = super().guess_type(path)
@@ -789,6 +943,19 @@ class Handler(SimpleHTTPRequestHandler):
         SimpleHTTPRequestHandler.end_headers(self)
         return True
 
+    def _canonical_redirect(self):
+        """One-hop 301 from duplicate URL forms to the page's canonical URL,
+        so duplicates stop returning 200 and splitting link equity."""
+        root = getattr(self, 'directory', None) or os.getcwd()
+        target = _canonical_redirect_target(root, self.path)
+        if not target:
+            return False
+        self.send_response(301)
+        self.send_header('Location', target)
+        self.send_header('Cache-Control', 'max-age=3600')
+        SimpleHTTPRequestHandler.end_headers(self)
+        return True
+
     def do_GET(self):
         if urllib.parse.urlsplit(self.path).path in CONTACT_PATHS:
             self._json({'error': 'Method not allowed'}, 405,
@@ -807,13 +974,15 @@ class Handler(SimpleHTTPRequestHandler):
             return
         if self._legacy_redirect():
             return
+        if self._canonical_redirect():
+            return
         if self.path == '/config.js':
-            key = os.environ.get('AVIATIONSTACK_API_KEY', '')
+            # Only browser-safe values. The AviationStack key is a paid
+            # server secret: flight lookups go through FLIGHTS_PATHS instead.
             ejs_pub  = os.environ.get('EMAILJS_PUBLIC_KEY', '')
             ejs_svc  = os.environ.get('EMAILJS_SERVICE_ID', '')
             ejs_tpl  = os.environ.get('EMAILJS_TEMPLATE_ID', '')
-            js = (f'window.AVIATION_KEY = "{key}";'
-                  f'window.EJS_PUBLIC_KEY = "{ejs_pub}";'
+            js = (f'window.EJS_PUBLIC_KEY = "{ejs_pub}";'
                   f'window.EJS_SERVICE_ID = "{ejs_svc}";'
                   f'window.EJS_TEMPLATE_ID = "{ejs_tpl}";')
             self.send_response(200)
@@ -833,6 +1002,11 @@ class Handler(SimpleHTTPRequestHandler):
             if not browser_key:
                 return self._json({'error': 'Google Maps address search unavailable'}, 503)
             return self._json({'key': browser_key})
+
+        if request_path in FLIGHTS_PATHS:
+            return self._json(*_flight_lookup(
+                urllib.parse.parse_qs(urllib.parse.urlsplit(self.path).query).get('flight', [''])[0],
+                self.headers.get('Referer', '')))
 
         if request_path == HOURLY_HUB_PATH:
             return self._hourly_hub_route()
@@ -971,6 +1145,17 @@ class Handler(SimpleHTTPRequestHandler):
         path = urllib.parse.urlparse(self.path).path.lower()
         if getattr(self, '_vary_accept_encoding', False):
             self.send_header('Vary', 'Accept-Encoding')
+        # Baseline security headers. CSP starts report-only so third-party
+        # tags (GTM, Google Maps, EmailJS, Moovs) can't break before a
+        # tested enforcing policy is written.
+        self.send_header('X-Content-Type-Options', 'nosniff')
+        self.send_header('Referrer-Policy', 'strict-origin-when-cross-origin')
+        self.send_header('X-Frame-Options', 'SAMEORIGIN')
+        self.send_header('Permissions-Policy',
+                         'camera=(), microphone=(), payment=(), usb=(), geolocation=(self)')
+        self.send_header('Content-Security-Policy-Report-Only',
+                         "default-src 'self' https: data: blob: 'unsafe-inline' 'unsafe-eval'; "
+                         "frame-ancestors 'self'; object-src 'none'; base-uri 'self'")
         if IS_PROD:
             # Production: cache static assets, always revalidate HTML.
             if path.endswith(('.css', '.js', '.webp', '.png', '.jpg', '.jpeg', '.svg', '.ico', '.woff', '.woff2', '.mp4')):
@@ -1001,7 +1186,7 @@ class Handler(SimpleHTTPRequestHandler):
 
     def _google_route(self, origin, destination, origin_coordinates=None,
                       destination_coordinates=None):
-        gkey = os.environ.get('GOOGLE_MAPS_API_KEY', '')
+        gkey = _server_maps_key()
         if not gkey:
             return None
         try:
@@ -1038,7 +1223,8 @@ class Handler(SimpleHTTPRequestHandler):
                 'minutes': round(seconds / 60),
                 'source': 'google',
             }
-        except Exception:
+        except Exception as error:
+            _log_google_failure('routes', error)
             return None
 
     # Operating hubs: every vehicle starts and ends its day at one of these.
@@ -1100,6 +1286,15 @@ class Handler(SimpleHTTPRequestHandler):
         return route
 
     def _route_coords(self, a, b):
+        """Driving route between two (lon, lat) points: Google Routes first
+        (traffic-aware, reliable), the public OSRM demo server as fallback."""
+        route = self._google_route('', '', (float(a[1]), float(a[0])),
+                                   (float(b[1]), float(b[0])))
+        if route is not None:
+            return route
+        return self._osrm_route_coords(a, b)
+
+    def _osrm_route_coords(self, a, b):
         try:
             url = (f'https://router.project-osrm.org/route/v1/driving/'
                    f'{a[0]},{a[1]};{b[0]},{b[1]}?overview=false')
@@ -1124,9 +1319,41 @@ class Handler(SimpleHTTPRequestHandler):
             return None
 
     def _geocode(self, q):
+        """(lon, lat) for an address: Google Geocoding first, OpenStreetMap
+        Nominatim (rate-limited public service) as fallback."""
         cached = Handler._geo_cache.get(q)
         if cached is not None:
             return cached
+        result = self._google_geocode(q)
+        if result is not None:
+            Handler._geo_cache[q] = result
+            return result
+        return self._nominatim_geocode(q)
+
+    @staticmethod
+    def _google_geocode(q):
+        key = _server_maps_key()
+        if not key or not q:
+            return None
+        url = ('https://maps.googleapis.com/maps/api/geocode/json?'
+               + urllib.parse.urlencode({'address': q, 'components': 'country:US', 'key': key}))
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url), timeout=10) as r:
+                data = json.loads(r.read().decode())
+        except Exception as error:
+            _log_google_failure('geocode', error)
+            return None
+        if data.get('status') != 'OK' or not data.get('results'):
+            if data.get('status') != 'ZERO_RESULTS':
+                _log_google_failure('geocode', data)
+            return None
+        loc = data['results'][0].get('geometry', {}).get('location', {})
+        try:
+            return (float(loc['lng']), float(loc['lat']))
+        except (KeyError, TypeError, ValueError):
+            return None
+
+    def _nominatim_geocode(self, q):
         url = ('https://nominatim.openstreetmap.org/search?format=json&limit=1'
                '&countrycodes=us&q=' + urllib.parse.quote(q))
         req = urllib.request.Request(url, headers={

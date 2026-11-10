@@ -154,7 +154,7 @@ document.getElementById('bookingForm').addEventListener('submit', async function
     pickup:f.pickup_address,dropoff:f.dropoff_address,message:f.notes||'',city:f.city||''
   };
   try{
-    const res=await fetch('/.netlify/functions/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const res=await PHLLeadFetch('/.netlify/functions/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     const json=await res.json();
     if(res.ok&&json.success){ok.textContent="\\u2713 Booking request received! We'll confirm within 30 minutes. Check your email and phone.";ok.classList.add('show');if(window.PHLTrackLead)window.PHLTrackLead(this);this.reset();}
     else{throw new Error(json.error||'Error');}
@@ -205,18 +205,15 @@ def schema_block(p):
     url = "%s/%s/" % (BASE, p["slug"])
     graph = [
         {
-            "@type": ["Service", "LimousineService", "LocalBusiness"],
+            # A service offered by the one site-wide business entity (#business),
+            # not a separate storefront per city page.
+            "@type": "Service",
             "name": p["schema_name"],
             "description": p["meta"],
             "url": url,
-            "telephone": PHONE,
-            "email": "info@purpleheartlimo.com",
             "image": "%s/images/%s" % (BASE, p.get("image", "sedan-cadillac.webp")),
             "areaServed": [{"@type": "City", "name": c} for c in p["areas"]],
-            "address": {"@type": "PostalAddress", "addressLocality": p["locality"], "addressRegion": "TX", "addressCountry": "US"},
-            "openingHoursSpecification": {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], "opens": "00:00", "closes": "23:59"},
-            "priceRange": "$$",
-            "sameAs": ["https://www.facebook.com/profile.php?id=61578479742416", "https://www.instagram.com/austinlimousine"],
+            "provider": {"@id": BASE + "/#business"},
         },
         {
             "@type": "BreadcrumbList",
@@ -280,7 +277,11 @@ def render(p):
     parts.append('<div class="alert alert-success" id="alertSuccess"></div><div class="alert alert-error" id="alertError"></div>')
     parts.append('<form id="bookingForm">')
     parts.append('<div class="form-row"><div class="form-group"><label>First Name *</label><input name="first_name" placeholder="John" required="" type="text"/></div><div class="form-group"><label>Last Name *</label><input name="last_name" placeholder="Smith" required="" type="text"/></div></div>')
-    parts.append('<div class="form-row"><div class="form-group"><label>Phone *</label><input name="phone" placeholder="(512) 555-0100" required="" type="tel"/></div><div class="form-group"><label>Email *</label><input name="email" placeholder="you@email.com" required="" type="email"/></div></div>')
+    # Example number uses the page's own metro area code (Austin 512,
+    # Houston 713, otherwise DFW 214) so DFW pages don't show Austin copy.
+    slug = p["slug"]
+    area = "512" if ("austin" in slug or "round-rock" in slug) else "713" if "houston" in slug else "214"
+    parts.append('<div class="form-row"><div class="form-group"><label>Phone *</label><input name="phone" placeholder="(%s) 555-0100" required="" type="tel"/></div><div class="form-group"><label>Email *</label><input name="email" placeholder="you@email.com" required="" type="email"/></div></div>' % area)
     parts.append('<div class="form-row"><div class="form-group"><label>Service Type *</label><select name="service" required=""><option value="">Select service...</option>%s</select></div>' % options_html(p["service_opts"]))
     parts.append('<div class="form-group"><label>Vehicle *</label><select name="vehicle" required=""><option value="">Select vehicle...</option>%s</select></div></div>' % options_html(p["vehicle_opts"]))
     parts.append('<div class="form-row"><div class="form-group"><label>Pickup Date *</label><input name="pickup_date" required="" type="date"/></div><div class="form-group"><label>Pickup Time *</label><input name="pickup_time" required="" type="time"/></div></div>')
@@ -301,6 +302,9 @@ def render(p):
     parts.append('<section class="related"><div class="inner"><div class="section-header"><span class="section-label">Explore More</span><h2 class="section-title">Related Services</h2></div><div class="related-grid">%s</div></div></section>' % related_html(p["related"]))
     parts.append(FOOTER)
     parts.append(SCRIPT)
+    # Booking form is delivered by email via EmailJS (PHLLeadFetch).
+    parts.append('<script src="/js/booking-email.js" defer></script>\n'
+                 '<script src="/js/lead-submit.js" defer></script>\n')
     parts.append('</body></html>')
     return "\n".join(parts)
 

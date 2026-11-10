@@ -25,7 +25,7 @@
 <meta name="twitter:title" content="Limo Service Austin, Dallas &amp; Houston TX | Purple Heart Limo">
 <meta name="twitter:description" content="Flat-rate limo &amp; black car service in Austin, Dallas &amp; Houston — no surge pricing, Texan-owned. 4.9★ from 214+ riders. Book online in 60 seconds.">
 <meta name="twitter:image" content="https://purpleheartlimo.com/images/og-image.jpg">
-<script id="seo-business-graph" type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LimousineService","@id":"https://purpleheartlimo.com/#business","name":"Purple Heart Limo","url":"https://purpleheartlimo.com/","telephone":"+18337400700","priceRange":"$$","openingHours":"Mo-Su 00:00-23:59","areaServed":[{"@type":"City","name":"Dallas"},{"@type":"City","name":"Fort Worth"},{"@type":"City","name":"Addison"},{"@type":"City","name":"Frisco"},{"@type":"City","name":"Plano"},{"@type":"City","name":"Arlington"},{"@type":"Airport","name":"Dallas Fort Worth International Airport","iataCode":"DFW"},{"@type":"Airport","name":"Dallas Love Field","iataCode":"DAL"}]}]}</script>
+<script id="seo-business-graph" type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LimousineService","@id":"https://purpleheartlimo.com/#business","name":"Purple Heart Limo","url":"https://purpleheartlimo.com/","telephone":"+18337400700","email":"info@purpleheartlimo.com","logo":"https://purpleheartlimo.com/logo.webp","image":["https://purpleheartlimo.com/logo.webp","https://purpleheartlimo.com/images/sedan-cadillac.webp"],"priceRange":"$$","openingHours":"Mo-Su 00:00-23:59","address":{"@type":"PostalAddress","addressRegion":"TX","addressCountry":"US"},"areaServed":[{"@type":"City","name":"Dallas"},{"@type":"City","name":"Fort Worth"},{"@type":"City","name":"Arlington"},{"@type":"City","name":"Plano"},{"@type":"City","name":"Frisco"},{"@type":"City","name":"Addison"},{"@type":"City","name":"Austin"},{"@type":"City","name":"Round Rock"},{"@type":"City","name":"Houston"},{"@type":"Airport","name":"Dallas Fort Worth International Airport","iataCode":"DFW"},{"@type":"Airport","name":"Dallas Love Field","iataCode":"DAL"},{"@type":"Airport","name":"Austin-Bergstrom International Airport","iataCode":"AUS"}],"sameAs":["https://www.facebook.com/profile.php?id=61578479742416"]}]}</script>
 <!-- Google Tag Manager -->
 <link href="/favicon.png" rel="icon" type="image/png"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -42,31 +42,6 @@
 <meta content="30.2672, -97.7431" name="ICBM"/>
 
 <!-- Schema.org LocalBusiness -->
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"Organization",
-  "@id":"https://purpleheartlimo.com/#business",
-  "name":"Purple Heart Limo",
-  "description":"Texan-owned luxury limousine and black car service in Austin, Dallas-Fort Worth, and Houston Texas.",
-  "url":"https://purpleheartlimo.com/",
-  "telephone":"+18337400700",
-  "email":"info@purpleheartlimo.com",
-  "image":["https://purpleheartlimo.com/logo.webp","https://purpleheartlimo.com/images/sedan-cadillac.webp"],
-  "logo":"https://purpleheartlimo.com/logo.webp",
-  "sameAs":[
-    "https://www.facebook.com/profile.php?id=61578479742416"
-  ],
-  "areaServed":[
-    {"@type":"City","name":"Austin"},{"@type":"City","name":"Dallas"},
-    {"@type":"City","name":"Fort Worth"},{"@type":"City","name":"Houston"},
-    {"@type":"City","name":"Arlington"},{"@type":"City","name":"Plano"},
-    {"@type":"City","name":"Frisco"},{"@type":"City","name":"Round Rock"},
-    {"@type":"City","name":"Sugar Land"},{"@type":"City","name":"The Woodlands"}
-  ],
-  "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"214","bestRating":"5"}
-}
-</script>
 <!-- Schema.org WebPage with Speakable (voice assistants & AI answer engines) -->
 <script type="application/ld+json">
 {
@@ -746,8 +721,8 @@ a { text-decoration:none; color:inherit; }
 #home-page .hero h1.bk-tagline { font-family:'Plus Jakarta Sans','Inter',sans-serif;
   font-size:clamp(1.05rem,2.3vw,1.5rem); font-weight:700; text-transform:none;
   letter-spacing:0.01em; line-height:1.4; margin:0 0 16px; text-align:center;
-  color:#1a1a1a;
-  text-shadow:0 1px 12px rgba(251,250,247,0.9), 0 0 30px rgba(251,250,247,0.7);
+  color:#ffffff;
+  text-shadow:0 2px 4px rgba(0,0,0,0.85), 0 0 18px rgba(0,0,0,0.65);
   filter:none; }
 
 .bk-sronly {
@@ -1671,6 +1646,9 @@ body.dark-theme .stat-row{border-top-color:rgba(255,255,255,.12)!important}
 body.dark-theme .navbar{background:rgba(10,10,15,.92)!important;
   border-bottom:1px solid rgba(255,255,255,.08)!important;box-shadow:0 2px 24px rgba(0,0,0,.5)!important}
 body.dark-theme .nav-logo-text{color:#fff!important}
+/* Dark transparent .header (city/service landing pages): light wordmark so
+   the brand name is readable on the dark hero (was #0a0a0a on near-black). */
+header.header .nav-logo-text{color:#fff!important}
 body.dark-theme .nav-logo-sub{color:rgba(255,255,255,.55)!important}
 body.dark-theme .nav-links>li>a{background:rgba(255,255,255,.06)!important;
   border:1px solid rgba(255,255,255,.16)!important;color:#fff!important;box-shadow:none!important}
@@ -1975,13 +1953,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 ================================================================ -->
 <main class="page active" id="home-page">
 <!-- Hero -->
-<section class="hero"><img class="phl-hero-media" alt="" aria-hidden="true" src="/images/hero-jet-escalade.webp" srcset="/images/hero-jet-escalade-640.webp 640w, /images/hero-jet-escalade-960.webp 960w, /images/hero-jet-escalade-1280.webp 1280w" sizes="100vw" fetchpriority="high" decoding="async">
+<section class="hero"><img class="phl-hero-media" alt="Hero Jet Escalade" aria-hidden="true" src="/images/hero-jet-escalade.webp" srcset="/images/hero-jet-escalade-640.webp 640w, /images/hero-jet-escalade-960.webp 960w, /images/hero-jet-escalade-1280.webp 1280w" sizes="100vw" fetchpriority="high" decoding="async">
 <div class="hero-overlay" aria-hidden="true"></div>
 <div class="hero-inner">
 <div class="hero-content" aria-hidden="true"></div>
 <!-- Booking Widget -->
 <form class="booking-card" id="booking-widget" novalidate="" toolname="prepare_limo_quote" tooldescription="Prepare a Purple Heart Limo quote for user review. Fill trip and contact details; the user must click the existing booking button to send a request." onsubmit="event.preventDefault()">
-<h1 class="bk-tagline">Luxury Rides. Premier Limo Service. Prime Limo Fleet.</h1>
+<h1 class="bk-tagline">Limo &amp; Chauffeur Service in Dallas–Fort Worth &amp; Austin</h1>
 <h2 class="bk-sronly">Get an Instant Quote</h2>
 <div class="trip-tabs">
 <button class="trip-tab active" onclick="setTab(this,'airport')" type="button">✈ Airport</button>
@@ -2446,7 +2424,7 @@ function bkRelocate(id) {
 
 const BK_L10N = {
   en: {
-    tagline: 'Luxury Rides. Premier Limo Service. Prime Limo Fleet.',
+    tagline: 'Limo & Chauffeur Service in Dallas–Fort Worth & Austin',
     tabAirport: '✈ Airport', tabP2P: '→ Point to Point', tabHourly: '⏱ Hourly',
     lblPickup: 'Pickup Location', lblDropoff: 'Drop-off Location', lblFlight: '✈ Flight No.',
     lblName: 'Your Name', lblEmail: 'Email ', lblPhone: 'Phone', lblDate: 'Date',
@@ -2461,7 +2439,7 @@ const BK_L10N = {
     okCta: 'Book Online Now →'
   },
   es: {
-    tagline: 'Viajes de Lujo. Servicio de Limusina Premier. Flota de Primera.',
+    tagline: 'Servicio de Limusina y Chofer en Dallas–Fort Worth y Austin',
     tabAirport: '✈ Aeropuerto', tabP2P: '→ Punto a Punto', tabHourly: '⏱ Por Hora',
     lblPickup: 'Lugar de Recogida', lblDropoff: 'Lugar de Destino', lblFlight: '✈ Núm. de Vuelo',
     lblName: 'Su Nombre', lblEmail: 'Correo ', lblPhone: 'Teléfono', lblDate: 'Fecha',
